@@ -328,10 +328,14 @@
       setLoading(true);
       
       try {
+        // Get the base path (works for both GitHub Pages and custom domain)
+        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        const redirectUrl = window.location.origin + basePath + '/dashboard.html';
+        
         const { error } = await supabaseClient.auth.signInWithOtp({
           email: email,
           options: {
-            emailRedirectTo: window.location.origin + '/dashboard.html'
+            emailRedirectTo: redirectUrl
           }
         });
         
@@ -351,10 +355,13 @@
     // Google Sign In
     googleBtn.addEventListener('click', async () => {
       try {
+        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        const redirectUrl = window.location.origin + basePath + '/dashboard.html';
+        
         const { error } = await supabaseClient.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: window.location.origin + '/dashboard.html'
+            redirectTo: redirectUrl
           }
         });
         
