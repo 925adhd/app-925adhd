@@ -295,9 +295,10 @@
   <script>
     // Initialize Supabase
     const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_Q8pmxSx5Q5Kq5kxUld6gkg_rvpJuN4h';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
     
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { createClient } = window.supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
     const form = document.getElementById('loginForm');
     const emailInput = document.getElementById('email');
@@ -327,7 +328,7 @@
       setLoading(true);
       
       try {
-        const { error } = await supabase.auth.signInWithOtp({
+        const { error } = await supabaseClient.auth.signInWithOtp({
           email: email,
           options: {
             emailRedirectTo: window.location.origin + '/dashboard.html'
@@ -350,7 +351,7 @@
     // Google Sign In
     googleBtn.addEventListener('click', async () => {
       try {
-        const { error } = await supabase.auth.signInWithOAuth({
+        const { error } = await supabaseClient.auth.signInWithOAuth({
           provider: 'google',
           options: {
             redirectTo: window.location.origin + '/dashboard.html'
@@ -367,7 +368,7 @@
     
     // Check if already logged in
     async function checkSession() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabaseClient.auth.getSession();
       if (session) {
         window.location.href = 'dashboard.html';
       }

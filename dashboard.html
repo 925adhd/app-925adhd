@@ -568,9 +568,10 @@
   <script>
     // Initialize Supabase
     const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_Q8pmxSx5Q5Kq5kxUld6gkg_rvpJuN4h';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
     
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { createClient } = window.supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
     const loadingScreen = document.getElementById('loadingScreen');
     const app = document.getElementById('app');
@@ -579,7 +580,7 @@
     
     // Check authentication
     async function checkAuth() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabaseClient.auth.getSession();
       
       if (!session) {
         // Not logged in, redirect to login
@@ -595,12 +596,12 @@
     
     // Handle logout
     logoutBtn.addEventListener('click', async () => {
-      await supabase.auth.signOut();
+      await supabaseClient.auth.signOut();
       window.location.href = 'login.html';
     });
     
     // Listen for auth changes
-    supabase.auth.onAuthStateChange((event, session) => {
+    supabaseClient.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT') {
         window.location.href = 'login.html';
       }
