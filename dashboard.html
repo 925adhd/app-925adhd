@@ -84,7 +84,6 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      margin-bottom: 16px;
     }
     
     .hero-logo {
@@ -99,39 +98,19 @@
       object-fit: contain;
     }
     
-    .hero-quote {
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.4;
+    .hero-text {
       text-align: left;
-      max-width: 240px;
     }
     
-    .dopamine-btn {
-      background: var(--brand);
-      color: #0F0F0F;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 24px;
+    .hero-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    
+    .hero-subtitle {
       font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.15s;
-      box-shadow: 0 4px 16px var(--brand-glow);
-    }
-    
-    .dopamine-btn:hover {
-      transform: scale(1.05);
-    }
-    
-    .dopamine-btn:active {
-      transform: scale(0.95);
-    }
-    
-    .dopamine-hint {
-      font-size: 11px;
       color: var(--text-muted);
-      margin-top: 8px;
     }
     
     /* Main Content */
@@ -272,6 +251,112 @@
       background: #4752C4;
     }
     
+    /* Saved Gigs Section */
+    .saved-section {
+      margin-bottom: 20px;
+    }
+    
+    .saved-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .saved-header .section-label {
+      margin-bottom: 0;
+    }
+    
+    .view-all-link {
+      font-size: 12px;
+      color: var(--brand);
+      font-weight: 600;
+    }
+    
+    .saved-gigs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .saved-gig {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+    
+    .saved-gig:hover {
+      background: var(--card-hover);
+      border-color: var(--brand);
+    }
+    
+    .saved-gig-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    
+    .saved-gig-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .saved-gig-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .saved-gig-rate {
+      font-size: 12px;
+      color: var(--brand);
+      font-weight: 600;
+    }
+    
+    .saved-gig-arrow {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    .saved-empty {
+      background: var(--card);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .saved-empty-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    
+    .saved-empty-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    
+    .saved-empty-btn {
+      display: inline-block;
+      background: var(--brand);
+      color: #0F0F0F;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    
     /* Bottom Navigation */
     .bottom-nav {
       position: fixed;
@@ -340,16 +425,6 @@
       to { transform: rotate(360deg); }
     }
     
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-      100% { transform: scale(1); }
-    }
-    
-    .dopamine-btn.pop {
-      animation: pop 0.25s ease;
-    }
-    
     /* Tablet & Desktop */
     @media (min-width: 600px) {
       .top-header {
@@ -369,13 +444,11 @@
         height: 70px;
       }
       
-      .hero-quote {
-        font-size: 20px;
-        max-width: 320px;
+      .hero-title {
+        font-size: 24px;
       }
       
-      .dopamine-btn {
-        padding: 12px 28px;
+      .hero-subtitle {
         font-size: 15px;
       }
       
@@ -465,10 +538,11 @@
         <div class="hero-logo">
           <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="925 ADHD">
         </div>
-        <p class="hero-quote">"You've got the power to thrive, not just survive."</p>
+        <div class="hero-text">
+          <h1 class="hero-title">Welcome back!</h1>
+          <p class="hero-subtitle">What would you like to work on today?</p>
+        </div>
       </div>
-      <button class="dopamine-btn" id="dopamineBtn">I receive this!</button>
-      <p class="dopamine-hint">Tap for a dopamine boost ✨</p>
     </section>
     
     <!-- Main Content -->
@@ -506,6 +580,17 @@
           <h3>Motivation</h3>
           <p>Remember your why</p>
         </a>
+      </div>
+      
+      <!-- Saved Gigs Section -->
+      <div class="saved-section">
+        <div class="saved-header">
+          <p class="section-label">Your Saved Gigs</p>
+          <a href="gigs.html?filter=favorites" class="view-all-link">View all →</a>
+        </div>
+        <div id="savedGigs" class="saved-gigs">
+          <!-- Populated by JS -->
+        </div>
       </div>
       
       <!-- Featured -->
@@ -570,27 +655,77 @@
     const loadingScreen = document.getElementById('loadingScreen');
     const app = document.getElementById('app');
     const logoutBtn = document.getElementById('logoutBtn');
-    const dopamineBtn = document.getElementById('dopamineBtn');
     
-    // Dopamine button
-    dopamineBtn.addEventListener('click', () => {
-      dopamineBtn.classList.remove('pop');
-      void dopamineBtn.offsetWidth;
-      dopamineBtn.classList.add('pop');
+    // Gigs data (subset for dashboard display)
+    const gigsData = {
+      "prolific": { name: "Prolific", rate: "$6–$12/hr", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/dAuxcdDKchgqkbX57rry.jpg" },
+      "surveyjunkie": { name: "Survey Junkie", rate: "$1–$3/survey", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ZIIpNVEFP8NxMH1xGZL2.jpg" },
+      "swagbucks": { name: "Swagbucks", rate: "$50–$100/month", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/7SPkBNxnQ2Q9FWqgaJQ9.jpg" },
+      "clickworker": { name: "Clickworker", rate: "$9–$11/hr", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/61EQO7FDSofU2r68pRzM.png" },
+      "mturk": { name: "Amazon MTurk", rate: "$6–$15/hr", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/dVoLs6PZHdQYLMgLI8Cn.png" },
+      "remotasks": { name: "Remotasks", rate: "$5–$25/hr", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/0WOu0E8Fl6AKD8Bh6wJd.png" },
+      "outlier": { name: "Outlier AI", rate: "$15–$50/hr", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/MzHWP6tZXS1NiQdKREXR.png" },
+      "dataannotation": { name: "DataAnnotation.tech", rate: "$20–$50/hr", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/FdhHkXHEE9qXgRpmSjSp.png" },
+      "rev": { name: "Rev", rate: "$0.30–$1.10/min", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/cH8H4OcuNl8A0Td2eEb9.png" },
+      "gotranscript": { name: "GoTranscript", rate: "$0.60/min", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/rnBMdBb1dD59IK0OTJvI.png" },
+      "fiverr": { name: "Fiverr", rate: "$5–$500+/gig", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/1WJqG5uLB1cGLlQgZHMM.png" },
+      "upwork": { name: "Upwork", rate: "$15–$150/hr", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/2s36R7xrOXZOpChsKMWs.png" },
+      "etsy": { name: "Etsy", rate: "Varies", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/wYGZdMYOGrQYrSVqXq9d.png" },
+      "redbubble": { name: "Redbubble", rate: "Passive Income", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/9qPqHNYqDaIuBXqMQdwV.png" },
+      "usertesting": { name: "UserTesting", rate: "$10/test", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/RXOSgO5eTTU5LPE2HEEr.png" },
+      "testbirds": { name: "Testbirds", rate: "$10–$50/test", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/mWkSWz0GCkk2hf8IQNHu.png" },
+      "fieldagent": { name: "Field Agent", rate: "$3–$25/task", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/n6HyYNhIDIvjB6p0aDPZ.png" },
+      "rover": { name: "Rover", rate: "$15–$40/walk", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/6NrTcHXqMIQRIrLvjQcH.png" },
+      "taskrabbit": { name: "TaskRabbit", rate: "$17.50–$50+/hr", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Y0lwF8oCSOa0ygsFLxiQ.jpg" },
+      "cambly": { name: "Cambly", rate: "$10.20/hr", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Ag0DGdFDRV5DvAKPBGqP.png" }
+    };
+    
+    // Render saved gigs
+    function renderSavedGigs() {
+      const savedGigsContainer = document.getElementById('savedGigs');
+      const favorites = JSON.parse(localStorage.getItem('925adhd_favorites') || '[]');
       
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
+      if (favorites.length === 0) {
+        savedGigsContainer.innerHTML = `
+          <div class="saved-empty">
+            <div class="saved-empty-icon">💜</div>
+            <p class="saved-empty-text">No saved gigs yet! Tap the heart on any gig to save it here.</p>
+            <a href="gigs.html" class="saved-empty-btn">Browse Gigs</a>
+          </div>
+        `;
+        return;
+      }
       
-      oscillator.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      oscillator.frequency.value = 800;
-      oscillator.type = 'sine';
-      gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-      oscillator.start(audioCtx.currentTime);
-      oscillator.stop(audioCtx.currentTime + 0.1);
-    });
+      // Show up to 3 saved gigs
+      const displayFavorites = favorites.slice(0, 3);
+      let html = '';
+      
+      displayFavorites.forEach(gigId => {
+        const gig = gigsData[gigId];
+        if (gig) {
+          html += `
+            <a href="gig-detail.html?gig=${gigId}" class="saved-gig">
+              <img src="${gig.logo}" alt="${gig.name}" class="saved-gig-logo">
+              <div class="saved-gig-info">
+                <div class="saved-gig-name">${gig.name}</div>
+                <div class="saved-gig-rate">${gig.rate}</div>
+              </div>
+              <span class="saved-gig-arrow">→</span>
+            </a>
+          `;
+        }
+      });
+      
+      if (favorites.length > 3) {
+        html += `
+          <a href="gigs.html?filter=favorites" class="saved-gig" style="justify-content: center;">
+            <span style="font-size: 13px; color: var(--brand); font-weight: 600;">+${favorites.length - 3} more saved gigs →</span>
+          </a>
+        `;
+      }
+      
+      savedGigsContainer.innerHTML = html;
+    }
     
     // Auth check
     async function checkAuth() {
@@ -630,6 +765,7 @@
       
       loadingScreen.style.display = 'none';
       app.style.display = 'block';
+      renderSavedGigs();
     }
     
     logoutBtn.addEventListener('click', async () => {
