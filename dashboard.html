@@ -164,25 +164,25 @@
     /* Main Content */
     .main-content {
       padding: 30px 20px;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
     }
     
     .section-title {
-      font-size: 28px;
+      font-size: clamp(24px, 4vw, 36px);
       font-weight: 800;
       text-align: center;
       margin-bottom: 8px;
     }
     
     .section-subtitle {
-      font-size: 20px;
+      font-size: clamp(18px, 3vw, 24px);
       text-align: center;
       margin-bottom: 8px;
     }
     
     .section-tagline {
-      font-size: 14px;
+      font-size: clamp(14px, 2vw, 16px);
       color: var(--text-muted);
       text-align: center;
       font-style: italic;
@@ -200,7 +200,7 @@
     }
     
     .content-block h2 {
-      font-size: 22px;
+      font-size: clamp(20px, 3vw, 26px);
       font-weight: 700;
       margin-bottom: 16px;
       display: flex;
@@ -209,7 +209,7 @@
     }
     
     .content-block h3 {
-      font-size: 17px;
+      font-size: clamp(16px, 2.5vw, 19px);
       font-weight: 700;
       margin: 20px 0 12px;
       color: var(--brand);
@@ -225,7 +225,7 @@
       padding-left: 24px;
       position: relative;
       color: rgba(255,255,255,.85);
-      font-size: 15px;
+      font-size: clamp(15px, 2vw, 17px);
     }
     
     .content-block li::before {
@@ -242,6 +242,82 @@
     
     .content-block em {
       color: var(--text-muted);
+    }
+    
+    /* Desktop Layout */
+    @media (min-width: 768px) {
+      .top-header {
+        padding: 20px 40px;
+      }
+      
+      .hero {
+        padding: 40px 40px 50px;
+      }
+      
+      .hero-logo {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .hero-quote {
+        font-size: 28px;
+        max-width: 600px;
+        margin: 0 auto 30px;
+      }
+      
+      .dopamine-btn {
+        padding: 16px 40px;
+        font-size: 18px;
+      }
+      
+      .audio-section {
+        padding: 30px 40px;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      
+      .main-content {
+        padding: 50px 40px;
+      }
+      
+      .content-columns {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+      
+      .bottom-nav {
+        padding: 12px 0;
+      }
+      
+      .nav-items {
+        max-width: 600px;
+      }
+      
+      .nav-item {
+        font-size: 12px;
+        padding: 10px 16px;
+      }
+      
+      .nav-item .icon {
+        font-size: 24px;
+      }
+    }
+    
+    /* Large Desktop */
+    @media (min-width: 1200px) {
+      .hero-quote {
+        font-size: 32px;
+      }
+      
+      .main-content {
+        max-width: 1000px;
+        padding: 60px 60px;
+      }
+      
+      .audio-section {
+        max-width: 800px;
+      }
     }
     
     /* Quote Block */
