@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apps - 925 ADHD</title>
+  <link rel="icon" type="image/png" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    :root {
+      --bg: #0F0F0F;
+      --card: #1A1A1A;
+      --card-hover: #242424;
+      --border: rgba(255,255,255,.1);
+      --text: #fff;
+      --text-muted: rgba(255,255,255,.55);
+      --brand: #5BBFB5;
+      --brand-glow: rgba(91, 191, 181, 0.25);
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    /* Header */
+    .header {
+      background: var(--brand);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0F0F0F;
+    }
+    
+    .back-btn {
+      position: absolute;
+      left: 16px;
+      background: none;
+      border: none;
+      color: #0F0F0F;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 20px 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* Updated Badge */
+    .updated-badge {
+      color: var(--brand);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    
+    /* Key Legend */
+    .key-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+    }
+    
+    .key-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .key-item {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    
+    .key-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* Section */
+    .section {
+      margin-bottom: 28px;
+    }
+    
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    
+    /* Search Box */
+    .search-box {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    
+    .search-box input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    
+    .search-box input:focus {
+      border-color: var(--brand);
+    }
+    
+    .search-box input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+    }
+    
+    /* Info Card */
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    .info-card p {
+      margin-bottom: 10px;
+    }
+    
+    .info-card p:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* Apps Grid */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    
+    .app-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    
+    .app-card:hover {
+      background: var(--card-hover);
+      border-color: var(--brand);
+      transform: translateY(-2px);
+    }
+    
+    .app-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 12px;
+      display: block;
+    }
+    
+    .app-rate {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 4px;
+    }
+    
+    .app-rate.favorite {
+      color: #f97316;
+    }
+    
+    .app-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    
+    .app-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1A1A1A;
+      border-top: 1px solid var(--border);
+      padding: 6px 0;
+      padding-bottom: max(6px, env(safe-area-inset-bottom));
+      z-index: 100;
+    }
+    
+    .nav-items {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 6px 10px;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    
+    .nav-item.active {
+      color: var(--brand);
+    }
+    
+    .nav-item:hover {
+      color: var(--text);
+    }
+    
+    .nav-item .icon {
+      font-size: 20px;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    /* Tablet & Desktop */
+    @media (min-width: 600px) {
+      .main-content {
+        padding: 28px 24px;
+      }
+      
+      .apps-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      
+      .app-card {
+        padding: 20px 14px;
+      }
+      
+      .app-logo {
+        width: 72px;
+        height: 72px;
+      }
+      
+      .app-name {
+        font-size: 15px;
+      }
+      
+      .app-desc {
+        font-size: 12px;
+      }
+      
+      .nav-items {
+        max-width: 500px;
+      }
+      
+      .nav-item {
+        font-size: 11px;
+        padding: 8px 14px;
+      }
+      
+      .nav-item .icon {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <a href="dashboard.html" class="back-btn">←</a>
+    <h1>Apps</h1>
+  </header>
+  
+  <!-- Main Content -->
+  <main class="main-content">
+    <p class="updated-badge">Updated September 2025</p>
+    
+    <!-- Key Legend -->
+    <div class="key-card">
+      <h3>🔑 Key</h3>
+      <p class="key-item">🎁 = Pays in gift cards only</p>
+      <p class="key-item">👾 = Pays in Crypto Only</p>
+      <p class="key-item">🥰 = My personal top favorites</p>
+    </div>
+    
+    <!-- Real-World Microgigs -->
+    <section class="section" data-category="microgigs">
+      <h2 class="section-title">Real-World Microgigs</h2>
+      <div class="search-box">
+        <input type="text" placeholder="Search" class="section-search" data-section="microgigs">
+      </div>
+      <div class="apps-grid">
+        <a href="app-detail.html?app=fieldagent" class="app-card" data-name="field agent">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/n6HyYNhIDIvjB6p0aDPZ.png" alt="Field Agent" class="app-logo">
+          <p class="app-rate favorite">🥰 $3–$20 PER TASK</p>
+          <h3 class="app-name">Field Agent</h3>
+          <p class="app-desc">Do quick store tasks nearby. Get paid fast via direct deposit.</p>
+        </a>
+        <a href="app-detail.html?app=ivueit" class="app-card" data-name="ivueit">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ivueit-logo.png" alt="ivueit" class="app-logo" onerror="this.src='https://via.placeholder.com/64/1a1a1a/5BBFB5?text=iv'">
+          <p class="app-rate">$7–$50 PER TASK</p>
+          <h3 class="app-name">ivueit</h3>
+          <p class="app-desc">Earn cash taking photos of businesses, properties, displays.</p>
+        </a>
+        <a href="app-detail.html?app=proxypics" class="app-card" data-name="proxypics">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/proxypics-logo.png" alt="ProxyPics" class="app-logo" onerror="this.src='https://via.placeholder.com/64/1a1a1a/5BBFB5?text=PP'">
+          <p class="app-rate">$42–$78/HR</p>
+          <h3 class="app-name">ProxyPics</h3>
+          <p class="app-desc">Earn money by taking property photos for real estate pros.</p>
+        </a>
+        <a href="app-detail.html?app=gigwalk" class="app-card" data-name="gigwalk">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gigwalk-logo.png" alt="Gigwalk" class="app-logo" onerror="this.src='https://via.placeholder.com/64/1a1a1a/5BBFB5?text=GW'">
+          <p class="app-rate">$3–$100 PER GIG</p>
+          <h3 class="app-name">Gigwalk</h3>
+          <p class="app-desc">Complete local gigs like photos, surveys, and store audits.</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Delivery Services -->
+    <section class="section" data-category="delivery">
+      <h2 class="section-title">Delivery Services</h2>
+      <div class="search-box">
+        <input type="text" placeholder="Search" class="section-search" data-section="delivery">
+      </div>
+      <div class="apps-grid">
+        <a href="app-detail.html?app=doordash" class="app-card" data-name="doordash">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/doordash-logo.png" alt="DoorDash" class="app-logo" onerror="this.src='https://via.placeholder.com/64/ff3008/ffffff?text=DD'">
+          <p class="app-rate">$15–$25/HR</p>
+          <h3 class="app-name">DoorDash</h3>
+          <p class="app-desc">Deliver food on your schedule. Keep 100% of tips.</p>
+        </a>
+        <a href="app-detail.html?app=ubereats" class="app-card" data-name="uber eats">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ubereats-logo.png" alt="Uber Eats" class="app-logo" onerror="this.src='https://via.placeholder.com/64/06C167/ffffff?text=UE'">
+          <p class="app-rate">$15–$25/HR</p>
+          <h3 class="app-name">Uber Eats</h3>
+          <p class="app-desc">Flexible food delivery. Drive, bike, or walk.</p>
+        </a>
+        <a href="app-detail.html?app=instacart" class="app-card" data-name="instacart">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/instacart-logo.png" alt="Instacart" class="app-logo" onerror="this.src='https://via.placeholder.com/64/43B02A/ffffff?text=IC'">
+          <p class="app-rate">$15–$30/HR</p>
+          <h3 class="app-name">Instacart</h3>
+          <p class="app-desc">Shop and deliver groceries. Good tips from customers.</p>
+        </a>
+        <a href="app-detail.html?app=shipt" class="app-card" data-name="shipt">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/shipt-logo.png" alt="Shipt" class="app-logo" onerror="this.src='https://via.placeholder.com/64/00ae4d/ffffff?text=S'">
+          <p class="app-rate">$16–$25/HR</p>
+          <h3 class="app-name">Shipt</h3>
+          <p class="app-desc">Personal shopping and delivery from Target & more.</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Reward-Based or GPT Apps -->
+    <section class="section" data-category="rewards">
+      <h2 class="section-title">Reward-Based or GPT Apps</h2>
+      <div class="info-card">
+        <p>🚫 Avoid the bait! Don't download other apps from ads inside these apps—they're usually paid placements and not always safe. Same goes for random article popups. Stick to the main app features to avoid junk, scams, or malware.</p>
+        <p>🎮 As of now, I've noticed you can often close a game when the ad starts and immediately open another, cycling through a session of games without sitting through every single ad. Just another way to keep things moving without falling for the bait. *Note: This trick doesn't apply to the Mode Earn app.</p>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="Search" class="section-search" data-section="rewards">
+      </div>
+      <div class="apps-grid">
+        <a href="app-detail.html?app=mistplay" class="app-card" data-name="mistplay">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/mistplay-logo.png" alt="Mistplay" class="app-logo" onerror="this.src='https://via.placeholder.com/64/6c5ce7/ffffff?text=M'">
+          <p class="app-rate">🎁 $5–$50/MO</p>
+          <h3 class="app-name">Mistplay</h3>
+          <p class="app-desc">Play games, earn points, redeem for gift cards.</p>
+        </a>
+        <a href="app-detail.html?app=modeearn" class="app-card" data-name="mode earn">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/modeearn-logo.png" alt="Mode Earn" class="app-logo" onerror="this.src='https://via.placeholder.com/64/00d4aa/ffffff?text=ME'">
+          <p class="app-rate favorite">🥰 $10–$50/MO</p>
+          <h3 class="app-name">Mode Earn</h3>
+          <p class="app-desc">Earn playing games, listening to music, charging phone.</p>
+        </a>
+        <a href="app-detail.html?app=cashgiraffe" class="app-card" data-name="cash giraffe">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/cashgiraffe-logo.png" alt="Cash Giraffe" class="app-logo" onerror="this.src='https://via.placeholder.com/64/f5a623/ffffff?text=CG'">
+          <p class="app-rate">🎁 $5–$20/MO</p>
+          <h3 class="app-name">Cash Giraffe</h3>
+          <p class="app-desc">Play games and complete offers for gift cards.</p>
+        </a>
+        <a href="app-detail.html?app=moneywellapp" class="app-card" data-name="money well">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/moneywell-logo.png" alt="Money Well" class="app-logo" onerror="this.src='https://via.placeholder.com/64/2ecc71/ffffff?text=MW'">
+          <p class="app-rate">🎁 $5–$30/MO</p>
+          <h3 class="app-name">Money Well</h3>
+          <p class="app-desc">Play games, redeem PayPal cash or gift cards.</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Receipt Scanning/Cashback -->
+    <section class="section" data-category="receipts">
+      <h2 class="section-title">Receipt Scanning/Cashback</h2>
+      <div class="search-box">
+        <input type="text" placeholder="Search" class="section-search" data-section="receipts">
+      </div>
+      <div class="apps-grid">
+        <a href="app-detail.html?app=fetch" class="app-card" data-name="fetch rewards">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/fetch-logo.png" alt="Fetch Rewards" class="app-logo" onerror="this.src='https://via.placeholder.com/64/f26f32/ffffff?text=F'">
+          <p class="app-rate favorite">🥰 🎁 $5–$25/MO</p>
+          <h3 class="app-name">Fetch Rewards</h3>
+          <p class="app-desc">Scan any receipt for points. Super easy passive income.</p>
+        </a>
+        <a href="app-detail.html?app=ibotta" class="app-card" data-name="ibotta">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ibotta-logo.png" alt="Ibotta" class="app-logo" onerror="this.src='https://via.placeholder.com/64/ff5a5f/ffffff?text=ib'">
+          <p class="app-rate favorite">🥰 $10–$50/MO</p>
+          <h3 class="app-name">Ibotta</h3>
+          <p class="app-desc">Get real cashback on groceries and online shopping.</p>
+        </a>
+        <a href="app-detail.html?app=receiptpal" class="app-card" data-name="receipt pal">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/receiptpal-logo.png" alt="Receipt Pal" class="app-logo" onerror="this.src='https://via.placeholder.com/64/00bcd4/ffffff?text=RP'">
+          <p class="app-rate">🎁 $2–$10/MO</p>
+          <h3 class="app-name">Receipt Pal</h3>
+          <p class="app-desc">Snap receipts for points toward Amazon & more.</p>
+        </a>
+        <a href="app-detail.html?app=coinout" class="app-card" data-name="coinout">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/coinout-logo.png" alt="CoinOut" class="app-logo" onerror="this.src='https://via.placeholder.com/64/4caf50/ffffff?text=CO'">
+          <p class="app-rate">$1–$5/MO</p>
+          <h3 class="app-name">CoinOut</h3>
+          <p class="app-desc">Any receipt = instant cash. No product matching needed.</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Internet Bandwidth Sharing -->
+    <section class="section" data-category="bandwidth">
+      <h2 class="section-title">Internet Bandwidth Sharing</h2>
+      <div class="info-card">
+        <p>⚠️ Heads up: These apps won't make you rich. Expect pennies to a few bucks a day. But they run quietly in the background with almost no effort. Stack a few to build up passive income.</p>
+        <p>🤝 Check your ISP first—not all allow bandwidth sharing.</p>
+        <p>🔍 Privacy note: I've personally been paid by these apps, so I consider them legit. But always read each platform's privacy policy—you're sharing part of your internet connection, so make sure you're cool with how your data is used.</p>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="Search" class="section-search" data-section="bandwidth">
+      </div>
+      <div class="apps-grid">
+        <a href="app-detail.html?app=honeygain" class="app-card" data-name="honeygain">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/honeygain-logo.png" alt="Honeygain" class="app-logo" onerror="this.src='https://via.placeholder.com/64/f5a623/ffffff?text=HG'">
+          <p class="app-rate">$5–$50/MO</p>
+          <h3 class="app-name">Honeygain</h3>
+          <p class="app-desc">Share unused bandwidth. Truly passive income.</p>
+        </a>
+        <a href="app-detail.html?app=pawns" class="app-card" data-name="pawns">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/pawns-logo.png" alt="Pawns.app" class="app-logo" onerror="this.src='https://via.placeholder.com/64/6c5ce7/ffffff?text=P'">
+          <p class="app-rate">$5–$30/MO</p>
+          <h3 class="app-name">Pawns.app</h3>
+          <p class="app-desc">Bandwidth sharing + surveys. $5 min payout.</p>
+        </a>
+        <a href="app-detail.html?app=earnapp" class="app-card" data-name="earnapp">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/earnapp-logo.png" alt="EarnApp" class="app-logo" onerror="this.src='https://via.placeholder.com/64/00d4aa/ffffff?text=EA'">
+          <p class="app-rate">$5–$40/MO</p>
+          <h3 class="app-name">EarnApp</h3>
+          <p class="app-desc">By Bright Data. Reliable payouts via PayPal.</p>
+        </a>
+        <a href="app-detail.html?app=packetstream" class="app-card" data-name="packetstream">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/packetstream-logo.png" alt="PacketStream" class="app-logo" onerror="this.src='https://via.placeholder.com/64/2196f3/ffffff?text=PS'">
+          <p class="app-rate">👾 $1–$20/MO</p>
+          <h3 class="app-name">PacketStream</h3>
+          <p class="app-desc">Residential proxy network. Pays in crypto or PayPal.</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Everyday Opinion Apps -->
+    <section class="section" data-category="opinion">
+      <h2 class="section-title">Everyday Opinion Apps</h2>
+      <div class="search-box">
+        <input type="text" placeholder="Search" class="section-search" data-section="opinion">
+      </div>
+      <div class="apps-grid">
+        <a href="app-detail.html?app=google-opinion" class="app-card" data-name="google opinion rewards">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/google-opinion-logo.png" alt="Google Opinion Rewards" class="app-logo" onerror="this.src='https://via.placeholder.com/64/4285f4/ffffff?text=G'">
+          <p class="app-rate favorite">🥰 $0.10–$1 PER SURVEY</p>
+          <h3 class="app-name">Google Opinion Rewards</h3>
+          <p class="app-desc">Quick surveys for Google Play or PayPal credit.</p>
+        </a>
+        <a href="app-detail.html?app=1q" class="app-card" data-name="1q">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/1q-logo.png" alt="1Q" class="app-logo" onerror="this.src='https://via.placeholder.com/64/e91e63/ffffff?text=1Q'">
+          <p class="app-rate">$0.25–$0.50 PER Q</p>
+          <h3 class="app-name">1Q</h3>
+          <p class="app-desc">Answer one question, get paid instantly via PayPal.</p>
+        </a>
+        <a href="app-detail.html?app=pollpay" class="app-card" data-name="poll pay">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/pollpay-logo.png" alt="Poll Pay" class="app-logo" onerror="this.src='https://via.placeholder.com/64/9c27b0/ffffff?text=PP'">
+          <p class="app-rate">$3–$15/MO</p>
+          <h3 class="app-name">Poll Pay</h3>
+          <p class="app-desc">Short polls and surveys. Low $5 payout threshold.</p>
+        </a>
+        <a href="app-detail.html?app=citizenme" class="app-card" data-name="citizenme">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/citizenme-logo.png" alt="CitizenMe" class="app-logo" onerror="this.src='https://via.placeholder.com/64/00bcd4/ffffff?text=CM'">
+          <p class="app-rate">$5–$20/MO</p>
+          <h3 class="app-name">CitizenMe</h3>
+          <p class="app-desc">Share opinions, get paid instantly. Privacy-focused.</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Location & Movement -->
+    <section class="section" data-category="location">
+      <h2 class="section-title">Location & Movement</h2>
+      <div class="search-box">
+        <input type="text" placeholder="Search" class="section-search" data-section="location">
+      </div>
+      <div class="apps-grid">
+        <a href="app-detail.html?app=miles" class="app-card" data-name="miles">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/miles-logo.png" alt="Miles" class="app-logo" onerror="this.src='https://via.placeholder.com/64/6c5ce7/ffffff?text=Mi'">
+          <p class="app-rate">🎁 VARIES</p>
+          <h3 class="app-name">Miles</h3>
+          <p class="app-desc">Earn miles for any travel—car, bus, train, walk.</p>
+        </a>
+        <a href="app-detail.html?app=sweatcoin" class="app-card" data-name="sweatcoin">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/sweatcoin-logo.png" alt="Sweatcoin" class="app-logo" onerror="this.src='https://via.placeholder.com/64/f5a623/ffffff?text=SC'">
+          <p class="app-rate">👾 VARIES</p>
+          <h3 class="app-name">Sweatcoin</h3>
+          <p class="app-desc">Walk to earn crypto. Redeemable for products or cash.</p>
+        </a>
+        <a href="app-detail.html?app=evidation" class="app-card" data-name="evidation achievement">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/evidation-logo.png" alt="Evidation" class="app-logo" onerror="this.src='https://via.placeholder.com/64/00d4aa/ffffff?text=E'">
+          <p class="app-rate">$10/10K POINTS</p>
+          <h3 class="app-name">Evidation</h3>
+          <p class="app-desc">Earn for healthy habits—steps, sleep, tracking.</p>
+        </a>
+        <a href="app-detail.html?app=lifecoin" class="app-card" data-name="lifecoin">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/lifecoin-logo.png" alt="LifeCoin" class="app-logo" onerror="this.src='https://via.placeholder.com/64/4caf50/ffffff?text=LC'">
+          <p class="app-rate">🎁 VARIES</p>
+          <h3 class="app-name">LifeCoin</h3>
+          <p class="app-desc">Steps = coins. Redeem for gift cards.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-items">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="guides.html" class="nav-item">
+        <span class="icon">📖</span>
+        <span>Guides</span>
+      </a>
+      <a href="gigs.html" class="nav-item">
+        <span class="icon">💰</span>
+        <span>Cash</span>
+      </a>
+      <a href="apps.html" class="nav-item active">
+        <span class="icon">📱</span>
+        <span>Apps</span>
+      </a>
+      <a href="favorites.html" class="nav-item">
+        <span class="icon">❤️</span>
+        <span>Saved</span>
+      </a>
+      <a href="tools.html" class="nav-item">
+        <span class="icon">🛠️</span>
+        <span>Tools</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    // Search functionality for each section
+    document.querySelectorAll('.section-search').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const section = e.target.closest('.section');
+        const cards = section.querySelectorAll('.app-card');
+        
+        cards.forEach(card => {
+          const name = card.dataset.name || '';
+          const desc = card.querySelector('.app-desc')?.textContent.toLowerCase() || '';
+          
+          if (name.includes(query) || desc.includes(query)) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
