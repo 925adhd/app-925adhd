@@ -24,6 +24,8 @@
       --brand-light: #7EE0D6;
       --purple: #7c3aed;
       --green: #22c55e;
+      --orange: #f59e0b;
+      --pink: #ec4899;
     }
     
     body {
@@ -75,13 +77,12 @@
     /* Hero Section */
     .hero {
       text-align: center;
-      padding: 20px 20px 30px;
-      border-bottom: 1px solid var(--border);
+      padding: 30px 20px 40px;
     }
     
     .hero-logo {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       margin: 0 auto 20px;
     }
     
@@ -92,11 +93,14 @@
     }
     
     .hero-quote {
-      font-size: 22px;
+      font-size: clamp(18px, 4vw, 24px);
       font-weight: 700;
       line-height: 1.4;
       margin-bottom: 24px;
       padding: 0 10px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .dopamine-btn {
@@ -122,247 +126,145 @@
     }
     
     .dopamine-hint {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
-      margin-top: 12px;
-    }
-    
-    /* Audio Section */
-    .audio-section {
-      padding: 24px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-    
-    .audio-player {
-      width: 100%;
-      height: 50px;
-      border-radius: 12px;
-      background: var(--card);
-    }
-    
-    audio {
-      width: 100%;
-      height: 50px;
-    }
-    
-    audio::-webkit-media-controls-panel {
-      background: var(--card);
-    }
-    
-    .audio-caption {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 12px;
-      font-style: italic;
-    }
-    
-    .audio-caption a {
-      color: var(--brand);
+      margin-top: 10px;
     }
     
     /* Main Content */
     .main-content {
-      padding: 30px 20px;
-      max-width: 900px;
+      padding: 20px;
+      max-width: 1000px;
       margin: 0 auto;
     }
     
-    .section-title {
-      font-size: clamp(24px, 4vw, 36px);
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 8px;
-    }
-    
-    .section-subtitle {
-      font-size: clamp(18px, 3vw, 24px);
-      text-align: center;
-      margin-bottom: 8px;
-    }
-    
-    .section-tagline {
-      font-size: clamp(14px, 2vw, 16px);
-      color: var(--text-muted);
-      text-align: center;
-      font-style: italic;
-      margin-bottom: 30px;
-    }
-    
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 30px 0;
-    }
-    
-    .content-block {
-      margin-bottom: 30px;
-    }
-    
-    .content-block h2 {
-      font-size: clamp(20px, 3vw, 26px);
+    .section-label {
+      font-size: 13px;
       font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
       margin-bottom: 16px;
+    }
+    
+    /* Quick Actions Grid */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    
+    .action-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    
+    .action-card:hover {
+      background: var(--card-hover);
+      border-color: var(--brand);
+      transform: translateY(-2px);
+    }
+    
+    .action-card .icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .action-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .action-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    
+    /* Featured Section */
+    .featured-section {
+      margin-bottom: 30px;
+    }
+    
+    .featured-card {
+      background: linear-gradient(135deg, rgba(91, 191, 181, 0.15), rgba(91, 191, 181, 0.05));
+      border: 1px solid rgba(91, 191, 181, 0.25);
+      border-radius: 16px;
+      padding: 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
     }
     
-    .content-block h3 {
-      font-size: clamp(16px, 2.5vw, 19px);
+    .featured-card:hover {
+      background: linear-gradient(135deg, rgba(91, 191, 181, 0.2), rgba(91, 191, 181, 0.1));
+      transform: translateY(-2px);
+    }
+    
+    .featured-card .icon {
+      font-size: 40px;
+      flex-shrink: 0;
+    }
+    
+    .featured-card h3 {
+      font-size: 16px;
       font-weight: 700;
-      margin: 20px 0 12px;
-      color: var(--brand);
+      margin-bottom: 4px;
     }
     
-    .content-block ul {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .content-block li {
-      padding: 8px 0;
-      padding-left: 24px;
-      position: relative;
-      color: rgba(255,255,255,.85);
-      font-size: clamp(15px, 2vw, 17px);
-    }
-    
-    .content-block li::before {
-      content: "•";
-      position: absolute;
-      left: 8px;
-      color: var(--brand);
-    }
-    
-    .content-block strong {
-      color: var(--text);
-      font-weight: 700;
-    }
-    
-    .content-block em {
+    .featured-card p {
+      font-size: 13px;
       color: var(--text-muted);
     }
     
-    /* Desktop Layout */
-    @media (min-width: 768px) {
-      .top-header {
-        padding: 20px 40px;
-      }
-      
-      .hero {
-        padding: 40px 40px 50px;
-      }
-      
-      .hero-logo {
-        width: 120px;
-        height: 120px;
-      }
-      
-      .hero-quote {
-        font-size: 28px;
-        max-width: 600px;
-        margin: 0 auto 30px;
-      }
-      
-      .dopamine-btn {
-        padding: 16px 40px;
-        font-size: 18px;
-      }
-      
-      .audio-section {
-        padding: 30px 40px;
-        max-width: 700px;
-        margin: 0 auto;
-      }
-      
-      .main-content {
-        padding: 50px 40px;
-      }
-      
-      .content-columns {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-      }
-      
-      .bottom-nav {
-        padding: 12px 0;
-      }
-      
-      .nav-items {
-        max-width: 600px;
-      }
-      
-      .nav-item {
-        font-size: 12px;
-        padding: 10px 16px;
-      }
-      
-      .nav-item .icon {
-        font-size: 24px;
-      }
-    }
-    
-    /* Large Desktop */
-    @media (min-width: 1200px) {
-      .hero-quote {
-        font-size: 32px;
-      }
-      
-      .main-content {
-        max-width: 1000px;
-        padding: 60px 60px;
-      }
-      
-      .audio-section {
-        max-width: 800px;
-      }
-    }
-    
-    /* Quote Block */
-    .quote-block {
-      background: var(--card);
-      border-left: 3px solid var(--brand);
-      padding: 20px;
-      border-radius: 0 12px 12px 0;
-      margin: 20px 0;
-    }
-    
-    .quote-block p {
-      font-style: italic;
-      color: rgba(255,255,255,.9);
-      margin-bottom: 8px;
-      font-size: 15px;
-    }
-    
-    .quote-block p:last-child {
-      margin-bottom: 0;
-    }
-    
-    /* Reminder Box */
-    .reminder-box {
-      background: linear-gradient(135deg, rgba(91, 191, 181, 0.1), rgba(91, 191, 181, 0.05));
-      border: 1px solid rgba(91, 191, 181, 0.2);
+    /* Discord CTA */
+    .discord-card {
+      background: linear-gradient(135deg, rgba(88, 101, 242, 0.15), rgba(88, 101, 242, 0.05));
+      border: 1px solid rgba(88, 101, 242, 0.25);
       border-radius: 16px;
-      padding: 24px;
-      margin-top: 30px;
-    }
-    
-    .reminder-box h2 {
-      margin-bottom: 16px;
-    }
-    
-    .reminder-box .check-item {
+      padding: 20px;
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
-      font-size: 15px;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 30px;
     }
     
-    .reminder-box .check-item span:first-child {
-      font-size: 18px;
+    .discord-card .icon {
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+    
+    .discord-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .discord-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    
+    .discord-btn {
+      display: inline-block;
+      background: #5865F2;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
     }
     
     /* Bottom Navigation */
@@ -434,7 +336,6 @@
       to { transform: rotate(360deg); }
     }
     
-    /* Pop animation for dopamine button */
     @keyframes pop {
       0% { transform: scale(1); }
       50% { transform: scale(1.2); }
@@ -443,6 +344,71 @@
     
     .dopamine-btn.pop {
       animation: pop 0.3s ease;
+    }
+    
+    /* Desktop Styles */
+    @media (min-width: 768px) {
+      .top-header {
+        padding: 20px 40px;
+      }
+      
+      .hero {
+        padding: 50px 40px 60px;
+      }
+      
+      .hero-logo {
+        width: 110px;
+        height: 110px;
+      }
+      
+      .hero-quote {
+        font-size: 28px;
+        max-width: 600px;
+      }
+      
+      .main-content {
+        padding: 30px 40px;
+      }
+      
+      .quick-actions {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      
+      .action-card {
+        padding: 28px 20px;
+      }
+      
+      .action-card .icon {
+        font-size: 40px;
+      }
+      
+      .action-card h3 {
+        font-size: 16px;
+      }
+      
+      .action-card p {
+        font-size: 13px;
+      }
+      
+      .nav-items {
+        max-width: 600px;
+      }
+      
+      .nav-item {
+        font-size: 12px;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .quick-actions {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      
+      .action-card {
+        padding: 32px 24px;
+      }
     }
   </style>
 </head>
@@ -468,141 +434,63 @@
       </div>
       <p class="hero-quote">"You've got the power to thrive, not just survive."</p>
       <button class="dopamine-btn" id="dopamineBtn">I receive this!</button>
-      <p class="dopamine-hint">Click this button as many times as you like for a dopamine boost!</p>
-    </section>
-    
-    <!-- Audio Section -->
-    <section class="audio-section">
-      <audio controls class="audio-player">
-        <source src="https://www.dropbox.com/scl/fi/gz8wfwcwnop1lledsbc3o/Grateful.mp3?rlkey=6uiabpmvb87wulsqw63x2hb0l&st=dt0a6e2o&raw=1" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-      <p class="audio-caption">
-        🎧 Grateful – NEFFEX: The anthem for your ADHD-fueled freedom journey.<br>
-        Built for hyperfocus, late nights, and proving people wrong.<br>
-        <a href="https://ffm.bio/neffexmusic" target="_blank">Explore 150+ more tracks →</a>
-      </p>
+      <p class="dopamine-hint">Tap for a dopamine boost ✨</p>
     </section>
     
     <!-- Main Content -->
     <main class="main-content">
-      <h1 class="section-title">Remember Your Why</h1>
-      <p class="section-subtitle">🧠 ADHD Freelancer Edition 🧠</p>
-      <p class="section-tagline">When focus fades and motivation wanes, come back to this.</p>
-      
-      <div class="divider"></div>
-      
-      <!-- Why My Freelance Journey Matters -->
-      <div class="content-block">
-        <h2>🌟 Why My Freelance Journey Matters</h2>
-        
-        <h3>🎨 I Create on My Own Terms</h3>
-        <ul>
-          <li>My ADHD brain <strong>thrives</strong> with natural rhythms</li>
-          <li>I build routines that <strong>work with</strong> my brain</li>
-          <li>I harness hyperfocus for <strong>breakthrough moments</strong></li>
-        </ul>
-        
-        <h3>🗽 I Choose Freedom Over Structure</h3>
-        <ul>
-          <li>I'm building <strong>my own</strong> world</li>
-          <li>My varied interests have <strong>space to flourish</strong></li>
-          <li>No need to mask my neurodivergence</li>
-        </ul>
-        
-        <h3>💡 My Unique Perspective is Valuable</h3>
-        <ul>
-          <li>Neurodivergent thinking = <strong>innovative solutions</strong></li>
-          <li>Unexpected connections = <strong>client benefits</strong></li>
-          <li>Hyperfocus periods = <strong>extraordinary productivity</strong></li>
-        </ul>
+      <!-- Quick Actions -->
+      <p class="section-label">Quick Actions</p>
+      <div class="quick-actions">
+        <a href="gigs.html" class="action-card">
+          <span class="icon">💰</span>
+          <h3>Make Cash</h3>
+          <p>50+ vetted ways to earn</p>
+        </a>
+        <a href="guides.html" class="action-card">
+          <span class="icon">📖</span>
+          <h3>Guides</h3>
+          <p>Step-by-step help</p>
+        </a>
+        <a href="tools.html" class="action-card">
+          <span class="icon">🛠️</span>
+          <h3>Tools</h3>
+          <p>Focus & productivity</p>
+        </a>
+        <a href="apps.html" class="action-card">
+          <span class="icon">📱</span>
+          <h3>Apps</h3>
+          <p>Recommended apps</p>
+        </a>
+        <a href="favorites.html" class="action-card">
+          <span class="icon">❤️</span>
+          <h3>Favorites</h3>
+          <p>Your saved items</p>
+        </a>
+        <a href="motivation.html" class="action-card">
+          <span class="icon">🔥</span>
+          <h3>Motivation</h3>
+          <p>Remember your why</p>
+        </a>
       </div>
       
-      <div class="divider"></div>
-      
-      <!-- When It Gets Hard -->
-      <div class="content-block">
-        <h2>💪 When It Gets Hard</h2>
-        
-        <h3>🏃‍♀️ Remember This is a Marathon</h3>
-        <ul>
-          <li>Progress isn't linear with ADHD <em>(and that's normal)</em></li>
-          <li>Small steps forward <strong>still count</strong></li>
-          <li>Your path looks different <em>(and that's perfectly okay)</em></li>
-        </ul>
-        
-        <h3>🏆 You've Done This Before</h3>
-        <ul>
-          <li>Every completed project = <strong>proof of capability</strong></li>
-          <li>Your adaptability is a <strong>superpower</strong></li>
-          <li>Your resilience shows <strong>true commitment</strong></li>
-        </ul>
-        
-        <h3>🤝 You're Not Alone</h3>
-        <ul>
-          <li>This community has your back</li>
-          <li>We are a support system that believes in you <em>(even when executive function doesn't)</em></li>
-          <li>Everyone faces obstacles; yours just look different</li>
-        </ul>
-      </div>
-      
-      <div class="divider"></div>
-      
-      <!-- Quick Wins Toolkit -->
-      <div class="content-block">
-        <h2>⚡ Quick Wins Toolkit</h2>
-        
-        <h3>🔧 When Overwhelmed:</h3>
-        <ul>
-          <li><strong>Break it down</strong> → smaller chunks</li>
-          <li><strong>Set timers</strong> → 25 minutes on, 5 off</li>
-          <li><strong>Celebrate wins</strong> → builds momentum</li>
-        </ul>
-        
-        <h3>🎯 When Stuck:</h3>
-        <ul>
-          <li><strong>Body doubling</strong> → work alongside others</li>
-          <li><strong>Read client testimonials</strong> → beat impostor syndrome</li>
-          <li><strong>Environment check</strong> → minimize distractions</li>
-        </ul>
-        
-        <h3>🧘 When Struggling:</h3>
-        <ul>
-          <li><strong>Forgive the ADHD tax</strong> → it happens</li>
-          <li><strong>Adjust your space</strong> → optimize for focus</li>
-          <li><strong>Remember:</strong> different, not less</li>
-        </ul>
-      </div>
-      
-      <div class="divider"></div>
-      
-      <!-- Powerful Reminders -->
-      <div class="content-block">
-        <h2>💭 Powerful Reminders</h2>
-        <div class="quote-block">
-          <p>"I am what I choose to become." — Carl Jung</p>
-          <p>"Who's going to stop me?" — Ayn Rand</p>
-          <p>"Different, not less." — Temple Grandin</p>
+      <!-- Featured -->
+      <p class="section-label">Need a boost?</p>
+      <a href="motivation.html" class="featured-card">
+        <span class="icon">🧠</span>
+        <div>
+          <h3>Remember Your Why</h3>
+          <p>When focus fades, come back to this.</p>
         </div>
-      </div>
+      </a>
       
-      <div class="divider"></div>
-      
-      <!-- When All Else Fails -->
-      <div class="reminder-box">
-        <h2>🚨 When All Else Fails</h2>
-        <p style="margin-bottom: 16px; font-weight: 700;">Remember:</p>
-        <div class="check-item">
-          <span>✅</span>
-          <span>You chose this path because you <strong>CAN</strong> do it</span>
-        </div>
-        <div class="check-item">
-          <span>✅</span>
-          <span>Your ADHD brain is an <strong>asset</strong>, not a limitation</span>
-        </div>
-        <div class="check-item">
-          <span>✅</span>
-          <span>Every challenge overcome makes you <strong>stronger</strong></span>
+      <!-- Discord -->
+      <div class="discord-card" style="margin-top: 20px;">
+        <span class="icon">💬</span>
+        <div>
+          <h3>Join the Community</h3>
+          <p>Connect with other ADHD brains who get it.</p>
+          <a href="#" class="discord-btn">Join Discord →</a>
         </div>
       </div>
     </main>
@@ -655,7 +543,7 @@
     // Dopamine button click
     dopamineBtn.addEventListener('click', () => {
       dopamineBtn.classList.remove('pop');
-      void dopamineBtn.offsetWidth; // Trigger reflow
+      void dopamineBtn.offsetWidth;
       dopamineBtn.classList.add('pop');
       
       // Play a pop sound
