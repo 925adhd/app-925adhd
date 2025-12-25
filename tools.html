@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools - 925 ADHD</title>
+  <link rel="icon" type="image/png" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    :root {
+      --bg: #0F0F0F;
+      --card: #1A1A1A;
+      --card-hover: #242424;
+      --border: rgba(255,255,255,.1);
+      --text: #fff;
+      --text-muted: rgba(255,255,255,.55);
+      --brand: #5BBFB5;
+      --brand-glow: rgba(91, 191, 181, 0.25);
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    /* Header */
+    .header {
+      background: var(--brand);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0F0F0F;
+    }
+    
+    .back-btn {
+      position: absolute;
+      left: 16px;
+      background: none;
+      border: none;
+      color: #0F0F0F;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 20px 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Brain.fm Hero Section */
+    .brainfm-hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .brainfm-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .brainfm-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+    
+    .brainfm-info {
+      flex: 1;
+    }
+    
+    .favorite-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(91, 191, 181, 0.15);
+      color: var(--brand);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .brainfm-info h2 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    
+    .brainfm-info p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    
+    /* Audio Player */
+    .audio-player {
+      background: #2a2a2a;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+    
+    .audio-player audio {
+      width: 100%;
+      height: 40px;
+    }
+    
+    /* Custom audio styling */
+    audio::-webkit-media-controls-panel {
+      background: #2a2a2a;
+    }
+    
+    .brainfm-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    .brainfm-text .highlight {
+      color: #ef4444;
+      text-decoration: underline;
+    }
+    
+    .brainfm-text .tired {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .brainfm-text a {
+      color: var(--brand);
+    }
+    
+    /* Section Divider */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+    
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    
+    .tool-card:hover {
+      background: var(--card-hover);
+      border-color: var(--brand);
+      transform: translateY(-2px);
+    }
+    
+    .tool-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .tool-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .tool-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    
+    .tool-card p {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    
+    /* Game Break Section */
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    
+    .game-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    
+    .game-card:hover {
+      background: var(--card-hover);
+      border-color: var(--brand);
+    }
+    
+    .game-card-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .game-card-icon {
+      font-size: 24px;
+    }
+    
+    .game-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+    }
+    
+    .game-card-arrow {
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+    
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1A1A1A;
+      border-top: 1px solid var(--border);
+      padding: 6px 0;
+      padding-bottom: max(6px, env(safe-area-inset-bottom));
+      z-index: 100;
+    }
+    
+    .nav-items {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 6px 10px;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    
+    .nav-item.active {
+      color: var(--brand);
+    }
+    
+    .nav-item:hover {
+      color: var(--text);
+    }
+    
+    .nav-item .icon {
+      font-size: 20px;
+    }
+    
+    /* Tablet & Desktop */
+    @media (min-width: 600px) {
+      .main-content {
+        padding: 28px 24px;
+        max-width: 700px;
+      }
+      
+      .brainfm-hero {
+        padding: 24px;
+      }
+      
+      .brainfm-logo {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .brainfm-info h2 {
+        font-size: 22px;
+      }
+      
+      .tools-grid {
+        gap: 16px;
+      }
+      
+      .tool-card {
+        padding: 20px 14px;
+      }
+      
+      .tool-icon {
+        width: 64px;
+        height: 64px;
+      }
+      
+      .tool-card h3 {
+        font-size: 14px;
+      }
+      
+      .tool-card p {
+        font-size: 12px;
+      }
+      
+      .nav-items {
+        max-width: 500px;
+      }
+      
+      .nav-item {
+        font-size: 11px;
+        padding: 8px 14px;
+      }
+      
+      .nav-item .icon {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <a href="dashboard.html" class="back-btn">←</a>
+    <h1>Tools</h1>
+  </header>
+  
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Brain.fm Hero -->
+    <section class="brainfm-hero">
+      <div class="brainfm-header">
+        <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gGKdFr4xAr4dXt6XV3rg/Logo%20(multicolored%20backround).png" alt="Brain.fm" class="brainfm-logo">
+        <div class="brainfm-info">
+          <span class="favorite-badge">💚 Favorite</span>
+          <h2>Brain.fm</h2>
+          <p>ADHD focus music backed by science!</p>
+        </div>
+      </div>
+      
+      <div class="audio-player">
+        <audio controls>
+          <source src="https://www.dropbox.com/scl/fi/5vkgpt2hsrj2rhkxbomy3/Geode-Grooves-Focus-Deep-Work.wav?rlkey=bku0yamcro88yuipv4b2ed675&st=hchol8mj&raw=1" type="audio/wav">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      
+      <div class="brainfm-text">
+        <p>Put this on in the background for at least <span class="highlight">5 minutes</span> and watch your productivity skyrocket! Seriously. Just give it a try. 🤷‍♀️</p>
+        <p class="tired">😴 Tired of this same song? Use my affiliate link to get 1 month free and unlock all kinds of dope vibes!<br>
+        🔗 <a href="https://www.brain.fm/925adhd" target="_blank">https://www.brain.fm/925adhd</a></p>
+      </div>
+    </section>
+    
+    <div class="section-divider"></div>
+    
+    <!-- Tools Grid - Row 1 -->
+    <div class="tools-grid">
+      <a href="tools/hourly-optimizer.html" class="tool-card">
+        <div class="tool-icon">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/hourly-optimizer.png" alt="Hourly Optimizer" onerror="this.parentElement.innerHTML='🕐'">
+        </div>
+        <h3>Hourly Optimizer</h3>
+        <p>Maximize focus every working hour</p>
+      </a>
+      
+      <a href="tools/receipt-stacking.html" class="tool-card">
+        <div class="tool-icon">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/receipt-stacking.png" alt="Receipt Stacking" onerror="this.parentElement.innerHTML='🧾'">
+        </div>
+        <h3>Receipt Stacking</h3>
+        <p>Upload, track, multiply cashback rewards</p>
+      </a>
+      
+      <a href="tools/gig-essentials.html" class="tool-card">
+        <div class="tool-icon">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gig-essentials.png" alt="Gig Work Essentials" onerror="this.parentElement.innerHTML='🎧'">
+        </div>
+        <h3>Gig Work Essentials</h3>
+        <p>Core tools for flexible freelancing</p>
+      </a>
+    </div>
+    
+    <!-- Tools Grid - Row 2 -->
+    <div class="tools-grid">
+      <a href="tools/passion-finder.html" class="tool-card">
+        <div class="tool-icon">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/passion-finder.png" alt="Passion Finder" onerror="this.parentElement.innerHTML='🧠'">
+        </div>
+        <h3>Passion Finder</h3>
+        <p>Discover what excites you!</p>
+      </a>
+      
+      <a href="tools/daily-schedule.html" class="tool-card">
+        <div class="tool-icon">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/daily-schedule.png" alt="Daily Schedule" onerror="this.parentElement.innerHTML='📅'">
+        </div>
+        <h3>Daily Schedule</h3>
+        <p>Structure tasks, boost daily flow</p>
+      </a>
+      
+      <a href="tools/earnings-tracker.html" class="tool-card">
+        <div class="tool-icon">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/earnings-tracker.png" alt="Earnings Tracker" onerror="this.parentElement.innerHTML='💰'">
+        </div>
+        <h3>Earnings Tracker</h3>
+        <p>Monitor income, progress, financial clarity</p>
+      </a>
+    </div>
+    
+    <!-- Tools Grid - Row 3 -->
+    <div class="tools-grid">
+      <a href="tools/breathwork.html" class="tool-card">
+        <div class="tool-icon">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/breathwork.png" alt="Breathwork Studio" onerror="this.parentElement.innerHTML='🫁'">
+        </div>
+        <h3>Breathwork Studio</h3>
+        <p>Calm mind through guided breathing</p>
+      </a>
+      
+      <a href="tools/mindshift.html" class="tool-card">
+        <div class="tool-icon">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/mindshift.png" alt="Mindshift" onerror="this.parentElement.innerHTML='💭'">
+        </div>
+        <h3>Mindshift</h3>
+        <p>Reframe thoughts, spark new perspectives</p>
+      </a>
+      
+      <a href="tools/freelance-calculator.html" class="tool-card">
+        <div class="tool-icon">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/freelance-calculator.png" alt="Freelance Calculator" onerror="this.parentElement.innerHTML='🧮'">
+        </div>
+        <h3>Freelance Calculator</h3>
+        <p>Estimate rates, plan income goals</p>
+      </a>
+    </div>
+    
+    <div class="section-divider"></div>
+    
+    <!-- Game Break Section -->
+    <h2 class="section-title">Game Break?</h2>
+    <a href="games/gir-adventure.html" class="game-card">
+      <div class="game-card-content">
+        <span class="game-card-icon">👾</span>
+        <h3>Gir's ADHD Adventure</h3>
+      </div>
+      <span class="game-card-arrow">›</span>
+    </a>
+  </main>
+  
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-items">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="guides.html" class="nav-item">
+        <span class="icon">📖</span>
+        <span>Guides</span>
+      </a>
+      <a href="gigs.html" class="nav-item">
+        <span class="icon">💰</span>
+        <span>Cash</span>
+      </a>
+      <a href="apps.html" class="nav-item">
+        <span class="icon">📱</span>
+        <span>Apps</span>
+      </a>
+      <a href="favorites.html" class="nav-item">
+        <span class="icon">❤️</span>
+        <span>Saved</span>
+      </a>
+      <a href="tools.html" class="nav-item active">
+        <span class="icon">🛠️</span>
+        <span>Tools</span>
+      </a>
+    </div>
+  </nav>
+</body>
+</html>
