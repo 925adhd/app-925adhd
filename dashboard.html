@@ -16,16 +16,12 @@
     :root {
       --bg: #0F0F0F;
       --card: #1A1A1A;
-      --card-hover: #222;
-      --border: rgba(255,255,255,.08);
+      --card-hover: #242424;
+      --border: rgba(255,255,255,.1);
       --text: #fff;
-      --text-muted: rgba(255,255,255,.6);
+      --text-muted: rgba(255,255,255,.55);
       --brand: #5BBFB5;
-      --brand-light: #7EE0D6;
-      --purple: #7c3aed;
-      --green: #22c55e;
-      --orange: #f59e0b;
-      --pink: #ec4899;
+      --brand-glow: rgba(91, 191, 181, 0.25);
     }
     
     body {
@@ -33,8 +29,8 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      line-height: 1.6;
-      padding-bottom: 80px;
+      line-height: 1.5;
+      padding-bottom: 70px;
     }
     
     a {
@@ -44,29 +40,31 @@
     
     /* Top Header */
     .top-header {
-      padding: 16px 20px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid var(--border);
     }
     
     .menu-btn {
       background: none;
       border: none;
       color: var(--text);
-      font-size: 24px;
+      font-size: 22px;
       cursor: pointer;
-      padding: 8px;
+      padding: 6px;
     }
     
     .logout-btn {
       background: none;
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
       cursor: pointer;
+      transition: all 0.2s;
     }
     
     .logout-btn:hover {
@@ -74,16 +72,25 @@
       color: var(--text);
     }
     
-    /* Hero Section */
+    /* Hero Section - Compact */
     .hero {
       text-align: center;
-      padding: 30px 20px 40px;
+      padding: 24px 16px 20px;
+      background: linear-gradient(180deg, rgba(91, 191, 181, 0.05) 0%, transparent 100%);
+    }
+    
+    .hero-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
     }
     
     .hero-logo {
-      width: 90px;
-      height: 90px;
-      margin: 0 auto 20px;
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
     }
     
     .hero-logo img {
@@ -93,32 +100,28 @@
     }
     
     .hero-quote {
-      font-size: clamp(18px, 4vw, 24px);
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 600;
       line-height: 1.4;
-      margin-bottom: 24px;
-      padding: 0 10px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
+      text-align: left;
+      max-width: 240px;
     }
     
     .dopamine-btn {
       background: var(--brand);
       color: #0F0F0F;
       border: none;
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-size: 16px;
+      padding: 10px 24px;
+      border-radius: 24px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s;
-      box-shadow: 0 4px 20px rgba(91, 191, 181, 0.3);
+      box-shadow: 0 4px 16px var(--brand-glow);
     }
     
     .dopamine-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 6px 30px rgba(91, 191, 181, 0.4);
     }
     
     .dopamine-btn:active {
@@ -126,44 +129,43 @@
     }
     
     .dopamine-hint {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      margin-top: 10px;
+      margin-top: 8px;
     }
     
     /* Main Content */
     .main-content {
-      padding: 20px;
-      max-width: 1000px;
+      padding: 20px 16px;
+      max-width: 600px;
       margin: 0 auto;
     }
     
     .section-label {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 16px;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
     }
     
     /* Quick Actions Grid */
     .quick-actions {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 30px;
+      gap: 10px;
+      margin-bottom: 24px;
     }
     
     .action-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
+      border-radius: 14px;
+      padding: 16px 12px;
       text-align: center;
       cursor: pointer;
       transition: all 0.2s;
-      text-decoration: none;
     }
     
     .action-card:hover {
@@ -173,98 +175,101 @@
     }
     
     .action-card .icon {
-      font-size: 32px;
-      margin-bottom: 10px;
+      font-size: 28px;
+      margin-bottom: 8px;
       display: block;
     }
     
     .action-card h3 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     
     .action-card p {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      line-height: 1.4;
     }
     
-    /* Featured Section */
-    .featured-section {
-      margin-bottom: 30px;
-    }
-    
+    /* Featured Card */
     .featured-card {
-      background: linear-gradient(135deg, rgba(91, 191, 181, 0.15), rgba(91, 191, 181, 0.05));
-      border: 1px solid rgba(91, 191, 181, 0.25);
-      border-radius: 16px;
-      padding: 20px;
+      background: linear-gradient(135deg, rgba(91, 191, 181, 0.12), rgba(91, 191, 181, 0.04));
+      border: 1px solid rgba(91, 191, 181, 0.2);
+      border-radius: 14px;
+      padding: 16px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       cursor: pointer;
       transition: all 0.2s;
+      margin-bottom: 12px;
     }
     
     .featured-card:hover {
-      background: linear-gradient(135deg, rgba(91, 191, 181, 0.2), rgba(91, 191, 181, 0.1));
+      background: linear-gradient(135deg, rgba(91, 191, 181, 0.18), rgba(91, 191, 181, 0.08));
       transform: translateY(-2px);
     }
     
     .featured-card .icon {
-      font-size: 40px;
+      font-size: 32px;
       flex-shrink: 0;
     }
     
     .featured-card h3 {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     
     .featured-card p {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
     }
     
     /* Discord CTA */
     .discord-card {
-      background: linear-gradient(135deg, rgba(88, 101, 242, 0.15), rgba(88, 101, 242, 0.05));
-      border: 1px solid rgba(88, 101, 242, 0.25);
-      border-radius: 16px;
-      padding: 20px;
+      background: linear-gradient(135deg, rgba(88, 101, 242, 0.12), rgba(88, 101, 242, 0.04));
+      border: 1px solid rgba(88, 101, 242, 0.2);
+      border-radius: 14px;
+      padding: 16px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 30px;
+      gap: 14px;
     }
     
     .discord-card .icon {
-      font-size: 36px;
+      font-size: 28px;
       flex-shrink: 0;
     }
     
+    .discord-card .content {
+      flex: 1;
+    }
+    
     .discord-card h3 {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     
     .discord-card p {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
-      margin-bottom: 10px;
     }
     
     .discord-btn {
-      display: inline-block;
       background: #5865F2;
       color: white;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    
+    .discord-btn:hover {
+      background: #4752C4;
     }
     
     /* Bottom Navigation */
@@ -275,8 +280,8 @@
       right: 0;
       background: #1A1A1A;
       border-top: 1px solid var(--border);
-      padding: 8px 0;
-      padding-bottom: max(8px, env(safe-area-inset-bottom));
+      padding: 6px 0;
+      padding-bottom: max(6px, env(safe-area-inset-bottom));
       z-index: 100;
     }
     
@@ -284,7 +289,7 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
-      max-width: 500px;
+      max-width: 400px;
       margin: 0 auto;
     }
     
@@ -292,11 +297,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      padding: 8px 12px;
+      gap: 2px;
+      padding: 6px 10px;
       color: var(--text-muted);
-      text-decoration: none;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       transition: color 0.2s;
     }
@@ -310,7 +314,7 @@
     }
     
     .nav-item .icon {
-      font-size: 22px;
+      font-size: 20px;
     }
     
     /* Loading State */
@@ -323,9 +327,9 @@
       gap: 16px;
     }
     
-    .loading-screen .spinner {
-      width: 40px;
-      height: 40px;
+    .spinner {
+      width: 36px;
+      height: 36px;
       border: 3px solid var(--border);
       border-top-color: var(--brand);
       border-radius: 50%;
@@ -338,76 +342,104 @@
     
     @keyframes pop {
       0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+      50% { transform: scale(1.15); }
       100% { transform: scale(1); }
     }
     
     .dopamine-btn.pop {
-      animation: pop 0.3s ease;
+      animation: pop 0.25s ease;
     }
     
-    /* Desktop Styles */
-    @media (min-width: 768px) {
+    /* Tablet & Desktop */
+    @media (min-width: 600px) {
       .top-header {
-        padding: 20px 40px;
+        padding: 16px 24px;
       }
       
       .hero {
-        padding: 50px 40px 60px;
+        padding: 32px 24px 28px;
       }
       
-      .hero-logo {
-        width: 110px;
-        height: 110px;
-      }
-      
-      .hero-quote {
-        font-size: 28px;
-        max-width: 600px;
-      }
-      
-      .main-content {
-        padding: 30px 40px;
-      }
-      
-      .quick-actions {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-      
-      .action-card {
-        padding: 28px 20px;
-      }
-      
-      .action-card .icon {
-        font-size: 40px;
-      }
-      
-      .action-card h3 {
-        font-size: 16px;
-      }
-      
-      .action-card p {
-        font-size: 13px;
-      }
-      
-      .nav-items {
-        max-width: 600px;
-      }
-      
-      .nav-item {
-        font-size: 12px;
-      }
-    }
-    
-    @media (min-width: 1024px) {
-      .quick-actions {
-        grid-template-columns: repeat(3, 1fr);
+      .hero-row {
         gap: 20px;
       }
       
+      .hero-logo {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .hero-quote {
+        font-size: 20px;
+        max-width: 320px;
+      }
+      
+      .dopamine-btn {
+        padding: 12px 28px;
+        font-size: 15px;
+      }
+      
+      .main-content {
+        padding: 28px 24px;
+        max-width: 540px;
+      }
+      
+      .quick-actions {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      
       .action-card {
-        padding: 32px 24px;
+        padding: 20px 14px;
+      }
+      
+      .action-card .icon {
+        font-size: 32px;
+      }
+      
+      .action-card h3 {
+        font-size: 14px;
+      }
+      
+      .nav-items {
+        max-width: 500px;
+      }
+      
+      .nav-item {
+        font-size: 11px;
+        padding: 8px 14px;
+      }
+      
+      .nav-item .icon {
+        font-size: 22px;
+      }
+    }
+    
+    /* Large Desktop - Keep it centered and cozy */
+    @media (min-width: 1024px) {
+      .main-content {
+        max-width: 580px;
+      }
+      
+      .quick-actions {
+        gap: 14px;
+      }
+      
+      .action-card {
+        padding: 24px 16px;
+      }
+      
+      .action-card .icon {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+      
+      .action-card h3 {
+        font-size: 15px;
+      }
+      
+      .action-card p {
+        font-size: 12px;
       }
     }
   </style>
@@ -416,7 +448,7 @@
   <!-- Loading Screen -->
   <div id="loadingScreen" class="loading-screen">
     <div class="spinner"></div>
-    <p style="color: var(--text-muted);">Loading...</p>
+    <p style="color: var(--text-muted); font-size: 14px;">Loading...</p>
   </div>
 
   <!-- Main App -->
@@ -429,10 +461,12 @@
     
     <!-- Hero Section -->
     <section class="hero">
-      <div class="hero-logo">
-        <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="925 ADHD">
+      <div class="hero-row">
+        <div class="hero-logo">
+          <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="925 ADHD">
+        </div>
+        <p class="hero-quote">"You've got the power to thrive, not just survive."</p>
       </div>
-      <p class="hero-quote">"You've got the power to thrive, not just survive."</p>
       <button class="dopamine-btn" id="dopamineBtn">I receive this!</button>
       <p class="dopamine-hint">Tap for a dopamine boost ✨</p>
     </section>
@@ -445,7 +479,7 @@
         <a href="gigs.html" class="action-card">
           <span class="icon">💰</span>
           <h3>Make Cash</h3>
-          <p>50+ vetted ways to earn</p>
+          <p>50+ ways to earn</p>
         </a>
         <a href="guides.html" class="action-card">
           <span class="icon">📖</span>
@@ -475,23 +509,22 @@
       </div>
       
       <!-- Featured -->
-      <p class="section-label">Need a boost?</p>
       <a href="motivation.html" class="featured-card">
         <span class="icon">🧠</span>
         <div>
-          <h3>Remember Your Why</h3>
-          <p>When focus fades, come back to this.</p>
+          <h3>Need a boost?</h3>
+          <p>When focus fades, remember your why →</p>
         </div>
       </a>
       
       <!-- Discord -->
-      <div class="discord-card" style="margin-top: 20px;">
+      <div class="discord-card">
         <span class="icon">💬</span>
-        <div>
+        <div class="content">
           <h3>Join the Community</h3>
-          <p>Connect with other ADHD brains who get it.</p>
-          <a href="#" class="discord-btn">Join Discord →</a>
+          <p>Connect with ADHD brains who get it</p>
         </div>
+        <a href="#" class="discord-btn">Join</a>
       </div>
     </main>
     
@@ -508,7 +541,7 @@
         </a>
         <a href="gigs.html" class="nav-item">
           <span class="icon">💰</span>
-          <span>Make Cash</span>
+          <span>Cash</span>
         </a>
         <a href="apps.html" class="nav-item">
           <span class="icon">📱</span>
@@ -516,7 +549,7 @@
         </a>
         <a href="favorites.html" class="nav-item">
           <span class="icon">❤️</span>
-          <span>Favorites</span>
+          <span>Saved</span>
         </a>
         <a href="tools.html" class="nav-item">
           <span class="icon">🛠️</span>
@@ -528,7 +561,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Initialize Supabase
     const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
     
@@ -540,30 +572,27 @@
     const logoutBtn = document.getElementById('logoutBtn');
     const dopamineBtn = document.getElementById('dopamineBtn');
     
-    // Dopamine button click
+    // Dopamine button
     dopamineBtn.addEventListener('click', () => {
       dopamineBtn.classList.remove('pop');
       void dopamineBtn.offsetWidth;
       dopamineBtn.classList.add('pop');
       
-      // Play a pop sound
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const oscillator = audioCtx.createOscillator();
       const gainNode = audioCtx.createGain();
       
       oscillator.connect(gainNode);
       gainNode.connect(audioCtx.destination);
-      
       oscillator.frequency.value = 800;
       oscillator.type = 'sine';
       gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
       gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-      
       oscillator.start(audioCtx.currentTime);
       oscillator.stop(audioCtx.currentTime + 0.1);
     });
     
-    // Check authentication AND membership
+    // Auth check
     async function checkAuth() {
       const { data: { session } } = await supabaseClient.auth.getSession();
       
@@ -572,8 +601,7 @@
         return;
       }
       
-      // Check if user is a paying member
-      const { data: member, error } = await supabaseClient
+      const { data: member } = await supabaseClient
         .from('Paid')
         .select('email, status')
         .eq('email', session.user.email)
@@ -582,43 +610,37 @@
       
       if (!member) {
         loadingScreen.innerHTML = `
-          <div style="text-align: center; padding: 40px;">
-            <h2 style="margin-bottom: 16px;">Membership Required</h2>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">
-              You're logged in as <strong>${session.user.email}</strong>, but you don't have an active membership yet.
+          <div style="text-align: center; padding: 40px; max-width: 360px;">
+            <h2 style="margin-bottom: 12px; font-size: 20px;">Membership Required</h2>
+            <p style="color: rgba(255,255,255,.6); margin-bottom: 20px; font-size: 14px;">
+              Logged in as <strong>${session.user.email}</strong><br>but no active membership found.
             </p>
             <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05" 
-               style="display: inline-block; background: #5BBFB5; color: #1a1a1a; padding: 14px 28px; border-radius: 10px; font-weight: 700; text-decoration: none; margin-bottom: 16px;">
-              Get Access - $9.25/month
+               style="display: inline-block; background: #5BBFB5; color: #1a1a1a; padding: 12px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 14px;">
+              Get Access - $9.25/mo
             </a>
-            <p style="color: var(--text-muted); font-size: 14px; margin-top: 16px;">
-              Already purchased? It may take a few minutes to activate.<br>
-              <a href="#" onclick="supabaseClient.auth.signOut().then(() => window.location.href = 'login.html')" style="color: #5BBFB5;">Try a different email</a>
+            <p style="color: rgba(255,255,255,.5); font-size: 12px; margin-top: 16px;">
+              Just purchased? Give it a minute to activate.<br>
+              <a href="#" onclick="supabaseClient.auth.signOut().then(() => window.location.href = 'login.html')" style="color: #5BBFB5;">Try different email</a>
             </p>
           </div>
         `;
         return;
       }
       
-      // User is logged in AND is a paying member
       loadingScreen.style.display = 'none';
       app.style.display = 'block';
     }
     
-    // Handle logout
     logoutBtn.addEventListener('click', async () => {
       await supabaseClient.auth.signOut();
       window.location.href = 'login.html';
     });
     
-    // Listen for auth changes
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT') {
-        window.location.href = 'login.html';
-      }
+    supabaseClient.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT') window.location.href = 'login.html';
     });
     
-    // Initialize
     checkAuth();
   </script>
 </body>
