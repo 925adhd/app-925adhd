@@ -590,7 +590,7 @@
       
       // Check if user is a paying member
       const { data: member, error } = await supabaseClient
-        .from('members')
+        .from('paid')
         .select('email, status')
         .eq('email', session.user.email)
         .eq('status', 'active')
