@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Gig Details | 925 ADHD</title>
+  <link rel="icon" type="image/png" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --card-hover: #222;
+      --text: #ffffff;
+      --text-muted: #888;
+      --brand: #7c3aed;
+      --green: #22c55e;
+      --yellow: #facc15;
+      --orange: #f97316;
+      --blue: #3b82f6;
+      --pink: #ec4899;
+      --cyan: #06b6d4;
+      --red: #ef4444;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 100px;
+      line-height: 1.6;
+    }
+    
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .back-btn {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .header-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .fav-btn-header {
+      margin-left: auto;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+    }
+    
+    /* Main Content */
+    main {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .hero-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      object-fit: cover;
+      background: #2a2a2a;
+    }
+    
+    .hero-info h1 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    
+    .hero-rate {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green);
+    }
+    
+    .hero-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    
+    /* Quick Stats */
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    
+    .stat-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    
+    .stat-icon { font-size: 20px; margin-bottom: 4px; }
+    .stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+    .stat-value { font-size: 12px; font-weight: 700; margin-top: 2px; }
+    
+    /* Intro */
+    .intro-section {
+      background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(34,197,94,0.05));
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    
+    /* Content Sections */
+    .section {
+      margin-bottom: 20px;
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    
+    .section-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    
+    .section-icon.adhd { background: rgba(124,58,237,0.2); }
+    .section-icon.standout { background: rgba(34,197,94,0.2); }
+    .section-icon.warning { background: rgba(249,115,22,0.2); }
+    .section-icon.payout { background: rgba(6,182,212,0.2); }
+    .section-icon.tasks { background: rgba(59,130,246,0.2); }
+    .section-icon.verdict { background: rgba(236,72,153,0.2); }
+    .section-icon.ideal { background: rgba(250,204,21,0.2); }
+    
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .section-content {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    
+    .section-content ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .section-content li {
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .section-content li::before {
+      content: '•';
+      color: var(--brand);
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+    
+    .section-content.warning li::before { color: var(--orange); }
+    
+    .section-content p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    
+    /* Ideal For Tags */
+    .ideal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .ideal-tag {
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.3);
+      color: #a78bfa;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    /* Empty State */
+    .empty-section {
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 13px;
+    }
+    
+    /* CTA */
+    .cta-section {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 15, 15, 0.98);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 16px max(12px, env(safe-area-inset-bottom));
+      z-index: 100;
+    }
+    
+    .cta-container {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .cta-btn {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    
+    .cta-primary {
+      background: var(--brand);
+      color: white;
+    }
+    
+    .cta-primary:hover {
+      background: #6d28d9;
+      transform: translateY(-1px);
+    }
+    
+    .cta-secondary {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Not Found */
+    .not-found {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    
+    .not-found h2 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    
+    .not-found p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    
+    .not-found a {
+      display: inline-block;
+      background: var(--brand);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  
+  <header class="header">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="header-title">Honest Review</span>
+    <button class="fav-btn-header" id="favBtn">🤍</button>
+  </header>
+  
+  <main id="mainContent">
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading gig details...</p>
+    </div>
+  </main>
+  
+  <div class="cta-section" id="ctaSection" style="display:none;">
+    <div class="cta-container">
+      <a href="#" class="cta-btn cta-secondary" onclick="history.back()">← Back</a>
+      <a href="#" class="cta-btn cta-primary" id="ctaLink" target="_blank">Try This Gig →</a>
+    </div>
+  </div>
+  
+  <script>
+const gigData = {
+  'prolific': {
+    name: 'Prolific',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/immy0sOGu8FJH0lgD7VN.png',
+    link: 'https://www.prolific.com/participants',
+    rate: '$8–$18/hr',
+    description: 'High-paying academic studies.',
+    category: 'surveys',
+    intro: '**Prolific** is a research platform that pays you to participate in real academic and tech studies—from the comfort of your home. Instead of slogging through shady survey sites, you’ll be contributing to research from places like **Stanford, Yale, and Google** while getting paid in actual money, not gift cards or mystery points.\n\nIt’s like being a science lab assistant... without the lab coat or commute.',
+    whyAdhd: ['Short, structured tasks = less mental chaos', 'You choose when to work—no strict deadlines or pressure', 'Frequent dopamine boosts from study completions', 'Instant feedback, timers, and visible progress keep you engaged', 'Tasks often change up daily = less boredom, more novelty'],
+    standOut: ['Trusted by elite universities and AI teams', 'Transparent upfront info: know pay, time, and task before you start', 'Lightning-fast onboarding—get verified in ~15 minutes', 'Wide task variety: from simple surveys to helping train AI', 'No app required—clean web interface that works great on desktop and mobile', 'Ethical standards: minimum guaranteed pay of £6/hour (~$7.50)'],
+    importantNotes: ['Your answers *must* align with your profile—mismatches (e.g., saying you\'re a smoker in one study and not in another) can get you flagged', 'Attention checks are everywhere—miss too many, and you risk getting strikes', 'Prolific uses a three-strike system for dishonesty or poor-quality responses', 'Some studies are first-come, first-served—check in frequently or enable notifications', 'You’ll need to complete your demographic profile before unlocking most studies', 'Tasks range from 2-minute surveys to longer AI labeling sessions', 'Not always high volume—some days are busier than others'],
+    payoutInfo: [],
+    taskTypes: ['Surveys – Quick academic or opinion-based questions', 'Behavioral studies – Puzzle tasks or reaction-time games', 'AI data work – Rate chatbot responses, label data, etc.', 'Tech tool testing – Try out new apps or give UX feedback'],
+    finalTake: '',
+    idealFor: []
+  },
+  'dscout': {
+    name: 'Dscout',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ir5Usfji0u0VtJf8iXTn.png',
+    link: 'https://dscout.com/participate-in-research-studies',
+    rate: '$20–$150/hr',
+    description: 'Influence some of your favorite everyday brands by sharing your insights.',
+    category: 'surveys',
+    intro: '**dscout** is a remote research platform where participants (called *Scouts*) earn money by completing **missions**—research studies designed by brands and product teams. Unlike standard survey sites, dscout focuses on **in-depth, interactive research** like video diaries, prototype testing, interviews, and retail studies. It’s widely praised for paying fairly and offering engaging opportunities that feel more like collaboration than just filling out forms.',
+    whyAdhd: ['Variety of tasks — missions include video responses, app testing, in-person visits, and more', 'Structured but flexible — missions are broken into steps, so you always know what to do', 'Good pay-per-minute — average around $1/minute, which keeps motivation high', 'Mobile app-based — makes it easy to complete tasks on the go'],
+    standOut: [],
+    importantNotes: ['Competitive selection — you must apply to missions; not everyone gets picked', 'Not constant work — availability depends on your profile and researcher needs', 'Video responses required for many missions, so comfort on camera is important', 'Requires mobile app — all participation is through the dscout app (iOS/Android)', 'Time commitment varies — missions can be quick (10 minutes) or multi-day studies'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**dscout** is one of the **best-paying and most engaging research platforms** out there. It’s not a constant source of work—you have to apply and be selected—but when you land a mission, the pay and experience are worth it.  \n\nIf you’re comfortable recording short videos and want meaningful, well-paid research opportunities, **dscout beats traditional survey apps by miles**.',
+    idealFor: ['People comfortable with video responses and speaking on camera', 'Those who want engaging, well-paid side gigs', 'Anyone interested in shaping real products and services', 'Users looking for flexible, remote opportunities rather than daily grind work']
+  },
+  'respondentio': {
+    name: 'Respondent.io',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/tHrBfm7B9TRyDq7uZh73.png',
+    link: 'https://www.respondent.io/signup',
+    rate: '$20–$150/hr',
+    description: 'Specialized, high-paying surveys.',
+    category: 'surveys',
+    intro: '**Respondent.io** is a premium research marketplace where participants can earn money by joining **high-paying research studies**. Unlike standard survey sites, Respondent focuses on **specialized studies, professional expertise, and business-related topics**—which is why pay rates are often much higher. Researchers range from startups to Fortune 500 companies looking for consumer and professional insights.',
+    whyAdhd: ['Fewer, higher-paying gigs — no grind of tiny $0.50 surveys', 'Flexible sign-ups — apply only to studies that interest you', 'Structured sessions (often interviews) with clear expectations', 'Exciting variety — topics can range from consumer products to business tech'],
+    standOut: [],
+    importantNotes: ['Not constant work — you must apply, and selection isn’t guaranteed', 'Many studies require professionals (e.g., software engineers, marketers, business owners)', 'High competition for popular consumer studies', 'ID verification required to ensure participant quality'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Professionals (marketers, developers, executives, healthcare workers)', 'People looking for high-paying research gigs instead of micro-surveys', 'Participants who are okay with applying and waiting for selection', 'Those who want occasional but lucrative side income']
+  },
+  'surveyjunkie': {
+    name: 'Survey Junkie',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4sv9XSwPHs8dV9zETDsd.jpg',
+    link: 'https://www.surveyjunkie.com/',
+    rate: '$1–$5/hr',
+    description: 'Trusted, steady survey earnings.',
+    category: 'surveys',
+    intro: '',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Disqualification is common — you may start a survey and get screened out'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'usertesting': {
+    name: 'UserTesting',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/THI1IS5clNzV8HIJ96gn.png',
+    link: 'https://www.usertesting.com/get-paid-to-test',
+    rate: '$10–$60/hr',
+    description: 'Test websites and apps for bigger payouts.',
+    category: 'surveys',
+    intro: '**UserTesting** is one of the most well-known platforms where you can earn money by testing websites, apps, and digital products. As a contributor, you give feedback through surveys, recorded usability tests, or live video calls with clients. Your input helps major brands like HP, Subway, and Canva improve their customer experience.  \n\nIt’s a legitimate way to make extra money online, though it’s not a “quit your job” type of gig—it’s best as a side hustle.',
+    whyAdhd: ['Variety of tasks: surveys, screen-recorded tests, live conversations', 'Flexible schedule—take tests whenever available', 'Short, structured tasks keep things engaging', 'Instant sense of impact—your feedback shapes real products'],
+    standOut: [],
+    importantNotes: ['You must pass a sample test before being accepted', 'Not all tests are available to everyone—matching depends on demographics', 'A good microphone and quiet environment are essential for recorded/live tasks', 'You may need to download the UserTesting app for mobile tasks', 'Tests can fill up quickly, so staying active helps'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**UserTesting** is one of the most reliable platforms for paid usability testing. The pay is fair for short bursts of work, and tasks are straightforward once you get the hang of speaking your thoughts clearly. However, competition for tests can be high, so it’s not consistent income—you’ll need to be quick and check often.',
+    idealFor: ['People comfortable speaking aloud and sharing opinions', 'Those with a flexible schedule who can grab tests quickly', 'Side hustlers looking for extra pocket money (not a full-time gig)', 'Tech-friendly folks with a laptop, smartphone, and PayPal account']
+  },
+  'pineconeresearch': {
+    name: 'Pinecone Research',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bibC3v0lT4ryuYu9LMCr.png',
+    link: 'https://members.pineconeresearch.com/#/',
+    rate: '$3-$12/hr',
+    description: 'High payouts for surveys and product tests.',
+    category: 'surveys',
+    intro: '',
+    whyAdhd: ['Surveys are usually short (10–20 minutes max)', 'Simple structure—just answer questions, no complicated tasks', 'Points turn into cash or gift cards with clear value', 'Occasional product tests add novelty and variety'],
+    standOut: [],
+    importantNotes: ['Membership can be limited—they don’t always accept new participants', 'You may only get 1 survey a day or a few per week', 'Surveys must be answered honestly—quality checks are strict', 'Sweepstake entries are free but winnings aren’t guaranteed income', 'Points system is straightforward but rewards can take a few days to process'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**Pinecone Research** is one of the best survey sites out there because it pays consistently, doesn’t waste your time with low-value surveys, and offers unique product testing opportunities. It’s not a full-time income stream, but it’s one of the most **trustworthy and rewarding** survey panels for side cash.',
+    idealFor: []
+  },
+  'toluna': {
+    name: 'Toluna',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/El5li3CDmxyW2lFaPwyz.png',
+    link: 'https://www.toluna.com/home',
+    rate: '$3–$5/hr',
+    description: 'Community-based surveys for rewards.',
+    category: 'surveys',
+    intro: '**Toluna Influencers** is a global online survey community where you share your opinions on products, services, and lifestyle topics in exchange for points. These points can be redeemed for **gift cards, PayPal cash, or sweepstake entries**. With millions of members worldwide, Toluna is one of the larger and more social survey platforms, offering polls, discussions, and even mini-games alongside surveys.',
+    whyAdhd: ['Lots of variety—surveys, polls, games, and quick votes', 'Community-driven—feels less repetitive than typical survey sites', 'Flexible—do surveys whenever you like', 'Small rewards for short interactions (polls, daily questions) keep it engaging'],
+    standOut: [],
+    importantNotes: ['Surveys can disqualify you partway through if you don’t fit the target audience'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**Toluna Influencers** is more of a **community-driven survey panel** than a high-paying gig. It’s best if you enjoy casual participation—answering polls, joining discussions, and slowly stacking up points for rewards. It’s not as reliable for steady cash as Pinecone Research or UserTesting, but it’s fun and flexible for spare time.',
+    idealFor: []
+  },
+  'lifepoints': {
+    name: 'LifePoints',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/cAodh8wHqXuLW7PoRjgR.png',
+    link: 'https://www.lifepointspanel.com/',
+    rate: '$1.50–$3/hr',
+    description: 'Steady earnings from surveys.',
+    category: 'surveys',
+    intro: '**LifePoints** is a global survey platform run by Lightspeed (part of the Kantar Group), one of the largest market research firms in the world. With over **5 million members** across 40+ countries, it offers surveys, games, and competitions in exchange for points, which you can redeem for gift cards, PayPal, or charitable donations.  \n\nIt’s a flexible, mobile-friendly way to earn small rewards while contributing to market research that shapes real-world products and services.',
+    whyAdhd: ['Short, structured surveys that are easy to complete on the go', 'Mobile app available on iOS and Android for quick access', 'Occasional games and giveaways keep things varied', 'Small upfront bonus (10 LifePoints) helps new users feel progress quickly'],
+    standOut: [],
+    importantNotes: ['Surveys may screen you out midway if you don’t meet demographic requirements', 'Points-based system (you’ll need to collect enough before redeeming)'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'paidviewpoint': {
+    name: 'Paid Viewpoint',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/X4p6CA7iYfoM0LyEDUxQ.png',
+    link: 'https://paidviewpoint.com/',
+    rate: '$1-$3/hour',
+    description: 'Short surveys, mostly multiple choice',
+    category: 'surveys',
+    intro: '',
+    whyAdhd: [],
+    standOut: ['Pays cash directly—no confusing points or rewards systems', 'Pays even if you get screened out partway through (rare for survey sites)', 'Transparent and honest platform that values your feedback', 'Strong community respect that helps maintain high-quality insights', 'Mobile apps available for on-the-go participation'],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: ['Quick Opinion Surveys – Short, conversational polls about brands, products, and ideas', 'Profile Surveys – Update your info to get matched with better surveys', 'Market Research Studies – Occasionally deeper surveys for higher rewards'],
+    finalTake: '',
+    idealFor: []
+  },
+  'appen': {
+    name: 'Appen',
+    logo: 'https://cdn-images.himalayas.app/vmlva5ltollcahuby442urxngpau',
+    link: 'https://jobs.lever.co/appen',
+    rate: '$3–$14/hr',
+    description: 'Specializes in AI training data with data labeling gigs.',
+    category: 'ai',
+    intro: '**Appen** is a long-standing company in the AI space that connects humans with machines to improve artificial intelligence. Through crowd work, freelance gigs, and enterprise services, they help companies like Amazon, Microsoft, and NVIDIA train their AI models using human feedback.\n\nAppen is known for offering flexible work-from-home opportunities where you can complete simple tasks (like labeling images or transcribing audio) to contribute to AI development. It’s a blend of freelance tech work and gig economy jobs—but with more spreadsheets and quality checks.',
+    whyAdhd: ['Flexible, asynchronous work — do tasks when your brain cooperates', 'Variety of projects — image tagging, search evaluation, audio transcription', 'Clear guidelines and task structures', 'Potential to zone in and hyperfocus when the task matches your vibe'],
+    standOut: [],
+    importantNotes: ['Onboarding takes time — expect multiple steps and a waiting period', 'You must consistently meet quality checks or you risk being removed from a project', 'Some tasks are repetitive or tedious, which may be hard on ADHD brains without built-in dopamine', 'Not every region has active projects', 'Pay per hour can vary significantly based on task and approval rate'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**Appen** is a solid option for remote gig work that contributes to AI development, especially if you’re detail-oriented and self-motivated. It can be ADHD-friendly in the right conditions—especially when tasks feel like puzzles—but the slow onboarding and quality-control pressure may frustrate some.',
+    idealFor: ['People interested in AI and tech', 'Those who need remote, flexible side income', 'Detail-oriented folks with a knack for patterns or language', 'ADHD minds who want something structured and low-social']
+  },
+  'clickworker': {
+    name: 'Clickworker',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/C1vyAjM6bkaR4bcNeCeA.png',
+    link: 'https://www.clickworker.com/clickworker/',
+    rate: '$5–$12/hr',
+    description: 'Freelance platform offering tasks like text creation & annotation.',
+    category: 'ai',
+    intro: '**Clickworker** is a global micro-tasking platform where individuals can complete small online jobs that contribute to bigger projects in AI, research, and business. With over 1 million tasks available, they’ve recently expanded by integrating with **LXT**, a company specializing in AI data solutions—making them one of the larger players in the crowdsourcing world.  \n\nThe platform offers a wide mix of jobs: surveys, data annotation, app testing, text writing, and even mystery shopping. Think of it as a gig buffet—you can pick tasks that fit your skills, schedule, or attention span.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Pay rates vary wildly — some tasks pay cents, others a few dollars'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'neevo': {
+    name: 'Neevo',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zbigllQ1z7hix1BDq2XT.png',
+    link: 'https://www.neevo.ai/',
+    rate: '$5–$12/hr',
+    description: 'Help improve AI by completing simple tasks involving text, audio, images, or video.',
+    category: 'ai',
+    intro: '**Neevo** is a microtasking platform where you can perform short tasks involving text, audio, image, or video to help train AI—and get paid for it.  \nThink of it like being part of the behind-the-scenes crew for AI, doing bite-sized jobs that improve things like voice assistants, image recognition, and chatbots.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**Neevo** is good for ADHD-friendly side hustlers who want **short, structured tasks** they can do in bursts.  \nIt’s not a stable or high-paying gig, but it can be a **low-effort, filler side hustle** for downtime.  \nThink of it as pocket money, not income you can rely on.',
+    idealFor: ['People who like short, flexible tasks.', 'ADHD users who thrive on quick wins.', 'Anyone okay with uncertain availability of work.', 'Side hustlers looking for extra pocket change, not a paycheck.']
+  },
+  'outlier': {
+    name: 'Outlier',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/261LHUjlubG5IjYr0LZv.png',
+    link: 'https://outlier.ai',
+    rate: '$15–35/hour',
+    description: 'Improve AI by rating responses, comparing outputs, and evaluating model behavior.',
+    category: 'ai',
+    intro: '**Outlier.ai** is a platform where you complete human-rating, evaluation, and annotation tasks to help train large AI models.  \nInstead of tiny fast microtasks, Outlier offers longer, more structured projects like rating chatbot answers, reviewing search results, or critiquing AI-generated content.',
+    whyAdhd: ['Clear instructions that tell you exactly what to do.', 'Deep-focus tasks that feel purposeful and not “busywork.”', 'Predictable formats — most tasks follow the same pattern once you learn them.', 'Work-from-home friendly — no calls, no camera, no meetings.', 'Potential for stable streaks if you get accepted into a long-term project.'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**Outlier.ai** is one of the **highest-paying** options in the AI-training world, but it’s not easy to get in and not guaranteed to stay consistent.  \nIf you pass their tests and land a project, the experience can feel stable, structured, and engaging.  \nIf you don’t, you might wait months for another opening.\n\nThink of Outlier as a **premium side gig** when it’s available — not something you can depend on year-round.',
+    idealFor: ['People who write well and follow detailed instructions.', 'ADHD users who do great with structured tasks, not chaotic microtasks.', 'Anyone looking for $15–35/hr side income with no phone calls or customer service.', 'Folks okay with waiting and uncertainty between projects.']
+  },
+  'carecom': {
+    name: 'Care.com',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/5I3e2N4NAjdUE4PJqfKY.dat',
+    link: 'https://www.care.com',
+    rate: '$20-$35/hr',
+    description: 'Babysitting, elder care, special needs support, flexible compassionate work.  ',
+    category: 'care',
+    intro: '**Care.com** connects people who need care—with people who care. Whether you’re offering babysitting, elder care, pet sitting, or help with special needs, this platform helps you find paying gigs in your area or remotely (think: tutoring or virtual companionship).  \n\nInstead of job boards filled with spam or one-off gigs, Care.com creates a central hub for ongoing, often meaningful work—especially for empathetic folks who want flexible hours and feel-good impact.\n\nIt’s like LinkedIn... but for people who’d rather read bedtime stories than attend Zoom meetings.',
+    whyAdhd: ['Flexible work—set your own schedule', 'Real human connection = dopamine + purpose', 'Every job is a little different, so it rarely feels repetitive', 'Short bursts of engagement (childcare, pet walks, tutoring)', 'Great for those who thrive with *in-person* or active tasks'],
+    standOut: ['Covers a wide range of gigs: childcare, elder care, tutoring, housekeeping, pet care', 'Lets *you* choose your rates, availability, and services', 'In-app messaging and scheduling = less chaos', 'Clients can find *you*—no constant gig chasing', 'Local focus, but some remote roles too (like virtual tutoring)', 'Free basic plan + optional paid upgrade for visibility and background checks'],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: 'If you\'re someone who thrives on human connection and variety, **Care.com** might be your ADHD sweet spot. It’s not instant cash, but it *is* a powerful way to build reliable income doing meaningful work. Think of it as a platform where kindness meets cash flow.',
+    idealFor: ['Empathetic ADHDers who love helping others', 'People who want local, flexible gigs without a desk', 'Anyone who prefers in-person tasks or physical movement', 'Freelancers who want to build relationships with repeat clients']
+  },
+  'rover': {
+    name: 'Rover',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/n8yzcHBxOVGYzZeYTAPc.png',
+    link: 'rover.com',
+    rate: '$20–$40/hr',
+    description: 'Dog walking, pet sitting, boarding, overnight stays, animal companionship.  ',
+    category: 'care',
+    intro: '**Rover.com** is a popular online marketplace connecting pet owners with trusted pet sitters and dog walkers. Think of it as the “Airbnb for pets”—you create a profile, set your own rates, and decide what services you want to offer (boarding, walking, daycare, house sitting, drop-ins).  \n\nIt’s one of the bigger platforms in the pet care gig economy, so if you love animals and want flexible income, Rover is a legit option.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Dog and cat lovers looking to earn extra income', 'Students, freelancers, or remote workers with flexible schedules', 'People with ADHD who thrive on variety and movement', 'Anyone wanting a low-stress, animal-centered gig']
+  },
+  'wag': {
+    name: 'Wag',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Cw1AUklnSjvwc5cFkDgL.png',
+    link: 'wagwalking.com',
+    rate: '$13–$25/hr',
+    description: 'Quick dog walks, pet boarding, drop-ins, flexible part-time income.  ',
+    category: 'care',
+    intro: '**Wagwalking.com (Wag!)** is a gig platform focused on on-demand dog walking, pet sitting, and boarding. It’s often called the “Uber for dog walking,” since owners can book pet care through the app and nearby walkers get notified instantly.  \n\nUnlike Rover, which leans more toward longer-term pet sitting and boarding, Wag! is **built for quick, flexible dog-walking jobs**—great for people who want fast bookings and shorter commitments.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['City dwellers who want flexible, on-demand walking gigs', 'People with ADHD who thrive on short bursts of activity', 'Students or part-timers looking for quick side income', 'Dog lovers who don’t want to commit to boarding or house sitting']
+  },
+  'taskrabbit': {
+    name: 'TaskRabbit',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Y0lwF8oCSOa0ygsFLxiQ.jpg',
+    link: 'taskrabbit.com',
+    rate: '$17.50–$50+/hr',
+    description: 'Cleaning, handyman tasks, moving help, furniture assembly, general errands.  ',
+    category: 'care',
+    intro: '**TaskRabbit.com** is an online gig platform where people hire “Taskers” for everyday jobs—everything from moving furniture to assembling IKEA shelves, cleaning, delivery, and even tech help. Think of it as a marketplace for **local freelance labor**, where you set your rates, choose the tasks you want, and work on your own schedule.  \n\nIt’s widely available in major cities and has become a go-to platform for flexible, practical work.',
+    whyAdhd: ['Wide variety of tasks — no two jobs are the same, keeps things fresh', 'Active work — many gigs involve movement (cleaning, moving, deliveries)', 'Flexible scheduling — choose only the jobs you want', 'Quick payoffs — many tasks are same-day opportunities for cash'],
+    standOut: [],
+    importantNotes: ['TaskRabbit charges a service fee (15% of your rate per task)', 'You must pay a one-time $25 registration fee to join (non-refundable)', 'Highly competitive in large cities—ratings and reviews matter a lot', 'No guaranteed work—you’re responsible for finding tasks', 'You’re treated as an independent contractor, not an employee'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**TaskRabbit** is a great platform if you’re handy, active, or enjoy variety in your work. The ability to set your own rates is a big plus, but competition and reviews can make it tough for beginners. The **15% fee + $25 sign-up cost** are downsides, but with consistent effort, TaskRabbit can turn into a **solid side hustle or even full-time income stream** in busy cities.',
+    idealFor: ['People in cities who want local, flexible gig work', 'ADHD workers who thrive on variety and physical activity', 'Anyone skilled in cleaning, moving, or furniture assembly', 'Those looking for a practical alternative to desk-based gig apps']
+  },
+  'papa': {
+    name: 'Papa',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/OdxfBWuzWg2E3ANzr6ua.jpg',
+    link: 'papa.com',
+    rate: '$13–$20/hr',
+    description: 'Senior companionship, errands, light household help, rides, friendly conversation.  ',
+    category: 'care',
+    intro: '**Papa** is a digital platform that connects older adults, families, and underserved populations with friendly, vetted companions—called "Papa Pals"—who help with everyday tasks and provide social support. Think of it like having a caring neighbor or family friend on demand!\n\nIt’s designed for **seniors, families, and members of health plans or employer benefit programs**, making it easier to **combat social isolation, support aging-in-place, and lighten the load of routine tasks**.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: 'If you’re **someone who thrives on human connection, loves flexibility, and values purpose over paycheck**, Papa.com might be your ADHD sweet spot. It’s not **medical caregiving**, but it *is* heartfelt, real-world help—with all the warm fuzzies.\n\nThink of it as delivering packages of joy and companionship—**You’re not changing lives with medical skills; you’re lifting spirits with presence.**',
+    idealFor: ['Compassionate students or flexible-workers looking to make a meaningful difference.', 'People who prefer autonomy and variety—never the same gig twice.', 'Human connectors—those who find fulfillment in chat, walks, or shared hobbies.', 'Families/employers offering care benefits—great value, engaging option.', 'Those not needing certified care but craving extra hands and warmth.']
+  },
+  'trustedhousesitters': {
+    name: 'Trusted Housesitters',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jIeyGBhuLLHKbK542yIO.png',
+    link: 'trustedhousesitters.com',
+    rate: '$149–$299/yr',
+    description: 'Pet and house sitting, worldwide travel exchange, annual membership required.  ',
+    category: 'care',
+    intro: '**TrustedHousesitters** is a global online platform that connects **pet owners** needing caregivers for their pets and homes with **pet-loving travelers** who’ll stay for free in exchange for pet and house sitting. Think of it like trading heartfelt pet companionship and home care for rent-free travel—a mutually beneficial exchange rooted in trust.\n\nIt’s designed for **pet owners who want peace of mind** while away and **travelers or digital nomads** seeking unique places to stay—and it makes it easier to **travel affordably or enjoy quality pet care without a traditional pet sitter or kennel**.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: 'If you\'re **a flexible traveler, animal lover, or a pet owner craving worry-free care**, **TrustedHousesitters** could be your ADHD-friendly win. It’s not just “free lodging”—it’s a heartfelt exchange of trust, pets, and adventure.\n\nThink of it like being a **temporary furry friend in gorgeous homes**—you’re not paying rent, but you\'re giving love, responsibility, and care in return.',
+    idealFor: ['Digital nomads and independent travelers who want affordable, meaningful accommodation.', 'Animal lovers who thrive on routine and companionship.', 'Pet owners who want trusted, review-backed care without kennel fees.', 'Travelers seeking unique stays instead of hotels or Airbnbs.']
+  },
+  'neighbor': {
+    name: 'Neighbor',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/N6RhLYI5sYTjDX1HUQYO.png',
+    link: 'neighbor.com',
+    rate: '$50–$600/month',
+    description: 'Rent storage spaces, garages, driveways, earn passive monthly income.  ',
+    category: 'care',
+    intro: '**Neighbor.com** is a peer-to-peer marketplace that helps people rent out unused storage and parking spaces—like garages, sheds, driveways, and RV spots—to others looking for storage. Think of it like **Airbnb for your extra space**. It\'s designed for **renters who want affordable, nearby storage** and **hosts who have unused real estate on their hands**, helping both sides save money or earn passive income.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: 'If you\'re someone who thrives on low-effort, high-impact side hustles—and you’ve got space to spare—**Neighbor.com** might just be your ADHD-friendly jackpot. It\'s not taxing like managing tenants or heavy duties, but it does let you earn reliably, simply, and locally.\n\nThink of it as renting out “airspace for your stuff,” keeping life clutter-free while your wallet gets a little thicker.',
+    idealFor: ['Minimalists with extra space (garage, driveway, shed) who want passive income.', 'People planning life transitions—moving, traveling, renovating—needing short-term storage.', 'Cost-conscious renters looking for cheaper, flexible storage near home.', 'Side hustlers seeking simple, scalable income without much overhead.']
+  },
+  'chewy': {
+    name: 'Chewy',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/QNRVyClen6pxcHI6ygv0.png',
+    link: 'https://careers.chewy.com/us/en/c/customer-service-jobs',
+    rate: '$16/hr–$19.50/hr',
+    description: 'Remote-friendly company offering flexible, ADHD-supportive jobs helping pets thrive.',
+    category: 'care',
+    intro: '**Chewy.com** isn’t just for pet parents — it’s also a **massive remote-work employer** that’s quietly built a reputation for being one of the most **ADHD-friendly companies** in the eCommerce world. From customer service to tech, logistics, design, and writing, **Chewy** offers remote and hybrid roles that let you work from home while still feeling connected to a mission that genuinely matters: helping people care for their pets.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: 'If you want a **stable, remote job** with a **mission that feels good**, **Chewy.com** might be your ADHD-safe haven. The company blends structure and empathy in a way that helps neurodivergent employees succeed — without sacrificing flexibility or purpose.  \n\nIt’s more than just work-from-home — it’s work-from-heart. 🐾',
+    idealFor: ['ADHD job seekers craving stability with flexibility.', 'Animal lovers who want their job to align with their values.', 'Introverts & homebodies who thrive in quiet, remote environments.', 'Anyone ready to earn from home while being part of something genuinely kind and mission-driven.']
+  },
+  'clearvoice': {
+    name: 'Clear Voice',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kRJCNp4S56RIYwZjvhWN.png',
+    link: 'https://clearvoice.com/signup',
+    rate: '$100–$400+ per article',
+    description: '25% platform fee, vetted writers',
+    category: 'writing',
+    intro: '**ClearVoice** is a content marketing platform that connects freelance writers, editors, and creators with brands that need content. Think of it like a matchmaking service between companies and content creators.  \nIt’s designed for professional writers and marketers who want steady, higher-quality gigs without the chaos of traditional freelancing marketplaces.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: ['Rates are generally higher than low-end platforms (often $0.20–$1 per word or set project rates).'],
+    taskTypes: ['Blog posts & articles – thought leadership, SEO content, lifestyle writing.', 'Copywriting – website copy, product descriptions, brand messaging.', 'Editing & strategy – refining content and planning campaigns.', 'Ghostwriting – business or executive content under client’s name.'],
+    finalTake: '',
+    idealFor: ['Experienced freelance writers with strong portfolios.', 'ADHD creatives who thrive with clear deadlines and structured briefs.', 'Freelancers tired of low-paying content mills.', 'Professionals seeking recurring brand clients rather than one-off gigs.']
+  },
+  'scripted': {
+    name: 'Scripted',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/oHFDNcszl0MjisQF0KgJ.png',
+    link: 'https://www.scripted.com/become-a-scripted-writer',
+    rate: '$15–$50+/hr',
+    description: 'Custom content solutions',
+    category: 'writing',
+    intro: '**Scripted** is a freelance writing platform that connects businesses with professional writers for blogs, web content, and marketing copy. Think of it like a private club for writers where clients post projects, and you can pick the ones that fit your skills.  \nIt’s designed for experienced content writers who want higher-paying, pre-vetted gigs without competing in a race-to-the-bottom bidding system.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Application process can be selective—strong portfolio required.', 'Work availability depends on niches (more demand in marketing/business topics).', 'Membership fee required (around $29/month), which may be a barrier.', 'Competition with other approved writers still exists.', 'Best suited for professionals, not beginners.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Professional writers with strong portfolios.', 'ADHD freelancers who thrive on clear, structured briefs.', 'Writers who dislike constant pitching or bidding.', 'People looking for ongoing, high-quality client work.']
+  },
+  'writeraccess': {
+    name: 'Writer Access',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jrkeq8izQRqzi3czUPvx.png',
+    link: 'https://www.writeraccess.com/talent-overview/',
+    rate: '$0.10–$1+ per word',
+    description: '20K+ writers, AI matching',
+    category: 'writing',
+    intro: '**WriterAccess** is a content marketplace that connects freelance writers, editors, and content strategists with businesses that need blogs, web copy, and marketing content. Think of it like a “content matchmaking hub” where clients request work and freelancers are matched by skill level.  \nIt’s designed for writers of all levels (beginner to pro) who want steady assignments without the stress of cold pitching clients.',
+    whyAdhd: ['Tiered writer levels (2–6 stars) = structured growth path.', 'Clear briefs and topic outlines reduce guesswork.', 'Wide variety of industries = novelty and variety for ADHD minds.', 'Dashboard organizes assignments and deadlines to reduce overwhelm.', 'Ability to set your availability = control over workload.'],
+    standOut: [],
+    importantNotes: ['Application approval can take time (they assess writing quality).', 'Pay rates depend heavily on your star rating.', 'Competition with other freelancers for open assignments.', 'Platform is U.S.-based, so some restrictions may apply for international writers.', 'Work volume can fluctuate depending on client demand.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Beginner to mid-level writers who want experience and steady gigs.', 'ADHD freelancers who need clear instructions and deadlines.', 'Writers who enjoy variety across industries.', 'Professionals looking to grow into higher-paying content work.']
+  },
+  'fiverr': {
+    name: 'Fiverr',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Tji9gPHOWc8JX0Fr7lI6.png',
+    link: 'https://fiverr.com/',
+    rate: '$5–$500+ per project',
+    description: '20% platform fee, project-based',
+    category: 'freelance',
+    intro: '**Fiverr** is a global freelancing marketplace where people sell digital services (called "gigs") starting at $5. Think of it like a digital job fair where you set up a booth and buyers come to hire you.  \nIt’s designed for freelancers, side hustlers, and creatives who want to make money online offering skills like writing, design, voice work, coding, and more.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Fiverr takes a 20% commission from each order.', 'The platform can feel competitive—standing out takes effort.', 'Buyers sometimes expect fast delivery at low prices.', 'Reviews are critical—one bad review can hurt sales.', 'Can be stressful if you overcommit or accept too many urgent gigs.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who thrive on novelty and fast turnarounds.', 'People wanting to test a skill for side income.', 'Freelancers who don’t want to chase clients—clients come to you.', 'Sellers who enjoy variety and juggling multiple small projects.']
+  },
+  'toptal': {
+    name: 'Toptal',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/z6xQQ7MZhH05Jephsdwo.png',
+    link: 'https://toptal.com/',
+    rate: '$60–$150+/hr',
+    description: 'Elite 3% acceptance, premium clients',
+    category: 'freelance',
+    intro: '**Toptal** is a high-end freelancing platform that connects top-tier talent with big companies for specialized projects. Think of it like the “Ivy League” of freelancing.  \nIt’s designed for experienced developers, designers, finance experts, and project managers who want to work with premium clients on long-term, high-paying contracts.',
+    whyAdhd: ['Structured projects with clear client expectations (less ambiguity).', 'Fewer but higher-quality clients (less juggling compared to Fiverr).', 'Longer-term contracts reduce the need to constantly chase new work.', 'Remote-first environment = flexibility in how and where you work.', 'Big, meaningful projects can keep ADHD hyperfocus engaged for weeks or months.'],
+    standOut: [],
+    importantNotes: ['The screening process is intense and not ADHD-friendly if you struggle with tests or long application steps.', 'Only suited for highly skilled professionals (coding, design, finance, etc.).', 'Competitive to get in—many talented people don’t make it past screening.', 'Less variety than gig-based platforms (work tends to be more structured and corporate).', 'If you thrive on quick novelty, the long contracts may feel monotonous.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Senior-level developers, designers, or finance experts.', 'ADHD professionals who do better with fewer, high-value clients.', 'Freelancers who want long-term stability but still enjoy remote work.', 'People tired of low-paying gigs and ready for premium clients.']
+  },
+  'freelancer': {
+    name: 'Freelancer',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zp6u2DdwP3cg0mFJxlSy.png',
+    link: 'https://freelancer.com/',
+    rate: '$10–$80+/hr',
+    description: 'Competitive bidding platform',
+    category: 'freelance',
+    intro: '**Freelancer** is a global freelancing platform where clients post jobs and freelancers bid on them. Think of it like an online job board mixed with an auction.  \nIt’s designed for people with digital skills (writing, design, coding, marketing, admin work, etc.) who want to find short-term or long-term projects from clients worldwide.',
+    whyAdhd: ['Huge variety of projects to keep novelty-seekers engaged.', 'Flexible—you choose when and how much to work.', 'Built-in client pool (no need to cold pitch).', 'Clear task-based jobs instead of vague long-term commitments.', 'Good for experimenting with different types of work.'],
+    standOut: [],
+    importantNotes: ['Platform takes a 10% fee (or $5 minimum) on projects.', 'Very competitive—lots of freelancers bid low to win jobs.', 'Can be overwhelming with so many listings (filtering helps).', 'Some clients post vague or low-paying jobs—sorting through takes patience.', 'Premium membership unlocks more bids, but costs extra.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Beginners testing freelancing without committing to one niche.', 'ADHD folks who love variety and short, focused tasks.', 'Freelancers comfortable competing on bids.', 'People who want global access to clients.']
+  },
+  'amazonhandmade': {
+    name: 'Amazon Handmade',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/vXq9tx9PrQnlM3UYpxcQ.png',
+    link: 'https://amzn.to/4iuPkoW',
+    rate: '',
+    description: 'Amazon\'s dedicated marketplace for artisans to sell their handmade products.',
+    category: 'handmade',
+    intro: '**Amazon Handmade** is Amazon’s marketplace for artisans who create handcrafted goods. Think of it like Etsy, but inside the Amazon ecosystem.  \nIt’s designed for makers, crafters, and small creative businesses who want to sell unique, handmade products while tapping into Amazon’s huge customer base.',
+    whyAdhd: ['Creative outlet – making things by hand can be stimulating and rewarding.', 'Built-in audience – no need to stress over building traffic from scratch.', 'Clear structure – Amazon handles the listing format, shipping labels, and checkout.', 'Hyperfocus-friendly – when you get in the zone making products, it pays off.', 'Less overwhelming than running a full independent store – Amazon provides the backbone.'],
+    standOut: [],
+    importantNotes: ['The application process can be strict and not all sellers are approved.', 'Amazon takes a 15% referral fee on each sale.', 'You need strong product photos and descriptions to stand out.', 'Competition is tough, especially with Etsy and other handmade sellers.', 'Managing inventory and shipping can become stressful if you scale quickly.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Artists and crafters who already sell locally and want to expand online.', 'People with ADHD who thrive on creative, hands-on work.', 'Sellers who want access to Amazon’s customer trust and traffic.', 'Makers who are okay with Amazon’s fee structure in exchange for exposure.']
+  },
+  'shopify': {
+    name: 'Shopify',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/btCVM7WHtPjyDkOzTYM9.png',
+    link: 'https://www.shopify.com/',
+    rate: '',
+    description: 'Create your own online store and sell handmade products directly to customers.',
+    category: 'handmade',
+    intro: '**Shopify** is an all-in-one platform to build and run your own online store. Think of it like renting a digital storefront where you control everything.  \nIt’s designed for entrepreneurs, crafters, and small businesses who want to sell products online without relying only on marketplaces like Amazon or Etsy.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Monthly subscription fee (starting around $39/month after trial).', 'You’re responsible for marketing and driving traffic—Shopify doesn’t bring customers.', 'Can feel overwhelming at first with all the options and apps.', 'Add-on costs for apps and themes can add up quickly.', 'Requires consistent effort to maintain and grow.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Creatives who want to design a unique online store.', 'Entrepreneurs who want to build a long-term brand.', 'ADHD folks who thrive on novelty and flexibility.', 'Sellers tired of high marketplace fees and wanting more control.']
+  },
+  'bigcartel': {
+    name: 'Big Cartel',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ewYZW2h7UsgFBwovET4X.png',
+    link: 'https://www.bigcartel.com/',
+    rate: '',
+    description: 'Ideal for small-scale creators to showcase and sell handmade goods.',
+    category: 'handmade',
+    intro: '**Big Cartel** is a simple e-commerce platform made for artists and small creators who want to sell their work online. Think of it like a tiny art gallery where you get your own wall to hang things up.  \nIt’s designed for makers, musicians, and indie brands who want an easy, low-cost way to sell without the complexity of bigger platforms like Shopify.',
+    whyAdhd: ['Minimal setup – fewer options = less decision fatigue.', 'Free plan available (great for testing ideas without pressure).', 'Clean, uncluttered dashboard makes it easy to focus.', 'Great for small catalogs (no need to manage hundreds of products).', 'Low-maintenance – no need for constant tinkering or expensive apps.'],
+    standOut: [],
+    importantNotes: ['The free plan only allows up to 5 products.', 'Limited features compared to Shopify (no app marketplace, fewer integrations).', 'You’ll still need to bring your own traffic (Big Cartel doesn’t market for you).', 'Not ideal if you want to scale into a big e-commerce business.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Artists selling a handful of pieces.', 'ADHD folks who want low-pressure, low-maintenance selling.', 'Musicians and bands needing a simple merch store.', 'Makers who value simplicity over endless customization.']
+  },
+  'artfire': {
+    name: 'ArtFire',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/afxoDW7YU71fUuIxGjL8.png',
+    link: 'https://www.artfire.com/',
+    rate: '',
+    description: 'Another platform for handmade goods, artisan jewelry, and craft supplies.',
+    category: 'handmade',
+    intro: '**ArtFire** is an online marketplace for handmade goods, vintage items, and craft supplies. Think of it like a smaller, indie version of Etsy.  \nIt’s designed for artisans, crafters, and collectors who want to sell unique products without competing in the massive chaos of Amazon or Etsy’s huge marketplace.',
+    whyAdhd: ['Smaller platform = less competition stress.', 'Simple seller dashboard compared to bigger e-commerce sites.', 'Community-driven, which can feel more supportive and less overwhelming.', 'Great for hyperfocus projects like creating handmade goods.', 'Easier to manage if you only have a modest product catalog.'],
+    standOut: [],
+    importantNotes: ['Monthly subscription fee (plans start around $4.95 to $20+ per month depending on shop size).', 'Marketplace traffic is smaller than Etsy or Amazon, so you’ll need to promote your shop too.', 'Competition is still there, but not as intense as Etsy.', 'Some users report the platform feels outdated compared to newer competitors.', 'If you scale up, you might outgrow ArtFire’s limited features.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Creators who don’t want to get lost in Etsy’s competition.', 'ADHD folks who need a simpler, less overwhelming marketplace.', 'Vintage collectors who want a place to showcase niche finds.', 'Crafters testing their products before moving to larger platforms.']
+  },
+  'folksy': {
+    name: 'Folksy',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kkiMUUFxv2vhogMosyDK.png',
+    link: 'https://folksy.com/',
+    rate: '',
+    description: 'Focused on handmade goods, mostly for UK-based sellers.',
+    category: 'handmade',
+    intro: '**Folksy** is the UK’s marketplace for handmade crafts and art. Think of it like the British cousin of Etsy, but smaller and more community-focused.  \nIt’s designed for UK-based makers, designers, and crafters who want to sell their creations in a space dedicated to handmade (no mass-produced resellers allowed).',
+    whyAdhd: ['Smaller marketplace = less competition and overwhelm.', 'Focused only on handmade items (no clutter from dropshippers or mass sellers).', 'Clear, simple listing process with fewer distractions.', 'Community feel—more supportive and less corporate.', 'Great for novelty-seeking ADHD minds who enjoy making unique, creative products.'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['UK-based artists and crafters.', 'ADHD folks who get overwhelmed by big marketplaces.', 'Makers who want to test selling handmade products online.', 'Creators who value community over scale.']
+  },
+  'etsy': {
+    name: 'Etsy',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/pvvTqqHXOWCv5aaHVeWe.jpg',
+    link: 'https://etsy.com/',
+    rate: '',
+    description: 'Etsy is a global marketplace for handmade, vintage, and creative goods.',
+    category: 'handmade',
+    intro: '**Etsy** is a global online marketplace for handmade items, vintage goods, and craft supplies. Think of it like a giant virtual craft fair where shoppers browse creative, unique products.  \nIt’s designed for artists, makers, and small business owners who want to sell their products to a worldwide audience without building a full website.',
+    whyAdhd: ['Creative freedom—you can sell art, crafts, jewelry, digital downloads, and more.', 'Clear structure—Etsy provides listing templates, checkout, and shipping tools.', 'Built-in audience—millions of buyers already shop on Etsy.', 'Great for hyperfocus projects (making and perfecting products).', 'Low barrier to entry—easy to set up a shop in a day.'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Artists and crafters who want to sell globally.', 'ADHD creatives who love making and experimenting.', 'Sellers who prefer a ready-made marketplace over building a website.', 'People testing a side hustle before growing into a full business.']
+  },
+  'printify': {
+    name: 'Printify',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/EqIVRaEWxVI0Zx1EETTB.png',
+    link: 'printify.com/',
+    rate: '',
+    description: 'Printify: Design, sell, and ship custom products—no inventory needed.',
+    category: 'handmade',
+    intro: '**Printify** is a print-on-demand (POD) platform that lets you design and sell custom products—like t-shirts, mugs, phone cases, home decor, and more—without holding any inventory or handling fulfillment. Think of it like creating your own online merchandise line, while Printify takes care of printing, packing, and shipping.',
+    whyAdhd: ['No upfront costs or inventory — you only pay when an order is placed, cutting financial risk and setup stress.', 'Fast, structured workflow — select a product, design it, publish, and profit—clear steps help reduce overwhelm.', 'Creative fun — use the user-friendly Product Creator, Mockup Generator, or AI Image Generator to unleash quick design dopamine.', 'Automated fulfillment — once your design is live, Printify and its global network handle the rest—ordering, printing, shipping—asynchronously.'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**Printify** is a stellar option for ADHD-friendly side hustlers seeking a low-risk, creative, and automated income stream.  \nIts structured workflow, big catalog, and marketplace integrations reduce overwhelm—letting you focus on design and marketing rather than logistics.  \n\nThis isn\'t passive yet effortless income—it still needs promotion and iteration—but in the right hands, it can scale from casual side hustle to serious income, as many real users have shown.',
+    idealFor: ['ADHD creators who want a clear, low-stress path to monetize creativity.', 'New entrepreneurs seeking no-inventory, low-risk business models.', 'Designers or Canva users exploring print-on-demand entrepreneurship.', 'Anyone interested in scalable, flexible side hustles with creative freedom.']
+  },
+  'pressplay': {
+    name: 'PressPlay',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/WUBBxNlrGzQLgbYSo2ns.png',
+    link: 'https://us.mypressplay.com',
+    rate: '🎁 $0.60–$5/hr',
+    description: 'Watch unreleased shows & share your opinion as a test audience.',
+    category: 'fun',
+    intro: '**PressPlay** is an exclusive online club where you get to watch new movies and TV shows—often *before* they’re officially released—and share your honest opinions with the creators. Your feedback helps shape the future of film and television!\n\nWhether you’re a casual viewer or a full-on movie buff, your voice matters here. Just watch, rate, and share your thoughts—and you’ll earn Amazon vouchers as a thank-you for your time.',
+    whyAdhd: ['Flexible participation — watch as much or as little as you want', 'No pressure — invitations are tailored to your interests', 'Quick, engaging surveys that reward you for honest feedback', 'Feel involved in something creative and new without long commitments'],
+    standOut: [],
+    importantNotes: ['Some screenings may require camera access to monitor facial expressions while you watch', 'Your data stays private — creators only see demographic trends, not your personal info', 'No sharing allowed — screenings are under strict anti-piracy policies', 'Rewards depend on building your profile and participating in surveys', 'You’ll need to confirm your email to start participating'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Movie and TV fans who want early access', 'People who enjoy giving feedback and shaping entertainment', 'Anyone looking for low-effort ways to earn rewards', 'Those who appreciate flexible, no-pressure online gigs']
+  },
+  'slicethepie': {
+    name: 'Slice The Pie',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/N5HyBECr8SGscfvrXhHs.jpg',
+    link: 'https://www.slicethepie.com/',
+    rate: '$1–$8/hr',
+    description: 'Paid reviews on music, videos, fashion, games; payout depends on review quality and volume.',
+    category: 'fun',
+    intro: '**Slicethepie** is one of the world’s largest **paid review platforms**, with millions of users sharing opinions on music, fashion, games, videos, and surveys. Since 2007, it’s been a go-to site for people who want to earn a little extra cash by writing short reviews.  \n\nIt’s simple: you listen, watch, or try something, **write a review**, and get paid. The platform has distributed over **$9M to reviewers worldwide** and continues to host thousands of active surveys and review opportunities daily.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Pay is low — most reviews earn only a few cents to maybe $0.20–$0.50 depending on length/quality'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**Slicethepie** is **legit** and has been paying users for over a decade. But let’s be clear: it’s **not a high-paying gig**. Most people use it for pocket money, not serious income. The key is writing thoughtful reviews consistently — lazy one-liners won’t cut it.  \n\nIf you love discovering new music, fashion, or games and don’t mind writing short reviews, Slicethepie can be a fun, low-effort side hustle.',
+    idealFor: ['Students or casual earners looking for extra cash', 'People who enjoy discovering new music, fashion, and media', 'Reviewers who don’t mind writing short feedback often', 'Anyone who prefers flexible, work-anytime gigs']
+  },
+  'methinks': {
+    name: 'Methinks',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/alNW7pxDjaH7vy1c9gwt.png',
+    link: 'https://www.methinks.io/thinker',
+    rate: '$1–$5/hr ',
+    description: 'Complete quick surveys and opinion tasks for small cash or gift cards—easy, low-effort side income.',
+    category: 'fun',
+    intro: '**methinks** is a mobile-first research platform where everyday people (called *Thinkers*) get paid to share their opinions, test new apps and websites, and participate in interviews or surveys. Businesses and researchers use methinks to gather real-world feedback, while users earn money for their time and insights.  \n\nUnlike many survey-only sites, methinks offers **variety in research gigs** — from quick surveys to multi-day studies and live interviews — making it more engaging and potentially higher-paying than basic survey platforms.',
+    whyAdhd: ['Varied tasks — not just surveys; you can test apps, join interviews, or do longer studies', 'Flexible participation — pick and choose gigs that fit your energy and focus', 'Short tasks available — quick surveys or app tests for when you just want bite-sized work', 'App-based — everything managed in one place, easy to dip in and out'],
+    standOut: [],
+    importantNotes: ['App required — all participation happens through the methinks mobile app', 'Not constant work — gigs depend on client demand and your profile fit', 'Pay varies widely — short surveys may pay little, but interviews and studies can be much higher', 'Selective opportunities — you may not qualify for every gig'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['People who enjoy sharing opinions in detail', 'Those who like testing new apps, websites, and products', 'Anyone looking for occasional high-paying side gigs', 'Users who don’t mind installing and working through a mobile app']
+  },
+  'influenster': {
+    name: 'Influenster',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4A7UA3KtSXUkc9ueckJH.png',
+    link: 'https://www.influenster.com/',
+    rate: '🎁 Free products',
+    description: 'Test and review products through VoxBoxes; earn freebies, not cash. ',
+    category: 'fun',
+    intro: '**Influenster** is a product testing and review platform that sends you **free products (VoxBoxes)** in exchange for honest reviews and social media sharing.  \nThink of it like being a micro-influencer for brands—your reward is free stuff, not cash.',
+    whyAdhd: ['No pressure — you’re not paid by the hour, just test and review when you can.', 'Novelty factor — surprise VoxBoxes give fun dopamine hits.', 'Simple structure — try product → review → share → done.', 'Gamified scoring — higher “Impact Scores” increase your chances of getting more products.', 'Creative outlet — reviews and social shares can be a fun way to express yourself.'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**Influenster** is a fun, ADHD-friendly perk platform if you enjoy **trying new products for free**.  \nIt’s not about making money, but it’s satisfying for people who like variety, surprises, and sharing opinions.  \nThink of it as **freebie hunting with a social twist**, not a side hustle.',
+    idealFor: ['ADHD users who love novelty and surprise rewards.', 'Beauty lovers, foodies, and product junkies.', 'People active on social media who don’t mind posting reviews.', 'Anyone who wants free stuff, not extra income.']
+  },
+  'bestmark': {
+    name: 'BestMark',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/M19p9QumhG9pef4jnC4G.jpg',
+    link: 'https://www.bestmark.com/become-a-mystery-shopper/',
+    rate: '$10–$25 per assignment',
+    description: 'One of the biggest platforms for mystery shoppers, offering a wide variety of assignments.',
+    category: 'mystery',
+    intro: '',
+    whyAdhd: ['Flexible scheduling – pick assignments that fit your timing', 'Short, task-based assignments – focus on small, defined goals', 'Novelty & movement – new locations, products, and scenarios', 'Clear, structured instructions – detailed guides for each assignment', 'Immediate feedback loop – report quickly after the visit, reinforcing memory'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['People needing flexible, non-traditional work', 'Detail-oriented individuals who can follow strict instructions', 'Folks comfortable with fronting money and waiting for reimbursement', 'Those who enjoy in-person observational work', 'Side-hustlers who want novelty and variety']
+  },
+  'isecretshop': {
+    name: 'iSecretShop',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/MUcOeiXW3P0e1CGmmUos.jpg',
+    link: 'https://www.isecretshop.com/register',
+    rate: '$5–$20 per assignment',
+    description: 'A flexible mystery shopping platform offering mobile-friendly assignments like restaurant visits, retail evaluations, and phone audits.',
+    category: 'mystery',
+    intro: '**iSecretShop** is a unified mystery shopping platform and job board that aggregates assignments from multiple providers. Think of it like a centralized hub or “gig aggregator” where mystery shoppers can discover different opportunities—rather than juggling separate sites.\n\nIt’s designed for people who want flexible micro-gigs and appreciate consolidated access to a wide variety of assignments. It helps streamline the process by delivering gigs through mobile and desktop platforms, complete with real-time notifications.',
+    whyAdhd: ['One-stop access – consolidates gigs from multiple providers, reducing scattered tabs and confusion', 'Multi-platform – use it via app or desktop, switching seamlessly between devices', 'Geo-tagged, mobile-ready tasks – tasks include photos and timestamps for immediate submission', 'Notification settings – alerts for nearby gigs help keep you engaged without hunting', 'Quick assignment flow – register and start taking jobs with minimal friction'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Those who want all-in-one access to multiple gig sources', 'People who prefer mobile-ready, location-based tasks', 'Individuals who value flexibility and variety in their side hustles', 'Detail-focused performers comfortable with provider contracts', 'People in areas with plenty of available gigs']
+  },
+  'marketforce': {
+    name: 'Market Force',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/SxHLTnmhZ2kYE3ShRn4Y.png',
+    link: 'https://shopper.marketforce.com/#/login/newShopper/Apply',
+    rate: '$5–$15 per assignment',
+    description: 'Earn by visiting locations and filling out surveys.',
+    category: 'mystery',
+    intro: 'It’s designed for people who want flexible, task-based side income by turning everyday outings into mini assignments. The main benefit? You might earn a bit of cash or score free food, all while helping companies improve.',
+    whyAdhd: ['Highly flexible – Choose when and where to shop, fitting into fluctuating energy or focus levels', 'Short, discrete tasks – Each assignment usually lasts minutes to an hour, matching the preference for quick, defined goals', 'Novelty & variety – Different locations and types of shops keep things fresh and engaging', 'Immediate feedback loop – You complete a task, submit, and eventually get rewarded—great for short attention spans', 'No long-term commitment – Stop or start whenever; you\'re an independent contractor, not an employee'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['People looking for casual extra cash', 'ADHDers who enjoy variety and short bursts of focus', 'Anyone who wants free meals in exchange for structured feedback', 'Side hustlers who like flexible, on-demand gigs']
+  },
+  'gigspot': {
+    name: 'Gigspot',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/PkdyJvLxQhLJzuLbbnAu.jpg',
+    link: 'https://www.gigspot.com/',
+    rate: '$5–$20 per assignment',
+    description: 'Offers a range of mystery shopping and evaluation gigs.',
+    category: 'mystery',
+    intro: '**GigSpot** is a gig-economy platform that connects you with multiple mystery shopping and market research companies, serving as a centralized job marketplace. Think of it as a hub where various companies post assignments—like mystery shops or audits—and you pick the ones you want to complete.\n\nIt’s designed for flexible gig-seekers who want more options without signing up separately with each provider.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['GigSpot is just a middleman—jobs are posted by third-party companies, and GigSpot does not guarantee results', 'Finding a job you can do may be tricky—many gigs require specific skills or are unreliable depending on your location', 'App usability varies—some users report technical glitches, difficulty navigating the app, or delays in browsing/applying for jobs', 'Mixed user experiences—some users report smooth and steady gig flow; others mention not getting paid or poor support'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**GigSpot** can be a solid gig-hunting tool if you enjoy diverse, ad-hoc tasks and appreciate variety. The app’s convenience and range of opportunities make it appealing for those with ADHD who benefit from novelty and flexibility.  \n\nBut if you depend on guaranteed work or smooth user experience, you may run into frustration—especially in areas with fewer job listings or if app stability is critical. Its value truly depends on your location, how much you\'re willing to experiment with different tasks, and a willingness to navigate occasional tech hurdles.',
+    idealFor: []
+  },
+  'prestoshopper': {
+    name: 'Presto Shopper',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/DvyAgPosZi8eWjHhb77J.jpg',
+    link: 'https://insta.prestomobilesurveys.com/site',
+    rate: '$5–$15 per assignment',
+    description: 'Find assignments focused on customer service assessments, restaurant reviews, and more.',
+    category: 'mystery',
+    intro: '**PrestoShopper (Presto Insta-Shops)** is a mobile-first mystery shopping platform created by the team behind SASSIE, one of the largest mystery shopping systems globally. Think of it as a fast, map-based secret shopping service: you claim quick-paying tasks near you, complete them on your phone, and get paid the same day.\n\nIt’s built for swift, on-the-go mystery shoppers—especially those who value speed and ease.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['App glitches reported – Slow loading, photo upload failures, and disappearing tasks', 'Support is limited – Appeals often denied and troubleshooting is IT-focused, not shopper-focused', 'Task timing is tight – Shops must be claimed and completed quickly or they auto-expire', 'Some tasks require fronting money – Risk of losing time/money if rejected'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**PrestoShopper** is a powerful tool for ADHDers who thrive on quick, rewarding tasks—especially those who prefer spontaneity over rigid scheduling. The instant rewards and smart mobile interface deliver strong motivation and satisfaction.  \n\nHowever, if you struggle with tech hiccups, tight deadlines, or need strong support, this app can feel frustrating or risky. Treat it as a side hustle snack, not a full meal.',
+    idealFor: []
+  },
+  'preply': {
+    name: 'Preply',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/v0v44KBbRCrOhwJeveYj.png',
+    link: 'https://preply.com/en/teach',
+    rate: '$10–$40/hr',
+    description: '120 subjects, global reach',
+    category: 'teaching',
+    intro: '**Preply** is an online tutoring marketplace where you can teach languages, school subjects, or skills to students worldwide. Think of it like Airbnb, but instead of renting a room, you’re renting out your teaching skills by the hour.  \nIt’s designed for teachers, language tutors, and skilled professionals who want flexible, remote income by sharing knowledge.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Preply takes a commission starting at 33%, decreasing with more lessons taught.', 'Competition is high—strong profile and reviews help you stand out.', 'Teaching requires patience and consistency (not great if you dislike routine).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD extroverts who enjoy one-on-one conversations.', 'Teachers or bilinguals who want side income.', 'Freelancers who want flexible scheduling.', 'Creatives who love sharing knowledge and skills.']
+  },
+  'italki': {
+    name: 'iTalki',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/rZ25jNe1Ex4MYF20nh15.png',
+    link: 'https://teach.italki.com/application',
+    rate: '$5–$80/hr',
+    description: '15% commission, language focus',
+    category: 'teaching',
+    intro: 'It’s designed for language enthusiasts, teachers, and bilinguals who want to earn money by tutoring students worldwide.',
+    whyAdhd: ['Short, focused sessions (usually 30–60 minutes).', 'Flexible scheduling—you control your availability.', 'Built-in student base (no need to hunt for clients).', 'Variety of students from different cultures = novelty and engagement.', 'You get to teach a subject you love, which can boost hyperfocus motivation.'],
+    standOut: [],
+    importantNotes: ['iTalki takes a 15% commission on each lesson (lower than Preply).', 'Competition can be high, especially in popular languages like English or Spanish.', 'Building a steady student base takes time (reviews are key).', 'Lessons require patience, structure, and prep time outside of teaching hours.', 'Income stability depends on consistent bookings.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Bilingual ADHD freelancers who want to monetize their language skills.', 'Extroverts who thrive in one-on-one conversations.', 'Teachers who want flexible side income.', 'Language enthusiasts who love sharing culture and communication.']
+  },
+  'cambly': {
+    name: 'Cambly',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/qghhXnqBdMEruH5bEWuL.png',
+    link: 'https://www.cambly.com/en/tutors?lang=en',
+    rate: '$10–$12/hr',
+    description: 'Native speakers, casual conversation',
+    category: 'teaching',
+    intro: '**Cambly** is an online tutoring platform where you teach English through casual video conversations. Think of it like being a friendly English-speaking buddy for learners around the world.  \nIt’s designed for native or fluent English speakers who want a super flexible, low-barrier way to earn money chatting with students.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Pay rate is low compared to other platforms ($0.17 per minute ≈ $10.20/hour on Cambly, higher for Cambly Kids).', 'Work is very casual—better for side income, not a full-time job.', 'Students’ English levels vary widely (patience required).', 'You need a reliable internet connection and a quiet environment.', 'No guaranteed hours—income depends on student demand when you’re online.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'wyzant': {
+    name: 'Wyzant',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4CdttfiOOk3ESSjWBGO7.jpg',
+    link: 'https://www.wyzant.com/tutorsignupstart',
+    rate: '$30–$100+/hr',
+    description: 'Academic subjects, premium rates',
+    category: 'teaching',
+    intro: '**Wyzant** is an online tutoring marketplace where students book one-on-one lessons with tutors for academic subjects, test prep, and skills. Think of it like a tutoring “dating app” where students pick you based on your profile.  \nIt’s designed for tutors in the U.S. who want to teach online or in-person across a wide range of subjects.',
+    whyAdhd: ['Flexible schedule—you set your own hours.', 'Variety of subjects to teach (great for novelty seekers).', 'Built-in student base (no cold outreach required).', 'Transparent pay structure—you set your hourly rate.', 'Structured lessons = clear goals, which can help ADHD focus.'],
+    standOut: [],
+    importantNotes: ['Commission is high—Wyzant takes 25% of your hourly rate.', 'Only available for U.S.-based tutors.', 'Building visibility takes time (reviews and quick responses matter).', 'Competition can be tough in popular subjects (math, test prep, English).', 'More structured than Cambly—requires actual subject expertise.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'instagram': {
+    name: 'Instagram',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/SHQ0QHgRlMhnXMFMaEhC.jpg',
+    link: 'https://www.instagram.com/',
+    rate: '',
+    description: 'One of the top platforms for influencers to monetize through sponsored posts, affiliate links, and ads.',
+    category: 'social',
+    intro: '**Instagram** is a social media platform where you share photos, videos, and stories to build an audience and potentially monetize through business or creator tools. Think of it like a digital storefront plus a personal TV channel rolled into one.  \nIt’s designed for creators, influencers, small businesses, and entrepreneurs who want visibility, engagement, and income opportunities through content.',
+    whyAdhd: ['Highly visual—dopamine boost from images, reels, and creative expression.', 'Variety of formats (posts, reels, stories, lives) keeps things fresh.', 'Built-in audience—millions of users browsing daily.', 'Flexible schedule—you post when you want.', 'Instant feedback (likes, comments, DMs) can fuel motivation.'],
+    standOut: [],
+    importantNotes: ['Growth can be slow without consistent posting and strategy.', 'Algorithm changes can impact reach (frustrating for ADHDers who thrive on stability).', 'Requires effort in marketing, captions, and engagement—not just posting.', 'Can be time-consuming and distracting (easy to get lost scrolling).', 'Monetization usually requires at least 1,000–10,000+ followers.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who thrive on novelty and visual expression.', 'Small business owners selling handmade or digital products.', 'Freelancers marketing services to a global audience.', 'Influencers/content creators aiming for brand deals.']
+  },
+  'youtube': {
+    name: 'YouTube',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/hIE0fwA9FyxSmGRkM0DU.png',
+    link: 'https://www.youtube.com/',
+    rate: '',
+    description: 'The go-to platform for video content, where you can earn through ads, sponsorships, and super chats.',
+    category: 'social',
+    intro: '**YouTube** is the world’s largest video-sharing platform where creators upload content, build an audience, and monetize through ads, sponsorships, and products. Think of it like having your own TV channel with global reach.  \nIt’s designed for anyone who wants to create videos—educational, entertaining, or inspirational—and earn money through views and community engagement.',
+    whyAdhd: ['Endless creative freedom—tutorials, vlogs, gaming, reviews, art, etc.', 'Multiple formats (shorts, livestreams, long-form videos) keep novelty high.', 'Dopamine boost from likes, comments, and subscriber growth.', 'Hyperfocus-friendly—editing, scripting, or creating can be immersive.', 'Potential for passive income once videos are uploaded and monetized.'],
+    standOut: [],
+    importantNotes: ['Monetization requires 1,000 subscribers + 4,000 watch hours (or 10M Shorts views).', 'Growth can be slow and requires consistency (hard for ADHD at times).', 'Editing and production can be time-consuming.', 'Algorithm-driven—views can spike or dip unpredictably.', 'Can feel overwhelming if you’re a perfectionist about content.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who love experimenting with different content styles.', 'Storytellers who want to build a community.', 'Freelancers using YouTube to market services.', 'Aspiring influencers or educators aiming for long-term income.']
+  },
+  'tiktok': {
+    name: 'TikTok',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/aUgg51uy2GH9tSe5bMN9.png',
+    link: 'https://www.tiktok.com/',
+    rate: '',
+    description: 'Short video platform with brand partnerships, TikTok Creator Fund, and affiliate marketing opportunities.',
+    category: 'social',
+    intro: '**TikTok** is a short-form video platform where creators share clips (15 seconds to 10 minutes) with a massive global audience. Think of it like YouTube’s hyperactive little sibling that thrives on quick hits of content.  \nIt’s designed for creators, influencers, and businesses who want rapid exposure, community engagement, and potential monetization through viral content.',
+    whyAdhd: ['Short-form content = easier to create and consume.', 'Fast feedback loop (likes, comments, shares) gives dopamine boosts.', 'Endless novelty with trends, sounds, and challenges.', 'Less perfection required—raw, authentic videos often perform better.', 'Great for impulsive creativity and quick bursts of energy.'],
+    standOut: [],
+    importantNotes: ['Monetization requires 10,000 followers + 100,000 video views in 30 days (for Creator Fund).', 'The algorithm is powerful but unpredictable—views can swing wildly.', 'Content lifespan is short; constant posting is needed to stay visible.', 'Can be highly addictive/disruptive (easy to get stuck scrolling).', 'Monetization via Creator Fund is low ($0.02–$0.04 per 1,000 views).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who thrive on short, fast-paced projects.', 'Beginners testing content creation with low pressure.', 'Small business owners wanting viral product exposure.', 'Influencers who prefer authentic, quick interactions over polished production.']
+  },
+  'facebook': {
+    name: 'Facebook',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/joOXU3pGdlKULwwTQ7K7.png',
+    link: 'https://www.facebook.com/',
+    rate: '',
+    description: 'Monetize via sponsored posts, brand partnerships, and Facebook’s Ad revenue program.',
+    category: 'social',
+    intro: '**Facebook** is a social media platform where you can connect with friends, join groups, and build business pages to sell products or services. Think of it like a giant online town square with shops, events, and conversations all in one place.  \nIt’s designed for individuals, creators, and small businesses who want to reach local and global audiences through posts, groups, ads, and the Facebook Marketplace.',
+    whyAdhd: ['Multiple ways to engage: groups, Marketplace, Reels, Lives.', 'Built-in community features make it social and interactive.', 'Instant feedback through likes, comments, and shares.', 'Marketplace allows quick, casual selling (low setup effort).', 'Flexible—you can use it casually or as a full business tool.'],
+    standOut: [],
+    importantNotes: ['Organic reach is limited—algorithms often favor paid ads.', 'Content visibility can fluctuate unpredictably.', 'Marketplace competition is high (lots of resellers and scammers).', 'Managing pages and groups can be time-consuming.', 'Not as trendy with younger audiences (more millennial/Gen X heavy).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD sellers who want quick wins via Marketplace.', 'Small business owners targeting local or niche audiences.', 'Creators who want to monetize content with ads and subscriptions.', 'Community builders who thrive in groups and interactive spaces.']
+  },
+  'twitch': {
+    name: 'Twitch',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/aIgY0lJtG2Y2UqbbaZ1h.png',
+    link: 'https://www.twitch.tv/',
+    rate: '',
+    description: 'A platform for gamers and live streamers to earn through subscriptions, donations, and sponsorships.',
+    category: 'social',
+    intro: '**Twitch** is a live-streaming platform where creators broadcast in real-time while viewers watch, chat, and support them. Think of it like having your own live talk show or gaming channel with an interactive audience.  \nIt’s designed for gamers, musicians, artists, educators, and entertainers who want to build communities and earn through streaming.',
+    whyAdhd: ['Real-time interaction keeps things engaging and fun.', 'Instant feedback via chat = dopamine boosts.', 'Flexible—you choose when and how long to stream.', 'Variety of content (gaming, music, art, just chatting).', 'Community-driven—viewers can become regulars, reducing the need to “chase” work.'],
+    standOut: [],
+    importantNotes: ['Monetization requires 50 followers + 3 average viewers (Affiliate).', 'Growth can be slow without consistency.', 'Streaming is time-intensive (3–6+ hours per session is common).', 'Burnout risk if you push too hard for daily streams.', 'Requires stable internet and some setup (camera, mic, streaming software).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD extroverts who love chatting and performing.', 'Gamers who want to stream and build community.', 'Creators who enjoy real-time audience feedback.', 'Side hustlers who want to experiment with live content.']
+  },
+  'x': {
+    name: 'X',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bvwxaR2mEAAX605zQhsx.png',
+    link: 'https://www.x.com/',
+    rate: '',
+    description: 'Earn through sponsored tweets, affiliate marketing, and promoted posts.',
+    category: 'social',
+    intro: '**X** (formerly Twitter) is a microblogging and social media platform where users share short posts, videos, and links in real time. Think of it like a massive global chatroom with trending conversations happening every second.  \nIt’s designed for individuals, creators, and businesses who want fast-paced engagement, community building, and brand visibility.',
+    whyAdhd: ['Short-form content (280 characters) = quick, low-effort dopamine hits.', 'Constant novelty—news, memes, trends change by the minute.', 'Instant feedback (likes, reposts, comments) keeps engagement high.', 'Great for impulsive creativity and fast ideas.', 'Networking-friendly—easy to connect directly with influencers, brands, and communities.'],
+    standOut: [],
+    importantNotes: ['Visibility depends heavily on the algorithm (favoring paid subscribers).', 'Can be distracting/overwhelming with constant content streams.', 'Monetization requires X Premium subscription and eligibility (500+ followers, 5M+ impressions in 3 months for ad revenue sharing).', 'Platform has high competition and trolls/toxic behavior.', 'Income is inconsistent unless paired with outside business or services.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who enjoy quick expression and constant novelty.', 'Writers, comedians, or commentators who like snappy ideas.', 'Entrepreneurs using X to promote businesses.', 'Networkers who thrive in fast-paced online communities.']
+  },
+  'patreon': {
+    name: 'Patreon',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ytr18NnJQrCOhaCW2MYY.png',
+    link: 'https://www.patreon.com/',
+    rate: '',
+    description: 'Offer exclusive content to paying subscribers and build a community for your brand.',
+    category: 'social',
+    intro: '**Patreon** is a membership platform where fans pay creators monthly for exclusive content, perks, or community access. Think of it like a digital fan club that pays your bills.  \nIt’s designed for artists, writers, podcasters, YouTubers, and all kinds of creatives who want recurring income from their most loyal supporters.',
+    whyAdhd: ['Predictable, recurring income = less financial uncertainty.', 'You set the structure—tiers, perks, and posting schedule.', 'Creative freedom—you choose what content to share with patrons.', 'Smaller, supportive audience = less pressure than public platforms.', 'Great accountability—patrons motivate you to keep producing.'],
+    standOut: [],
+    importantNotes: ['Requires an existing audience—hard to grow only on Patreon.', 'Patrons expect consistent rewards (can be stressful with ADHD burnout).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['YouTubers, podcasters, and streamers with loyal audiences.', 'ADHD creatives who thrive on community and accountability.', 'Artists and writers who produce consistent creative work.', 'Side hustlers who want recurring monthly income.']
+  },
+  'snapchat': {
+    name: 'Snapchat',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/vbW8ThYIphaDae1RKLml.png',
+    link: 'https://www.snapchat.com/',
+    rate: '',
+    description: 'Earn via sponsored posts, affiliate links, and branded content partnerships.',
+    category: 'social',
+    intro: '**Snapchat** is a social media app where users share photos and videos (Snaps) that disappear after viewing. Think of it like a digital walkie-talkie mixed with a visual diary.  \nIt’s designed for individuals, influencers, and businesses who want to connect with audiences in a raw, authentic, and fast-paced way.',
+    whyAdhd: ['Quick, low-effort content (no need for polished videos).', 'Ephemeral posts = less pressure to be perfect.', 'Variety of formats (Snaps, Stories, Spotlight, AR filters).', 'Fun and playful features keep novelty high.', 'Fast feedback loop (views, screenshots, chats).'],
+    standOut: [],
+    importantNotes: ['Content is short-lived—requires constant posting to stay relevant.', 'Audience is mostly Gen Z and young millennials.', 'Monetization is limited compared to YouTube or TikTok.', 'Harder to build long-term visibility since posts disappear.', 'Requires creativity with filters, lenses, and trends to stand out.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD extroverts who enjoy quick, casual sharing.', 'Young creators (Gen Z, millennials) targeting similar audiences.', 'Creatives who thrive on trends, memes, and filters.', 'Side hustlers testing content before scaling on TikTok or YouTube.']
+  },
+  'kofi': {
+    name: 'Ko-fi',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/rV3EmPqdyk7oLMwji0FC.png',
+    link: 'https://ko-fi.com/',
+    rate: '',
+    description: 'A platform where followers can support creators directly by buying \'coffees\' or donating.',
+    category: 'social',
+    intro: '**Ko-fi** is a creator support platform where fans can donate money, buy digital products, or subscribe to monthly memberships. Think of it like a digital tip jar with a mini shop attached.  \nIt’s designed for artists, writers, streamers, and freelancers who want to earn directly from their audience without heavy fees or strict rules.',
+    whyAdhd: ['Super simple setup—start accepting tips in minutes.', 'No pressure for perfection; casual support works fine.', 'Flexible: one-time tips, product sales, or monthly memberships.', 'Great for passive income through digital downloads.', 'No algorithm stress—you share your Ko-fi link wherever you want.'],
+    standOut: [],
+    importantNotes: ['Works best if you already have an audience—Ko-fi doesn’t bring traffic.', 'Requires self-promotion (sharing links on socials, streams, etc.).', 'Membership perks require consistency (can be hard during ADHD burnout).', 'Not ideal as a full-time income unless paired with other platforms.', 'Digital product sales can take time to set up.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who want a simple tip jar without complex rules.', 'Artists and writers selling digital downloads.', 'Streamers looking for fan support beyond ads/donations.', 'Side hustlers who want recurring income without big platform fees.']
+  },
+  'linkedin': {
+    name: 'LinkedIn',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/DiQhmMBQMIupg107v1KD.png',
+    link: 'https://www.linkedin.com/',
+    rate: '',
+    description: 'Monetize your expertise through partnerships, speaking gigs, and courses.',
+    category: 'social',
+    intro: '**LinkedIn** is a professional networking platform where you can showcase your skills, connect with industry peers, and find freelance gigs or jobs. Think of it like Facebook, but for your career.  \nIt’s designed for professionals, freelancers, and businesses who want to network, market their services, and land clients or employers.',
+    whyAdhd: ['Structured environment—profiles feel like a digital resume.', 'Clear opportunities—jobs, contracts, and networking in one place.', 'Easy dopamine hits from profile views, messages, and engagement.', 'Built-in credibility (clients expect professionalism here).', 'Great for ADHD hyperfocus on personal branding and networking.'],
+    standOut: [],
+    importantNotes: ['Content is more formal—less casual than Instagram/TikTok.', 'Requires consistency to grow visibility (posting + networking).', 'Competitive—many freelancers/consultants market the same skills.', 'Can feel overwhelming if you’re not comfortable with self-promotion.', 'Best results come when paired with content creation (not just a static profile).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD freelancers who want high-paying, professional clients.', 'Consultants, writers, designers, and coaches.', 'Professionals who struggle with cold pitching but thrive on inbound leads.', 'People who like structured platforms and long-term career growth.']
+  },
+  'rev': {
+    name: 'Rev',
+    logo: 'https://logosandtypes.com/wp-content/uploads/2022/04/Rev.png',
+    link: 'https://www.rev.com/freelancers',
+    rate: '',
+    description: 'Offers transcription, captions, and subtitles.',
+    category: 'transcription',
+    intro: '',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'transcribeme': {
+    name: 'TranscribeMe',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/6CTYiprr2sytaztxIqjN.jpg',
+    link: 'https://www.transcribeme.com/legal-transcriptionists-jobs/',
+    rate: '',
+    description: 'Short audio clips and flexible transcription tasks.',
+    category: 'transcription',
+    intro: '',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'gotranscript': {
+    name: 'GoTranscript',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/2dkvf9pM4iw2a2GqOY2A.png',
+    link: 'https://gotranscript.com/transcription-jobs#apply-now',
+    rate: '',
+    description: 'Transcribe audio & video from anywhere in the world.',
+    category: 'transcription',
+    intro: '',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'scribie': {
+    name: 'Scribie',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/LPDr1SXNANI6HXdPTP3K.jpg',
+    link: 'https://scribie.com/transcription/freelance',
+    rate: '',
+    description: 'Transcription jobs for beginners and experienced transcribers.',
+    category: 'transcription',
+    intro: '',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'tigerfish': {
+    name: 'Tigerfish',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/0a6l1YHXaIwBGINRrlEb.jpg',
+    link: 'https://tigerfish.com/transcription-jobs/',
+    rate: '',
+    description: 'Specializes in transcription for a variety of industries.',
+    category: 'transcription',
+    intro: '',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'castingwords': {
+    name: 'CastingWords',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Vw2FEfsJFflaRP1c5VAk.png',
+    link: 'https://workshop.castingwords.com/',
+    rate: '',
+    description: 'Offers transcription tasks with project choices.',
+    category: 'transcription',
+    intro: '',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'speechpad': {
+    name: 'SpeechPad',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/SzYR5rgBweNs9sJ4811F.jpg',
+    link: 'https://www.speechpad.com/worker',
+    rate: '',
+    description: 'Provides transcription for general, legal, and medical content.',
+    category: 'transcription',
+    intro: '',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'quicktate': {
+    name: 'Quicktate',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/uadmcUQtwAJA4ZC3LRHv.png',
+    link: 'https://typists.quicktate.com/transcribers/signup',
+    rate: '',
+    description: 'Focuses on voicemail, medical, and legal recordings.',
+    category: 'transcription',
+    intro: '',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'belaysolutions': {
+    name: 'Belay Solutions',
+    logo: 'https://media.licdn.com/dms/image/v2/D4E10AQHq0VJgaQKacA/image-shrink_800/image-shrink_800/0/1729178105794?e=2147483647&v=beta&t=9ly-pcP9eBsjgqN-2HEIdRa6hp99y98oJxR1z_ZfGnc',
+    link: 'https://belaysolutions.com/work-with-us/?=undefined',
+    rate: '$15–$25/hr',
+    description: 'US-based VAs, vetted professionals',
+    category: 'va',
+    intro: '**BELAY** is a fully remote staffing company that connects skilled professionals—like Virtual Assistants, Bookkeepers, and Marketing Assistants—with clients who need reliable, flexible support. With over 10 years as a 100% remote organization, BELAY emphasizes work-life balance and meaningful careers from home.',
+    whyAdhd: ['Fully remote work means you control your environment and schedule', 'Roles are project- and client-focused, reducing task-switching chaos', 'Strong community and support network help with onboarding and troubleshooting', 'Clear hiring and onboarding process keeps things structured', 'Opportunities to work in roles that match your talents and preferred pace'],
+    standOut: ['Recognized by Inc., Entrepreneur, FlexJobs, and more as a top remote employer', 'Specialized roles with meaningful work — not just data entry or basic gigs', 'Focus on long-term client matches for stability and rapport', 'Competitive pay and benefits aligned with professional staffing', 'Transparent hiring—no scams or fake job postings, verified through official channels'],
+    importantNotes: ['Hiring is competitive and requires application + assessment', 'Not a quick gig — expect some onboarding and matching time', 'You won’t find hourly or task-based pay like typical freelancing gigs', 'Roles require a professional skill set and experience in your field', 'Limited to certain roles (Virtual Assistant, Bookkeeper, Marketing Assistant)'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Want a real remote job, not just freelance gigs', 'Thrive with clear expectations and ongoing client relationships', 'Need a supportive employer with a remote work culture', 'Have professional skills in virtual assistance, bookkeeping, or marketing', 'Are ready to commit to a long-term role with steady income and benefits']
+  },
+  'timeetc': {
+    name: 'Time etc',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/l5f859tQVXgDlX2aIqTN.png',
+    link: 'https://www.timeetc.com/work-for-us',
+    rate: '$15–$30/hr',
+    description: 'Established client relationships',
+    category: 'va',
+    intro: '**Time etc** is a virtual assistant (VA) platform where freelancers help busy entrepreneurs and businesses with admin, writing, and organizational tasks. Think of it like being someone’s right-hand helper, but all online.  \nIt’s designed for people who are detail-oriented, good at multitasking, and want flexible part-time work from home.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Only available to U.S. and U.K. residents.', 'Requires prior professional experience (not beginner-friendly).', 'Starting pay is modest (around $13–$17 per hour).', 'Limited to part-time hours (great as a side hustle, not full-time).', 'Work can sometimes be repetitive (email sorting, scheduling, etc.).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['U.S. or U.K. residents with admin/writing experience.', 'ADHD folks who need structure but not overwhelming workloads.', 'Parents, caregivers, or part-timers wanting flexible side income.', 'Organized multitaskers who like helping others stay on track.']
+  },
+  'fancyhands': {
+    name: 'Fancy Hands',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/asHamvyp91UGgroT69Si.jpg',
+    link: 'https://www.fancyhands.com/jobs',
+    rate: '$10–$15/hr',
+    description: 'Task-based assignments',
+    category: 'va',
+    intro: '**Fancy Hands** is a virtual assistant (VA) platform where freelancers complete small, on-demand tasks for clients. Think of it like Uber for virtual errands—you pick tasks when you’re available, finish them, and get paid.  \nIt’s designed for U.S.-based freelancers who want flexible, remote side income without committing to long projects.',
+    whyAdhd: ['Tasks are short and varied (research, scheduling, phone calls, emails).', 'Work is available on-demand—you grab tasks when you want.', 'No long-term commitments or huge projects.', 'Dopamine boost from finishing quick wins.', 'Flexible enough to fit into irregular ADHD work patterns.'],
+    standOut: [],
+    importantNotes: ['Only available to U.S. residents.', 'Pay is low (about $3–$7 per task).', 'Tasks can be inconsistent—sometimes lots available, sometimes few.', 'First-come system can feel competitive and stressful.', 'Not reliable for full-time income—better as a side hustle.'],
+    payoutInfo: [],
+    taskTypes: ['Scheduling – booking appointments, managing calendars.', 'Research – finding information, making comparisons.', 'Phone calls – calling businesses, setting up reservations.', 'Miscellaneous errands – online ordering, reminders, emails.'],
+    finalTake: '',
+    idealFor: ['U.S.-based freelancers looking for casual extra income.', 'ADHD folks who thrive on variety and quick wins.', 'People with unpredictable schedules who need flexibility.', 'Side hustlers who don’t want to commit to big projects.']
+  },
+  'voices': {
+    name: 'Voices',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/wcEU9y1lRWTp9LrNAyMq.png',
+    link: 'https://www.voices.com/talent',
+    rate: '$200–$5,000+ per project',
+    description: 'Professional voice work',
+    category: 'voice',
+    intro: 'It’s designed for aspiring and professional voice actors who want access to global clients without cold pitching.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD performers who enjoy novelty and creative challenges.', 'Freelancers with a passion for acting, narration, or audio work.', 'Beginners looking to test voice acting (but prepared to invest in gear).', 'Professionals wanting access to higher-paying voiceover gigs.']
+  },
+  'voice123': {
+    name: 'Voice123',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jpwPeaMTIVCxow6FaQJY.png',
+    link: 'https://voice123.com/#how-to-search',
+    rate: '$100–$2,000+ per project',
+    description: 'Global voice marketplace',
+    category: 'voice',
+    intro: '**Voice123** is a freelance voiceover marketplace where clients post projects and voice actors audition for them. Think of it like a casting call board for voice talent.  \nIt’s designed for beginner to professional voice actors who want direct access to clients without an agent.',
+    whyAdhd: ['Lots of variety—commercials, audiobooks, video games, narration.', 'Quick, focused auditions (short scripts to record and submit).', 'Clear briefs reduce ambiguity.', 'Flexibility—you audition when you want, no fixed schedule.', 'Great for ADHD performers who thrive on novelty and storytelling.'],
+    standOut: [],
+    importantNotes: ['Free account = very limited auditions; premium plans ($395–$4,950/year) unlock more.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
+  },
+  'acx': {
+    name: 'ACX',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/3cyNkaHvJa798oxeZ7n0.jpg',
+    link: 'https://www.acx.com/mp/how-it-works/narrators-and-studios',
+    rate: '$200–$800+ per hour',
+    description: 'Audiobook narration',
+    category: 'voice',
+    intro: '**ACX** (Audiobook Creation Exchange) is Amazon’s marketplace for authors, publishers, and narrators to create and distribute audiobooks on **Audible, Amazon, and iTunes**. Think of it like Fiverr meets Audible—writers need narrators, and narrators audition for their projects.  \nIt’s designed for voice actors, narrators, and producers who want to earn money by creating audiobooks.',
+    whyAdhd: ['Long projects = deep focus hyperfixation (great if you love storytelling).', 'Clear audition scripts give you structure.', 'Big dopamine payoff when you complete an entire audiobook.', 'Passive income option if you choose royalty share deals.', 'Built-in marketplace—no need to hunt for clients outside the platform.'],
+    standOut: [],
+    importantNotes: ['Only available in select countries (not worldwide).', 'Audiobook narration is time-intensive (10+ hours of finished audio can take 40+ hours to produce).', 'Requires a quiet home studio and strong editing skills.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Voice actors or narrators with stamina for long projects.', 'ADHD creatives who hyperfocus on storytelling.', 'Freelancers wanting royalty-based passive income.', 'Professionals with home studios who enjoy polishing audio.']
+  },
+};
+
+    // Get gig ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const gigId = urlParams.get('gig');
+    
+    // Favorites
+    let favorites = JSON.parse(localStorage.getItem('925adhd_favorites') || '[]');
+    
+    function renderGig(gig) {
+      const isFav = favorites.includes(gigId);
+      document.getElementById('favBtn').textContent = isFav ? '❤️' : '🤍';
+      
+      let html = `
+        <div class="hero">
+          <img src="${gig.logo}" class="hero-logo" alt="${gig.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%232a2a2a%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2240%22>💼</text></svg>'">
+          <div class="hero-info">
+            <h1>${gig.name}</h1>
+            <div class="hero-rate">${gig.rate}</div>
+            <div class="hero-desc">${gig.description}</div>
+          </div>
+        </div>
+      `;
+      
+      // Intro
+      if (gig.intro) {
+        // Clean up markdown bold
+        let intro = gig.intro.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        intro = intro.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
+        html += `<div class="intro-section"><p>${intro}</p></div>`;
+      }
+      
+      // Why ADHD-Friendly
+      if (gig.whyAdhd && gig.whyAdhd.length > 0) {
+        html += `
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon adhd">🧠</div>
+              <h2 class="section-title">Why It's ADHD-Friendly</h2>
+            </div>
+            <div class="section-content">
+              <ul>${gig.whyAdhd.map(item => `<li>${item}</li>`).join('')}</ul>
+            </div>
+          </div>
+        `;
+      }
+      
+      // What Makes It Stand Out
+      if (gig.standOut && gig.standOut.length > 0) {
+        html += `
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon standout">💡</div>
+              <h2 class="section-title">What Makes It Stand Out</h2>
+            </div>
+            <div class="section-content">
+              <ul>${gig.standOut.map(item => `<li>${item}</li>`).join('')}</ul>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Important Notes
+      if (gig.importantNotes && gig.importantNotes.length > 0) {
+        html += `
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon warning">🚩</div>
+              <h2 class="section-title">Important Notes</h2>
+            </div>
+            <div class="section-content warning">
+              <ul>${gig.importantNotes.map(item => `<li>${item}</li>`).join('')}</ul>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Payout Info
+      if (gig.payoutInfo && gig.payoutInfo.length > 0) {
+        html += `
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon payout">💸</div>
+              <h2 class="section-title">Payout Info</h2>
+            </div>
+            <div class="section-content">
+              <ul>${gig.payoutInfo.map(item => `<li>${item}</li>`).join('')}</ul>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Types of Tasks
+      if (gig.taskTypes && gig.taskTypes.length > 0) {
+        html += `
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon tasks">🔍</div>
+              <h2 class="section-title">Types of Tasks</h2>
+            </div>
+            <div class="section-content">
+              <ul>${gig.taskTypes.map(item => `<li>${item}</li>`).join('')}</ul>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Final Take
+      if (gig.finalTake) {
+        let take = gig.finalTake.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        take = take.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
+        html += `
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon verdict">🔥</div>
+              <h2 class="section-title">Final Take</h2>
+            </div>
+            <div class="section-content">
+              <p>${take}</p>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Ideal For
+      if (gig.idealFor && gig.idealFor.length > 0) {
+        html += `
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon ideal">✅</div>
+              <h2 class="section-title">Ideal For</h2>
+            </div>
+            <div class="section-content">
+              <div class="ideal-tags">
+                ${gig.idealFor.map(item => `<span class="ideal-tag">${item}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      
+      document.getElementById('mainContent').innerHTML = html;
+      document.getElementById('ctaSection').style.display = 'block';
+      document.getElementById('ctaLink').href = gig.link;
+      document.title = `${gig.name} | 925 ADHD`;
+    }
+    
+    function renderNotFound() {
+      document.getElementById('mainContent').innerHTML = `
+        <div class="not-found">
+          <h2>😕 Gig Not Found</h2>
+          <p>We couldn't find details for this gig yet.</p>
+          <a href="gigs.html">← Browse All Gigs</a>
+        </div>
+      `;
+    }
+    
+    // Favorite toggle
+    document.getElementById('favBtn').addEventListener('click', () => {
+      if (favorites.includes(gigId)) {
+        favorites = favorites.filter(f => f !== gigId);
+        document.getElementById('favBtn').textContent = '🤍';
+      } else {
+        favorites.push(gigId);
+        document.getElementById('favBtn').textContent = '❤️';
+      }
+      localStorage.setItem('925adhd_favorites', JSON.stringify(favorites));
+    });
+    
+    // Initialize
+    if (gigId && gigData[gigId]) {
+      renderGig(gigData[gigId]);
+    } else {
+      renderNotFound();
+    }
+  </script>
+</body>
+</html>
