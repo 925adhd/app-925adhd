@@ -373,15 +373,8 @@
       }
     });
     
-    // Check if already logged in
-    async function checkSession() {
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      if (session) {
-        window.location.href = 'dashboard.html';
-      }
-    }
-    
-    checkSession();
+    // Don't auto-redirect - let users stay on login page
+    // Dashboard will handle membership verification
   </script>
 </body>
 </html>
