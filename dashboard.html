@@ -578,7 +578,7 @@
     const userEmailSpan = document.getElementById('userEmail');
     const logoutBtn = document.getElementById('logoutBtn');
     
-    // Check authentication
+    // Check authentication AND membership
     async function checkAuth() {
       const { data: { session } } = await supabaseClient.auth.getSession();
       
@@ -588,7 +588,36 @@
         return;
       }
       
-      // User is logged in
+      // Check if user is a paying member
+      const { data: member, error } = await supabaseClient
+        .from('members')
+        .select('email, status')
+        .eq('email', session.user.email)
+        .eq('status', 'active')
+        .single();
+      
+      if (!member) {
+        // Not a paying member, show upgrade message
+        loadingScreen.innerHTML = `
+          <div style="text-align: center; padding: 40px;">
+            <h2 style="margin-bottom: 16px;">Membership Required</h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">
+              You're logged in as <strong>${session.user.email}</strong>, but you don't have an active membership yet.
+            </p>
+            <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05" 
+               style="display: inline-block; background: #5BBFB5; color: #1a1a1a; padding: 14px 28px; border-radius: 10px; font-weight: 700; text-decoration: none; margin-bottom: 16px;">
+              Get Access - $9.25/month
+            </a>
+            <p style="color: var(--text-muted); font-size: 14px; margin-top: 16px;">
+              Already purchased? It may take a few minutes to activate.<br>
+              <a href="login.html" onclick="supabaseClient.auth.signOut()" style="color: #5BBFB5;">Try a different email</a>
+            </p>
+          </div>
+        `;
+        return;
+      }
+      
+      // User is logged in AND is a paying member
       userEmailSpan.textContent = session.user.email;
       loadingScreen.style.display = 'none';
       app.style.display = 'block';
