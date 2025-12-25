@@ -610,7 +610,7 @@
             </a>
             <p style="color: var(--text-muted); font-size: 14px; margin-top: 16px;">
               Already purchased? It may take a few minutes to activate.<br>
-              <a href="login.html" onclick="supabaseClient.auth.signOut()" style="color: #5BBFB5;">Try a different email</a>
+              <a href="#" onclick="supabaseClient.auth.signOut().then(() => window.location.href = 'login.html')" style="color: #5BBFB5;">Try a different email</a>
             </p>
           </div>
         `;
