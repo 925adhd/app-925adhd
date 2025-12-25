@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Details - 925 ADHD</title>
+  <link rel="icon" type="image/png" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    :root {
+      --bg: #0F0F0F;
+      --card: #1A1A1A;
+      --card-hover: #242424;
+      --border: rgba(255,255,255,.1);
+      --text: #fff;
+      --text-muted: rgba(255,255,255,.55);
+      --brand: #5BBFB5;
+      --brand-glow: rgba(91, 191, 181, 0.25);
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #facc15;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+    
+    a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Header */
+    .header {
+      background: var(--brand);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0F0F0F;
+    }
+    
+    .back-btn {
+      position: absolute;
+      left: 16px;
+      background: none;
+      border: none;
+      color: #0F0F0F;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px 8px;
+      text-decoration: none;
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 20px 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* App Hero */
+    .app-hero {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    
+    .app-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      object-fit: cover;
+      margin-bottom: 16px;
+      border: 2px solid var(--border);
+    }
+    
+    .app-name {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    
+    .app-rate {
+      font-size: 16px;
+      color: var(--brand);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    
+    .app-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: rgba(255,255,255,.08);
+      color: var(--text-muted);
+    }
+    
+    .tag.favorite { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
+    .tag.gift { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+    .tag.crypto { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .tag.passive { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+    
+    .visit-btn {
+      display: inline-block;
+      background: var(--brand);
+      color: #0F0F0F;
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    
+    .visit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px var(--brand-glow);
+      text-decoration: none;
+    }
+    
+    /* Content Sections */
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .section p, .section li {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    
+    .section ul, .section ol {
+      padding-left: 20px;
+    }
+    
+    .section li {
+      margin-bottom: 8px;
+    }
+    
+    .section strong {
+      color: var(--text);
+    }
+    
+    /* Intro Text */
+    .intro-text {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    
+    /* Pros & Cons */
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .pros, .cons {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    
+    .pros { border-color: rgba(34, 197, 94, 0.3); }
+    .cons { border-color: rgba(239, 68, 68, 0.3); }
+    
+    .pros .section-title { color: #4ade80; }
+    .cons .section-title { color: #f87171; }
+    
+    .pros li, .cons li {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    
+    /* Payout Table */
+    .payout-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    
+    .payout-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    
+    .payout-table td:first-child {
+      font-weight: 600;
+      color: var(--text);
+      width: 40%;
+    }
+    
+    .payout-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    /* Quote Box */
+    .quote-box {
+      background: linear-gradient(135deg, rgba(91, 191, 181, 0.1), rgba(91, 191, 181, 0.02));
+      border: 1px solid rgba(91, 191, 181, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 20px;
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    
+    /* Final Take */
+    .final-take {
+      background: linear-gradient(135deg, rgba(91, 191, 181, 0.12), rgba(91, 191, 181, 0.04));
+      border: 1px solid rgba(91, 191, 181, 0.25);
+    }
+    
+    .final-take .section-title {
+      color: var(--brand);
+    }
+    
+    /* Ideal For */
+    .ideal-for ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .ideal-for li {
+      padding-left: 24px;
+      position: relative;
+    }
+    
+    .ideal-for li::before {
+      content: "✅";
+      position: absolute;
+      left: 0;
+    }
+    
+    /* Reddit Quotes */
+    .reddit-quote {
+      background: rgba(255, 69, 0, 0.08);
+      border-left: 3px solid #ff4500;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    
+    .reddit-quote cite {
+      display: block;
+      margin-top: 6px;
+      font-style: normal;
+      font-size: 11px;
+      color: #ff4500;
+    }
+    
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1A1A1A;
+      border-top: 1px solid var(--border);
+      padding: 6px 0;
+      padding-bottom: max(6px, env(safe-area-inset-bottom));
+      z-index: 100;
+    }
+    
+    .nav-items {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 6px 10px;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 600;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    
+    .nav-item.active {
+      color: var(--brand);
+    }
+    
+    .nav-item:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+    
+    .nav-item .icon {
+      font-size: 20px;
+    }
+    
+    /* Mobile adjustments */
+    @media (max-width: 500px) {
+      .pros-cons {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Tablet & Desktop */
+    @media (min-width: 600px) {
+      .main-content {
+        padding: 28px 24px;
+      }
+      
+      .app-logo {
+        width: 96px;
+        height: 96px;
+      }
+      
+      .app-name {
+        font-size: 30px;
+      }
+      
+      .section {
+        padding: 22px;
+      }
+      
+      .nav-items {
+        max-width: 500px;
+      }
+      
+      .nav-item {
+        font-size: 11px;
+        padding: 8px 14px;
+      }
+      
+      .nav-item .icon {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <a href="apps.html" class="back-btn">←</a>
+    <h1>Honest Review</h1>
+  </header>
+  
+  <!-- Main Content -->
+  <main class="main-content" id="content">
+    <!-- Populated by JS -->
+    <p style="text-align: center; color: var(--text-muted); padding: 40px;">Loading...</p>
+  </main>
+  
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-items">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="guides.html" class="nav-item">
+        <span class="icon">📖</span>
+        <span>Guides</span>
+      </a>
+      <a href="gigs.html" class="nav-item">
+        <span class="icon">💰</span>
+        <span>Cash</span>
+      </a>
+      <a href="apps.html" class="nav-item active">
+        <span class="icon">📱</span>
+        <span>Apps</span>
+      </a>
+      <a href="favorites.html" class="nav-item">
+        <span class="icon">❤️</span>
+        <span>Saved</span>
+      </a>
+      <a href="tools.html" class="nav-item">
+        <span class="icon">🛠️</span>
+        <span>Tools</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    // App reviews database
+    const apps = {
+      "fieldagent": {
+        name: "Field Agent",
+        rate: "$3–$20 per task",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/n6HyYNhIDIvjB6p0aDPZ.png",
+        link: "https://app.fieldagent.net/",
+        tags: ["favorite", "microgig"],
+        intro: "Field Agent is a gig-style microtask app that pays you cash to complete small in-person jobs—like price checks, shelf audits, mystery shops, and product trials—while you're already out running errands.",
+        adhd: [
+          "Tasks are <strong>short and varied</strong>—from simple audits to \"buy & try\" gigs.",
+          "No fixed schedule—<strong>work when it suits you</strong>.",
+          "Quick wins and immediate payouts provide <strong>motivation boosts</strong>."
+        ],
+        howItWorks: [
+          "<strong>Download the app</strong> and complete your profile.",
+          "<strong>Browse local tasks</strong>, filtering by proximity or payout.",
+          "<strong>Reserve a job</strong>, complete it (photo, purchase, survey, etc.).",
+          "<strong>Submit and get paid via direct deposit/PayPal</strong> once approved."
+        ],
+        importantNotes: [
+          "Typical tasks pay <strong>$2–$12</strong>, occasionally up to <strong>$20+</strong>.",
+          "You often have about <strong>2 hours</strong> to complete a reserved job.",
+          "Task availability varies—more jobs in urban areas; rural areas may see fewer gigs.",
+          "Requires <strong>careful attention</strong>—mistakes lead to rejections and lower ratings.",
+          "Users report slowdowns since the pandemic and find scavenger hunts often not worth it."
+        ],
+        payout: {
+          "Payout method": "Direct deposit or PayPal",
+          "Typical pay": "$2–$12 per task, up to $20+",
+          "Processing time": "1–3 days post-approval",
+          "Minimum withdrawal": "None—cash out anytime",
+          "Referral bonus": "10% of friend's earnings, up to $10"
+        },
+        activities: [
+          "<strong>Audits</strong>: Take store photos and price-checks—usually $3–$8.",
+          "<strong>Buy & Try</strong>: Purchase a product (you're reimbursed) then give feedback—usually $5–$10 plus the product.",
+          "<strong>Mystery Shopping</strong>: Report on store service, cleanliness, etc.—typically $8–$15.",
+          "<strong>Scavenger Hunts/Eye Spys</strong>: UPC-based searches—can pay big, but often not worth the effort."
+        ],
+        pros: [
+          "Real money via direct deposit/PayPal",
+          "Works while running errands—low effort for extra cash",
+          "Multiple job types keep it interesting",
+          "Good app reviews (4.5★+ on G2/App Store)"
+        ],
+        cons: [
+          "Inconsistent gigs depending on location",
+          "Strict task instructions; rejections hurt your accuracy",
+          "Gas and time may outweigh earnings for distant tasks"
+        ],
+        finalTake: "Field Agent is legit and fairly well-reviewed. It's ideal for <strong>casual side income</strong>—especially if you're already out shopping. Expect to earn <strong>$3–$12 per task</strong> and <strong>$15–$25/hr on busy days</strong>, though actual hourly is closer to <strong>$13–$22/hr</strong> on average.",
+        idealFor: [
+          "Urban users with easy access to chain stores",
+          "People who like gamifying errands into paid missions",
+          "ADHD folks who appreciate quick tasks with immediate rewards",
+          "Anyone wanting flexible, no-skill-required micro gigs"
+        ],
+        bottomLine: "If Field Agent is the \"real-world cousin\" of mystery shopping apps, it's a dopamine-hit mini side hustle—snap photos, shop, earn cash—all in your comfy jeans."
+      },
+      
+      "ivueit": {
+        name: "ivueit",
+        rate: "$7–$50 per task",
+        logo: "https://via.placeholder.com/80/1a1a1a/5BBFB5?text=iv",
+        link: "https://www.ivueit.com/",
+        tags: ["microgig"],
+        intro: "iVueit is a gig app that pays you to take photos of businesses, properties, and displays for brands and property managers. Think of it like being a secret shopper with a camera—you're the eyes on the ground for companies that need updates or inspections.",
+        adhd: [
+          "<strong>Clear, structured missions</strong> — step-by-step photo checklists reduce confusion.",
+          "<strong>Variety of tasks</strong> — storefronts, signage, product displays, property checks.",
+          "<strong>Short tasks</strong> — most take only 5–20 minutes.",
+          "<strong>Flexible schedule</strong> — accept or skip gigs based on your energy level.",
+          "<strong>Instant feedback loop</strong> — submit, get approval, and see earnings build."
+        ],
+        howItWorks: [
+          "Download the <strong>iVueit app</strong> (iOS/Android) and create an account.",
+          "Browse available \"Vues\" (assignments) in your local area.",
+          "Claim a Vue, travel to the location, and follow the photo checklist.",
+          "Submit your images through the app for review.",
+          "Get paid once your Vue is approved."
+        ],
+        importantNotes: [
+          "<strong>U.S. only</strong> — not available internationally.",
+          "<strong>Travel required</strong> — you'll need reliable transportation to reach gigs.",
+          "<strong>Limited availability</strong> — jobs may be sparse outside major cities.",
+          "<strong>Low to moderate pay</strong> — $5–$20 per Vue, though some pay more.",
+          "<strong>Quick turnaround needed</strong> — most tasks must be done within a few hours."
+        ],
+        payout: {
+          "Payout method": "PayPal",
+          "Typical pay": "$5–$20 per Vue",
+          "Higher-paying gigs": "$50+ for complex assignments",
+          "Processing time": "Within a few days"
+        },
+        activities: [
+          "<strong>Retail audits</strong> — photos of store signage or product displays.",
+          "<strong>Property inspections</strong> — check condition of buildings or lots.",
+          "<strong>Marketing checks</strong> — verify promotions or brand visibility.",
+          "<strong>Vacancy verification</strong> — confirm if a property is occupied."
+        ],
+        pros: [
+          "Clear, structured instructions reduce overwhelm",
+          "Short tasks perfect for ADHD bursts",
+          "Variety keeps things interesting",
+          "Flexible—accept only what you want"
+        ],
+        cons: [
+          "U.S. only",
+          "Requires transportation",
+          "Limited availability outside metro areas"
+        ],
+        finalTake: "iVueit is perfect for ADHD-friendly side hustlers who like <strong>short, structured, on-the-go gigs</strong>. It's simple, fast, and flexible—but best for people in or near metro areas with lots of available assignments.",
+        idealFor: [
+          "ADHD users who thrive with <strong>clear instructions and quick tasks</strong>",
+          "Freelancers who enjoy being active and moving between locations",
+          "People wanting extra income while running errands",
+          "U.S.-based gig workers looking for flexible, casual side hustles"
+        ],
+        bottomLine: "If Streetbees is about micro-surveys from your couch, iVueit is about real-world photo gigs that get you outside and moving."
+      },
+      
+      "proxypics": {
+        name: "ProxyPics",
+        rate: "$42–$78/hr",
+        logo: "https://via.placeholder.com/80/1a1a1a/5BBFB5?text=PP",
+        link: "https://www.proxypics.com/",
+        tags: ["microgig"],
+        intro: "ProxyPics is a gig app where companies pay you to take on-demand photos of real-world locations, properties, and businesses. Think of it like being a paid \"photo proxy\" for someone who can't be there in person.",
+        adhd: [
+          "<strong>Clear instructions</strong> — every gig has a photo checklist to follow.",
+          "<strong>Short, simple jobs</strong> — most gigs take 5–15 minutes.",
+          "<strong>Variety of tasks</strong> — homes, storefronts, neighborhoods, and construction sites.",
+          "<strong>Flexible schedule</strong> — pick only the gigs you want, when you want.",
+          "<strong>Dopamine hit</strong> — instant satisfaction from submitting and seeing payment pending."
+        ],
+        howItWorks: [
+          "Download the <strong>ProxyPics app</strong> (iOS/Android) and sign up.",
+          "Browse available photo requests (\"proxies\") in your area.",
+          "Accept a gig, travel to the location, and take the required photos.",
+          "Submit your work directly in the app.",
+          "Get paid after approval, usually within 24–48 hours."
+        ],
+        importantNotes: [
+          "<strong>U.S.-focused</strong> — opportunities are limited outside the country.",
+          "<strong>Gigs depend on location</strong> — more available in urban areas.",
+          "<strong>Pay varies</strong> — most jobs range from $5–$20; higher for specialized tasks.",
+          "<strong>Travel required</strong> — reliable transportation is a must.",
+          "<strong>Limited volume</strong> — not a full-time gig, more of a side hustle."
+        ],
+        payout: {
+          "Payout method": "Direct deposit or PayPal",
+          "Typical pay": "$5–$20 per task",
+          "Higher-paying gigs": "$30–$50+ for property verification",
+          "Processing time": "24–48 hours"
+        },
+        activities: [
+          "<strong>Property photos</strong> — real estate verification, exterior shots.",
+          "<strong>Storefront/business checks</strong> — confirm signage, displays, or vacancies.",
+          "<strong>Neighborhood insights</strong> — show conditions of streets or lots.",
+          "<strong>Construction progress</strong> — document building updates."
+        ],
+        pros: [
+          "Quick tasks with fast payouts",
+          "Clear checklists reduce confusion",
+          "Good pay for short work",
+          "Flexible—work when you want"
+        ],
+        cons: [
+          "U.S.-focused only",
+          "Requires transportation",
+          "Limited volume of gigs"
+        ],
+        finalTake: "ProxyPics is perfect for ADHD-friendly side hustlers who like <strong>short, structured, outdoor gigs with fast payouts</strong>. It's great for running errands, taking walks, or exploring neighborhoods—while earning extra cash.",
+        idealFor: [
+          "ADHD users who like <strong>quick tasks with clear checklists</strong>",
+          "Freelancers who enjoy real-world photo work",
+          "Gig workers combining ProxyPics with apps like iVueit or Gigwalk",
+          "People in metro areas where gigs are plentiful"
+        ],
+        bottomLine: "If iVueit is about structured retail and property audits, ProxyPics is about on-demand photography for people who need eyes on the ground."
+      },
+      
+      "doordash": {
+        name: "DoorDash",
+        rate: "$15–$25/hr",
+        logo: "https://via.placeholder.com/80/ff3008/ffffff?text=DD",
+        link: "https://www.doordash.com/dasher/signup/",
+        tags: ["delivery"],
+        intro: "DoorDash is a popular gig economy app that pays drivers (\"Dashers\") to deliver food and groceries from local restaurants and stores straight to customers' doors. You get to set your own schedule and earn money by driving and delivering.",
+        adhd: [
+          "<strong>Flexible hours</strong> let you dash when you want—no fixed shifts.",
+          "<strong>Variety of tasks</strong>—picking up, driving, delivering—keeps it engaging.",
+          "<strong>Quick payouts and frequent tips</strong> provide motivation boosts.",
+          "<strong>Real-time app updates</strong> and directions help keep focus during deliveries."
+        ],
+        howItWorks: [
+          "<strong>Sign up and get approved</strong> by submitting your info and background check.",
+          "<strong>Log into the app</strong>, browse available delivery gigs nearby.",
+          "<strong>Accept orders</strong>, pick up food or groceries from the store/restaurant.",
+          "<strong>Deliver to the customer</strong>, follow app directions, and complete the order.",
+          "<strong>Get paid</strong> weekly, plus tips, via direct deposit or instant cashout."
+        ],
+        importantNotes: [
+          "Earnings vary widely—busy areas with peak hours pay best.",
+          "You're responsible for your vehicle's expenses (gas, maintenance, insurance).",
+          "Ratings and customer tips impact overall earnings.",
+          "App glitches and sudden order cancellations can be frustrating.",
+          "Delivery times and distance may affect your profitability."
+        ],
+        payout: {
+          "Base pay": "$3–$10 per delivery, plus 100% of tips",
+          "Average earnings": "$10–$25/hr after expenses",
+          "Payment options": "Weekly direct deposit or instant cashout",
+          "Bonuses": "Surge pricing, quests, and promotions"
+        },
+        activities: [
+          "<strong>Food Delivery</strong>: Pick up restaurant orders and deliver quickly.",
+          "<strong>Grocery Delivery</strong>: Shop for groceries and deliver to customers.",
+          "<strong>Contactless Delivery</strong>: Leave orders at doorsteps for safety.",
+          "<strong>Order Tracking</strong>: Keep customers updated via the app."
+        ],
+        pros: [
+          "Flexible schedule—work whenever you want",
+          "Easy to start, no special skills needed",
+          "Fast payments with tip income",
+          "Good app usability with clear instructions"
+        ],
+        cons: [
+          "Vehicle wear and fuel costs reduce net earnings",
+          "Inconsistent order flow in less busy areas",
+          "Customer ratings and tips can be unpredictable",
+          "Occasional app glitches and long wait times"
+        ],
+        finalTake: "DoorDash is a legit, flexible side hustle for people who enjoy driving and want to earn money on their own time. While it won't replace a full-time income for most, it offers a straightforward way to make extra cash, especially in urban and suburban areas with high order demand.",
+        idealFor: [
+          "People who want to work flexible hours and set their own pace",
+          "Drivers with reliable vehicles and insurance",
+          "Folks who enjoy fast-paced, variety-filled gigs",
+          "ADHD brains craving variety, movement, and instant feedback"
+        ],
+        bottomLine: "If Field Agent is the microtask app for errands, DoorDash is the mobile gig for those who want to earn cash driving their own routes and helping hungry people."
+      },
+      
+      "instacart": {
+        name: "Instacart",
+        rate: "$15–$30/hr",
+        logo: "https://via.placeholder.com/80/43B02A/ffffff?text=IC",
+        link: "https://shoppers.instacart.com/",
+        tags: ["delivery"],
+        intro: "Instacart is a grocery delivery platform where shoppers pick up and deliver groceries for customers. Think of it like being someone's personal grocery assistant with an app guiding you step by step.",
+        adhd: [
+          "<strong>Active, on-the-go work</strong>—no sitting still for hours.",
+          "<strong>Structured system</strong>—the app tells you exactly what to shop for.",
+          "<strong>Flexible hours</strong>—you log in and work when you want.",
+          "<strong>Instant novelty</strong>—every order is a little different (different stores, items, and customers).",
+          "<strong>Immediate reward loop</strong>—you finish an order, get paid, and see results quickly."
+        ],
+        howItWorks: [
+          "Apply to be an <strong>Instacart Shopper</strong> through the app.",
+          "Get approved (background check required).",
+          "Open the app, accept batches (orders), and shop/deliver groceries.",
+          "Earn money for each completed order, plus tips."
+        ],
+        importantNotes: [
+          "Must have reliable transportation and a smartphone.",
+          "Earnings vary widely depending on location and demand.",
+          "Customers' tips make up a large part of income.",
+          "Peak hours (weekends, evenings) are busiest—off-peak may be slow.",
+          "Can be physically tiring—lifting, carrying, and walking through stores."
+        ],
+        payout: {
+          "Payout method": "Direct deposit weekly",
+          "Instant Cashout": "Available for a small fee",
+          "Typical earnings": "$10–$25/hour depending on demand and tips",
+          "Bonuses": "Extra during peak times or high-demand batches"
+        },
+        activities: [
+          "<strong>Full-service shopping</strong> – shop and deliver groceries.",
+          "<strong>Delivery only</strong> – pick up pre-packed groceries and drop them off.",
+          "<strong>Alcohol delivery</strong> – requires ID verification upon drop-off.",
+          "<strong>Batch shopping</strong> – handle multiple customers' orders in one trip."
+        ],
+        pros: [
+          "Active work keeps you moving",
+          "Structured app guides every step",
+          "Flexible schedule",
+          "Tips can significantly boost earnings"
+        ],
+        cons: [
+          "Physically demanding",
+          "Earnings depend heavily on tips",
+          "Slow during off-peak hours"
+        ],
+        finalTake: "Instacart is perfect for ADHD-friendly gig workers who want <strong>flexibility, physical activity, and instant rewards</strong>. It's less about building a business and more about making money on your own schedule while staying active.",
+        idealFor: [
+          "ADHD folks who get restless sitting still and prefer active jobs",
+          "People who want a flexible, side-hustle style income",
+          "Gig workers who like immediate payouts",
+          "Anyone who enjoys variety and doesn't mind customer interaction"
+        ],
+        bottomLine: "If Uber Eats is about quick food deliveries, Instacart is about bigger shopping trips with higher earning potential from tips."
+      },
+      
+      "modeearn": {
+        name: "Mode Earn",
+        rate: "$10–$50/mo",
+        logo: "https://via.placeholder.com/80/00d4aa/ffffff?text=ME",
+        link: "https://www.modeearn.com/",
+        tags: ["favorite", "passive", "rewards"],
+        intro: "Mode Mobile (EarnApp, EarnPhone, & EarnOS) is a wild but intriguing blend of tech, advertising, and passive income. Whether you're downloading the app or using their custom \"EarnPhone,\" the promise is the same: you get paid for everyday phone use. That means charging your phone, listening to music, playing games, and more—all turn into small earnings.",
+        adhd: [
+          "You earn just for <strong>existing with your phone</strong>",
+          "<strong>16+ earning activities</strong> = lots of variety = low boredom risk",
+          "Built-in tracking and small wins = <strong>instant gratification</strong>",
+          "Passive background tasks = <strong>no memory load</strong>"
+        ],
+        howItWorks: [
+          "<strong>EarnApp (for any Android device)</strong>: Passive tasks like charging your phone, browsing, and playing music give you small rewards.",
+          "<strong>EarnPhone</strong>: A physical smartphone that comes preloaded with Mode's custom software (EarnOS).",
+          "<strong>EarnOS</strong>: Their Android-based operating system that turns almost any Android phone into an \"EarnPhone\" once installed/licensed.",
+          "You earn by: Listening to music 🎵, Playing games 🎮, Charging your phone 🔋, Completing surveys, watching ads, reading news, etc."
+        ],
+        importantNotes: [
+          "Earnings are <strong>very slow</strong> unless you're using the EarnPhone full-time.",
+          "Device-based (mostly Android)—not great for iOS users.",
+          "Some ads can be repetitive or glitchy.",
+          "Requires a lot of permissions and may drain battery.",
+          "Mode Earn Club (paid version) may not be worth it for all users."
+        ],
+        payout: {
+          "Typical earnings": "$0.01–$0.10 per task",
+          "EarnPhone owners": "$100–$300/year passively",
+          "Daily potential": "Small daily earnings that add up slowly"
+        },
+        activities: [
+          "Listening to music",
+          "Playing games",
+          "Charging your phone",
+          "Completing surveys",
+          "Watching ads",
+          "Reading news"
+        ],
+        pros: [
+          "Many ways to earn, from passive to interactive",
+          "Works on most Android phones via app",
+          "Built-in motivation via progress meters and streaks",
+          "\"EarnPhone\" option for people who want to go all-in",
+          "Low commitment needed to see some return"
+        ],
+        cons: [
+          "Earnings are very slow unless using EarnPhone full-time",
+          "Device-based (mostly Android)—not great for iOS users",
+          "Some ads can be repetitive or glitchy",
+          "Requires a lot of permissions and may drain battery"
+        ],
+        finalTake: "If you're someone who already spends hours on your phone (which… let's be real, most of us with ADHD do), Mode gives you tiny rewards for it. It's not life-changing money, but it can be satisfying to see a few dollars rack up for doing things you already do.",
+        idealFor: [
+          "Android users looking for low-effort side income",
+          "ADHD folks who want small dopamine hits throughout the day",
+          "Anyone curious about monetizing phone use without much friction",
+          "People who don't mind installing an extra app or buying a niche phone"
+        ],
+        bottomLine: "Mode Mobile pays you to live your regular phone life—but only in pennies. Still, for an ADHD brain, it might be worth it for the fun of watching your screen time turn into spare change."
+      },
+      
+      "fetch": {
+        name: "Fetch Rewards",
+        rate: "$5–$25/mo",
+        logo: "https://via.placeholder.com/80/f26f32/ffffff?text=F",
+        link: "https://fetch.com/",
+        tags: ["favorite", "gift", "receipts"],
+        intro: "Fetch Rewards is one of the easiest receipt-scanning apps out there. Just snap a pic of any receipt—grocery, restaurant, gas station—and earn points toward gift cards. No need to match products or clip coupons.",
+        adhd: [
+          "<strong>Super simple</strong>—just scan any receipt, no matching required.",
+          "<strong>Instant gratification</strong>—see points add up immediately.",
+          "<strong>Low mental load</strong>—no coupons to remember or offers to activate.",
+          "<strong>Gamified</strong>—streaks and bonuses keep you coming back."
+        ],
+        howItWorks: [
+          "Download the <strong>Fetch Rewards app</strong>.",
+          "Snap a photo of any receipt within 14 days of purchase.",
+          "Earn points automatically—bonus points for specific brands.",
+          "Redeem points for gift cards to Amazon, Target, Starbucks, and more."
+        ],
+        importantNotes: [
+          "Points convert at roughly <strong>1,000 points = $1</strong>.",
+          "Some receipts earn more than others (grocery stores give more points).",
+          "Gift cards only—no cash payout option.",
+          "Receipts must be scanned within 14 days."
+        ],
+        payout: {
+          "Payout method": "Gift cards only",
+          "Minimum redemption": "3,000 points ($3)",
+          "Typical earnings": "$5–$25/month for regular users"
+        },
+        activities: [
+          "Scanning grocery receipts",
+          "Scanning restaurant receipts",
+          "Scanning gas station receipts",
+          "Earning bonus points for specific brands"
+        ],
+        pros: [
+          "Easiest receipt app—any receipt works",
+          "No product matching needed",
+          "Gamified with streaks and bonuses",
+          "Wide variety of gift card options"
+        ],
+        cons: [
+          "Gift cards only, no cash",
+          "Points accumulate slowly for non-grocery receipts",
+          "Must scan within 14 days"
+        ],
+        finalTake: "Fetch is the <strong>easiest passive income app</strong> for ADHD brains. No thinking, no matching, just scan and earn. Perfect for building up gift card balances over time.",
+        idealFor: [
+          "Anyone who shops and has receipts",
+          "ADHD users who want the <strong>simplest possible earning method</strong>",
+          "People who prefer gift cards over cash",
+          "Casual users who just want a bit of extra value"
+        ],
+        bottomLine: "If you want the absolute lowest-effort receipt app, Fetch is it. Scan anything, earn points, get gift cards."
+      },
+      
+      "ibotta": {
+        name: "Ibotta",
+        rate: "$10–$50/mo",
+        logo: "https://via.placeholder.com/80/ff5a5f/ffffff?text=ib",
+        link: "https://ibotta.com/",
+        tags: ["favorite", "receipts"],
+        intro: "Ibotta is a long-standing cashback app that pays you real money—not points—for your grocery hauls, online orders, and more. If you're already snapping pics of receipts or scanning apps for coupons, Ibotta streamlines the process and makes it actually rewarding.",
+        adhd: [
+          "You don't need to chase down codes—just click + on an offer",
+          "The <strong>dopamine hit</strong> of watching savings add up is real",
+          "<strong>Small, repeatable routines</strong>: shop → scan → save",
+          "Visual progress and cash thresholds feel like mini goals"
+        ],
+        howItWorks: [
+          "<strong>Add Offers</strong>: Before shopping, browse the app and tap (+) on deals that match what you plan to buy.",
+          "<strong>Submit Receipt</strong>: After shopping, snap a picture of your receipt.",
+          "<strong>Get Paid</strong>: Once you hit $20, you can withdraw via PayPal, gift cards, or direct deposit.",
+          "You can also link loyalty accounts to skip the receipt-upload step at certain stores."
+        ],
+        importantNotes: [
+          "Cashback can take <strong>days or weeks</strong> to appear.",
+          "Must remember to activate offers before shopping.",
+          "Some offers are product-specific and brand-limited.",
+          "Only available in the U.S."
+        ],
+        payout: {
+          "Payout method": "PayPal, gift cards, or direct deposit",
+          "Minimum withdrawal": "$20",
+          "Typical earnings": "~$261/year for average users",
+          "Bonuses": "Referrals, team streaks, seasonal challenges"
+        },
+        activities: [
+          "Grocery cashback",
+          "Online shopping cashback",
+          "In-store purchases at 3,000+ retailers",
+          "Team challenges and bonuses"
+        ],
+        pros: [
+          "Real cash, not confusing point systems",
+          "Works for everyday shopping",
+          "Tons of supported stores and products",
+          "Easy to use with visual cues and reminders"
+        ],
+        cons: [
+          "Can be tedious if you forget to select offers before shopping",
+          "You need to hit $20 before withdrawing",
+          "Some offers are product-specific and brand-limited"
+        ],
+        finalTake: "Ibotta is one of the most ADHD-friendly cashback apps out there. It rewards small, consistent behaviors, doesn't bombard you with ads, and keeps everything in one tidy place.",
+        idealFor: [
+          "ADHD shoppers who want frictionless savings",
+          "Budget-conscious families",
+          "Coupon haters who still want to save",
+          "Anyone who wants <strong>cash</strong>, not coins or crypto"
+        ],
+        bottomLine: "With Ibotta, your ADHD grocery runs finally get to pay you back. The app's smooth UX and real cash rewards make it a standout in the cashback crowd."
+      },
+      
+      "honeygain": {
+        name: "Honeygain",
+        rate: "$5–$50/mo",
+        logo: "https://via.placeholder.com/80/f5a623/ffffff?text=HG",
+        link: "https://www.honeygain.com/",
+        tags: ["passive", "bandwidth"],
+        intro: "Honeygain is a passive income app that pays you for sharing your unused internet bandwidth. Once installed, it quietly runs in the background of your device and routes non-sensitive traffic through your connection. You earn credits based on how much data you share.",
+        adhd: [
+          "Completely <strong>passive</strong>—set it and forget it",
+          "Daily task bonus = <strong>small dopamine hit</strong>",
+          "Referral and achievement features add light gamification",
+          "No schedules, no tracking—just install and let it run"
+        ],
+        howItWorks: [
+          "Download and install <strong>Honeygain</strong> on your device.",
+          "Let it run in the background—it shares unused bandwidth.",
+          "Earn credits based on data shared.",
+          "Cash out via PayPal or JumpToken (crypto) once you hit $20."
+        ],
+        importantNotes: [
+          "Earnings are slow—expect <strong>$1–$5/month</strong> realistically.",
+          "Content Delivery mode can use a lot of data—careful if you're capped.",
+          "<strong>$20 minimum payout</strong> means it takes a while to cash out.",
+          "Works best with unlimited, high-speed WiFi."
+        ],
+        payout: {
+          "Rate": "$0.10 per GB shared",
+          "Content Delivery": "+~$0.14/day",
+          "Minimum payout": "$20 via PayPal or crypto",
+          "Sign-up bonus": "Free $2"
+        },
+        activities: [
+          "Passive bandwidth sharing",
+          "Content Delivery mode",
+          "Daily check-in bonus",
+          "Referral program"
+        ],
+        pros: [
+          "Truly hands-off once installed",
+          "Safe: traffic is encrypted and vetted",
+          "Great for stacking with other passive apps",
+          "Free $2 sign-up bonus"
+        ],
+        cons: [
+          "Low earnings unless you have high-speed, unlimited data",
+          "Content Delivery can slow your internet",
+          "Doesn't work well on metered/mobile plans"
+        ],
+        finalTake: "Honeygain won't make you rich, but it's a solid \"set-it-and-forget-it\" option for earning a few passive bucks—especially if you have unlimited WiFi or multiple idle devices.",
+        idealFor: [
+          "People with <strong>unlimited, high-speed WiFi</strong>",
+          "ADHD folks looking for <strong>background passive income</strong>",
+          "Side hustle stackers who love \"install and earn\" apps",
+          "Users who don't mind waiting a while to cash out"
+        ],
+        bottomLine: "Sweet side cash... if you've got the patience for the drip."
+      },
+      
+      "sweatcoin": {
+        name: "Sweatcoin",
+        rate: "Varies (non-cash)",
+        logo: "https://via.placeholder.com/80/f5a623/ffffff?text=SC",
+        link: "https://sweatco.in/",
+        tags: ["crypto", "fitness"],
+        intro: "Sweatcoin is a \"move-to-earn\" app that rewards you with digital currency—1 Sweatcoin per ~1,000 steps (after a 5% in-app fee). You can redeem coins for discounts, products, donations, or convert into their new crypto token ($SWEAT)—but not real cash. Think of it as turning your daily steps into store credits, not money.",
+        adhd: [
+          "Tracks steps <strong>automatically</strong> in the background—no effort required",
+          "Daily boosts, challenges & auctions provide <strong>small dopamine hits</strong>",
+          "Rewards progress visually—great for <strong>gamified motivation</strong>"
+        ],
+        howItWorks: [
+          "Download <strong>Sweatcoin</strong> and enable step tracking.",
+          "Walk—the app counts your steps in the background.",
+          "Earn ~0.95 Sweatcoins per 1,000 steps.",
+          "Redeem for discounts, products, or donate to charity."
+        ],
+        importantNotes: [
+          "<strong>No real cash-out</strong> unless you're part of their influencer program.",
+          "Marketplace rewards are unreliable—many report missing or delayed items.",
+          "Battery drain + step tracking can be inaccurate indoors.",
+          "$SWEAT crypto has little real-world value.",
+          "Capped at ~5,000 steps/day for free users."
+        ],
+        payout: {
+          "Earnings": "~0.95 Sweatcoins per 1,000 steps",
+          "Daily cap": "~5,000 steps for free users",
+          "Real-world value": "Less than $0.01/day",
+          "Redemption": "Discounts, products, donations (no cash)"
+        },
+        activities: [
+          "Walking and step tracking",
+          "Daily challenges",
+          "Marketplace shopping",
+          "Charity donations"
+        ],
+        pros: [
+          "Completely free and runs passively",
+          "Encourages walking—users walk ~20% more over time",
+          "Offers non-cash rewards and donations"
+        ],
+        cons: [
+          "No real cash-out option",
+          "Marketplace rewards are unreliable",
+          "Battery drain and inaccurate indoor tracking",
+          "$SWEAT crypto has little value"
+        ],
+        redditQuotes: [
+          { text: "No. If you want to make money absolutely not.", user: "u/ZaneFreemanreddit" },
+          { text: "That was 3 years ago now and I'm still waiting for them to be delivered… this app is basically useless.", user: "ThatguyZikai" },
+          { text: "Sweatcoin is worth almost nothing… The only way to redeem it is in the terrible shop.", user: "r/sweatcoin community" }
+        ],
+        finalTake: "Sweatcoin is legit and fun if your goal is <strong>walking motivation</strong>, not making money. It does reward steps, but value lies in discounts, charity donations, or small perks—not income. As a gamified fitness tool, it's engaging, but it won't replace a side hustle.",
+        idealFor: [
+          "People wanting <strong>free motivation to walk more</strong>",
+          "Gamers or ADHD folks who enjoy <strong>collecting badges, streaks & rewards</strong>",
+          "Anyone fine with earning <strong>discounts or prizes instead of cash</strong>"
+        ],
+        bottomLine: "If you want money, get a side hustle. If you want a fun reason to walk? Sweatcoin gives you a small reward for every step."
+      },
+      
+      "google-opinion": {
+        name: "Google Opinion Rewards",
+        rate: "$0.10–$1 per survey",
+        logo: "https://via.placeholder.com/80/4285f4/ffffff?text=G",
+        link: "https://surveys.google.com/google-opinion-rewards/",
+        tags: ["favorite", "surveys"],
+        intro: "Google Opinion Rewards is Google's official survey app that pays you in Google Play credit (Android) or PayPal (iOS) for answering quick questions about places you've visited, products you've bought, and your opinions.",
+        adhd: [
+          "<strong>Super quick surveys</strong>—usually 1-4 questions, takes seconds.",
+          "<strong>Location-based</strong>—surveys appear based on places you visit.",
+          "<strong>No grinding</strong>—surveys come to you, not the other way around.",
+          "<strong>Instant payout</strong>—credit added immediately after completing."
+        ],
+        howItWorks: [
+          "Download <strong>Google Opinion Rewards</strong>.",
+          "Keep location services on for more surveys.",
+          "Answer quick questions when notifications pop up.",
+          "Earn Google Play credit (Android) or PayPal cash (iOS)."
+        ],
+        importantNotes: [
+          "Survey frequency varies—some get many, others get few.",
+          "Android pays in Google Play credit (not cash).",
+          "iOS version pays via PayPal.",
+          "Credits expire after 1 year."
+        ],
+        payout: {
+          "Pay per survey": "$0.10–$1.00",
+          "Android payout": "Google Play credit",
+          "iOS payout": "PayPal cash",
+          "Credit expiration": "1 year"
+        },
+        activities: [
+          "Location-based surveys (\"Did you visit this store?\")",
+          "Product opinion surveys",
+          "Quick preference questions"
+        ],
+        pros: [
+          "Surveys take only seconds",
+          "Legit—it's from Google",
+          "Instant credit after completing",
+          "iOS version pays real cash"
+        ],
+        cons: [
+          "Android only gets Play credit, not cash",
+          "Survey frequency can be inconsistent",
+          "Credits expire after 1 year"
+        ],
+        finalTake: "Google Opinion Rewards is the <strong>easiest survey app</strong> for ADHD brains. No long surveys, no disqualifications—just quick questions and instant rewards. Perfect for funding app purchases or subscriptions.",
+        idealFor: [
+          "Android users who buy apps or in-app purchases",
+          "iOS users who want quick PayPal cash",
+          "ADHD users who hate long surveys",
+          "Anyone who wants effortless micro-income"
+        ],
+        bottomLine: "The lowest-effort survey app out there. Quick questions, instant rewards, backed by Google."
+      }
+    };
+    
+    // Get app ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const appId = urlParams.get('app');
+    
+    // Render app details
+    function renderApp(app) {
+      if (!app) {
+        document.getElementById('content').innerHTML = `
+          <div style="text-align: center; padding: 60px 20px;">
+            <p style="font-size: 48px; margin-bottom: 16px;">🔍</p>
+            <h2 style="margin-bottom: 12px;">App Not Found</h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">We couldn't find details for this app.</p>
+            <a href="apps.html" style="display: inline-block; background: var(--brand); color: #0F0F0F; padding: 12px 24px; border-radius: 10px; font-weight: 700; text-decoration: none;">Browse All Apps</a>
+          </div>
+        `;
+        return;
+      }
+      
+      // Build tags HTML
+      let tagsHtml = '';
+      if (app.tags) {
+        app.tags.forEach(tag => {
+          if (tag === 'favorite') tagsHtml += '<span class="tag favorite">🥰 Favorite</span>';
+          if (tag === 'gift') tagsHtml += '<span class="tag gift">🎁 Gift Cards</span>';
+          if (tag === 'crypto') tagsHtml += '<span class="tag crypto">👾 Crypto</span>';
+          if (tag === 'passive') tagsHtml += '<span class="tag passive">😴 Passive</span>';
+        });
+      }
+      
+      // Build ADHD section
+      let adhdHtml = '';
+      if (app.adhd) {
+        adhdHtml = `
+          <section class="section">
+            <h2 class="section-title">🧠 Why It's ADHD-Friendly</h2>
+            <ul>
+              ${app.adhd.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          </section>
+        `;
+      }
+      
+      // Build How It Works section
+      let howHtml = '';
+      if (app.howItWorks) {
+        howHtml = `
+          <section class="section">
+            <h2 class="section-title">💡 How It Works</h2>
+            <ol>
+              ${app.howItWorks.map(item => `<li>${item}</li>`).join('')}
+            </ol>
+          </section>
+        `;
+      }
+      
+      // Build Important Notes section
+      let notesHtml = '';
+      if (app.importantNotes) {
+        notesHtml = `
+          <section class="section">
+            <h2 class="section-title">🚩 Important Notes</h2>
+            <ul>
+              ${app.importantNotes.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          </section>
+        `;
+      }
+      
+      // Build Payout section
+      let payoutHtml = '';
+      if (app.payout) {
+        payoutHtml = `
+          <section class="section">
+            <h2 class="section-title">💸 Payout Info</h2>
+            <table class="payout-table">
+              ${Object.entries(app.payout).map(([key, value]) => `
+                <tr>
+                  <td>${key}</td>
+                  <td>${value}</td>
+                </tr>
+              `).join('')}
+            </table>
+          </section>
+        `;
+      }
+      
+      // Build Activities section
+      let activitiesHtml = '';
+      if (app.activities) {
+        activitiesHtml = `
+          <section class="section">
+            <h2 class="section-title">🔍 Types of Activities</h2>
+            <ul>
+              ${app.activities.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          </section>
+        `;
+      }
+      
+      // Build Reddit quotes section
+      let redditHtml = '';
+      if (app.redditQuotes) {
+        redditHtml = `
+          <section class="section">
+            <h2 class="section-title">🧠 Reddit Users Say...</h2>
+            ${app.redditQuotes.map(q => `
+              <div class="reddit-quote">
+                "${q.text}"
+                <cite>— ${q.user}</cite>
+              </div>
+            `).join('')}
+          </section>
+        `;
+      }
+      
+      // Build Pros & Cons
+      let prosConsHtml = '';
+      if (app.pros || app.cons) {
+        prosConsHtml = `
+          <div class="pros-cons">
+            ${app.pros ? `
+              <div class="pros">
+                <h3 class="section-title">👍 Pros</h3>
+                <ul>
+                  ${app.pros.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+            ${app.cons ? `
+              <div class="cons">
+                <h3 class="section-title">⚠️ Cons</h3>
+                <ul>
+                  ${app.cons.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+      
+      // Build Final Take section
+      let finalHtml = '';
+      if (app.finalTake) {
+        finalHtml = `
+          <section class="section final-take">
+            <h2 class="section-title">🔥 Final Take</h2>
+            <p>${app.finalTake}</p>
+          </section>
+        `;
+      }
+      
+      // Build Ideal For section
+      let idealHtml = '';
+      if (app.idealFor) {
+        idealHtml = `
+          <section class="section ideal-for">
+            <h2 class="section-title">✅ Ideal For</h2>
+            <ul>
+              ${app.idealFor.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          </section>
+        `;
+      }
+      
+      // Build Bottom Line
+      let bottomHtml = '';
+      if (app.bottomLine) {
+        bottomHtml = `
+          <div class="quote-box">
+            ${app.bottomLine}
+          </div>
+        `;
+      }
+      
+      // Full render
+      document.getElementById('content').innerHTML = `
+        <div class="app-hero">
+          <img src="${app.logo}" alt="${app.name}" class="app-logo" onerror="this.src='https://via.placeholder.com/80/1a1a1a/5BBFB5?text=${app.name.charAt(0)}'">
+          <h1 class="app-name">${app.name}</h1>
+          <p class="app-rate">${app.rate}</p>
+          <div class="app-tags">${tagsHtml}</div>
+          ${app.link ? `<a href="${app.link}" target="_blank" class="visit-btn">Visit App →</a>` : ''}
+        </div>
+        
+        <p class="intro-text">${app.intro}</p>
+        
+        ${adhdHtml}
+        ${howHtml}
+        ${notesHtml}
+        ${payoutHtml}
+        ${activitiesHtml}
+        ${redditHtml}
+        ${prosConsHtml}
+        ${finalHtml}
+        ${idealHtml}
+        ${bottomHtml}
+      `;
+      
+      // Update page title
+      document.title = `${app.name} - 925 ADHD`;
+    }
+    
+    // Initialize
+    if (appId && apps[appId]) {
+      renderApp(apps[appId]);
+    } else {
+      renderApp(null);
+    }
+  </script>
+</body>
+</html>
