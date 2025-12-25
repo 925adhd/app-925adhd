@@ -307,7 +307,7 @@
     const messageDiv = document.getElementById('message');
     
     function showMessage(text, type) {
-      messageDiv.textContent = text;
+      messageDiv.innerHTML = text;
       messageDiv.className = `message ${type}`;
     }
     
@@ -328,7 +328,21 @@
       setLoading(true);
       
       try {
-        // Get the base path (works for both GitHub Pages and custom domain)
+        // First check if email is in Paid table
+        const { data: member, error: memberError } = await supabaseClient
+          .from('Paid')
+          .select('email, status')
+          .eq('email', email)
+          .eq('status', 'active')
+          .single();
+        
+        if (!member) {
+          showMessage('No active membership found for this email. <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05" style="color: #5BBFB5;">Sign up here</a>', 'error');
+          setLoading(false);
+          return;
+        }
+        
+        // Member found, send magic link
         const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
         const redirectUrl = window.location.origin + basePath + '/dashboard.html';
         
