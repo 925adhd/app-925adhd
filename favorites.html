@@ -497,12 +497,9 @@
     
     // DOM elements
     const contentEl = document.getElementById('content');
-    const favCountEl = document.getElementById('favCount');
     
     // Render favorites
     function renderFavorites() {
-      favCountEl.textContent = favorites.length;
-      
       if (favorites.length === 0) {
         contentEl.innerHTML = `
           <div class="empty-state">
