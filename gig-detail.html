@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Gig Details | 925 ADHD</title>
+  <title>Opportunity Details</title>
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
@@ -351,14 +351,14 @@
   <main id="mainContent">
     <div class="loading">
       <div class="loading-spinner"></div>
-      <p>Loading gig details...</p>
+      <p>Loading opportunity details...</p>
     </div>
   </main>
   
   <div class="cta-section" id="ctaSection" style="display:none;">
     <div class="cta-container">
       <a href="#" class="cta-btn cta-secondary" onclick="history.back()">← Back</a>
-      <a href="#" class="cta-btn cta-primary" id="ctaLink" target="_blank">Try This Gig →</a>
+      <a href="#" class="cta-btn cta-primary" id="ctaLink" target="_blank">Try This Opportunity →</a>
     </div>
   </div>
   
@@ -1644,15 +1644,15 @@ const gigData = {
       document.getElementById('mainContent').innerHTML = html;
       document.getElementById('ctaSection').style.display = 'block';
       document.getElementById('ctaLink').href = gig.link;
-      document.title = `${gig.name} | 925 ADHD`;
+      document.title = `${gig.name}`;
     }
     
     function renderNotFound() {
       document.getElementById('mainContent').innerHTML = `
         <div class="not-found">
-          <h2>😕 Gig Not Found</h2>
-          <p>We couldn't find details for this gig yet.</p>
-          <a href="gigs.html">← Browse All Gigs</a>
+          <h2>😕 Opportunity Not Found</h2>
+          <p>We couldn't find details for this opportunity yet.</p>
+          <a href="gigs.html">← Browse All Opportunities</a>
         </div>
       `;
     }

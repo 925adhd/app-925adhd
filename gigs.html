@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Make Cash | 925 ADHD</title>
+  <title>Earn</title>
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5BBFB5">
+  <link rel="stylesheet" href="assets/layout.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="925 ADHD">
@@ -485,13 +486,7 @@
 </head>
 <body>
   
-  <!-- Header -->
-  <header class="header">
-    <div class="header-top">
-      <a href="dashboard.html" class="back-btn">←</a>
-      <h1>Make Cash</h1>
-    </div>
-  </header>
+  <div id="site-header"></div>
 
   <main>
     <p class="updated-badge">Updated December 2025</p>
@@ -517,7 +512,7 @@
     
     <!-- Quick Filters -->
     <div class="filter-row">
-      <button class="filter-chip active" data-filter="all">All Gigs</button>
+      <button class="filter-chip active" data-filter="all">Show All</button>
       <button class="filter-chip" data-filter="favorites">❤️ Saved</button>
       <button class="filter-chip" data-filter="quick">⚡ Quick Start</button>
       <button class="filter-chip" data-filter="browser">💻 Browser Only</button>
@@ -527,12 +522,12 @@
     
     <!-- Search -->
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search gigs...">
+      <input type="text" id="searchInput" placeholder="Search opportunities...">
     </div>
     
     <!-- Pro Tip -->
     <div class="pro-tip" id="proTip">
-      <strong>🧠 ADHD Pro Tip:</strong> Pick ONE gig that matches your energy right now. Sign up while you're motivated—future you will thank you!
+      <strong>🧠 ADHD Pro Tip:</strong> Pick ONE opportunity that matches your energy right now. Sign up while you're motivated—future you will thank you!
     </div>
     
     <!-- Key -->
@@ -544,7 +539,7 @@
     
     <!-- Results Bar -->
     <div class="results-bar">
-      <span id="resultsText">Showing all gigs</span>
+      <span id="resultsText">Showing all opportunities</span>
       <button class="clear-filters hidden" id="clearBtn">Clear filters</button>
     </div>
     
@@ -556,34 +551,13 @@
     <!-- Empty State -->
     <div class="empty-state hidden" id="emptyState">
       <div class="icon">🔍</div>
-      <p>No gigs match your filters</p>
+      <p>No opportunities match your filters</p>
       <button class="clear-filters" onclick="clearAllFilters()">Clear all filters</button>
     </div>
   </main>
 
-  <!-- Bottom Nav -->
-  <nav class="bottom-nav">
-    <div class="nav-items">
-      <a href="dashboard.html" class="nav-item">
-        <span class="icon">🏠</span><span>Home</span>
-      </a>
-      <a href="guides.html" class="nav-item">
-        <span class="icon">📖</span><span>Guides</span>
-      </a>
-      <a href="gigs.html" class="nav-item active">
-        <span class="icon">💰</span><span>Cash</span>
-      </a>
-      <a href="apps.html" class="nav-item">
-        <span class="icon">📱</span><span>Apps</span>
-      </a>
-      <a href="favorites.html" class="nav-item">
-        <span class="icon">❤️</span><span>Saved</span>
-      </a>
-      <a href="tools.html" class="nav-item">
-        <span class="icon">🛠️</span><span>Tools</span>
-      </a>
-    </div>
-  </nav>
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
 
   <script>
     // ===== ALL 70 GIGS DATA =====
@@ -780,7 +754,7 @@
       });
       
       gigGrid.innerHTML = html;
-      resultsText.textContent = `Showing ${filtered.length} gig${filtered.length !== 1 ? 's' : ''}`;
+      resultsText.textContent = `Showing ${filtered.length} option${filtered.length !== 1 ? 's' : ''}`;
       totalCount.textContent = filtered.length;
       
       // Show/hide clear button
@@ -885,7 +859,7 @@
     
     // Pro tips rotation
     const proTips = [
-      { strong: "🧠 ADHD Pro Tip:", text: "Pick ONE gig that matches your energy right now. Sign up while you're motivated—future you will thank you!" },
+      { strong: "🧠 ADHD Pro Tip:", text: "Pick ONE option that matches your energy right now. Sign up while you're motivated—future you will thank you!" },
       { strong: "💡 Decision Fatigue Fix:", text: "Use the energy filter above. Low battery? Stick to surveys. Hyperfocus mode? Try Etsy or freelancing!" },
       { strong: "❤️ Dopamine Hack:", text: "Save your favorites (tap the heart) so you can come back without decision paralysis." },
       { strong: "📈 Stacking Strategy:", text: "Sign up for 2-3 survey sites now. More options = more available tasks when you need them." },
@@ -903,6 +877,35 @@
     
     // Initialize
     renderGigs();
+  </script>
+  <script>
+    (function(){
+      const el = document.getElementById('proTip');
+      if(!el) return;
+      el.style.overflow = 'hidden';
+
+      function ensureMaxHeight(newH){
+        const curr = parseFloat(el.style.height) || 0;
+        const h = Math.max(curr, newH);
+        el.style.height = h + 'px';
+      }
+
+      function lockToMax(){
+        // use scrollHeight to measure full content
+        const sh = el.scrollHeight;
+        ensureMaxHeight(sh);
+      }
+
+      // initial lock
+      lockToMax();
+
+      // watch for content changes and increase height if needed
+      const mo = new MutationObserver(lockToMax);
+      mo.observe(el, { childList: true, subtree: true, characterData: true });
+
+      // on resize, recalc but keep max
+      window.addEventListener('resize', lockToMax);
+    })();
   </script>
 </body>
 </html>

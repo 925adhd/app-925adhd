@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - 925 ADHD</title>
+  <title>Home</title>
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
@@ -261,50 +261,7 @@
       background: #4752C4;
     }
     
-    /* Bottom Navigation */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #1A1A1A;
-      border-top: 1px solid var(--border);
-      padding: 6px 0;
-      padding-bottom: max(6px, env(safe-area-inset-bottom));
-      z-index: 100;
-    }
     
-    .nav-items {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      padding: 6px 10px;
-      color: var(--text-muted);
-      font-size: 10px;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-    
-    .nav-item.active {
-      color: var(--brand);
-    }
-    
-    .nav-item:hover {
-      color: var(--text);
-    }
-    
-    .nav-item .icon {
-      font-size: 20px;
-    }
     
     /* Loading State */
     .loading-screen {
@@ -456,7 +413,7 @@
       <div class="quick-actions">
         <a href="gigs.html" class="action-card">
           <span class="icon">💰</span>
-          <h3>Make Cash</h3>
+          <h3>Earn</h3>
           <p>50+ ways to earn</p>
         </a>
         <a href="guides.html" class="action-card">
@@ -479,10 +436,10 @@
           <h3>Favorites</h3>
           <p>Your saved items</p>
         </a>
-        <a href="motivation.html" class="action-card">
-          <span class="icon">🔥</span>
-          <h3>Motivation</h3>
-          <p>Remember your why</p>
+        <a href="adhdhacks.html" class="action-card">
+          <span class="icon">⚔️</span>
+          <h3>ADHD Hacks</h3>
+          <p>Strategies that work</p>
         </a>
       </div>
       
@@ -506,35 +463,7 @@
       </a>
     </main>
     
-    <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
-      <div class="nav-items">
-        <a href="dashboard.html" class="nav-item active">
-          <span class="icon">🏠</span>
-          <span>Home</span>
-        </a>
-        <a href="guides.html" class="nav-item">
-          <span class="icon">📖</span>
-          <span>Guides</span>
-        </a>
-        <a href="gigs.html" class="nav-item">
-          <span class="icon">💰</span>
-          <span>Cash</span>
-        </a>
-        <a href="apps.html" class="nav-item">
-          <span class="icon">📱</span>
-          <span>Apps</span>
-        </a>
-        <a href="favorites.html" class="nav-item">
-          <span class="icon">❤️</span>
-          <span>Saved</span>
-        </a>
-        <a href="tools.html" class="nav-item">
-          <span class="icon">🛠️</span>
-          <span>Tools</span>
-        </a>
-      </div>
-    </nav>
+    
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saved Gigs - 925 ADHD</title>
+  <title>Saved</title>
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5BBFB5">
+  <link rel="stylesheet" href="assets/layout.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="925 ADHD">
@@ -123,7 +124,7 @@
       font-weight: 700;
       transition: all 0.2s;
     }
-    
+
     .empty-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 20px var(--brand-glow);
@@ -345,11 +346,7 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <a href="dashboard.html" class="back-btn">←</a>
-    <h1>Saved</h1>
-  </header>
+  <div id="site-header"></div>
   
   <!-- Main Content -->
   <main class="main-content">
@@ -359,34 +356,8 @@
   </main>
   
   <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <div class="nav-items">
-      <a href="dashboard.html" class="nav-item">
-        <span class="icon">🏠</span>
-        <span>Home</span>
-      </a>
-      <a href="guides.html" class="nav-item">
-        <span class="icon">📖</span>
-        <span>Guides</span>
-      </a>
-      <a href="gigs.html" class="nav-item">
-        <span class="icon">💰</span>
-        <span>Cash</span>
-      </a>
-      <a href="apps.html" class="nav-item">
-        <span class="icon">📱</span>
-        <span>Apps</span>
-      </a>
-      <a href="favorites.html" class="nav-item active">
-        <span class="icon">❤️</span>
-        <span>Saved</span>
-      </a>
-      <a href="tools.html" class="nav-item">
-        <span class="icon">🛠️</span>
-        <span>Tools</span>
-      </a>
-    </div>
-  </nav>
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
 
   <script>
     // All gigs data
@@ -410,7 +381,7 @@
       
       // AI Training & Data Work
       { id: "outlier", name: "Outlier", rate: "$15–$35/hr", desc: "Improve AI by rating responses, comparing outputs, and evaluating models.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/261LHUjlubG5IjYr0LZv.png", link: "https://outlier.ai", category: "ai", energy: "med", tags: ["highpay"] },
-      { id: "appen", name: "Appen", rate: "$3–$14/hr", desc: "Specializes in AI training data with data labeling gigs.", logo: "https://cdn-images.himalayas.app/vmlva5ltollcahuby442urxngpau", link: "https://jobs.lever.co/appen", category: "ai", energy: "med", tags: ["beginner"] },
+      { id: "appen", name: "Appen", rate: "$3–$14/hr", desc: "Specializes in AI training data with data labeling opportunities.", logo: "https://cdn-images.himalayas.app/vmlva5ltollcahuby442urxngpau", link: "https://jobs.lever.co/appen", category: "ai", energy: "med", tags: ["beginner"] },
       { id: "clickworker", name: "Clickworker", rate: "$5–$12/hr", desc: "Freelance platform offering tasks like text creation & annotation.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/C1vyAjM6bkaR4bcNeCeA.png", link: "https://www.clickworker.com/clickworker/", category: "ai", energy: "med", tags: ["beginner", "quick"] },
       { id: "neevo", name: "Neevo", rate: "$5–$12/hr", desc: "Help improve AI by completing simple tasks involving text, audio, images.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zbigllQ1z7hix1BDq2XT.png", link: "https://www.neevo.ai/", category: "ai", energy: "med", tags: ["beginner"] },
       
@@ -418,7 +389,7 @@
       { id: "bestmark", name: "BestMark", rate: "$10–$25/assignment", desc: "One of the biggest platforms for mystery shoppers with wide variety.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/M19p9QumhG9pef4jnC4G.jpg", link: "https://www.bestmark.com/become-a-mystery-shopper/", category: "mystery", energy: "med", tags: ["beginner"] },
       { id: "isecretshop", name: "iSecretShop", rate: "$5–$20/assignment", desc: "Flexible mystery shopping with mobile-friendly assignments.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/MUcOeiXW3P0e1CGmmUos.jpg", link: "https://www.isecretshop.com/register", category: "mystery", energy: "med", tags: ["beginner", "quick"] },
       { id: "marketforce", name: "Market Force", rate: "$5–$15/assignment", desc: "Earn by visiting locations and filling out surveys. Free food perks!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/SxHLTnmhZ2kYE3ShRn4Y.png", link: "https://shopper.marketforce.com/#/login/newShopper/Apply", category: "mystery", energy: "med", tags: ["beginner"] },
-      { id: "gigspot", name: "Gigspot", rate: "$5–$20/assignment", desc: "Hub for mystery shopping and evaluation gigs from multiple providers.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/PkdyJvLxQhLJzuLbbnAu.jpg", link: "https://www.gigspot.com/", category: "mystery", energy: "med", tags: ["beginner"] },
+      { id: "gigspot", name: "Gigspot", rate: "$5–$20/assignment", desc: "Hub for mystery shopping and evaluation opportunities from multiple providers.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/PkdyJvLxQhLJzuLbbnAu.jpg", link: "https://www.gigspot.com/", category: "mystery", energy: "med", tags: ["beginner"] },
       { id: "prestoshopper", name: "Presto Shopper", rate: "$5–$15/assignment", desc: "Fast, map-based mystery shopping. Get paid same day!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/DvyAgPosZi8eWjHhb77J.jpg", link: "https://insta.prestomobilesurveys.com/site", category: "mystery", energy: "med", tags: ["quick"] },
       
       // Transcription
@@ -438,7 +409,7 @@
       
       // Content Writing
       { id: "clearvoice", name: "ClearVoice", rate: "$100–$400+/article", desc: "Connect with brands for content. Clients come to you—no bidding.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kRJCNp4S56RIYwZjvhWN.png", link: "https://clearvoice.com/signup", category: "writing", energy: "high", tags: ["highpay"] },
-      { id: "scripted", name: "Scripted", rate: "$15–$50+/hr", desc: "Curated job board—pick gigs you want. No bidding wars.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/oHFDNcszl0MjisQF0KgJ.png", link: "https://www.scripted.com/become-a-scripted-writer", category: "writing", energy: "high", tags: ["highpay"] },
+      { id: "scripted", name: "Scripted", rate: "$15–$50+/hr", desc: "Curated job board—pick opportunities you want. No bidding wars.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/oHFDNcszl0MjisQF0KgJ.png", link: "https://www.scripted.com/become-a-scripted-writer", category: "writing", energy: "high", tags: ["highpay"] },
       { id: "writeraccess", name: "WriterAccess", rate: "$0.10–$1+/word", desc: "Star rating system—level up for better pay. 20K+ writers.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jrkeq8izQRqzi3czUPvx.png", link: "https://www.writeraccess.com/talent-overview/", category: "writing", energy: "high", tags: [] },
       
       // Online Teaching
@@ -454,7 +425,7 @@
       
       // Freelancing Marketplaces
       { id: "toptal", name: "Toptal", rate: "$60–$150+/hr", desc: "Elite 3% acceptance. Premium clients, long-term contracts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/z6xQQ7MZhH05Jephsdwo.png", link: "https://toptal.com/", category: "freelance", energy: "high", tags: ["highpay"] },
-      { id: "fiverr", name: "Fiverr", rate: "$5–$500+/project", desc: "Gig-based marketplace. Clients come to you—no bidding!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Tji9gPHOWc8JX0Fr7lI6.png", link: "https://fiverr.com/", category: "freelance", energy: "high", tags: ["beginner"] },
+      { id: "fiverr", name: "Fiverr", rate: "$5–$500+/project", desc: "Freelance marketplace. Clients come to you—no bidding!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Tji9gPHOWc8JX0Fr7lI6.png", link: "https://fiverr.com/", category: "freelance", energy: "high", tags: ["beginner"] },
       { id: "freelancer", name: "Freelancer", rate: "$10–$80+/hr", desc: "Competitive bidding platform. Huge variety of projects.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zp6u2DdwP3cg0mFJxlSy.png", link: "https://freelancer.com/", category: "freelance", energy: "high", tags: [] },
       
       // Social Media Influencing
@@ -466,7 +437,7 @@
       { id: "kofi", name: "Ko-fi", rate: "$1–$1,000+/tip", desc: "Digital tip jar. 0% fees on tips! Sell products too.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/rV3EmPqdyk7oLMwji0FC.png", link: "https://ko-fi.com/", category: "social", energy: "med", tags: ["beginner", "quick"] },
       { id: "facebook", name: "Facebook", rate: "$100–$10,000+/post", desc: "Marketplace, groups, sponsored content. Huge reach.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/joOXU3pGdlKULwwTQ7K7.png", link: "https://www.facebook.com/", category: "social", energy: "med", tags: [] },
       { id: "x", name: "X (Twitter)", rate: "$50–$5,000+/tweet", desc: "Microblogging. Sponsored tweets, ad revenue sharing.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bvwxaR2mEAAX605zQhsx.png", link: "https://www.x.com/", category: "social", energy: "med", tags: [] },
-      { id: "linkedin", name: "LinkedIn", rate: "$500–$20,000+/gig", desc: "Professional networking. Speaking gigs, courses, clients.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/DiQhmMBQMIupg107v1KD.png", link: "https://www.linkedin.com/", category: "social", energy: "high", tags: ["highpay"] },
+      { id: "linkedin", name: "LinkedIn", rate: "$500–$20,000+/opportunity", desc: "Professional networking. Speaking opportunities, courses, clients.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/DiQhmMBQMIupg107v1KD.png", link: "https://www.linkedin.com/", category: "social", energy: "high", tags: ["highpay"] },
       
       // Handmade Goods
       { id: "etsy", name: "Etsy", rate: "Self-set", desc: "Global marketplace for handmade, vintage, and creative goods.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/pvvTqqHXOWCv5aaHVeWe.jpg", link: "https://etsy.com/", category: "handmade", energy: "high", tags: [] },
@@ -480,7 +451,7 @@
       // Care & Service
       { id: "carecom", name: "Care.com", rate: "$20–$35/hr", desc: "Babysitting, elder care, special needs. Flexible compassionate work.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/5I3e2N4NAjdUE4PJqfKY.dat", link: "https://www.care.com", category: "care", energy: "high", tags: ["highpay"] },
       { id: "rover", name: "Rover", rate: "$20–$40/hr", desc: "Dog walking, pet sitting, boarding. \"Airbnb for pets\"!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/n8yzcHBxOVGYzZeYTAPc.png", link: "https://rover.com", category: "care", energy: "med", tags: ["highpay", "beginner"] },
-      { id: "wag", name: "Wag", rate: "$13–$25/hr", desc: "Quick dog walks, drop-ins. On-demand gigs, fast bookings.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Cw1AUklnSjvwc5cFkDgL.png", link: "https://wagwalking.com", category: "care", energy: "med", tags: ["quick", "beginner"] },
+      { id: "wag", name: "Wag", rate: "$13–$25/hr", desc: "Quick dog walks, drop-ins. On-demand services, fast bookings.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Cw1AUklnSjvwc5cFkDgL.png", link: "https://wagwalking.com", category: "care", energy: "med", tags: ["quick", "beginner"] },
       { id: "taskrabbit", name: "TaskRabbit", rate: "$17.50–$50+/hr", desc: "Cleaning, handyman, moving, IKEA assembly, errands.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Y0lwF8oCSOa0ygsFLxiQ.jpg", link: "https://taskrabbit.com", category: "care", energy: "high", tags: ["highpay"] },
       { id: "papa", name: "Papa", rate: "$13–$20/hr", desc: "Senior companionship, errands, friendly conversation.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/OdxfBWuzWg2E3ANzr6ua.jpg", link: "https://papa.com", category: "care", energy: "med", tags: ["beginner"] },
       { id: "trustedhousesitters", name: "Trusted Housesitters", rate: "Free lodging", desc: "Pet & house sit worldwide. Travel exchange, membership required.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jIeyGBhuLLHKbK542yIO.png", link: "https://trustedhousesitters.com", category: "care", energy: "med", tags: [] },
@@ -503,13 +474,13 @@
       if (favorites.length === 0) {
         contentEl.innerHTML = `
           <div class="empty-state">
-            <div class="empty-icon">💜</div>
-            <h2 class="empty-title">No saved gigs yet</h2>
+            <div class="empty-icon">❤️</div>
+            <h2 class="empty-title">No saved opportunities yet</h2>
             <p class="empty-text">
-              Tap the heart on any gig to save it here.<br>
+              Tap the heart on any opportunity to save it here.<br>
               Your favorites will be waiting for you!
             </p>
-            <a href="gigs.html" class="empty-btn">Browse Gigs</a>
+            <a href="gigs.html" class="empty-btn">Browse Opportunities</a>
           </div>
         `;
         return;
@@ -517,7 +488,7 @@
       
       let html = `
         <div class="pro-tip">
-          <strong>💡 Pro Tip:</strong> These are your saved gigs! Tap the ✕ to remove one, or tap the card to view details.
+          <strong>💡 Pro Tip:</strong> These are your saved opportunities! Tap the ✕ to remove one, or tap the card to view details.
         </div>
         <div class="gig-list">
       `;

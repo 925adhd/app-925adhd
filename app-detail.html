@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Details - 925 ADHD</title>
+  <title>App Details</title>
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5BBFB5">
+   <link rel="stylesheet" href="assets/layout.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="925 ADHD">
@@ -207,34 +208,9 @@
     }
     
     /* Pros & Cons */
-    .pros-cons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    
-    .pros, .cons {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-    }
-    
-    .pros { border-color: rgba(34, 197, 94, 0.3); }
-    .cons { border-color: rgba(239, 68, 68, 0.3); }
-    
-    .pros .section-title { color: #4ade80; }
-    .cons .section-title { color: #f87171; }
-    
-    .pros li, .cons li {
-      font-size: 13px;
-      margin-bottom: 6px;
-    }
-    
-    /* Payout Table */
-    .payout-table {
-      width: 100%;
-      border-collapse: collapse;
+     <div id="site-nav"></div>
+ 
+     <script src="assets/layout.js"></script>
       font-size: 13px;
     }
     
@@ -454,9 +430,9 @@
         logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bJvEwgxE41M5YKf5NNUc.png",
         link: "https://app.fieldagent.net/",
         tags: ["favorite", "microgig"],
-        intro: "Field Agent is a gig-style microtask app that pays you cash to complete small in-person jobs—like price checks, shelf audits, mystery shops, and product trials—while you're already out running errands.",
+        intro: "Field Agent is a microtask app that pays you cash to complete small in-person jobs—like price checks, shelf audits, mystery shops, and product trials—while you're already out running errands.",
         adhd: [
-          "Tasks are <strong>short and varied</strong>—from simple audits to \"buy & try\" gigs.",
+          "Tasks are <strong>short and varied</strong>—from simple audits to \"buy & try\" opportunities.",
           "No fixed schedule—<strong>work when it suits you</strong>.",
           "Quick wins and immediate payouts provide <strong>motivation boosts</strong>."
         ],
@@ -469,7 +445,7 @@
         importantNotes: [
           "Typical tasks pay <strong>$2–$12</strong>, occasionally up to <strong>$20+</strong>.",
           "You often have about <strong>2 hours</strong> to complete a reserved job.",
-          "Task availability varies—more jobs in urban areas; rural areas may see fewer gigs.",
+          "Task availability varies—more jobs in urban areas; rural areas may see fewer opportunities.",
           "Requires <strong>careful attention</strong>—mistakes lead to rejections and lower ratings.",
           "Users report slowdowns since the pandemic and find scavenger hunts often not worth it."
         ],
@@ -493,7 +469,7 @@
           "Good app reviews (4.5★+ on G2/App Store)"
         ],
         cons: [
-          "Inconsistent gigs depending on location",
+          "Inconsistent opportunities depending on location",
           "Strict task instructions; rejections hurt your accuracy",
           "Gas and time may outweigh earnings for distant tasks"
         ],
@@ -518,7 +494,7 @@
           "<strong>Clear, structured missions</strong> — step-by-step photo checklists reduce confusion.",
           "<strong>Variety of tasks</strong> — storefronts, signage, product displays, property checks.",
           "<strong>Short tasks</strong> — most take only 5–20 minutes.",
-          "<strong>Flexible schedule</strong> — accept or skip gigs based on your energy level.",
+          "<strong>Flexible schedule</strong> — accept or skip opportunities based on your energy level.",
           "<strong>Instant feedback loop</strong> — submit, get approval, and see earnings build."
         ],
         howItWorks: [
@@ -530,7 +506,7 @@
         ],
         importantNotes: [
           "<strong>U.S. only</strong> — not available internationally.",
-          "<strong>Travel required</strong> — you'll need reliable transportation to reach gigs.",
+          "<strong>Travel required</strong> — you'll need reliable transportation to reach opportunities.",
           "<strong>Limited availability</strong> — jobs may be sparse outside major cities.",
           "<strong>Low to moderate pay</strong> — $5–$20 per Vue, though some pay more.",
           "<strong>Quick turnaround needed</strong> — most tasks must be done within a few hours."
@@ -558,7 +534,7 @@
           "Requires transportation",
           "Limited availability outside metro areas"
         ],
-        finalTake: "iVueit is perfect for ADHD-friendly side hustlers who like <strong>short, structured, on-the-go gigs</strong>. It's simple, fast, and flexible—but best for people in or near metro areas with lots of available assignments.",
+        finalTake: "iVueit is perfect for ADHD-friendly side hustlers who like <strong>short, structured, on-the-go opportunities</strong>. It's simple, fast, and flexible—but best for people in or near metro areas with lots of available assignments.",
         idealFor: [
           "ADHD users who thrive with <strong>clear instructions and quick tasks</strong>",
           "Freelancers who enjoy being active and moving between locations",
@@ -576,8 +552,8 @@
         tags: ["microgig"],
         intro: "ProxyPics is a gig app where companies pay you to take on-demand photos of real-world locations, properties, and businesses. Think of it like being a paid \"photo proxy\" for someone who can't be there in person.",
         adhd: [
-          "<strong>Clear instructions</strong> — every gig has a photo checklist to follow.",
-          "<strong>Short, simple jobs</strong> — most gigs take 5–15 minutes.",
+          "<strong>Clear instructions</strong> — every task has a photo checklist to follow.",
+          "<strong>Short, simple jobs</strong> — most tasks take 5–15 minutes.",
           "<strong>Variety of tasks</strong> — homes, storefronts, neighborhoods, and construction sites.",
           "<strong>Flexible schedule</strong> — pick only the gigs you want, when you want.",
           "<strong>Dopamine hit</strong> — instant satisfaction from submitting and seeing payment pending."
@@ -585,7 +561,7 @@
         howItWorks: [
           "Download the <strong>ProxyPics app</strong> (iOS/Android) and sign up.",
           "Browse available photo requests (\"proxies\") in your area.",
-          "Accept a gig, travel to the location, and take the required photos.",
+          "Accept an opportunity, travel to the location, and take the required photos.",
           "Submit your work directly in the app.",
           "Get paid after approval, usually within 24–48 hours."
         ],
@@ -617,7 +593,7 @@
         cons: [
           "U.S.-focused only",
           "Requires transportation",
-          "Limited volume of gigs"
+          "Limited volume of opportunities"
         ],
         finalTake: "ProxyPics is perfect for ADHD-friendly side hustlers who like <strong>short, structured, outdoor gigs with fast payouts</strong>. It's great for running errands, taking walks, or exploring neighborhoods—while earning extra cash.",
         idealFor: [
@@ -1304,7 +1280,7 @@
       `;
       
       // Update page title
-      document.title = `${app.name} - 925 ADHD`;
+      document.title = `${app.name}`;
     }
     
     // Initialize

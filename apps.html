@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apps - 925 ADHD</title>
+  <title>Apps</title>
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5BBFB5">
+  <link rel="stylesheet" href="assets/layout.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="925 ADHD">
@@ -313,10 +314,7 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <a href="dashboard.html" class="back-btn">←</a>
-    <h1>Apps</h1>
-  </header>
+  <div id="site-header"></div>
   
   <main class="main-content">
     <p class="updated-badge">Updated December 2025</p>
@@ -561,16 +559,8 @@
     </section>
   </main>
   
-  <nav class="bottom-nav">
-    <div class="nav-items">
-      <a href="dashboard.html" class="nav-item"><span class="icon">🏠</span><span>Home</span></a>
-      <a href="guides.html" class="nav-item"><span class="icon">📖</span><span>Guides</span></a>
-      <a href="gigs.html" class="nav-item"><span class="icon">💰</span><span>Cash</span></a>
-      <a href="apps.html" class="nav-item active"><span class="icon">📱</span><span>Apps</span></a>
-      <a href="favorites.html" class="nav-item"><span class="icon">❤️</span><span>Saved</span></a>
-      <a href="tools.html" class="nav-item"><span class="icon">🛠️</span><span>Tools</span></a>
-    </div>
-  </nav>
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
 
   <script>
     const searchInput = document.getElementById('mainSearch');
