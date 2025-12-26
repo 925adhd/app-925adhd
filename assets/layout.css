@@ -1,12 +1,142 @@
-/* Shared header and bottom navigation styles */
-:root{--brand:#5BBFB5;--bg:#0F0F0F;--card:#1A1A1A;--border:rgba(255,255,255,.1);--text:#fff;--text-muted:rgba(255,255,255,.55)}
-body{margin:0;padding:0}
-.site-header{background:var(--brand);padding:12px 16px;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:100}
-.site-header .title{font-size:18px;font-weight:700;color:#0F0F0F}
-.site-header .back-btn{position:absolute;left:12px;background:none;border:none;color:#0F0F0F;font-size:20px;cursor:pointer;padding:6px 8px;text-decoration:none}
-.site-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:6px 0;z-index:100}
-.site-nav .nav-items{display:flex;justify-content:space-around;align-items:center;max-width:600px;margin:0 auto}
-.site-nav .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;color:var(--text-muted);font-size:11px;font-weight:600;text-decoration:none}
-.site-nav .nav-item.active{color:var(--brand)}
-.site-nav .nav-item .icon{font-size:20px}
-.site-nav .nav-item:hover{color:var(--text)}
+/* layout.css (standardized, fixed heights) */
+:root{
+  --brand:#5BBFB5;
+  --bg:#0F0F0F;
+  --card:#1A1A1A;
+  --border:rgba(255,255,255,.10);
+  --text:#fff;
+  --text-muted:rgba(255,255,255,.55);
+
+  --header-h:56px;
+  --nav-h:72px; /* includes padding; keep constant */
+}
+
+html, body { height:100%; }
+body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--text);
+  /* Reserve space so content never changes layout or overlaps */
+  padding-top:var(--header-h);
+  padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
+  box-sizing:border-box;
+}
+*, *::before, *::after { box-sizing:border-box; }
+
+/* Header: fixed height, consistent everywhere */
+.site-header{
+  position:fixed;
+  top:0; left:0; right:0;
+  height:var(--header-h);
+  min-height:var(--header-h);
+  z-index:9999;
+
+  background:var(--brand);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 16px;
+}
+
+.site-header .title{
+  font-size:18px;
+  font-weight:800;
+  color:#0F0F0F;
+  line-height:var(--header-h);
+  margin:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:calc(100% - 120px); /* keeps title from colliding with back button */
+}
+
+.site-header .back-btn{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+  background:none;
+  border:none;
+  color:#0F0F0F;
+  font-size:26px;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+/* Bottom nav: fixed height, consistent everywhere */
+.site-nav{
+  position:fixed;
+  left:0; right:0;
+  bottom:0;
+  height:var(--nav-h);
+  min-height:var(--nav-h);
+  z-index:9999;
+
+  background:var(--card);
+  border-top:1px solid var(--border);
+  padding:8px 0;
+  padding-bottom:calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Keep nav items centered and consistent width */
+.site-nav .nav-items{
+  height:100%;
+  max-width:700px;
+  margin:0 auto;
+  padding:0 12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:0;
+}
+
+/* Lock spacing: fixed icon box + fixed label line-height */
+.site-nav .nav-item{
+  height:100%;
+  min-width:56px;
+  padding:6px 8px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+
+  text-decoration:none;
+  color:var(--text-muted);
+  font-size:10px;
+  font-weight:700;
+  text-align:center;
+
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+
+.site-nav .nav-item .icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:22px;          /* fixed icon “box” */
+  font-size:20px;
+  line-height:22px;     /* locks vertical spacing */
+}
+
+.site-nav .nav-item span:not(.icon){
+  display:block;
+  line-height:12px;     /* locks label spacing */
+}
+
+.site-nav .nav-item:hover{ color:var(--text); }
+.site-nav .nav-item.active{ color:var(--brand); }
+
+/* Optional: if some pages set main to full height or weird padding, this helps */
+main, .main-content { min-height:calc(100vh - var(--header-h) - var(--nav-h)); }

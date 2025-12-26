@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Remember Your Why - 925 ADHD</title>
+  <title>Motivation</title>
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
@@ -407,7 +407,7 @@
     }
   </style>
 </head>
-<body>
+<body data-page-title="Motivation">
   <!-- Top Header -->
   <header class="top-header">
     <a href="dashboard.html" class="back-btn">←</a>
@@ -428,7 +428,7 @@
   
   <!-- Audio Section -->
   <section class="audio-section">
-    <audio controls style="width: 100%;">
+    <audio id="motAudio" controls style="width: 100%;">
       <source src="https://www.dropbox.com/scl/fi/gz8wfwcwnop1lledsbc3o/Grateful.mp3?rlkey=6uiabpmvb87wulsqw63x2hb0l&st=dt0a6e2o&raw=1" type="audio/mpeg">
     </audio>
     <p class="audio-caption">
@@ -571,9 +571,9 @@
         <span class="icon">📖</span>
         <span>Guides</span>
       </a>
-      <a href="gigs.html" class="nav-item">
+      <a href="earn.html" class="nav-item">
         <span class="icon">💰</span>
-        <span>Make Cash</span>
+        <span>Earn</span>
       </a>
       <a href="apps.html" class="nav-item">
         <span class="icon">📱</span>
@@ -613,5 +613,49 @@
       oscillator.stop(audioCtx.currentTime + 0.1);
     });
   </script>
+  <script>
+    // Update page title and Media Session metadata when the motivation audio plays
+    (function(){
+      const motAudio = document.getElementById('motAudio');
+      if (!motAudio) return;
+      const originalTitle = document.title || 'Motivation';
+      const trackTitle = 'Grateful – NEFFEX';
+      const artworkUrl = 'https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png';
+
+      function setPlaying() {
+        try { document.title = trackTitle; } catch(e){}
+        if ('mediaSession' in navigator) {
+          try {
+            navigator.mediaSession.metadata = new MediaMetadata({
+              title: 'Grateful',
+              artist: 'NEFFEX',
+              album: '',
+              artwork: [{ src: artworkUrl,   sizes: '512x512', type: 'image/png' }]
+            });
+            navigator.mediaSession.playbackState = 'playing';
+          } catch(e){}
+        }
+      }
+
+      function onPause() {
+        if ('mediaSession' in navigator) {
+          try { navigator.mediaSession.playbackState = 'paused'; } catch(e){}
+        }
+      }
+
+      function onEnded() {
+        try { document.title = originalTitle; } catch(e){}
+        if ('mediaSession' in navigator) {
+          try { navigator.mediaSession.playbackState = 'none'; } catch(e){}
+        }
+      }
+
+      motAudio.addEventListener('play', setPlaying);
+      motAudio.addEventListener('playing', setPlaying);
+      motAudio.addEventListener('pause', onPause);
+      motAudio.addEventListener('ended', onEnded);
+    })();
+  </script>
+    <script src="assets/layout.js"></script>
 </body>
 </html>

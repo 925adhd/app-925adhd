@@ -355,10 +355,11 @@
       .tool-card h3 { font-size: 13px; }
       .tool-card p { font-size: 11px; }
       .hero-logo { width: 80px; height: 80px; }
+      .audio-player { margin-top: 12px; }
     }
   </style>
 </head>
-<body>
+<body data-page-title="Tools">
   <div id="site-header"></div>
   
   <main class="main-content">
@@ -375,7 +376,7 @@
       </div>
       
       <div class="audio-player">
-        <audio controls>
+        <audio id="brainAudio" controls title="Focus Music - Brain.Fm">
           <source src="https://www.dropbox.com/scl/fi/5vkgpt2hsrj2rhkxbomy3/Geode-Grooves-Focus-Deep-Work.wav?rlkey=bku0yamcro88yuipv4b2ed675&st=hchol8mj&raw=1" type="audio/wav">
         </audio>
       </div>
@@ -428,6 +429,48 @@
         </a>
       </div>
     </section>
+    <script>
+      (function(){
+        const brainAudio = document.getElementById('brainAudio');
+        if (!brainAudio) return;
+        const originalTitle = document.title || 'Tools';
+        const trackTitle = 'Focus - Brain.Fm';
+        const artworkUrl = document.querySelector('.hero-logo')?.src || '';
+
+        function setPlaying() {
+          try { document.title = trackTitle; } catch(e){}
+          if ('mediaSession' in navigator) {
+            try {
+              navigator.mediaSession.metadata = new MediaMetadata({
+                title: 'Focus',
+                artist: 'Brain.Fm',
+                album: '',
+                artwork: artworkUrl ? [{ src: artworkUrl, sizes: '512x512', type: 'image/png' }] : []
+              });
+              navigator.mediaSession.playbackState = 'playing';
+            } catch(e){}
+          }
+        }
+
+        function onPause() {
+          if ('mediaSession' in navigator) {
+            try { navigator.mediaSession.playbackState = 'paused'; } catch(e){}
+          }
+        }
+
+        function onEnded() {
+          try { document.title = originalTitle; } catch(e){}
+          if ('mediaSession' in navigator) {
+            try { navigator.mediaSession.playbackState = 'none'; } catch(e){}
+          }
+        }
+
+        brainAudio.addEventListener('play', setPlaying);
+        brainAudio.addEventListener('playing', setPlaying);
+        brainAudio.addEventListener('pause', onPause);
+        brainAudio.addEventListener('ended', onEnded);
+      })();
+    </script>
     
     <!-- Money Tools -->
     <section class="section" data-category="money">

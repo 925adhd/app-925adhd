@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystery Shopping | Get Paid to Shop & Eat 🕵️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0f15;
+            --card: #131d2a;
+            --card-hover: #1a2838;
+            --accent-1: #f97316;
+            --accent-2: #22d3ee;
+            --accent-3: #4ade80;
+            --accent-4: #facc15;
+            --accent-5: #fb7185;
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 20px; }
+
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--accent-1)20, var(--accent-4)20);
+            border-radius: 24px;
+            margin-bottom: 25px;
+        }
+
+        .hero-icon { font-size: 4rem; margin-bottom: 15px; }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-4));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .shop-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .shop-type {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 18px 12px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .shop-type:hover { border-color: var(--accent-1); transform: translateY(-3px); }
+        .shop-type-icon { font-size: 2rem; margin-bottom: 8px; }
+        .shop-type-name { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.95rem; }
+        .shop-type-pay { color: var(--accent-3); font-size: 0.85rem; font-weight: 600; }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .stat {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent-3);
+        }
+
+        .stat-label { font-size: 0.85rem; color: var(--text-dim); margin-top: 5px; }
+
+        .section { margin: 20px 0; }
+
+        .section-header {
+            background: var(--card);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover { border-color: var(--accent-1); }
+        .section-header.open { border-color: var(--accent-3); border-radius: 16px 16px 0 0; }
+
+        .section-icon { font-size: 1.8rem; }
+        .section-info { flex: 1; }
+        .section-title { font-family: 'Fredoka', sans-serif; font-size: 1.15rem; font-weight: 600; }
+        .section-desc { font-size: 0.85rem; color: var(--text-dim); }
+
+        .section-badge {
+            background: var(--accent-2)22;
+            color: var(--accent-2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .section-arrow { color: var(--text-dim); transition: transform 0.3s ease; }
+        .section-header.open .section-arrow { transform: rotate(180deg); }
+
+        .section-body {
+            display: none;
+            background: var(--card);
+            border: 2px solid var(--accent-3);
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            padding: 25px;
+        }
+
+        .section-body.show { display: block; }
+
+        .card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-2);
+        }
+
+        .card.green { border-left-color: var(--accent-3); }
+        .card.yellow { border-left-color: var(--accent-4); }
+        .card.orange { border-left-color: var(--accent-1); }
+        .card.pink { border-left-color: var(--accent-5); }
+
+        .card h4 { font-family: 'Fredoka', sans-serif; margin-bottom: 10px; }
+        .card ul { margin: 10px 0 0 20px; }
+        .card li { margin: 8px 0; }
+
+        .companies { display: grid; gap: 15px; margin: 20px 0; }
+
+        .company {
+            background: var(--card-hover);
+            border-radius: 14px;
+            padding: 18px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .company:hover { border-color: var(--accent-1); }
+
+        .company-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .company-name { font-family: 'Fredoka', sans-serif; font-size: 1.1rem; font-weight: 600; }
+
+        .company-badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            background: var(--accent-3)22;
+            color: var(--accent-3);
+        }
+
+        .company-desc { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 10px; }
+
+        .company-link {
+            display: inline-block;
+            margin-top: 8px;
+            color: var(--accent-2);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .checklist { margin: 20px 0; }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px;
+            background: var(--card-hover);
+            border-radius: 10px;
+            margin: 8px 0;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .check-item.done { border-color: var(--accent-3); background: rgba(74, 222, 128, 0.1); }
+
+        .check-box {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-dim);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .check-item.done .check-box { background: var(--accent-3); border-color: var(--accent-3); color: var(--bg); }
+        .check-item.done .check-text { text-decoration: line-through; opacity: 0.7; }
+
+        .cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-4));
+            color: var(--bg);
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(249, 115, 22, 0.3); }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .stats, .shop-types { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-icon">🕵️</div>
+            <h1><span>Mystery Shopping</span></h1>
+            <p class="subtitle">Get paid to eat, shop, and pretend you're a spy.</p>
+        </div>
+
+        <div class="shop-types">
+            <div class="shop-type">
+                <div class="shop-type-icon">🍔</div>
+                <div class="shop-type-name">Restaurants</div>
+                <div class="shop-type-pay">$15-50 + meal</div>
+            </div>
+            <div class="shop-type">
+                <div class="shop-type-icon">🛒</div>
+                <div class="shop-type-name">Retail</div>
+                <div class="shop-type-pay">$8-25</div>
+            </div>
+            <div class="shop-type">
+                <div class="shop-type-icon">🏦</div>
+                <div class="shop-type-name">Banks</div>
+                <div class="shop-type-pay">$15-40</div>
+            </div>
+            <div class="shop-type">
+                <div class="shop-type-icon">🚗</div>
+                <div class="shop-type-name">Car Dealers</div>
+                <div class="shop-type-pay">$25-100+</div>
+            </div>
+            <div class="shop-type">
+                <div class="shop-type-icon">🏠</div>
+                <div class="shop-type-name">Apartments</div>
+                <div class="shop-type-pay">$20-50</div>
+            </div>
+            <div class="shop-type">
+                <div class="shop-type-icon">🎬</div>
+                <div class="shop-type-name">Movies</div>
+                <div class="shop-type-pay">$10 + tickets</div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">$200-800</div>
+                <div class="stat-label">monthly (part-time)</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">⭐⭐⭐⭐</div>
+                <div class="stat-label">ADHD friendly</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">+ Free Stuff</div>
+                <div class="stat-label">meals, products</div>
+            </div>
+        </div>
+
+        <div class="section" id="fit">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">🤔</span>
+                <div class="section-info">
+                    <div class="section-title">Is This For Me?</div>
+                    <div class="section-desc">Requirements + ADHD compatibility</div>
+                </div>
+                <span class="section-badge">2 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="card green">
+                    <h4>✅ You'll Love It If...</h4>
+                    <ul>
+                        <li>You have reliable transportation (car preferred)</li>
+                        <li>You can act natural while secretly evaluating</li>
+                        <li>You notice details others miss (ADHD superpower!)</li>
+                        <li>You can write clear, detailed reports</li>
+                        <li>You have $100-200 for upfront purchases (reimbursed)</li>
+                    </ul>
+                </div>
+
+                <div class="card pink">
+                    <h4>❌ Skip It If...</h4>
+                    <ul>
+                        <li>No reliable transportation</li>
+                        <li>Can't afford upfront spending (wait 30-45 days for reimbursement)</li>
+                        <li>Hate writing detailed reports</li>
+                        <li>Can't visit locations during business hours</li>
+                        <li>Struggle with deadlines (shops have strict due dates)</li>
+                    </ul>
+                </div>
+
+                <div class="card orange">
+                    <h4>💜 ADHD Perspective</h4>
+                    <p><strong>Why it works:</strong> Every shop is different! Novelty, real-world tasks, immediate purpose, and you get to play detective.</p>
+                    <p style="margin-top: 10px;"><strong>Watch out:</strong> Report writing can be tedious. Set reminders for deadlines. Don't overcommit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="companies">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">🏢</span>
+                <div class="section-info">
+                    <div class="section-title">Best Companies</div>
+                    <div class="section-desc">Where to sign up (all are free)</div>
+                </div>
+                <span class="section-badge">4 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="card">
+                    <h4>💡 Strategy</h4>
+                    <p>Sign up for 5-8 companies. Each has different clients, so more = more opportunities in your area.</p>
+                </div>
+
+                <div class="companies">
+                    <div class="company">
+                        <div class="company-top">
+                            <span class="company-name">🥇 Market Force</span>
+                            <span class="company-badge">TOP PICK</span>
+                        </div>
+                        <p class="company-desc">Huge variety - restaurants, retail, movies. Well-organized app. Reliable payments.</p>
+                        <a href="https://www.marketforce.com/shoppers" class="company-link" target="_blank">Sign up →</a>
+                    </div>
+
+                    <div class="company">
+                        <div class="company-top">
+                            <span class="company-name">🥈 BestMark</span>
+                            <span class="company-badge">RELIABLE</span>
+                        </div>
+                        <p class="company-desc">Good pay, lots of restaurant shops. Clear guidelines.</p>
+                        <a href="https://www.bestmark.com/apply" class="company-link" target="_blank">Sign up →</a>
+                    </div>
+
+                    <div class="company">
+                        <div class="company-top">
+                            <span class="company-name">🥉 A Closer Look</span>
+                            <span class="company-badge">HIGH PAY</span>
+                        </div>
+                        <p class="company-desc">Banks, apartments, car dealerships. Higher pay but more detailed reports.</p>
+                        <a href="https://www.acloserlook.com/apply" class="company-link" target="_blank">Sign up →</a>
+                    </div>
+
+                    <div class="company">
+                        <div class="company-top">
+                            <span class="company-name">Secret Shopper</span>
+                            <span class="company-badge">CLASSIC</span>
+                        </div>
+                        <p class="company-desc">Been around forever. Good variety of shops.</p>
+                        <a href="https://www.secretshopper.com" class="company-link" target="_blank">Sign up →</a>
+                    </div>
+
+                    <div class="company">
+                        <div class="company-top">
+                            <span class="company-name">Sinclair Customer Metrics</span>
+*** End Patch

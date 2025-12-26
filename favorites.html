@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saved Gigs - 925 ADHD</title>
+  <title>Favorites</title>
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
@@ -344,7 +344,7 @@
     }
   </style>
 </head>
-<body>
+<body data-page-title="Favorites">
   <!-- Header -->
   <header class="header">
     <a href="dashboard.html" class="back-btn">←</a>
@@ -369,9 +369,9 @@
         <span class="icon">📖</span>
         <span>Guides</span>
       </a>
-      <a href="gigs.html" class="nav-item">
+      <a href="earn.html" class="nav-item">
         <span class="icon">💰</span>
-        <span>Cash</span>
+        <span>Earn</span>
       </a>
       <a href="apps.html" class="nav-item">
         <span class="icon">📱</span>
@@ -503,13 +503,13 @@
       if (favorites.length === 0) {
         contentEl.innerHTML = `
           <div class="empty-state">
-            <div class="empty-icon">💜</div>
-            <h2 class="empty-title">No saved gigs yet</h2>
+            <div class="empty-icon">❤️</div>
+            <h2 class="empty-title">No saved opportunities yet</h2>
             <p class="empty-text">
-              Tap the heart on any gig to save it here.<br>
+              Tap the heart on any opportunity to save it here.<br>
               Your favorites will be waiting for you!
             </p>
-            <a href="gigs.html" class="empty-btn">Browse Gigs</a>
+            <a href="earn.html" class="empty-btn">Browse Opportunities</a>
           </div>
         `;
         return;
@@ -517,7 +517,7 @@
       
       let html = `
         <div class="pro-tip">
-          <strong>💡 Pro Tip:</strong> These are your saved gigs! Tap the ✕ to remove one, or tap the card to view details.
+          <strong>💡 Pro Tip:</strong> These are your saved opportunities! Tap the ✕ to remove one, or tap the card to view details.
         </div>
         <div class="gig-list">
       `;
@@ -563,5 +563,6 @@
     // Initialize
     renderFavorites();
   </script>
+  <script src="assets/layout.js"></script>
 </body>
 </html>

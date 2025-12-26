@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ADHD Focus Playlist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: #0a0e1a;
+      --secondary-bg: #1a1f2e;
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --text-primary: #ffffff;
+      --text-secondary: #a0a8b8;
+      --text-muted: #6b7280;
+      --accent-blue: #4f46e5;
+      --accent-teal: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.15);
+      --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.25);
+      --shadow-strong: 0 16px 64px rgba(0, 0, 0, 0.35);
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-success: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+      --gradient-info: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+      --gradient-adhd: linear-gradient(135deg, #4f46e5 0%, #06b6d4 50%, #10b981 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1rem 2rem 2rem 2rem;
+    }
+
+    /* Background Effects */
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at top, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+      z-index: -2;
+      animation: gradientShift 15s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradientShift {
+      0% { 
+        background: radial-gradient(ellipse at top, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
+                    radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+      }
+      50% { 
+        background: radial-gradient(ellipse at top left, rgba(239, 68, 68, 0.12) 0%, transparent 50%),
+                    radial-gradient(ellipse at bottom, rgba(6, 182, 212, 0.12) 0%, transparent 50%);
+      }
+      100% { 
+        background: radial-gradient(ellipse at top right, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+                    radial-gradient(ellipse at bottom left, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+      }
+    }
+
+    .floating-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.2;
+      z-index: -1;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .orb-1 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent-blue);
+      top: -150px;
+      right: -150px;
+      animation-delay: -5s;
+    }
+
+    .orb-2 {
+      width: 200px;
+      height: 200px;
+      background: var(--accent-teal);
+      bottom: -100px;
+      left: -100px;
+      animation-delay: -10s;
+    }
+
+    .orb-3 {
+      width: 250px;
+      height: 250px;
+      background: var(--accent-emerald);
+      top: 40%;
+      right: -125px;
+      animation-delay: -15s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-30px, -30px) scale(1.1); }
+      66% { transform: translate(30px, -20px) scale(0.9); }
+    }
+
+    .player-container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow-medium);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.8s ease-out;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .player-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+      animation: shimmer 4s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .player-container:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-strong);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      background: var(--gradient-adhd);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: textGradient 4s ease-in-out infinite;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 0.5rem;
+    }
+
+    @keyframes textGradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .soundcloud-iframe {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 700px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .focus-indicator {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+      animation: focusPulse 2s infinite;
+      z-index: 3;
+    }
+
+    @keyframes focusPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.2); }
+    }
+
+
+    @media (max-width: 768px) {
+      body { padding: 0.5rem 1rem 2rem 1rem; }
+      .player-container { 
+        padding: 1.5rem;
+        max-width: 100%;
+      }
+      h1 { font-size: 1.6rem; }
+      .soundcloud-iframe { height: 600px; }
+    }
+
+    @media (max-width: 480px) {
+      .soundcloud-iframe { height: 500px; }
+      .player-container { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  <div class="floating-orb orb-1"></div>
+  <div class="floating-orb orb-2"></div>
+  <div class="floating-orb orb-3"></div>
+
+  <div class="player-container">
+    <div class="focus-indicator"></div>
+    
+    <div class="header">
+      <h1></h1>
+      <p class="subtitle">Music to fuel your ADHD superpowers</p>
+    </div>
+    
+    <iframe 
+      class="soundcloud-iframe"
+      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/2030544012&color=%23ff5e57&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"
+      title="SoundCloud Playlist"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+    
+
+  </div>
+</body>
+</html>

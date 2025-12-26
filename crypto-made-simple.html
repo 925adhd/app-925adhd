@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Crypto for Beginners</title>
+  <style>
+    :root {
+      --primary-bg: #0f1419;
+      --secondary-bg: #1a1f2e;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --text-primary: #ffffff;
+      --text-secondary: #a0a8b8;
+      --text-muted: #6b7280;
+      --accent-primary: #4f46e5;
+      --accent-secondary: #06b6d4;
+      --accent-success: #10b981;
+      --accent-warning: #f59e0b;
+      --accent-danger: #ef4444;
+      --border-subtle: rgba(255, 255, 255, 0.12);
+      --border-bright: rgba(255, 255, 255, 0.2);
+      --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.25);
+      --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.35);
+      --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+      --gradient-success: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #06b6d4 100%);
+      --gradient-adhd: linear-gradient(135deg, #4f46e5 0%, #06b6d4 50%, #10b981 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* Background Effects */
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at top, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+      z-index: -1;
+      animation: gradientShift 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradientShift {
+      0% { opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    .floating-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.12;
+      z-index: -1;
+      animation: float 25s infinite ease-in-out;
+    }
+
+    .orb-1 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent-primary);
+      top: -150px;
+      right: -150px;
+    }
+
+    .orb-2 {
+      width: 250px;
+      height: 250px;
+      background: var(--accent-secondary);
+      bottom: -125px;
+      left: -125px;
+      animation-delay: -12s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-30px, -20px) scale(1.05); }
+      66% { transform: translate(30px, -15px) scale(0.95); }
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background: rgba(15, 20, 25, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 1rem 0 0.5rem 0;
+      text-align: center;
+      position: relative;
+      z-index: 100;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0 0 8px 0;
+      color: var(--text-primary);
+    }
+
+    h1 .gradient-text {
+      background: var(--gradient-adhd);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: textGradient 4s ease-in-out infinite;
+    }
+
+    @keyframes textGradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+ 
+
+    /* Disclaimer Styling */
+    .disclaimer {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid var(--accent-warning);
+      border-radius: 12px;
+      padding: 12px;
+      margin: 12px auto 16px auto;
+      max-width: 500px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .disclaimer-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .disclaimer-text {
+      color: var(--text-secondary);
+    }
+
+    .disclaimer-text strong {
+      color: var(--accent-warning);
+      font-weight: 700;
+    }
+
+
+    }
+    .content-section {
+      padding: 60px 0;
+    }
+
+    .section-card {
+      background: var(--glass-bg);
+      border: 2px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-medium);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .section-icon {
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    /* Content Cards */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .concept-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .concept-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-secondary);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .concept-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .concept-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .concept-desc {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Alert Boxes */
+    .alert {
+      padding: 20px;
+      border-radius: 12px;
+      margin: 25px 0;
+      border-left: 4px solid;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .alert-success {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--accent-success);
+      color: var(--text-primary);
+    }
+
+    .alert-warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--accent-warning);
+      color: var(--text-primary);
+    }
+
+    .alert-danger {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: var(--accent-danger);
+      color: var(--text-primary);
+    }
+
+    .alert-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .alert-content {
+      flex: 1;
+    }
+
+    .alert-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    /* Step Cards */
+    .steps-container {
+      display: grid;
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 30px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .step-number {
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: var(--gradient-primary);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border: 3px solid var(--primary-bg);
+    }
+
+    .step-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+      margin-top: 10px;
+    }
+
+    .step-desc {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Text Styling */
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .big-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, rgba(79, 70, 229, 0.3) 0%, rgba(6, 182, 212, 0.3) 100%);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Lists */
+    ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent-success);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    /* Mobile-First Responsive Design */
+    .container {
+      max-width: 100%;
+      padding: 0 12px;
+    }
+
+    /* Header Mobile Optimizations */
+    header {
+      padding: 0.75rem 0 0.5rem 0;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-size: 0.8rem;
+      padding: 0 10px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+
+      }
+    .content-section {
+      padding: 30px 0;
+    }
+
+    .section-card {
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 16px;
+    }
+
+    .section-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 8px;
+      margin-bottom: 25px;
+    }
+
+    .section-icon {
+      font-size: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+    }
+
+    .big-text {
+      font-size: 1.1rem;
+      margin: 25px 0;
+      padding: 0 5px;
+    }
+
+    /* Cards Mobile Optimizations */
+    .concept-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .concept-card {
+      padding: 18px;
+      min-height: auto;
+    }
+
+    .concept-emoji {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+
+    .concept-title {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .concept-desc {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Steps Mobile Optimizations */
+    .steps-container {
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    .step-card {
+      padding: 25px 20px;
+      padding-top: 35px;
+    }
+
+    .step-number {
+      top: -12px;
+      left: 20px;
+      width: 35px;
+      height: 35px;
+      font-size: 1rem;
+    }
+
+    .step-title {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      margin-top: 8px;
+    }
+
+    .step-desc {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Alert Mobile Optimizations */
+    .alert {
+      padding: 15px;
+      gap: 12px;
+      margin: 20px 0;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .alert-icon {
+      font-size: 1.3rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .alert-title {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    /* Text Mobile Optimizations */
+    p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    li {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      padding-left: 25px;
+    }
+
+    li::before {
+      font-size: 1.1rem;
+    }
+
+
+    .concept-card:active, .step-card:active {
+      transform: scale(0.98);
+    }
+
+    /* Tablet Adjustments */
+    @media (min-width: 768px) {
+      .container {
+        max-width: 900px;
+        padding: 0 20px;
+      }
+
+      header {
+        padding: 1.25rem 0 0.75rem 0;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 12px;
+      }
+
+  
+
+      .section-card {
+        padding: 30px;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .concept-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+    }
+
+    /* Desktop Adjustments */
+    @media (min-width: 1024px) {
+      .container {
+        max-width: 1000px;
+      }
+
+      header {
+        padding: 1.5rem 0 1rem 0;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        margin-bottom: 12px;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+      }
+
+
+
+      .section-card {
+        padding: 40px;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+      }
+
+      .concept-grid {
+        gap: 25px;
+      }
+    }
+
+    /* Very Small Screens */
+    @media (max-width: 360px) {
+      .container {
+        padding: 0 8px;
+      }
+
+      header {
+        padding: 0.5rem 0 0.25rem 0;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+      }
+
+      .hero-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 6px;
+      }
+
+    
+
+      .section-card {
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+
+      .concept-card, .step-card {
+        padding: 15px;
+      }
+
+      .big-text {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body data-page-title="AI">
+  <div class="bg-gradient"></div>
+  <div class="floating-orb orb-1"></div>
+  <div class="floating-orb orb-2"></div>
+
+  <header>
+    <div class="container">
+      <h1><span class="gradient-text">AI</span></h1>
+      <p class="hero-subtitle">A beginner's guide that actually makes sense</p>
+      
+      <!-- Disclaimer -->
+      <div class="disclaimer">
+        <span class="disclaimer-icon">⚠️</span>
+        <div class="disclaimer-text">
+          <strong>Not Financial Advice:</strong> I'm not a financial advisor! This guide is just compiled research from around the web to help beginners understand crypto basics. Always do your own research and never invest more than you can afford to lose.
+        </div>
+      </div>
+
+    
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="content-section">
+
+      <!-- What is Crypto Section -->
+      <div class="section-card" id="basics">
+        <div class="section-header">
+          <span class="section-icon">🤔</span>
+          <div>
+            <h2 class="section-title">What is Crypto?</h2>
+            <p class="section-subtitle">Let's start with the basics</p>
+          </div>
+        </div>
+
+        <div class="big-text">
+          Think of crypto like <span class="highlight">digital money</span> that lives on the internet
+        </div>
+
+        <div class="concept-grid">
+          <div class="concept-card">
+            <span class="concept-emoji">💰</span>
+            <div class="concept-title">Regular Money</div>
+            <div class="concept-desc">
+              You keep it in a bank. The bank controls it. You need the bank to send it to someone.
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-emoji">🪙</span>
+            <div class="concept-title">Crypto Money</div>
+            <div class="concept-desc">
+              You keep it in a digital wallet. You control it. You can send it directly to anyone.
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-success">
+          <span class="alert-icon">💡</span>
+          <div class="alert-content">
+            <div class="alert-title">Simple Way to Think About It</div>
+            Crypto is like having cash, but digital. No banks needed!
+          </div>
+        </div>
+
+        <p><strong>Popular cryptos you might have heard of:</strong></p>
+        <ul>
+          <li>Bitcoin (BTC) - The first and most famous one</li>
+          <li>Ethereum (ETH) - Can do more than just payments</li>
+          <li>Dogecoin (DOGE) - Started as a joke but became popular</li>
+        </ul>
+      </div>
+
+      <!-- How it Works Section -->
+      <div class="section-card" id="how-it-works">
+        <div class="section-header">
+          <span class="section-icon">⚙️</span>
+          <div>
+            <h2 class="section-title">How Does Crypto Work?</h2>
+            <p class="section-subtitle">The magic behind digital money</p>
+          </div>
+        </div>
+
+        <div class="concept-grid">
+          <div class="concept-card">
+            <span class="concept-emoji">📚</span>
+            <div class="concept-title">The Blockchain</div>
+            <div class="concept-desc">
+              Think of it like a notebook that everyone can see. Every time someone sends crypto, it gets written down. No one can erase or change what's written.
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-emoji">👥</span>
+            <div class="concept-title">No Single Owner</div>
+            <div class="concept-desc">
+              Thousands of computers around the world keep copies of this notebook. This makes it super hard to hack or break.
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-emoji">🔐</span>
+            <div class="concept-title">Your Wallet</div>
+            <div class="concept-desc">
+              Your crypto wallet is like a mailbox. You have an address where people can send you crypto, and a key to open it and send crypto out.
+            </div>
+          </div>
+        </div>
+
+        <div class="big-text">
+          It's like a <span class="highlight">super secure group chat</span> where everyone can see the messages, but only you can send from your account
+        </div>
+
+        <div class="section-card" style="margin-top: 30px; border-left: 4px solid var(--accent-success);">
+          <div class="section-header">
+            <span class="section-icon">🤯</span>
+            <div>
+              <h3 class="section-title" style="font-size: 1.8rem;">Why This Matters</h3>
+              <p class="section-subtitle">This changes everything about money</p>
+            </div>
+          </div>
+
+          <div class="concept-grid">
+            <div class="concept-card">
+              <span class="concept-emoji">🏦</span>
+              <div class="concept-title">No Bank Needed</div>
+              <div class="concept-desc">
+                You don't need to ask permission to send money. No waiting 3-5 business days. No fees for "international transfers."
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <span class="concept-emoji">🌍</span>
+              <div class="concept-title">Works Everywhere</div>
+              <div class="concept-desc">
+                Send money to Japan or your neighbor - same speed, same cost. The internet doesn't care about borders.
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <span class="concept-emoji">👀</span>
+              <div class="concept-title">Everything is Visible</div>
+              <div class="concept-desc">
+                All transactions are public. This makes it really hard for people to cheat or lie about money.
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <span class="concept-emoji">🔒</span>
+              <div class="concept-title">You Own It</div>
+              <div class="concept-desc">
+                Your crypto can't be frozen by a bank. No one can take it away if you keep your keys safe.
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-success">
+            <span class="alert-icon">💡</span>
+            <div class="alert-content">
+              <div class="alert-title">Think About It</div>
+              Imagine if you could send $20 to a friend in another country instantly, for less than a penny, without asking anyone's permission. That's what crypto makes possible!
+            </div>
+          </div>
+
+          <div class="big-text">
+            It's like having <span class="highlight">digital cash</span> that works everywhere on Earth
+          </div>
+        </div>
+
+        <div class="section-card" style="margin-top: 30px; border-left: 4px solid var(--accent-primary);">
+          <div class="section-header">
+            <span class="section-icon">⛏️</span>
+            <div>
+              <h3 class="section-title" style="font-size: 1.8rem;">Mining & Scarcity</h3>
+              <p class="section-subtitle">Why crypto has value and how new coins are made</p>
+            </div>
+          </div>
+
+          <div class="concept-grid">
+            <div class="concept-card">
+              <span class="concept-emoji">🏃‍♂️</span>
+              <div class="concept-title">What is Mining?</div>
+              <div class="concept-desc">
+                Think of it like a race. Thousands of computers compete to solve math puzzles. The winner gets to add new transactions to the blockchain and earns new Bitcoin as a reward.
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <span class="concept-emoji">🎯</span>
+              <div class="concept-title">Why Mine?</div>
+              <div class="concept-desc">
+                Miners keep the network safe and running. They verify that all transactions are real and haven't been faked. They get paid in crypto for doing this work.
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <span class="concept-emoji">💎</span>
+              <div class="concept-title">Limited Supply (Sometimes)</div>
+              <div class="concept-desc">
+                Bitcoin will only ever have 21 million coins. But some cryptos like Ethereum and Dogecoin can make new coins forever. Each crypto has different rules!
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <span class="concept-emoji">📈</span>
+              <div class="concept-title">Getting Harder</div>
+              <div class="concept-desc">
+                Every 4 years, mining rewards get cut in half. This makes new Bitcoin harder to get, which can make existing Bitcoin more valuable over time.
+              </div>
+            </div>
+          </div>
+
+          <div class="big-text">
+            Think of Bitcoin like <span class="highlight">digital gold</span> - hard to mine and limited in supply
+          </div>
+
+          <div class="alert alert-warning">
+            <span class="alert-icon">⚡</span>
+            <div class="alert-content">
+              <div class="alert-title">Fun Fact</div>
+              Mining uses lots of electricity! Some people worry about this, while others say it's worth it for a global money system that never shuts down.
+            </div>
+          </div>
+
+          <p><strong>Different types of supply:</strong></p>
+          <ul style="margin: 20px 0;">
+            <li><strong>Bitcoin:</strong> Hard limit of 21 million coins (like limited edition cards)</li>
+            <li><strong>Ethereum:</strong> No hard limit, but new coins are made slowly</li>
+            <li><strong>Dogecoin:</strong> Unlimited supply - new coins made every minute</li>
+            <li><strong>Regular money:</strong> Governments can print more whenever they want</li>
+          </ul>
+
+          <div class="alert alert-success">
+            <span class="alert-icon">🎯</span>
+            <div class="alert-content">
+              <div class="alert-title">Why This Matters</div>
+              Each crypto has different rules! Bitcoin's limited supply might make it more valuable over time. Dogecoin's unlimited supply keeps prices lower but makes it good for everyday spending. It's like different tools for different jobs!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Getting Started Section -->
+      <div class="section-card" id="getting-started">
+        <div class="section-header">
+          <span class="section-icon">🚀</span>
+          <div>
+            <h2 class="section-title">How to Get Started</h2>
+            <p class="section-subtitle">Your first steps into crypto</p>
+          </div>
+        </div>
+
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <div class="step-title">Choose an App</div>
+            <div class="step-desc">
+              Start with a beginner-friendly app like Coinbase, Cash App, or Robinhood. These are like training wheels for crypto.
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <div class="step-title">Verify Your Identity</div>
+            <div class="step-desc">
+              Just like opening a bank account, you'll need to show ID. This is normal and required by law.
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <div class="step-title">Start Small</div>
+            <div class="step-desc">
+              Buy $10-20 worth of Bitcoin first. Think of it as paying for a lesson, not an investment.
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <div class="step-title">Learn and Explore</div>
+            <div class="step-desc">
+              Watch how the price moves. Read about different cryptos. Take your time to understand before buying more.
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-warning">
+          <span class="alert-icon">⚠️</span>
+          <div class="alert-content">
+            <div class="alert-title">Start Slow!</div>
+            Only invest money you can afford to lose. Crypto prices go up and down a lot!
+          </div>
+        </div>
+      </div>
+
+      <!-- Staying Safe Section -->
+      <div class="section-card" id="staying-safe">
+        <div class="section-header">
+          <span class="section-icon">🛡️</span>
+          <div>
+            <h2 class="section-title">How to Stay Safe</h2>
+            <p class="section-subtitle">Protect yourself from scams and mistakes</p>
+          </div>
+        </div>
+
+        <div class="concept-grid">
+          <div class="concept-card">
+            <span class="concept-emoji">🔒</span>
+            <div class="concept-title">Keep Your Keys Safe</div>
+            <div class="concept-desc">
+              Your wallet password/keys are like the keys to your car. If someone else gets them, they can take everything.
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-emoji">🎯</span>
+            <div class="concept-title">Stick to Known Apps</div>
+            <div class="concept-desc">
+              Use popular, well-known apps like Coinbase or Kraken. Avoid random apps or websites promising "easy money."
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-emoji">🚨</span>
+            <div class="concept-title">Watch for Scams</div>
+            <div class="concept-desc">
+              If someone promises you'll get rich quick, it's probably a scam. Real crypto investing is slow and boring.
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-danger">
+          <span class="alert-icon">🚫</span>
+          <div class="alert-content">
+            <div class="alert-title">Red Flags to Avoid</div>
+            <ul style="margin: 10px 0 0 0;">
+              <li>Anyone asking for your wallet password</li>
+              <li>Promises of guaranteed profits</li>
+              <li>Pressure to buy RIGHT NOW</li>
+              <li>Celebrity endorsements on social media</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="big-text">
+          Remember: <span class="highlight">If it sounds too good to be true, it probably is!</span>
+        </div>
+      </div>
+
+      <!-- Final Tips Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <span class="section-icon">🎯</span>
+          <div>
+            <h2 class="section-title">Quick Tips for ADHD Brains</h2>
+            <p class="section-subtitle">Make crypto work with your brain, not against it</p>
+          </div>
+        </div>
+
+        <div class="concept-grid">
+          <div class="concept-card">
+            <span class="concept-emoji">📱</span>
+            <div class="concept-title">Set Price Alerts</div>
+            <div class="concept-desc">
+              Use app notifications instead of constantly checking prices. Your brain will thank you.
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-emoji">⏰</span>
+            <div class="concept-title">Schedule Check-ins</div>
+            <div class="concept-desc">
+              Pick one day a week to look at your crypto. Daily checking leads to emotional decisions.
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-emoji">📝</span>
+            <div class="concept-title">Write Down Your Plan</div>
+            <div class="concept-desc">
+              Before you buy, write down why you're buying and when you might sell. Stick to the plan.
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-emoji">🧘</span>
+            <div class="concept-title">Stay Calm</div>
+            <div class="concept-desc">
+              Prices will go up and down. This is normal. Don't make big decisions when you're emotional.
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-success">
+          <span class="alert-icon">🎉</span>
+          <div class="alert-content">
+            <div class="alert-title">You've Got This!</div>
+            Crypto might seem scary at first, but you can learn it step by step. Start small, stay safe, and take your time.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Smooth scrolling for navigation links
+
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Enhanced mobile interactions
+    document.querySelectorAll('.concept-card, .step-card').forEach(card => {
+      // Remove hover effects on mobile, add touch feedback
+      if ('ontouchstart' in window) {
+        card.addEventListener('touchstart', function() {
+          this.style.transform = 'translateY(-3px) scale(1.01)';
+          this.style.transition = 'transform 0.1s ease';
+        });
+        
+        card.addEventListener('touchend', function() {
+          setTimeout(() => {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.transition = 'transform 0.3s ease';
+          }, 100);
+        });
+      } else {
+        // Desktop hover effects
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      }
+    });
+
+    // Optimize reading progress for mobile
+    function updateReadingProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
+      
+      let progressBar = document.getElementById('reading-progress');
+      if (!progressBar) {
+        progressBar = document.createElement('div');
+        progressBar.id = 'reading-progress';
+        progressBar.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: ${scrollPercent}%;
+          height: 3px;
+          background: linear-gradient(90deg, #4f46e5, #06b6d4);
+          z-index: 1000;
+          transition: width 0.2s ease;
+          pointer-events: none;
+        `;
+        document.body.appendChild(progressBar);
+      } else {
+        progressBar.style.width = scrollPercent + '%';
+      }
+    }
+
+    // Throttle scroll events for better mobile performance
+    let ticking = false;
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateReadingProgress);
+        ticking = true;
+        setTimeout(() => { ticking = false; }, 16);
+      }
+    }
+
+    window.addEventListener('scroll', requestTick, { passive: true });
+    updateReadingProgress();
+
+    // Optimize navigation for mobile
+    document.querySelectorAll('.nav-pill').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          // Account for mobile header height
+          const headerHeight = document.querySelector('header').offsetHeight;
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Prevent zoom on input focus (if any inputs are added later)
+    document.addEventListener('touchstart', function() {}, { passive: true });
+  </script>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

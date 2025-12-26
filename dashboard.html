@@ -56,6 +56,30 @@
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
     }
+    /* Hamburger menu overlay */
+    .hamburger-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      z-index: 300;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+    .hamburger-overlay.open { display: flex; }
+    .hamburger-panel {
+      width: 280px;
+      max-width: 80%;
+      background: var(--card);
+      padding: 16px;
+      border-right: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 8px 0 24px rgba(0,0,0,0.6);
+      height: 100vh;
+      overflow: auto;
+    }
+    .hamburger-panel h3 { margin-bottom: 12px; font-size: 16px }
+    .hamburger-panel a { display: block; padding: 10px 8px; border-radius: 8px; color: var(--text); text-decoration: none; margin-bottom:6px }
+    .hamburger-panel a:hover { background: rgba(255,255,255,0.02) }
     
     .menu-btn {
       background: none;
@@ -392,6 +416,25 @@
       <button class="menu-btn" id="menuBtn">☰</button>
       <button class="logout-btn" id="logoutBtn">Log out</button>
     </header>
+    <!-- Hamburger menu overlay -->
+    <div id="hamburgerOverlay" class="hamburger-overlay" aria-hidden="true">
+      <div class="hamburger-panel" role="dialog" aria-label="Menu">
+        <h3>Menu</h3>
+        <a href="aimadesimple.html">AI Made Simple</a>
+        <a href="crypto-made-simple.html">Crypto Made Simple</a>
+        <a href="playlist.html">Motivation Playlist</a>
+        <a href="beginnerlist.html">Beginner List</a>
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:10px 0">
+        <a href="dashboard.html">Home</a>
+        <a href="guides.html">Guides</a>
+        <a href="earn.html">Earn</a>
+        <a href="apps.html">Apps</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="tools.html">Tools</a>
+        <div style="height:20px"></div>
+        <button id="closeMenuBtn" class="logout-btn" style="display:block;width:100%">Close</button>
+      </div>
+    </div>
     
     <!-- Hero Section -->
     <section class="hero">
@@ -411,7 +454,7 @@
       <!-- Quick Actions -->
       <p class="section-label">Quick Actions</p>
       <div class="quick-actions">
-        <a href="gigs.html" class="action-card">
+        <a href="earn.html" class="action-card">
           <span class="icon">💰</span>
           <h3>Earn</h3>
           <p>50+ ways to earn</p>
@@ -528,6 +571,29 @@
     });
     
     checkAuth();
+  </script>
+  <script>
+    // Hamburger menu toggle
+    (function(){
+      const menuBtn = document.getElementById('menuBtn');
+      const overlay = document.getElementById('hamburgerOverlay');
+      const closeBtn = document.getElementById('closeMenuBtn');
+      if (!menuBtn || !overlay) return;
+
+      function openMenu() {
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+      }
+      function closeMenu() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+      }
+
+      menuBtn.addEventListener('click', (e) => { e.preventDefault(); openMenu(); });
+      closeBtn && closeBtn.addEventListener('click', (e) => { e.preventDefault(); closeMenu(); });
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeMenu(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    })();
   </script>
 </body>
 </html>
