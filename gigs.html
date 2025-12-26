@@ -49,45 +49,48 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(15, 15, 15, 0.97);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 12px 16px 14px;
+      background: var(--brand);
+      padding: 16px 20px 14px;
     }
     
     .header-top {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      margin-bottom: 14px;
+      position: relative;
     }
     
     .back-btn {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      padding: 6px 10px;
-      color: var(--text);
-      font-size: 14px;
+      position: absolute;
+      left: 0;
+      background: none;
+      border: none;
+      padding: 4px 8px;
+      color: #0F0F0F;
+      font-size: 20px;
       cursor: pointer;
       text-decoration: none;
     }
     
     .header h1 {
       font-size: 18px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-weight: 700;
+      color: #0F0F0F;
     }
     
-    .gig-count {
-      background: var(--brand);
-      color: #000;
+    main {
+      padding: 20px 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .updated-badge {
+      color: var(--brand);
       font-size: 11px;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
     }
     
     /* Energy Selector - The key ADHD feature */
@@ -186,13 +189,6 @@
       background: var(--brand);
       border-color: var(--brand);
       color: #000;
-    }
-    
-    /* Main Content */
-    main {
-      padding: 16px;
-      max-width: 800px;
-      margin: 0 auto;
     }
     
     /* Search */
@@ -492,10 +488,13 @@
   <!-- Header -->
   <header class="header">
     <div class="header-top">
-      <a href="dashboard.html" class="back-btn">← Back</a>
-      <h1>Make Cash <span class="gig-count" id="totalCount">70</span></h1>
-      <span style="font-size: 11px; color: var(--green);">Dec 2025</span>
+      <a href="dashboard.html" class="back-btn">←</a>
+      <h1>Make Cash</h1>
     </div>
+  </header>
+
+  <main>
+    <p class="updated-badge">Updated December 2025</p>
     
     <!-- Energy Selector -->
     <div class="energy-section">
@@ -525,9 +524,7 @@
       <button class="filter-chip" data-filter="highpay">💰 High Pay</button>
       <button class="filter-chip" data-filter="beginner">🌱 Beginner</button>
     </div>
-  </header>
-
-  <main>
+    
     <!-- Search -->
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Search gigs...">
@@ -547,7 +544,7 @@
     
     <!-- Results Bar -->
     <div class="results-bar">
-      <span id="resultsText">Showing all 70 gigs</span>
+      <span id="resultsText">Showing all gigs</span>
       <button class="clear-filters hidden" id="clearBtn">Clear filters</button>
     </div>
     

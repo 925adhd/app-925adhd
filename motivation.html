@@ -50,32 +50,32 @@
     
     /* Top Header */
     .top-header {
+      background: var(--brand);
       padding: 16px 20px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     
     .back-btn {
+      position: absolute;
+      left: 16px;
       background: none;
       border: none;
-      color: var(--brand);
-      font-size: 16px;
+      color: #0F0F0F;
+      font-size: 20px;
       cursor: pointer;
-      padding: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      padding: 4px 8px;
+      text-decoration: none;
     }
     
     .page-title {
       font-size: 18px;
       font-weight: 700;
-    }
-    
-    .header-spacer {
-      width: 60px;
+      color: #0F0F0F;
     }
     
     /* Audio Section */
@@ -410,9 +410,8 @@
 <body>
   <!-- Top Header -->
   <header class="top-header">
-    <a href="dashboard.html" class="back-btn">← Back</a>
+    <a href="dashboard.html" class="back-btn">←</a>
     <span class="page-title">Motivation</span>
-    <span class="header-spacer"></span>
   </header>
   
   <!-- Dopamine Boost Section -->

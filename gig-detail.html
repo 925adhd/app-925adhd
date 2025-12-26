@@ -48,36 +48,33 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(15, 15, 15, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .back-btn {
-      background: rgba(255,255,255,0.1);
-      border: none;
-      color: white;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
+      background: var(--brand);
+      padding: 16px 20px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     
+    .back-btn {
+      position: absolute;
+      left: 16px;
+      background: none;
+      border: none;
+      color: #0F0F0F;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    
     .header-title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
+      color: #0F0F0F;
     }
     
     .fav-btn-header {
-      margin-left: auto;
+      position: absolute;
+      right: 16px;
       background: none;
       border: none;
       font-size: 22px;
