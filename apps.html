@@ -27,6 +27,7 @@
       --text: #fff;
       --text-muted: rgba(255,255,255,.55);
       --brand: #5BBFB5;
+      --brand-glow: rgba(91, 191, 181, 0.25);
     }
     
     body {
@@ -40,13 +41,16 @@
     
     a { color: inherit; text-decoration: none; }
     
+    /* Header */
     .header {
       background: var(--brand);
       padding: 16px 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     
     .header h1 { font-size: 18px; font-weight: 700; color: #0F0F0F; }
@@ -62,109 +66,217 @@
       padding: 4px 8px;
     }
     
-    .main-content { padding: 20px 16px; max-width: 700px; margin: 0 auto; }
+    /* Main Content */
+    .main-content {
+      padding: 20px 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
     
+    /* Updated Badge */
     .updated-badge {
       color: var(--brand);
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     
+    /* Key Card */
     .key-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 14px 16px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
     }
     
-    .key-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
-    .key-item { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+    .key-item {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
     
-    .section { margin-bottom: 28px; }
-    .section-title { font-size: 20px; font-weight: 700; margin-bottom: 14px; }
+    /* Search Box */
+    .search-box {
+      position: relative;
+      margin-bottom: 16px;
+    }
     
-    .search-box { position: relative; margin-bottom: 16px; }
     .search-box input {
       width: 100%;
-      padding: 12px 16px 12px 42px;
-      border-radius: 10px;
+      padding: 14px 16px 14px 44px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text);
-      font-size: 14px;
+      font-size: 15px;
       outline: none;
     }
+    
     .search-box input:focus { border-color: var(--brand); }
     .search-box input::placeholder { color: var(--text-muted); }
+    
     .search-box::before {
       content: "🔍";
       position: absolute;
-      left: 14px;
+      left: 16px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 14px;
+      font-size: 16px;
     }
     
-    .info-card {
+    /* Category Tabs */
+    .category-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .category-tabs::-webkit-scrollbar { display: none; }
+    
+    .tab-btn {
       background: var(--card);
       border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    
+    .tab-btn:hover { border-color: var(--brand); color: var(--text); }
+    .tab-btn.active { background: var(--brand); color: #0F0F0F; border-color: var(--brand); }
+    
+    /* Section */
+    .section { margin-bottom: 28px; }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    
+    .section-count {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
       border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    
+    /* Info Card */
+    .info-card {
+      background: rgba(91, 191, 181, 0.08);
+      border: 1px solid rgba(91, 191, 181, 0.2);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
       font-size: 12px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.5;
     }
-    .info-card p { margin-bottom: 10px; }
-    .info-card p:last-child { margin-bottom: 0; }
     
-    .apps-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    /* Apps Grid */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
     
     .app-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 16px 12px;
+      padding: 14px 10px;
       text-align: center;
       transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+    
     .app-card:hover {
-      background: var(--card-hover);
       border-color: var(--brand);
       transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
     
     .app-logo {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
       object-fit: cover;
-      margin: 0 auto 12px;
-      display: block;
-      background: #2a2a2a;
+      margin-bottom: 10px;
+      background: var(--card-hover);
     }
     
-    .app-rate { font-size: 11px; font-weight: 700; color: var(--brand); margin-bottom: 4px; }
-    .app-rate.favorite { color: #f97316; }
-    .app-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-    .app-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+    .app-name {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
     
+    .app-rate {
+      font-size: 10px;
+      color: var(--brand);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .app-rate.favorite { color: #f97316; }
+    
+    .app-desc {
+      font-size: 10px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    /* Bottom Navigation */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: #1A1A1A;
+      background: #111;
       border-top: 1px solid var(--border);
-      padding: 6px 0;
-      padding-bottom: max(6px, env(safe-area-inset-bottom));
-      z-index: 100;
+      padding: 8px 0;
+      padding-bottom: max(8px, env(safe-area-inset-bottom));
+      z-index: 1000;
     }
-    .nav-items { display: flex; justify-content: space-around; align-items: center; max-width: 400px; margin: 0 auto; }
+    
+    .nav-items {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
     .nav-item {
       display: flex;
       flex-direction: column;
@@ -175,16 +287,28 @@
       font-size: 10px;
       font-weight: 600;
     }
+    
     .nav-item.active { color: var(--brand); }
     .nav-item:hover { color: var(--text); }
     .nav-item .icon { font-size: 20px; }
     
     .hidden { display: none !important; }
     
+    /* No results */
+    .no-results {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+    }
+    
+    .no-results .emoji { font-size: 48px; margin-bottom: 12px; }
+    .no-results p { font-size: 14px; }
+    
     @media (min-width: 600px) {
       .main-content { padding: 28px 24px; }
-      .apps-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-      .app-logo { width: 72px; height: 72px; }
+      .apps-grid { gap: 16px; }
+      .app-logo { width: 64px; height: 64px; }
+      .app-name { font-size: 13px; }
     }
   </style>
 </head>
@@ -195,233 +319,243 @@
   </header>
   
   <main class="main-content">
-    <p class="updated-badge">Updated September 2025</p>
+    <p class="updated-badge">Updated December 2025</p>
     
+    <!-- Key -->
     <div class="key-card">
-      <h3>🔑 Key</h3>
-      <p class="key-item">🎁 = Pays in gift cards only</p>
-      <p class="key-item">👾 = Pays in Crypto Only</p>
-      <p class="key-item">🥰 = My personal top favorites</p>
+      <span class="key-item">🥰 My favorites</span>
+      <span class="key-item">🎁 Gift cards only</span>
+      <span class="key-item">👾 Crypto only</span>
     </div>
     
-    <!-- Real-World Microgigs -->
+    <!-- Single Search -->
+    <div class="search-box">
+      <input type="text" id="mainSearch" placeholder="Search all apps...">
+    </div>
+    
+    <!-- Category Tabs -->
+    <div class="category-tabs">
+      <button class="tab-btn active" data-category="all">All</button>
+      <button class="tab-btn" data-category="microgigs">📍 Microgigs</button>
+      <button class="tab-btn" data-category="delivery">🚗 Delivery</button>
+      <button class="tab-btn" data-category="rewards">🎮 Rewards</button>
+      <button class="tab-btn" data-category="cashback">🧾 Cashback</button>
+      <button class="tab-btn" data-category="passive">📡 Passive</button>
+      <button class="tab-btn" data-category="opinion">💬 Opinion</button>
+    </div>
+    
+    <!-- No Results Message -->
+    <div class="no-results hidden" id="noResults">
+      <div class="emoji">🔍</div>
+      <p>No apps found. Try a different search!</p>
+    </div>
+    
+    <!-- Microgigs Section -->
     <section class="section" data-category="microgigs">
-      <h2 class="section-title">Real-World Microgigs</h2>
-      <div class="search-box"><input type="text" placeholder="Search" class="section-search"></div>
+      <div class="section-header">
+        <h2 class="section-title">📍 Real-World Microgigs</h2>
+        <span class="section-count">3 apps</span>
+      </div>
+      <div class="info-card">
+        Get paid for quick local tasks like taking photos, audits, and mystery shopping. Perfect for combining with errands!
+      </div>
       <div class="apps-grid">
-        <a href="app-detail.html?app=fieldagent" class="app-card" data-name="field agent">
+        <a href="app-detail.html?app=fieldagent" class="app-card" data-name="field agent" data-tags="microgig task photo audit">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bJvEwgxE41M5YKf5NNUc.png" alt="Field Agent" class="app-logo">
-          <p class="app-rate favorite">🥰 $3–$20 PER TASK</p>
           <h3 class="app-name">Field Agent</h3>
-          <p class="app-desc">Do quick store tasks nearby. Get paid fast via direct deposit.</p>
+          <p class="app-rate favorite">🥰 $3–$20/task</p>
+          <p class="app-desc">Quick store tasks nearby</p>
         </a>
-        <a href="app-detail.html?app=ivueit" class="app-card" data-name="ivueit">
+        <a href="app-detail.html?app=ivueit" class="app-card" data-name="ivueit" data-tags="microgig photo property">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/er56Fd22kM8MbO3mU1Az.png" alt="ivueit" class="app-logo">
-          <p class="app-rate">$7–$50 PER TASK</p>
           <h3 class="app-name">ivueit</h3>
-          <p class="app-desc">Earn cash taking photos of businesses, properties, displays.</p>
+          <p class="app-rate">$7–$50/task</p>
+          <p class="app-desc">Photo gigs for properties</p>
         </a>
-        <a href="app-detail.html?app=proxypics" class="app-card" data-name="proxypics">
+        <a href="app-detail.html?app=proxypics" class="app-card" data-name="proxypics" data-tags="microgig photo real estate">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zkc8z9Vsbr0yqMVfYHiK.png" alt="ProxyPics" class="app-logo">
-          <p class="app-rate">$42–$78/HR</p>
           <h3 class="app-name">ProxyPics</h3>
-          <p class="app-desc">Earn money by taking property photos for real estate pros.</p>
+          <p class="app-rate">$42–$78/hr</p>
+          <p class="app-desc">On-demand property photos</p>
         </a>
       </div>
     </section>
     
-    <!-- Delivery Services -->
+    <!-- Delivery Section -->
     <section class="section" data-category="delivery">
-      <h2 class="section-title">Delivery Services</h2>
-      <div class="search-box"><input type="text" placeholder="Search" class="section-search"></div>
+      <div class="section-header">
+        <h2 class="section-title">🚗 Delivery Services</h2>
+        <span class="section-count">5 apps</span>
+      </div>
+      <div class="info-card">
+        Drive on your own schedule. Great for ADHD brains that need movement and variety!
+      </div>
       <div class="apps-grid">
-        <a href="app-detail.html?app=doordash" class="app-card" data-name="doordash">
+        <a href="app-detail.html?app=doordash" class="app-card" data-name="doordash" data-tags="delivery food driver">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gX3qkpfWt1KW1Voi4Nfl.png" alt="DoorDash" class="app-logo">
-          <p class="app-rate">$10–$25/HR</p>
           <h3 class="app-name">DoorDash</h3>
-          <p class="app-desc">Deliver food on your schedule. Keep 100% of tips.</p>
+          <p class="app-rate">$10–$25/hr</p>
+          <p class="app-desc">Food delivery, keep all tips</p>
         </a>
-        <a href="app-detail.html?app=instacart" class="app-card" data-name="instacart">
+        <a href="app-detail.html?app=instacart" class="app-card" data-name="instacart" data-tags="delivery grocery shopping">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/3GFZJ6HCfDr2O27WKzSb.png" alt="Instacart" class="app-logo">
-          <p class="app-rate">$18–$23/HR</p>
           <h3 class="app-name">Instacart</h3>
-          <p class="app-desc">Shop and deliver groceries. Good tips from customers.</p>
+          <p class="app-rate">$18–$23/hr</p>
+          <p class="app-desc">Shop & deliver groceries</p>
         </a>
-        <a href="app-detail.html?app=amazonflex" class="app-card" data-name="amazon flex">
+        <a href="app-detail.html?app=amazonflex" class="app-card" data-name="amazon flex" data-tags="delivery packages driver">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/mZvl7S4O63tkqCfwYh7b.png" alt="Amazon Flex" class="app-logo">
-          <p class="app-rate">$19–$25/HR</p>
           <h3 class="app-name">Amazon Flex</h3>
-          <p class="app-desc">Deliver Amazon packages in 2-4 hour blocks.</p>
+          <p class="app-rate">$19–$25/hr</p>
+          <p class="app-desc">Deliver Amazon packages</p>
         </a>
-        <a href="app-detail.html?app=sparkdriver" class="app-card" data-name="spark driver walmart">
+        <a href="app-detail.html?app=sparkdriver" class="app-card" data-name="spark driver walmart" data-tags="delivery grocery walmart">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/KRzWH9SN42Im32S7MV5b.png" alt="Spark Driver" class="app-logo">
-          <p class="app-rate">$15–$25/HR</p>
           <h3 class="app-name">Spark Driver</h3>
-          <p class="app-desc">Walmart delivery. Often pre-packed orders ready to go.</p>
+          <p class="app-rate">$15–$25/hr</p>
+          <p class="app-desc">Walmart delivery</p>
         </a>
-        <a href="app-detail.html?app=ubereats" class="app-card" data-name="uber eats">
+        <a href="app-detail.html?app=ubereats" class="app-card" data-name="uber eats rideshare" data-tags="delivery food driver uber">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/mTdTqcZhnOuJB5FcChLb.png" alt="Uber Eats" class="app-logo">
-          <p class="app-rate">$15–$25/HR</p>
           <h3 class="app-name">Uber Eats</h3>
-          <p class="app-desc">Flexible food delivery. Drive, bike, or walk.</p>
+          <p class="app-rate">$15–$25/hr</p>
+          <p class="app-desc">Flexible food delivery</p>
         </a>
       </div>
     </section>
     
-    <!-- Reward-Based Apps -->
+    <!-- Rewards Section -->
     <section class="section" data-category="rewards">
-      <h2 class="section-title">Reward-Based or GPT Apps</h2>
-      <div class="info-card">
-        <p>🚫 Avoid the bait! Don't download other apps from ads inside these apps—they're usually paid placements and not always safe.</p>
-        <p>🎮 Pro tip: Close a game when an ad starts and open another to cycle through without watching every ad. *Doesn't work with Mode Earn.</p>
+      <div class="section-header">
+        <h2 class="section-title">🎮 Reward Apps</h2>
+        <span class="section-count">3 apps</span>
       </div>
-      <div class="search-box"><input type="text" placeholder="Search" class="section-search"></div>
+      <div class="info-card">
+        🚫 Pro tip: Don't download random apps from ads inside these—they're usually paid placements!
+      </div>
       <div class="apps-grid">
-        <a href="app-detail.html?app=modeearn" class="app-card" data-name="mode earn">
+        <a href="app-detail.html?app=modeearn" class="app-card" data-name="mode earn" data-tags="rewards games music passive">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/x2dOwyvRkTLnqbXD6fee.jpg" alt="Mode Earn" class="app-logo">
-          <p class="app-rate favorite">🥰 $0.10–$0.50/HR</p>
           <h3 class="app-name">Mode Earn</h3>
-          <p class="app-desc">Earn playing games, listening to music, charging phone.</p>
+          <p class="app-rate favorite">🥰 $0.10–$0.50/hr</p>
+          <p class="app-desc">Games, music, charging</p>
         </a>
-        <a href="app-detail.html?app=justplay" class="app-card" data-name="justplay">
+        <a href="app-detail.html?app=justplay" class="app-card" data-name="justplay" data-tags="rewards games cash">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/HGRph2COAlLKrmVczKxH.jpg" alt="JustPlay" class="app-logo">
-          <p class="app-rate">$1–$5/DAY</p>
           <h3 class="app-name">JustPlay</h3>
-          <p class="app-desc">Play casual games, instant PayPal cashouts.</p>
+          <p class="app-rate">$1–$5/day</p>
+          <p class="app-desc">Instant PayPal cashouts</p>
         </a>
-        <a href="app-detail.html?app=bestplay" class="app-card" data-name="best play">
+        <a href="app-detail.html?app=bestplay" class="app-card" data-name="best play" data-tags="rewards games charity">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/IEFqdx1VENKFQ5YcibeT.jpg" alt="Best Play" class="app-logo">
-          <p class="app-rate">$0.50–$3/WEEK</p>
           <h3 class="app-name">Best Play</h3>
-          <p class="app-desc">Play games, donate to charity or cash out.</p>
+          <p class="app-rate">$0.50–$3/wk</p>
+          <p class="app-desc">Play games, donate or cash out</p>
         </a>
       </div>
     </section>
     
-    <!-- Receipt Scanning/Cashback -->
-    <section class="section" data-category="receipts">
-      <h2 class="section-title">Receipt Scanning/Cashback</h2>
-      <div class="search-box"><input type="text" placeholder="Search" class="section-search"></div>
-      <div class="apps-grid">
-        <a href="app-detail.html?app=fetch" class="app-card" data-name="fetch rewards">
-          <img src="https://play-lh.googleusercontent.com/E0T0M0dd9w6v7X9_CFaaxlaFjyrGxSLGKxks9NWuAkcQoVckHsGnA_F50SzRSSoMlzs=w240-h480-rw" alt="Fetch" class="app-logo">
-          <p class="app-rate favorite">🥰 🎁 $20–$50/YR</p>
-          <h3 class="app-name">Fetch Rewards</h3>
-          <p class="app-desc">Scan any receipt for points. Super easy passive income.</p>
-        </a>
-        <a href="app-detail.html?app=ibotta" class="app-card" data-name="ibotta">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bY1HhCITQgsYsrOOgCGz.png" alt="Ibotta" class="app-logo">
-          <p class="app-rate favorite">🥰 $100–$300/YR</p>
-          <h3 class="app-name">Ibotta</h3>
-          <p class="app-desc">Get real cashback on groceries and online shopping.</p>
-        </a>
-        <a href="app-detail.html?app=rakuten" class="app-card" data-name="rakuten ebates">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/YAoQtLxBaX1cdRNsICoB.jpg" alt="Rakuten" class="app-logo">
-          <p class="app-rate favorite">🥰 $190–$300/YR</p>
-          <h3 class="app-name">Rakuten</h3>
-          <p class="app-desc">Cashback on online shopping. Set it and forget it.</p>
-        </a>
-        <a href="app-detail.html?app=swagbucks" class="app-card" data-name="swagbucks">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kV1Ic0B8nEXPNSAGTtA6.png" alt="Swagbucks" class="app-logo">
-          <p class="app-rate">$100–$1,200/YR</p>
-          <h3 class="app-name">Swagbucks</h3>
-          <p class="app-desc">Surveys, videos, shopping cashback, games.</p>
-        </a>
-        <a href="app-detail.html?app=benjamin" class="app-card" data-name="benjamin">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/0hWbGOHwB4EZpe2zuThK.jpg" alt="Benjamin" class="app-logo">
-          <p class="app-rate">$200–$800/YR</p>
-          <h3 class="app-name">Benjamin</h3>
-          <p class="app-desc">Games, shopping, surveys, ads, and receipts.</p>
-        </a>
-        <a href="app-detail.html?app=pogo" class="app-card" data-name="pogo joinpogo">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/6vibzs1oxfjhXTaySH0N.jpg" alt="Pogo" class="app-logo">
-          <p class="app-rate">$25–$125/YR</p>
-          <h3 class="app-name">Pogo</h3>
-          <p class="app-desc">Auto-cashback by linking cards. Fee refunds too.</p>
-        </a>
+    <!-- Cashback Section -->
+    <section class="section" data-category="cashback">
+      <div class="section-header">
+        <h2 class="section-title">🧾 Cashback & Receipts</h2>
+        <span class="section-count">6 apps</span>
       </div>
-    </section>
-    
-    <!-- Internet Bandwidth Sharing -->
-    <section class="section" data-category="bandwidth">
-      <h2 class="section-title">Internet Bandwidth Sharing</h2>
       <div class="info-card">
-        <p>⚠️ These apps won't make you rich. Expect pennies to a few bucks a day. But they run quietly in the background with almost no effort.</p>
-        <p>🤝 Check your ISP first—not all allow bandwidth sharing.</p>
+        Stack these together! Scan one receipt with multiple apps to maximize rewards.
       </div>
-      <div class="search-box"><input type="text" placeholder="Search" class="section-search"></div>
       <div class="apps-grid">
-        <a href="app-detail.html?app=honeygain" class="app-card" data-name="honeygain">
+        <a href="app-detail.html?app=fetch" class="app-card" data-name="fetch rewards" data-tags="cashback receipt scan">
+          <img src="https://play-lh.googleusercontent.com/E0T0M0dd9w6v7X9_CFaaxlaFjyrGxSLGKxks9NWuAkcQoVckHsGnA_F50SzRSSoMlzs=w240-h480-rw" alt="Fetch" class="app-logo">
+          <h3 class="app-name">Fetch Rewards</h3>
+          <p class="app-rate favorite">🥰 🎁 $20–$50/yr</p>
+          <p class="app-desc">Scan any receipt for points</p>
+        </a>
+        <a href="app-detail.html?app=ibotta" class="app-card" data-name="ibotta" data-tags="cashback grocery shopping">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bY1HhCITQgsYsrOOgCGz.png" alt="Ibotta" class="app-logo">
+          <h3 class="app-name">Ibotta</h3>
+          <p class="app-rate favorite">🥰 $100–$300/yr</p>
+          <p class="app-desc">Real cashback on groceries</p>
+        </a>
+        <a href="app-detail.html?app=rakuten" class="app-card" data-name="rakuten ebates" data-tags="cashback shopping online">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/YAoQtLxBaX1cdRNsICoB.jpg" alt="Rakuten" class="app-logo">
+          <h3 class="app-name">Rakuten</h3>
+          <p class="app-rate favorite">🥰 $190–$300/yr</p>
+          <p class="app-desc">Online shopping cashback</p>
+        </a>
+        <a href="app-detail.html?app=swagbucks" class="app-card" data-name="swagbucks" data-tags="cashback surveys games shopping">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kV1Ic0B8nEXPNSAGTtA6.png" alt="Swagbucks" class="app-logo">
+          <h3 class="app-name">Swagbucks</h3>
+          <p class="app-rate">$100–$1,200/yr</p>
+          <p class="app-desc">Surveys, videos, shopping</p>
+        </a>
+        <a href="app-detail.html?app=benjamin" class="app-card" data-name="benjamin" data-tags="cashback games surveys receipts">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/0hWbGOHwB4EZpe2zuThK.jpg" alt="Benjamin" class="app-logo">
+          <h3 class="app-name">Benjamin</h3>
+          <p class="app-rate">$200–$800/yr</p>
+          <p class="app-desc">Games, shopping, surveys</p>
+        </a>
+        <a href="app-detail.html?app=pogo" class="app-card" data-name="pogo joinpogo" data-tags="cashback automatic passive">
+          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/6vibzs1oxfjhXTaySH0N.jpg" alt="Pogo" class="app-logo">
+          <h3 class="app-name">Pogo</h3>
+          <p class="app-rate">$25–$125/yr</p>
+          <p class="app-desc">Auto-cashback from cards</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Passive Section -->
+    <section class="section" data-category="passive">
+      <div class="section-header">
+        <h2 class="section-title">📡 Passive Income</h2>
+        <span class="section-count">3 apps</span>
+      </div>
+      <div class="info-card">
+        ⚠️ These won't make you rich—expect pennies to a few bucks. But they run in the background with zero effort!
+      </div>
+      <div class="apps-grid">
+        <a href="app-detail.html?app=honeygain" class="app-card" data-name="honeygain" data-tags="passive bandwidth internet">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/XFzVcPA2ZQRwdAl1iyVM.png" alt="Honeygain" class="app-logo">
-          <p class="app-rate">💸 $5–$10/MO</p>
           <h3 class="app-name">Honeygain</h3>
-          <p class="app-desc">Share unused bandwidth. Truly passive income.</p>
+          <p class="app-rate">💸 $5–$10/mo</p>
+          <p class="app-desc">Share unused bandwidth</p>
         </a>
-        <a href="app-detail.html?app=pawns" class="app-card" data-name="pawns">
+        <a href="app-detail.html?app=pawns" class="app-card" data-name="pawns" data-tags="passive bandwidth surveys">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/h3jvj77ExlCDZooGDy40.png" alt="Pawns.app" class="app-logo">
-          <p class="app-rate">$0.20/GB + SURVEYS</p>
           <h3 class="app-name">Pawns.app</h3>
-          <p class="app-desc">Bandwidth sharing + surveys. $5 min payout.</p>
+          <p class="app-rate">$0.20/GB + surveys</p>
+          <p class="app-desc">Bandwidth + surveys combo</p>
         </a>
-        <a href="app-detail.html?app=bytelixir" class="app-card" data-name="bytelixir">
+        <a href="app-detail.html?app=bytelixir" class="app-card" data-name="bytelixir" data-tags="passive bandwidth crypto">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/yOGZFNOG3bTZsVoGzBWh.png" alt="ByteLixir" class="app-logo">
-          <p class="app-rate">👾 $0.05–$0.50/DAY</p>
           <h3 class="app-name">ByteLixir</h3>
-          <p class="app-desc">Bandwidth sharing, pays in crypto. Multi-device support.</p>
+          <p class="app-rate">👾 $0.05–$0.50/day</p>
+          <p class="app-desc">Bandwidth sharing, crypto</p>
         </a>
       </div>
     </section>
     
-    <!-- Opinion Apps -->
+    <!-- Opinion Section -->
     <section class="section" data-category="opinion">
-      <h2 class="section-title">Everyday Opinion Apps</h2>
-      <div class="search-box"><input type="text" placeholder="Search" class="section-search"></div>
+      <div class="section-header">
+        <h2 class="section-title">💬 Opinion & Surveys</h2>
+        <span class="section-count">2 apps</span>
+      </div>
+      <div class="info-card">
+        Quick micro-surveys and missions. Great for short bursts of focus!
+      </div>
       <div class="apps-grid">
-        <a href="app-detail.html?app=streetbees" class="app-card" data-name="streetbees">
+        <a href="app-detail.html?app=streetbees" class="app-card" data-name="streetbees" data-tags="opinion survey photo">
           <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/TYdbrkocIOWbTs2KDS9X.png" alt="Streetbees" class="app-logo">
-          <p class="app-rate">$0.30–$2/HR</p>
           <h3 class="app-name">Streetbees</h3>
-          <p class="app-desc">Fun micro-missions about food, shopping, lifestyle.</p>
+          <p class="app-rate">$0.30–$2/hr</p>
+          <p class="app-desc">Fun micro-missions</p>
         </a>
-      </div>
-    </section>
-    
-    <!-- Location & Movement -->
-    <section class="section" data-category="location">
-      <h2 class="section-title">Location & Movement</h2>
-      <div class="search-box"><input type="text" placeholder="Search" class="section-search"></div>
-      <div class="apps-grid">
-        <a href="app-detail.html?app=sweatcoin" class="app-card" data-name="sweatcoin">
+        <a href="app-detail.html?app=sweatcoin" class="app-card" data-name="sweatcoin walking fitness" data-tags="opinion walking fitness passive">
           <img src="https://play-lh.googleusercontent.com/ilCzgxgHDfjc89NiP2znisFCIOWi9TsDlBzzKGZNP_zynsveO1YsjDTphhdIbKWd5c5Z=w240-h480-rw" alt="Sweatcoin" class="app-logo">
-          <p class="app-rate">🎁 $1–$3/MO</p>
           <h3 class="app-name">Sweatcoin</h3>
-          <p class="app-desc">Walk to earn. 100M+ users. Rewards & discounts.</p>
-        </a>
-      </div>
-    </section>
-    
-    <!-- Productivity Apps -->
-    <section class="section" data-category="productivity">
-      <h2 class="section-title">Productivity Apps</h2>
-      <div class="search-box"><input type="text" placeholder="Search" class="section-search"></div>
-      <div class="apps-grid">
-        <a href="https://pomofocus.io/" target="_blank" class="app-card" data-name="pomofocus pomodoro">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/HEXIy0P4LKN7YZh7mi8m.jpg" alt="PomoFocus" class="app-logo">
-          <p class="app-rate">🍅 FREE</p>
-          <h3 class="app-name">PomoFocus</h3>
-          <p class="app-desc">Clean, distraction-free online Pomodoro timer.</p>
-        </a>
-        <a href="https://habitica.com/" target="_blank" class="app-card" data-name="habitica gamify">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/fKgKMdORKbbBs8OauAr3.png" alt="Habitica" class="app-logo">
-          <p class="app-rate">🌱 FREE</p>
-          <h3 class="app-name">Habitica</h3>
-          <p class="app-desc">Gamify your tasks! Earn points, level up, stay motivated.</p>
-        </a>
-        <a href="https://otter.ai/" target="_blank" class="app-card" data-name="otter ai voice">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/vLNc3JIVYs3071uZQqEZ.png" alt="Otter.ai" class="app-logo">
-          <p class="app-rate">✍️ FREE PLAN</p>
-          <h3 class="app-name">Otter.ai</h3>
-          <p class="app-desc">AI voice-to-text. Capture thoughts without typing.</p>
+          <p class="app-rate">🎁 $1–$3/mo</p>
+          <p class="app-desc">Walk to earn rewards</p>
         </a>
       </div>
     </section>
@@ -439,18 +573,60 @@
   </nav>
 
   <script>
-    document.querySelectorAll('.section-search').forEach(input => {
-      input.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        const section = e.target.closest('.section');
-        const cards = section.querySelectorAll('.app-card');
-        cards.forEach(card => {
-          const name = card.dataset.name || '';
-          const desc = card.querySelector('.app-desc')?.textContent.toLowerCase() || '';
-          card.classList.toggle('hidden', !(name.includes(query) || desc.includes(query)));
-        });
+    const searchInput = document.getElementById('mainSearch');
+    const noResults = document.getElementById('noResults');
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.section');
+    const allCards = document.querySelectorAll('.app-card');
+    
+    let activeCategory = 'all';
+    
+    // Tab filtering
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeCategory = tab.dataset.category;
+        filterApps();
       });
     });
+    
+    // Search filtering
+    searchInput.addEventListener('input', filterApps);
+    
+    function filterApps() {
+      const query = searchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+      
+      sections.forEach(section => {
+        const sectionCategory = section.dataset.category;
+        const cards = section.querySelectorAll('.app-card');
+        let sectionVisible = 0;
+        
+        // Check if section matches active category
+        const categoryMatch = activeCategory === 'all' || sectionCategory === activeCategory;
+        
+        cards.forEach(card => {
+          const name = card.dataset.name || '';
+          const tags = card.dataset.tags || '';
+          const searchMatch = !query || name.includes(query) || tags.includes(query);
+          
+          if (categoryMatch && searchMatch) {
+            card.classList.remove('hidden');
+            sectionVisible++;
+            visibleCount++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+        
+        // Hide section if no visible cards
+        section.classList.toggle('hidden', sectionVisible === 0);
+      });
+      
+      // Show no results message
+      noResults.classList.toggle('hidden', visibleCount > 0);
+    }
   </script>
 </body>
 </html>
