@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surveys & Market Research | The Fun Version</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f0f1a;
+            --card: #1a1a2e;
+            --card-hover: #222244;
+            --accent-1: #ff6b9d;
+            --accent-2: #c44dff;
+            --accent-3: #4dffb8;
+            --accent-4: #ffdb4d;
+            --accent-5: #4dc3ff;
+            --text: #ffffff;
+            --text-dim: #8888aa;
+            --success: #4dffb8;
+            --warning: #ffdb4d;
+            --danger: #ff6b6b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-2);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Top XP Bar */
+        .xp-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 2px solid var(--accent-2);
+        }
+
+        .xp-progress {
+            flex: 1;
+            height: 8px;
+            background: var(--card);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0 15px;
+        }
+
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+            background-size: 200% 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            animation: shimmer 2s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .xp-label {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            color: var(--accent-3);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .level-badge {
+            background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 70px 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .hero-emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-5));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* TL;DR Card */
+        .tldr {
+            background: linear-gradient(135deg, var(--accent-2)22, var(--accent-1)22);
+            border: 2px solid var(--accent-2);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tldr::before {
+            content: "⚡ TL;DR";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--bg);
+            padding: 0 10px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            color: var(--accent-2);
+            font-size: 0.9rem;
+        }
+
+        .tldr-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+
+        .tldr-stat {
+            padding: 10px;
+        }
+
+        .tldr-value {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-3);
+        }
+
+        .tldr-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        /* Quick Action Buttons */
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .action-btn {
+            background: var(--card);
+            border: 2px solid transparent;
+            border-radius: 30px;
+            padding: 12px 24px;
+            color: var(--text);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent-2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(196, 77, 255, 0.2);
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            border: none;
+        }
+
+        .action-btn.primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        }
+
+        /* Accordion Sections */
+        .section {
+            margin: 20px 0;
+        }
+
+        .section-header {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            user-select: none;
+        }
+
+        .section-header:hover {
+            border-color: var(--accent-2);
+            background: var(--card-hover);
+        }
+
+        .section-header.active {
+            border-color: var(--accent-3);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .section-info {
+            flex: 1;
+        }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .section-preview {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .section-time {
+            background: var(--accent-5)22;
+            color: var(--accent-5);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .section-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            color: var(--text-dim);
+        }
+
+        .section-header.active .section-arrow {
+            transform: rotate(180deg);
+            color: var(--accent-3);
+        }
+
+        .section-content {
+            background: var(--card);
+            border: 2px solid var(--accent-3);
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .section-content.open {
+            max-height: 3000px;
+            padding: 25px;
+        }
+
+        /* Content Cards */
+        .info-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-2);
+        }
+
+        .info-card.success { border-left-color: var(--accent-3); }
+        .info-card.warning { border-left-color: var(--warning); }
+        .info-card.danger { border-left-color: var(--danger); }
+        .info-card.money { border-left-color: var(--accent-4); }
+
+        .info-card h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Interactive Quiz */
+        .quiz-card {
+            background: linear-gradient(135deg, var(--accent-5)15, var(--accent-2)15);
+            border: 2px solid var(--accent-5);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .quiz-question {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .quiz-option {
+            background: var(--card);
+            border: 2px solid var(--text-dim);
+            border-radius: 12px;
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent-2);
+            transform: scale(1.05);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--accent-3);
+            background: var(--accent-3)22;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-result.yes {
+            background: var(--accent-3)22;
+            border: 2px solid var(--accent-3);
+        }
+
+        .quiz-result.maybe {
+            background: var(--warning)22;
+            border: 2px solid var(--warning);
+        }
+
+        .quiz-result.no {
+            background: var(--danger)22;
+            border: 2px solid var(--danger);
+        }
+
+        /* Platform Cards */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .platform-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .platform-card:hover {
+            border-color: var(--accent-2);
+            transform: translateY(-5px);
+        }
+
+        .platform-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .platform-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .platform-rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: var(--accent-4);
+            font-size: 0.9rem;
+        }
+
+        .star.empty {
+            opacity: 0.3;
+        }
+
+        .platform-pay {
+            background: var(--accent-3)22;
+            color: var(--accent-3);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .platform-desc {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+        }
+
+        .platform-adhd {
+            font-size: 0.85rem;
+            padding: 8px 12px;
+            background: var(--accent-2)15;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-2);
+        }
+
+        .platform-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--accent-5);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .platform-link:hover {
+            color: var(--accent-1);
+        }
+
+        /* Achievement Popup */
+        .achievement {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--accent-4), var(--accent-3));
+            color: var(--bg);
+            padding: 15px 25px;
+            border-radius: 16px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(150%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1001;
+            box-shadow: 0 10px 40px rgba(77, 255, 184, 0.3);
+        }
+
+        .achievement.show {
+            transform: translateX(0);
+        }
+
+        .achievement-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Checklist */
+        .checklist {
+            margin: 20px 0;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--card);
+            border-radius: 12px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .check-item:hover {
+            background: var(--card-hover);
+        }
+
+        .check-item.checked {
+            border-color: var(--accent-3);
+            background: var(--accent-3)11;
+        }
+
+        .check-box {
+            width: 28px;
+            height: 28px;
+            border: 3px solid var(--text-dim);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .check-item.checked .check-box {
+            background: var(--accent-3);
+            border-color: var(--accent-3);
+            color: var(--bg);
+        }
+
+        .check-text {
+            flex: 1;
+        }
+
+        .check-item.checked .check-text {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* Floating tip */
+        .floating-tip {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            background: var(--card);
+            border: 2px solid var(--accent-2);
+            border-radius: 16px;
+            padding: 15px 20px;
+            max-width: 280px;
+            z-index: 999;
+            transform: translateX(-150%);
+            transition: transform 0.5s ease;
+        }
+
+        .floating-tip.show {
+            transform: translateX(0);
+        }
+
+        .floating-tip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .floating-tip-title {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            color: var(--accent-2);
+        }
+
+        .floating-tip-close {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .floating-tip-text {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .tldr-grid { grid-template-columns: 1fr; gap: 10px; }
+            .quick-actions { flex-direction: column; }
+            .action-btn { width: 100%; justify-content: center; }
+            .platform-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Confetti animation */
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-1);
+            top: -10px;
+            animation: confettiFall 3s ease-in-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Smooth scroll anchor offset */
+        [id] {
+            scroll-margin-top: 70px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- XP Bar -->
+    <div class="xp-bar">
+        <span class="level-badge">LVL 1</span>
+        <div class="xp-progress">
+            <div class="xp-fill" id="xpFill"></div>
+        </div>
+        <span class="xp-label" id="xpLabel">0 / 100 XP</span>
+    </div>
+
+    <!-- Achievement Popup -->
+    <div class="achievement" id="achievement">
+        <span class="achievement-icon">🏆</span>
+        <span class="achievement-text">Achievement Unlocked!</span>
+    </div>
+
+    <!-- Floating Tip -->
+    <div class="floating-tip" id="floatingTip">
+        <div class="floating-tip-header">
+            <span class="floating-tip-title">🧠 ADHD Tip</span>
+            <button class="floating-tip-close" onclick="hideTip()">×</button>
+        </div>
+        <p class="floating-tip-text">Reading for 10+ mins? Take a quick stretch break! Your brain will thank you.</p>
+    </div>
+
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <span class="hero-emoji">📊</span>
+            <h1>Surveys & Market Research</h1>
+            <p class="subtitle">Turn your opinions into cash. No experience needed, just your honest thoughts.</p>
+        </div>
+
+        <!-- TL;DR -->
+        <div class="tldr">
+            <div class="tldr-grid">
+                <div class="tldr-stat">
+                    <div class="tldr-value">$20-200</div>
+                    <div class="tldr-label">per month (realistic)</div>
+                </div>
+                <div class="tldr-stat">
+                    <div class="tldr-value">5-20 min</div>
+                    <div class="tldr-label">per task</div>
+                </div>
+                <div class="tldr-stat">
+                    <div class="tldr-value">⭐⭐⭐</div>
+                    <div class="tldr-label">ADHD friendly</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <a href="#quiz" class="action-btn primary">🎯 Am I a Good Fit?</a>
+            <a href="#platforms" class="action-btn">📱 Show Me Platforms</a>
+            <a href="#action-plan" class="action-btn">🚀 Just Start</a>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-card" id="quiz">
+            <div class="quiz-question">⚡ Quick check: How do you feel about repetitive questions?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="selectQuiz(this, 'yes')">I can zone out and do it 🧘</div>
+                <div class="quiz-option" onclick="selectQuiz(this, 'maybe')">Depends on my mood 🤷</div>
+                <div class="quiz-option" onclick="selectQuiz(this, 'no')">Makes me want to scream 😤</div>
+            </div>
+            <div class="quiz-result yes" id="quizYes">
+                <strong>Perfect match!</strong> Survey work fits your style. You'll do great with the variety of topics and quick tasks.
+            </div>
+            <div class="quiz-result maybe" id="quizMaybe">
+                <strong>Could work!</strong> Try the higher-paying platforms like Prolific first. They have more engaging research studies.
+            </div>
+            <div class="quiz-result no" id="quizNo">
+                <strong>Maybe not your thing.</strong> That's okay! Check out our guides on Data Annotation or Transcription instead - more variety there.
+            </div>
+        </div>
+
+        <!-- Sections -->
+        <div class="section" id="overview">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">🎯</span>
+                <div class="section-info">
+                    <div class="section-title">Is This Right For Me?</div>
+                    <div class="section-preview">Quick compatibility check + honest pros/cons</div>
+                </div>
+                <span class="section-time">2 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="info-card success">
+                    <h4>✅ Good if you...</h4>
+                    <ul>
+                        <li>Like sharing opinions on products & services</li>
+                        <li>Can focus for 5-20 minute bursts</li>
+                        <li>Get motivated by small, frequent rewards</li>
+                        <li>Want flexible "work when you want" income</li>
+                        <li>Are cool with $20-200/month supplemental income</li>
+                    </ul>
+                </div>
+
+                <div class="info-card danger">
+                    <h4>❌ Skip if you...</h4>
+                    <ul>
+                        <li>Get frustrated by boring, repetitive questions</li>
+                        <li>Need predictable, stable income</li>
+                        <li>Have severe rejection sensitivity (disqualifications happen a LOT)</li>
+                        <li>Are looking for serious money (this ain't it)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4>🧠 ADHD Reality Check</h4>
+                    <p><strong>The good:</strong> Short tasks, topic variety, instant completion dopamine hits, work whenever you want</p>
+                    <p style="margin-top: 10px;"><strong>The meh:</strong> Many surveys are mind-numbingly boring, you'll get kicked out of surveys a lot (screener fails), most pay $3-6/hour which can feel demoralizing</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="earnings">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">💰</span>
+                <div class="section-info">
+                    <div class="section-title">Real Earnings Breakdown</div>
+                    <div class="section-preview">No BS numbers + what actually pays well</div>
+                </div>
+                <span class="section-time">3 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="info-card money">
+                    <h4>💵 Monthly Expectations</h4>
+                    <p><strong>Casual (30 min/day):</strong> $20-60/month</p>
+                    <p><strong>Regular (1 hr/day):</strong> $60-120/month</p>
+                    <p><strong>Dedicated (2+ hrs/day):</strong> $150-300/month</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-dim);">These are honest averages. Some months will be higher, some lower. Don't quit your day job.</p>
+                </div>
+
+                <div class="info-card success">
+                    <h4>🎯 The REAL Money Makers</h4>
+                    <ul>
+                        <li><strong>User Interviews:</strong> $50-200 per 30-60 min call (apply to EVERYTHING)</li>
+                        <li><strong>Focus Groups:</strong> $75-300 for 1-2 hour sessions</li>
+                        <li><strong>Product Testing:</strong> Free stuff + $20-50 bonus</li>
+                        <li><strong>Diary Studies:</strong> $50-200 for logging activities over a week</li>
+                    </ul>
+                    <p style="margin-top: 10px;">Regular surveys? Meh. Research studies? 💰</p>
+                </div>
+
+                <div class="info-card warning">
+                    <h4>⚠️ Pay Rate Cheat Sheet</h4>
+                    <p><strong>Excellent:</strong> $1+/minute ($60+/hr)</p>
+                    <p><strong>Good:</strong> $0.50-1/minute ($30-60/hr)</p>
+                    <p><strong>Meh:</strong> $0.15-0.50/minute ($9-30/hr)</p>
+                    <p><strong>Skip it:</strong> Under $0.15/minute (not worth your time)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="platforms">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">📱</span>
+                <div class="section-info">
+                    <div class="section-title">Best Platforms (Ranked)</div>
+                    <div class="section-preview">Where to actually make money + signup links</div>
+                </div>
+                <span class="section-time">4 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-content">
+                <p style="margin-bottom: 20px; color: var(--text-dim);">Ranked by ADHD-friendliness + actual pay. Sign up for all of these - more options = more money.</p>
+
+                <div class="platform-grid">
+                    <div class="platform-card" onclick="window.open('https://userinterviews.com', '_blank')">
+                        <div class="platform-header">
+                            <span class="platform-name">🥇 User Interviews</span>
+                            <div class="platform-rating">
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                            </div>
+                        </div>
+                        <span class="platform-pay">$50-200/session</span>
+                        <p class="platform-desc">Video calls about products you use. High pay, engaging conversations.</p>
+                        <div class="platform-adhd">💜 ADHD Win: Talking > clicking. Way more interesting than surveys.</div>
+                        <a href="https://userinterviews.com" class="platform-link" target="_blank">Sign up free →</a>
+                    </div>
+
+                    <div class="platform-card" onclick="window.open('https://prolific.co', '_blank')">
+                        <div class="platform-header">
+                            <span class="platform-name">🥈 Prolific</span>
+                            <div class="platform-rating">
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                            </div>
+                        </div>
+                        <span class="platform-pay">$8-18/hour</span>
+                        <p class="platform-desc">Academic research studies. Actual interesting topics, fair pay.</p>
+                        <div class="platform-adhd">💜 ADHD Win: Studies are actually engaging! No boring ad surveys.</div>
+                        <a href="https://prolific.co" class="platform-link" target="_blank">Sign up free →</a>
+                    </div>
+
+                    <div class="platform-card" onclick="window.open('https://respondent.io', '_blank')">
+                        <div class="platform-header">
+                            <span class="platform-name">🥉 Respondent</span>
+                            <div class="platform-rating">
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span>
+                            </div>
+                        </div>
+                        <span class="platform-pay">$75-300/study</span>
+                        <p class="platform-desc">High-paying research for professionals. Best if you have industry experience.</p>
+                        <div class="platform-adhd">💜 ADHD Win: Fewer but higher-value opportunities. Quality > quantity.</div>
+                        <a href="https://respondent.io" class="platform-link" target="_blank">Sign up free →</a>
+                    </div>
+
+                    <div class="platform-card" onclick="window.open('https://dscout.com', '_blank')">
+                        <div class="platform-header">
+                            <span class="platform-name">📱 dscout</span>
+                            <div class="platform-rating">
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span>
+                            </div>
+                        </div>
+                        <span class="platform-pay">$25-100/mission</span>
+                        <p class="platform-desc">Mobile diary studies. Record video entries about your daily life.</p>
+                        <div class="platform-adhd">💜 ADHD Win: Creative expression! Better than clicking boxes.</div>
+                        <a href="https://dscout.com" class="platform-link" target="_blank">Sign up free →</a>
+                    </div>
+
+                    <div class="platform-card" onclick="window.open('https://swagbucks.com', '_blank')">
+                        <div class="platform-header">
+                            <span class="platform-name">💸 Swagbucks</span>
+                            <div class="platform-rating">
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span>
+                            </div>
+                        </div>
+                        <span class="platform-pay">$3-8/hour</span>
+                        <p class="platform-desc">Classic survey site. Low pay but consistent work available.</p>
+                        <div class="platform-adhd">⚠️ ADHD Warning: Lots of disqualifications. Can be frustrating.</div>
+                        <a href="https://swagbucks.com" class="platform-link" target="_blank">Sign up free →</a>
+                    </div>
+
+                    <div class="platform-card" onclick="window.open('https://surveyjunkie.com', '_blank')">
+                        <div class="platform-header">
+                            <span class="platform-name">📋 Survey Junkie</span>
+                            <div class="platform-rating">
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span>
+                            </div>
+                        </div>
+                        <span class="platform-pay">$3-6/hour</span>
+                        <p class="platform-desc">Simple surveys. Good for mindless background work.</p>
+                        <div class="platform-adhd">⚠️ ADHD Warning: Repetitive. Good for low-energy days only.</div>
+                        <a href="https://surveyjunkie.com" class="platform-link" target="_blank">Sign up free →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="adhd-tips">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">🧠</span>
+                <div class="section-info">
+                    <div class="section-title">ADHD Survival Strategies</div>
+                    <div class="section-preview">Actually useful tips from people who get it</div>
+                </div>
+                <span class="section-time">3 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h4>⚡ Match Your Energy</h4>
+                    <p><strong>Hyperfocus mode?</strong> Do User Interviews, focus groups, video missions</p>
+                    <p><strong>Medium energy?</strong> Prolific studies, dscout entries</p>
+                    <p><strong>Zombie mode?</strong> Mindless Swagbucks surveys while watching TV</p>
+                    <p><strong>No energy?</strong> Don't force it. Take the day off.</p>
+                </div>
+
+                <div class="info-card success">
+                    <h4>🎯 The "Screener Strategy"</h4>
+                    <p>Getting kicked out of surveys sucks. Here's how to reduce it:</p>
+                    <ul>
+                        <li>Complete your profile 100% on every platform</li>
+                        <li>Be consistent with your answers (they track this)</li>
+                        <li>Don't rush - answer thoughtfully</li>
+                        <li>If you get screened out, move on fast. Don't dwell.</li>
+                    </ul>
+                </div>
+
+                <div class="info-card warning">
+                    <h4>⏰ Don't Fall Into The Trap</h4>
+                    <p>Easy to hyperfocus on surveys for hours chasing that next payout. Set boundaries:</p>
+                    <ul>
+                        <li>Timer: Max 1 hour per session</li>
+                        <li>Daily cap: Stop after $X earned</li>
+                        <li>Quality check: Only do surveys $0.50+/min</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="action-plan">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">🚀</span>
+                <div class="section-info">
+                    <div class="section-title">Action Plan: Start NOW</div>
+                    <div class="section-preview">Step-by-step checklist to get earning today</div>
+                </div>
+                <span class="section-time">5 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-content">
+                <p style="margin-bottom: 20px;">Complete each step to level up! ⬆️</p>
+
+                <div class="checklist" id="checklist">
+                    <div class="check-item" onclick="toggleCheck(this, 20)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Sign up for User Interviews</strong> - The best one, do this first</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this, 20)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Sign up for Prolific</strong> - Complete your "About You" survey</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this, 15)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Sign up for Respondent</strong> - Add your professional info</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this, 15)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Sign up for dscout</strong> - Take a fun profile video</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this, 10)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Set up PayPal</strong> - Most platforms pay through this</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this, 10)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Enable notifications</strong> - So you don't miss high-value studies</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this, 10)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Do your first study</strong> - Start earning! 🎉</span>
+                    </div>
+                </div>
+
+                <div class="info-card success" style="margin-top: 20px;">
+                    <h4>🎯 Week 1 Goal</h4>
+                    <p>Get accepted to 3+ platforms and earn your first $10-20. That's it. Small wins build momentum!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final CTA -->
+        <div style="text-align: center; margin: 40px 0; padding: 30px;">
+            <p style="font-size: 1.3rem; margin-bottom: 20px;">Ready to start?</p>
+            <a href="https://userinterviews.com" class="action-btn primary" target="_blank" style="font-size: 1.1rem; padding: 15px 30px;">
+                🚀 Sign up for User Interviews (Best One)
+            </a>
+            <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.9rem;">Takes 3 minutes. Free forever. Real money.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Initialize particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                const colors = ['#ff6b9d', '#c44dff', '#4dffb8', '#ffdb4d', '#4dc3ff'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // XP System
+        let xp = 0;
+        let level = 1;
+
+        function addXP(amount) {
+            xp += amount;
+            const maxXP = level * 100;
+            
+            if (xp >= maxXP) {
+                xp = xp - maxXP;
+                level++;
+                showAchievement(`Level ${level} Reached!`);
+                createConfetti();
+            }
+            
+            updateXPDisplay();
+        }
+
+        function updateXPDisplay() {
+            const maxXP = level * 100;
+            const percent = (xp / maxXP) * 100;
+            document.getElementById('xpFill').style.width = percent + '%';
+            document.getElementById('xpLabel').textContent = `${xp} / ${maxXP} XP`;
+            document.querySelector('.level-badge').textContent = `LVL ${level}`;
+        }
+
+        // Achievement popup
+        function showAchievement(text) {
+            const el = document.getElementById('achievement');
+            el.querySelector('.achievement-text').textContent = text;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3000);
+        }
+
+        // Confetti
+        function createConfetti() {
+            const container = document.createElement('div');
+            container.className = 'confetti';
+            document.body.appendChild(container);
+            
+            const colors = ['#ff6b9d', '#c44dff', '#4dffb8', '#ffdb4d', '#4dc3ff'];
+            for (let i = 0; i < 50; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDelay = Math.random() * 0.5 + 's';
+                piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                container.appendChild(piece);
+            }
+            
+            setTimeout(() => container.remove(), 3500);
+        }
+
+        // Quiz
+        function selectQuiz(el, result) {
+            document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            
+            document.querySelectorAll('.quiz-result').forEach(r => r.classList.remove('show'));
+            document.getElementById('quiz' + result.charAt(0).toUpperCase() + result.slice(1)).classList.add('show');
+            
+            addXP(15);
+        }
+
+        // Toggle sections
+        function toggleSection(header) {
+            const wasActive = header.classList.contains('active');
+            
+            // Close all sections
+            document.querySelectorAll('.section-header').forEach(h => {
+                h.classList.remove('active');
+                h.nextElementSibling.classList.remove('open');
+            });
+            
+            // Open clicked section if it wasn't already open
+            if (!wasActive) {
+                header.classList.add('active');
+                header.nextElementSibling.classList.add('open');
+                addXP(5);
+            }
+        }
+
+        // Checklist
+        function toggleCheck(item, xpAmount) {
+            if (!item.classList.contains('checked')) {
+                item.classList.add('checked');
+                addXP(xpAmount);
+                
+                const checked = document.querySelectorAll('.check-item.checked').length;
+                const total = document.querySelectorAll('.check-item').length;
+                
+                if (checked === total) {
+                    showAchievement('🎉 All Tasks Complete!');
+                    createConfetti();
+                }
+            }
+        }
+
+        // Floating tip
+        let tipShown = false;
+        setTimeout(() => {
+            if (!tipShown) {
+                document.getElementById('floatingTip').classList.add('show');
+                tipShown = true;
+            }
+        }, 30000); // Show after 30 seconds
+
+        function hideTip() {
+            document.getElementById('floatingTip').classList.remove('show');
+        }
+
+        // Track scroll progress
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            if (scrollPercent > 80 && !window.scrollAchievement) {
+                window.scrollAchievement = true;
+                addXP(10);
+            }
+        });
+    </script>
+</body>
+</html>

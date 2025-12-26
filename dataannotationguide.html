@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Annotation | Train AI, Get Paid 🤖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0d1a;
+            --card: #161628;
+            --card-hover: #1e1e38;
+            --accent-1: #7c3aed;
+            --accent-2: #06b6d4;
+            --accent-3: #10b981;
+            --accent-4: #f59e0b;
+            --accent-5: #ec4899;
+            --text: #ffffff;
+            --text-dim: #8b8ba8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--accent-1)15, var(--accent-2)15);
+            border-radius: 24px;
+            margin-bottom: 30px;
+            border: 2px solid var(--accent-1)44;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        /* Quick stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-2);
+            transform: translateY(-3px);
+        }
+
+        .stat-value {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-3);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        /* Navigation pills */
+        .nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .nav-pill {
+            background: var(--card);
+            padding: 12px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-pill:hover {
+            border-color: var(--accent-1);
+            background: var(--card-hover);
+        }
+
+        .nav-pill.active {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        }
+
+        /* Collapsible sections */
+        .section {
+            margin: 20px 0;
+        }
+
+        .section-toggle {
+            width: 100%;
+            background: var(--card);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            text-align: left;
+            color: var(--text);
+        }
+
+        .section-toggle:hover {
+            border-color: var(--accent-1);
+        }
+
+        .section-toggle.open {
+            border-color: var(--accent-3);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .section-icon { font-size: 1.8rem; }
+
+        .section-info { flex: 1; }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .section-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .section-time {
+            background: var(--accent-2)22;
+            color: var(--accent-2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .section-arrow {
+            transition: transform 0.3s ease;
+            color: var(--text-dim);
+        }
+
+        .section-toggle.open .section-arrow {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            display: none;
+            background: var(--card);
+            border: 2px solid var(--accent-3);
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            padding: 25px;
+        }
+
+        .section-content.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Info boxes */
+        .box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-1);
+        }
+
+        .box.green { border-left-color: var(--accent-3); }
+        .box.yellow { border-left-color: var(--accent-4); }
+        .box.pink { border-left-color: var(--accent-5); }
+        .box.blue { border-left-color: var(--accent-2); }
+
+        .box h4 {
+            font-family: 'Fredoka', sans-serif;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .box ul {
+            margin: 10px 0 0 20px;
+        }
+
+        .box li {
+            margin: 8px 0;
+        }
+
+        /* Platform cards */
+        .platforms {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .platform {
+            background: var(--card-hover);
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .platform:hover {
+            border-color: var(--accent-1);
+            transform: translateX(5px);
+        }
+
+        .platform-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .platform-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .platform-badge {
+            background: var(--accent-3)22;
+            color: var(--accent-3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .platform-badge.hot {
+            background: var(--accent-5)22;
+            color: var(--accent-5);
+        }
+
+        .platform-pay {
+            font-size: 0.9rem;
+            color: var(--accent-4);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .platform-desc {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        .platform-adhd {
+            font-size: 0.85rem;
+            padding: 10px;
+            background: var(--accent-1)15;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-1);
+        }
+
+        .platform-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--accent-2);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .platform-link:hover { color: var(--accent-5); }
+
+        /* Star rating */
+        .stars {
+            display: inline-flex;
+            gap: 2px;
+            color: var(--accent-4);
+        }
+
+        .stars .empty { opacity: 0.3; }
+
+        /* Action checklist */
+        .checklist {
+            margin: 20px 0;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--card-hover);
+            border-radius: 12px;
+            margin: 10px 0;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .check-item:hover {
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .check-item.done {
+            border-color: var(--accent-3);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .check-box {
+            width: 26px;
+            height: 26px;
+            border: 3px solid var(--text-dim);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .check-item.done .check-box {
+            background: var(--accent-3);
+            border-color: var(--accent-3);
+            color: var(--bg);
+        }
+
+        .check-item.done .check-text {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* CTA button */
+        .cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: var(--text);
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .quick-stats { grid-template-columns: 1fr; }
+            .stat-card { padding: 15px; }
+            .nav-pills { flex-direction: column; }
+            .nav-pill { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-icon">🤖</div>
+            <h1><span>Data Annotation</span></h1>
+            <p class="subtitle">Teach AI to be smarter. Get paid for your brain.</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-value">$15-40</div>
+                <div class="stat-label">per hour (top platforms)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">⭐⭐⭐⭐</div>
+                <div class="stat-label">ADHD friendly</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">Flexible</div>
+                <div class="stat-label">work when you want</div>
+            </div>
+        </div>
+
+        <!-- Nav Pills -->
+        <div class="nav-pills">
+            <a href="#whatisit" class="nav-pill">🤔 What is it?</a>
+            <a href="#platforms" class="nav-pill">📱 Platforms</a>
+            <a href="#adhd" class="nav-pill">🧠 ADHD Tips</a>
+            <a href="#start" class="nav-pill active">🚀 Start Now</a>
+        </div>
+
+        <!-- What Is It Section -->
+        <div class="section" id="whatisit">
+            <button class="section-toggle" onclick="toggleSection(this)">
+                <span class="section-icon">🤔</span>
+                <div class="section-info">
+                    <div class="section-title">What is Data Annotation?</div>
+                    <div class="section-desc">The quick explanation + why ADHD brains can rock this</div>
+                </div>
+                <span class="section-time">2 min</span>
+                <span class="section-arrow">▼</span>
+            </button>
+            <div class="section-content">
+                <div class="box blue">
+                    <h4>🎯 The One-Sentence Version</h4>
+                    <p>You teach AI systems what things are by labeling data, rating responses, or correcting mistakes.</p>
+                </div>
+
+                <div class="box green">
+                    <h4>✅ Examples of What You'd Do</h4>
+                    <ul>
+                        <li><strong>Label images:</strong> "This is a cat" / "This is a dog"</li>
+                        <li><strong>Rate AI responses:</strong> "This answer is helpful" / "This is incorrect"</li>
+                        <li><strong>Compare outputs:</strong> "Response A is better than Response B"</li>
+                        <li><strong>Write prompts:</strong> Create questions to test AI systems</li>
+                        <li><strong>Fix AI mistakes:</strong> Correct grammar, facts, or tone</li>
+                    </ul>
+                </div>
+
+                <div class="box pink">
+                    <h4>💜 Why ADHD Brains Can Excel</h4>
+                    <ul>
+                        <li><strong>Pattern recognition:</strong> You're literally built for spotting inconsistencies</li>
+                        <li><strong>Variety:</strong> Different task types prevent boredom</li>
+                        <li><strong>Hyperfocus bonus:</strong> Complex tasks can trigger productive flow states</li>
+                        <li><strong>Flexibility:</strong> Work when your brain is ON, stop when it's not</li>
+                    </ul>
+                </div>
+
+                <div class="box yellow">
+                    <h4>⚠️ ADHD Watch-Outs</h4>
+                    <ul>
+                        <li>Some tasks ARE repetitive (skip those when you can)</li>
+                        <li>Guidelines can be complex and change often</li>
+                        <li>Quality requirements are strict - careless = banned</li>
+                        <li>Work availability is inconsistent</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platforms Section -->
+        <div class="section" id="platforms">
+            <button class="section-toggle" onclick="toggleSection(this)">
+                <span class="section-icon">📱</span>
+                <div class="section-info">
+                    <div class="section-title">Best Platforms (Ranked)</div>
+                    <div class="section-desc">Where to actually make decent money</div>
+                </div>
+                <span class="section-time">4 min</span>
+                <span class="section-arrow">▼</span>
+            </button>
+            <div class="section-content">
+                <div class="box blue">
+                    <h4>💡 Strategy</h4>
+                    <p>Sign up for the top 3. Don't spread yourself thin. Focus on one until you're good, then add more.</p>
+                </div>
+
+                <div class="platforms">
+                    <div class="platform">
+                        <div class="platform-header">
+                            <span class="platform-name">🥇 DataAnnotation.tech</span>
+                            <span class="platform-badge hot">🔥 HOT</span>
+                        </div>
+                        <div class="platform-pay">💰 $15-40/hour</div>
+                        <p class="platform-desc">AI training tasks, especially coding and writing. Currently the best-paying with consistent work.</p>
+                        <div class="platform-adhd">
+                            💜 <strong>ADHD:</strong> <span class="stars">★★★★<span class="empty">★</span></span> - Varied tasks, good interface
+                        </div>
+                        <a href="https://app.dataannotation.tech/users/sign_up" class="platform-link" target="_blank">Sign up →</a>
+                    </div>
+
+                    <div class="platform">
+                        <div class="platform-header">
+                            <span class="platform-name">🥈 Outlier</span>
+                            <span class="platform-badge">GROWING</span>
+                        </div>
+                        <div class="platform-pay">💰 $15-40/hour</div>
+                        <p class="platform-desc">Expert-level AI training. Best for people with specific knowledge areas (coding, science, etc).</p>
+                        <div class="platform-adhd">
+                            💜 <strong>ADHD:</strong> <span class="stars">★★★★<span class="empty">★</span></span> - Intellectually engaging
+                        </div>
+                        <a href="https://app.outlier.ai/en/expert/signup" class="platform-link" target="_blank">Sign up →</a>
+                    </div>
+
+                    <div class="platform">
+                        <div class="platform-header">
+                            <span class="platform-name">🥉 Remotasks</span>
+                            <span class="platform-badge">ENTRY</span>
+                        </div>
+                        <div class="platform-pay">💰 $5-20/hour</div>
+                        <p class="platform-desc">Wide variety of task types. Good for beginners to learn the ropes.</p>
+                        <div class="platform-adhd">
+                            💜 <strong>ADHD:</strong> <span class="stars">★★★<span class="empty">★★</span></span> - Can be repetitive
+                        </div>
+                        <a href="https://www.remotasks.com/en/signup" class="platform-link" target="_blank">Sign up →</a>
+                    </div>
+
+                    <div class="platform">
+                        <div class="platform-header">
+                            <span class="platform-name">Appen</span>
+                            <span class="platform-badge">CLASSIC</span>
+                        </div>
+                        <div class="platform-pay">💰 $9-20/hour</div>
+                        <p class="platform-desc">Established company with various projects. Slower to get started but reliable.</p>
+                        <div class="platform-adhd">
+                            💜 <strong>ADHD:</strong> <span class="stars">★★★<span class="empty">★★</span></span> - Lengthy onboarding
+                        </div>
+                        <a href="https://connect.appen.com/qrp/public/jobs" class="platform-link" target="_blank">Sign up →</a>
+                    </div>
+                </div>
+
+                <div class="box yellow">
+                    <h4>⚠️ Platforms to Avoid (for ADHD)</h4>
+                    <ul>
+                        <li><strong>Amazon MTurk:</strong> Low pay ($3-8/hr), mind-numbing repetition</li>
+                        <li><strong>Clickworker:</strong> Boring tasks, inconsistent work</li>
+                        <li><strong>Toloka:</strong> Very low pay, frustrating interface</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADHD Section -->
+        <div class="section" id="adhd">
+            <button class="section-toggle" onclick="toggleSection(this)">
+                <span class="section-icon">🧠</span>
+                <div class="section-info">
+                    <div class="section-title">ADHD Success Strategies</div>
+                    <div class="section-desc">Actual tips that work, not generic advice</div>
+                </div>
+                <span class="section-time">3 min</span>
+                <span class="section-arrow">▼</span>
+            </button>
+            <div class="section-content">
+                <div class="box green">
+                    <h4>⚡ The Energy Matching System</h4>
+                    <ul>
+                        <li><strong>Hyperfocus mode:</strong> Tackle complex, high-paying tasks</li>
+                        <li><strong>Medium energy:</strong> Standard labeling, comparisons</li>
+                        <li><strong>Low energy:</strong> Simple yes/no tasks or skip entirely</li>
+                        <li><strong>No energy:</strong> Don't force it. Bad work = banned accounts.</li>
+                    </ul>
+                </div>
+
+                <div class="box blue">
+                    <h4>🎯 The ADHD Work Session</h4>
+                    <ol>
+                        <li><strong>Prep (5 min):</strong> Check what tasks are available, set up your space</li>
+                        <li><strong>Warm-up (10 min):</strong> Do 2-3 easy tasks to build momentum</li>
+                        <li><strong>Peak (25-45 min):</strong> Hit the complex, high-value work</li>
+                        <li><strong>Cool-down (10 min):</strong> Easy tasks or quality review</li>
+                        <li><strong>Done:</strong> STOP. Take a real break. Don't push it.</li>
+                    </ol>
+                </div>
+
+                <div class="box pink">
+                    <h4>🛡️ Protect Your Account</h4>
+                    <p>ADHD brains can rush and make careless mistakes. These platforms WILL ban you for low quality.</p>
+                    <ul>
+                        <li>Read guidelines carefully (I know, I know...)</li>
+                        <li>When in doubt, skip the task</li>
+                        <li>Review work before submitting when tired</li>
+                        <li>Never work when you're in "zombie mode"</li>
+                    </ul>
+                </div>
+
+                <div class="box yellow">
+                    <h4>⏰ Time Blindness Hacks</h4>
+                    <ul>
+                        <li>Use a visual timer (Time Timer app is great)</li>
+                        <li>Set phone alarms for session end</li>
+                        <li>Track hours worked in a simple spreadsheet</li>
+                        <li>Body doubling: Work "with" someone (YouTube co-working streams)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Now Section -->
+        <div class="section" id="start">
+            <button class="section-toggle open" onclick="toggleSection(this)">
+                <span class="section-icon">🚀</span>
+                <div class="section-info">
+                    <div class="section-title">Start Right Now</div>
+                    <div class="section-desc">Your action checklist</div>
+                </div>
+                <span class="section-time">10 min</span>
+                <span class="section-arrow">▼</span>
+            </button>
+            <div class="section-content show">
+                <div class="box green">
+                    <h4>🎯 The Quick Start</h4>
+                    <p>Don't overthink this. Sign up, do the training, complete one task. That's it. Optimize later.</p>
+                </div>
+
+                <div class="checklist">
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Sign up for DataAnnotation.tech</strong> - Best one, start here</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Complete onboarding quiz</strong> - They test you first</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Read guidelines carefully</strong> - Yes, really (I know)</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Complete your first task</strong> - Any task counts!</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Sign up for Outlier as backup</strong> - More options = more money</span>
+                    </div>
+                </div>
+
+                <div class="box blue">
+                    <h4>💵 Week 1 Expectations</h4>
+                    <p><strong>Realistic:</strong> $20-100 (while learning)</p>
+                    <p><strong>Goal:</strong> Get comfortable with the platform, not maximize earnings</p>
+                    <p><strong>Focus:</strong> Quality over speed. Build a good reputation first.</p>
+                </div>
+
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="https://app.dataannotation.tech/users/sign_up" class="cta" target="_blank">
+                        🚀 Sign Up for DataAnnotation.tech
+                    </a>
+                    <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.9rem;">Takes 5 minutes. Free. Start earning today.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Message -->
+        <div style="text-align: center; padding: 40px 20px; color: var(--text-dim);">
+            <p>Remember: This is real work that takes effort.</p>
+            <p>But if you can focus for 30-60 minute bursts, you can absolutely do this. 💪</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(btn) {
+            const content = btn.nextElementSibling;
+            const isOpen = btn.classList.contains('open');
+            
+            // Close all sections first
+            document.querySelectorAll('.section-toggle').forEach(t => {
+                t.classList.remove('open');
+                t.nextElementSibling.classList.remove('show');
+            });
+            
+            // Open clicked one if it wasn't already open
+            if (!isOpen) {
+                btn.classList.add('open');
+                content.classList.add('show');
+            }
+        }
+
+        function toggleCheck(item) {
+            item.classList.toggle('done');
+            
+            // Check completion
+            const done = document.querySelectorAll('.check-item.done').length;
+            const total = document.querySelectorAll('.check-item').length;
+            
+            if (done === total) {
+                alert('🎉 You did it! Now go complete that first task!');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcription | Type What You Hear 🎧</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0c0c14;
+            --card: #14142a;
+            --card-hover: #1c1c3a;
+            --accent-1: #f472b6;
+            --accent-2: #60a5fa;
+            --accent-3: #34d399;
+            --accent-4: #fbbf24;
+            --accent-5: #a78bfa;
+            --text: #ffffff;
+            --text-dim: #9090a8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Warning banner */
+        .warning-banner {
+            background: linear-gradient(135deg, var(--accent-4)22, var(--accent-1)22);
+            border: 2px solid var(--accent-4);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .warning-icon { font-size: 2rem; flex-shrink: 0; }
+
+        .warning-text h3 {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--accent-4);
+            margin-bottom: 5px;
+        }
+
+        .warning-text p {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .stat {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent-3);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        /* Quick nav */
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .nav-btn {
+            background: var(--card);
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent-1);
+        }
+
+        /* Sections */
+        .section {
+            margin: 20px 0;
+        }
+
+        .section-header {
+            background: var(--card);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            border-color: var(--accent-2);
+        }
+
+        .section-header.open {
+            border-color: var(--accent-3);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .section-icon { font-size: 1.8rem; }
+        .section-info { flex: 1; }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .section-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .section-badge {
+            background: var(--accent-2)22;
+            color: var(--accent-2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .section-arrow {
+            color: var(--text-dim);
+            transition: transform 0.3s ease;
+        }
+
+        .section-header.open .section-arrow {
+            transform: rotate(180deg);
+        }
+
+        .section-body {
+            display: none;
+            background: var(--card);
+            border: 2px solid var(--accent-3);
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            padding: 25px;
+        }
+
+        .section-body.show {
+            display: block;
+        }
+
+        /* Info cards */
+        .card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-2);
+        }
+
+        .card.green { border-left-color: var(--accent-3); }
+        .card.yellow { border-left-color: var(--accent-4); }
+        .card.pink { border-left-color: var(--accent-1); }
+        .card.purple { border-left-color: var(--accent-5); }
+
+        .card h4 {
+            font-family: 'Fredoka', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .card ul {
+            margin: 10px 0 0 20px;
+        }
+
+        .card li {
+            margin: 8px 0;
+        }
+
+        /* Platform cards */
+        .platforms {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .platform {
+            background: var(--card-hover);
+            border-radius: 14px;
+            padding: 18px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .platform:hover {
+            border-color: var(--accent-1);
+        }
+
+        .platform-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .platform-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .platform-status {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .platform-status.open {
+            background: var(--accent-3)22;
+            color: var(--accent-3);
+        }
+
+        .platform-status.limited {
+            background: var(--accent-4)22;
+            color: var(--accent-4);
+        }
+
+        .platform-status.waitlist {
+            background: var(--accent-1)22;
+            color: var(--accent-1);
+        }
+
+        .platform-pay {
+            color: var(--accent-4);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .platform-desc {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        .platform-adhd {
+            font-size: 0.85rem;
+            padding: 10px;
+            background: var(--accent-5)15;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-5);
+        }
+
+        .platform-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--accent-2);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Typing speed section */
+        .speed-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .speed-card {
+            background: var(--card-hover);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .speed-wpm {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .speed-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin: 5px 0;
+        }
+
+        .speed-verdict {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .speed-verdict.good {
+            background: var(--accent-3)22;
+            color: var(--accent-3);
+        }
+
+        .speed-verdict.ok {
+            background: var(--accent-4)22;
+            color: var(--accent-4);
+        }
+
+        .speed-verdict.hard {
+            background: var(--accent-1)22;
+            color: var(--accent-1);
+        }
+
+        /* Checklist */
+        .checklist { margin: 20px 0; }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px;
+            background: var(--card-hover);
+            border-radius: 10px;
+            margin: 8px 0;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .check-item.done {
+            border-color: var(--accent-3);
+            background: rgba(52, 211, 153, 0.1);
+        }
+
+        .check-box {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-dim);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .check-item.done .check-box {
+            background: var(--accent-3);
+            border-color: var(--accent-3);
+            color: var(--bg);
+        }
+
+        .check-item.done .check-text {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* CTA */
+        .cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: var(--text);
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(244, 114, 182, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .stats { grid-template-columns: 1fr; }
+            .speed-cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Warning Banner -->
+        <div class="warning-banner">
+            <span class="warning-icon">⚠️</span>
+            <div class="warning-text">
+                <h3>Real Talk: AI Changed This Industry</h3>
+                <p>Transcription isn't what it was 5 years ago. AI now does 80% of the work. Human transcriptionists mainly edit AI output or handle complex audio. Expect $150-400/month, not thousands. This guide gives honest expectations.</p>
+            </div>
+        </div>
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-icon">🎧</div>
+            <h1><span>Transcription</span></h1>
+            <p class="subtitle">Type what you hear. Work when you want.</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">$150-400</div>
+                <div class="stat-label">realistic monthly</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">⭐⭐⭐</div>
+                <div class="stat-label">ADHD friendly</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">60+ WPM</div>
+                <div class="stat-label">typing needed</div>
+            </div>
+        </div>
+
+        <!-- Quick Nav -->
+        <div class="quick-nav">
+            <a href="#fit" class="nav-btn">🤔 Is This For Me?</a>
+            <a href="#platforms" class="nav-btn">📱 Platforms</a>
+            <a href="#tips" class="nav-btn">🧠 ADHD Tips</a>
+            <a href="#start" class="nav-btn">🚀 Start</a>
+        </div>
+
+        <!-- Is This For Me -->
+        <div class="section" id="fit">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">🤔</span>
+                <div class="section-info">
+                    <div class="section-title">Is Transcription Right For Me?</div>
+                    <div class="section-desc">Honest assessment + typing speed reality</div>
+                </div>
+                <span class="section-badge">2 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="card green">
+                    <h4>✅ Good Fit If You...</h4>
+                    <ul>
+                        <li>Type 60+ WPM accurately</li>
+                        <li>Have good ears (can understand accents, mumbling)</li>
+                        <li>Don't mind repetitive work</li>
+                        <li>Want flexible supplemental income</li>
+                        <li>Can focus on audio for 30-60 minute stretches</li>
+                    </ul>
+                </div>
+
+                <div class="card pink">
+                    <h4>❌ Skip If You...</h4>
+                    <ul>
+                        <li>Type under 50 WPM (too frustrating)</li>
+                        <li>Have hearing difficulties</li>
+                        <li>Get bored by repetition quickly</li>
+                        <li>Need substantial income (this won't replace a job)</li>
+                        <li>Hate proofreading and detailed accuracy work</li>
+                    </ul>
+                </div>
+
+                <h4 style="margin: 25px 0 15px; font-family: 'Fredoka', sans-serif;">⌨️ Where's Your Typing Speed?</h4>
+
+                <div class="speed-cards">
+                    <div class="speed-card">
+                        <div class="speed-wpm">Under 40</div>
+                        <div class="speed-label">WPM</div>
+                        <span class="speed-verdict hard">Very hard</span>
+                    </div>
+                    <div class="speed-card">
+                        <div class="speed-wpm">40-60</div>
+                        <div class="speed-label">WPM</div>
+                        <span class="speed-verdict ok">Doable</span>
+                    </div>
+                    <div class="speed-card">
+                        <div class="speed-wpm">60-80</div>
+                        <div class="speed-label">WPM</div>
+                        <span class="speed-verdict good">Sweet spot</span>
+                    </div>
+                    <div class="speed-card">
+                        <div class="speed-wpm">80+</div>
+                        <div class="speed-label">WPM</div>
+                        <span class="speed-verdict good">Excellent</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>🎮 Check Your Speed</h4>
+                    <p>Don't guess. Test yourself:</p>
+                    <ul>
+                        <li><a href="https://www.keybr.com" target="_blank" style="color: var(--accent-2);">keybr.com</a> - Free typing test</li>
+                        <li><a href="https://play.typeracer.com" target="_blank" style="color: var(--accent-2);">TypeRacer</a> - Fun racing game</li>
+                        <li><a href="https://www.nitrotype.com" target="_blank" style="color: var(--accent-2);">Nitro Type</a> - Gamified practice</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platforms -->
+        <div class="section" id="platforms">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">📱</span>
+                <div class="section-info">
+                    <div class="section-title">Best Platforms (Ranked)</div>
+                    <div class="section-desc">Where to actually make money in 2025</div>
+                </div>
+                <span class="section-badge">4 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="card yellow">
+                    <h4>⚠️ Platform Reality</h4>
+                    <p>Many transcription platforms have waitlists or hiring freezes. Sign up for all of them - you might wait weeks to get in.</p>
+                </div>
+
+                <div class="platforms">
+                    <div class="platform">
+                        <div class="platform-top">
+                            <span class="platform-name">🥇 TranscribeMe</span>
+                            <span class="platform-status limited">Limited spots</span>
+                        </div>
+                        <div class="platform-pay">💰 $15-22/audio hour</div>
+                        <p class="platform-desc">Short files (2-4 min). Clean interface. Best for ADHD attention spans.</p>
+                        <div class="platform-adhd">
+                            💜 <strong>ADHD:</strong> ⭐⭐⭐⭐⭐ - Short bursts = perfect
+                        </div>
+                        <a href="https://www.transcribeme.com/jobs/" class="platform-link" target="_blank">Apply →</a>
+                    </div>
+
+                    <div class="platform">
+                        <div class="platform-top">
+                            <span class="platform-name">🥈 GoTranscript</span>
+                            <span class="platform-status open">Open</span>
+                        </div>
+                        <div class="platform-pay">💰 $0.60/audio minute</div>
+                        <p class="platform-desc">Most accessible. Regular work available. Longer files though.</p>
+                        <div class="platform-adhd">
+                            💜 <strong>ADHD:</strong> ⭐⭐⭐ - Can be repetitive
+                        </div>
+                        <a href="https://gotranscript.com/transcription-jobs" class="platform-link" target="_blank">Apply →</a>
+                    </div>
+
+                    <div class="platform">
+                        <div class="platform-top">
+                            <span class="platform-name">🥉 Rev</span>
+                            <span class="platform-status waitlist">Waitlist</span>
+                        </div>
+                        <div class="platform-pay">💰 $0.30-0.75/audio minute</div>
+                        <p class="platform-desc">Big name, but competitive. 72,000+ freelancers. Low pay now.</p>
+                        <div class="platform-adhd">
+                            💜 <strong>ADHD:</strong> ⭐⭐⭐ - Clean interface, low motivation pay
+                        </div>
+                        <a href="https://www.rev.com/freelancers" class="platform-link" target="_blank">Join waitlist →</a>
+                    </div>
+
+                    <div class="platform">
+                        <div class="platform-top">
+                            <span class="platform-name">Scribie</span>
+                            <span class="platform-status waitlist">Paused</span>
+                        </div>
+                        <div class="platform-pay">💰 $5-25/audio hour</div>
+                        <p class="platform-desc">Short files. Great for ADHD. But hiring is paused right now.</p>
+                        <div class="platform-adhd">
+                            💜 <strong>ADHD:</strong> ⭐⭐⭐⭐⭐ - Best format, but unavailable
+                        </div>
+                        <a href="https://scribie.com/freelance-transcription" class="platform-link" target="_blank">Check status →</a>
+                    </div>
+                </div>
+
+                <div class="card purple">
+                    <h4>🚀 The New Opportunity: AI Editing</h4>
+                    <p>Instead of transcribing from scratch, many platforms now need people to <strong>edit AI transcriptions</strong>. This can be:</p>
+                    <ul>
+                        <li>Less tedious (skeleton already done)</li>
+                        <li>Higher hourly rate (less time per file)</li>
+                        <li>Good fit for detail-oriented ADHD pattern-spotting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADHD Tips -->
+        <div class="section" id="tips">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-icon">🧠</span>
+                <div class="section-info">
+                    <div class="section-title">ADHD Survival Guide</div>
+                    <div class="section-desc">Actually helpful strategies</div>
+                </div>
+                <span class="section-badge">3 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="card green">
+                    <h4>⚡ Match Work to Energy</h4>
+                    <ul>
+                        <li><strong>Hyperfocus:</strong> Tackle complex audio (accents, technical content)</li>
+                        <li><strong>Medium energy:</strong> Clear audio, straightforward content</li>
+                        <li><strong>Low energy:</strong> Skip it. Tired transcription = errors = banned.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>🎧 Audio That Works for ADHD</h4>
+                    <ul>
+                        <li>Choose interesting topics (podcasts > boring meetings)</li>
+                        <li>Start with clear audio first (build confidence)</li>
+                        <li>Avoid multi-speaker chaos when tired</li>
+                        <li>Pick short files when focus is shaky</li>
+                    </ul>
+                </div>
+
+                <div class="card pink">
+                    <h4>⏰ Session Structure</h4>
+                    <ol>
+                        <li><strong>2 min:</strong> Pick your file, read guidelines</li>
+                        <li><strong>25-30 min:</strong> Transcribe (set timer!)</li>
+                        <li><strong>5 min:</strong> Proofread carefully</li>
+                        <li><strong>5 min:</strong> Break - walk, stretch, snack</li>
+                        <li><strong>Repeat max 3x:</strong> Then stop for the day</li>
+                    </ol>
+                </div>
+
+                <div class="card yellow">
+                    <h4>⚠️ ADHD Pitfall Prevention</h4>
+                    <ul>
+                        <li><strong>Rushing:</strong> Slow down. Accuracy matters more than speed.</li>
+                        <li><strong>Skipping proofreading:</strong> Always review. Always.</li>
+                        <li><strong>Working tired:</strong> Mistakes = bad ratings = fewer jobs.</li>
+                        <li><strong>Long sessions:</strong> Diminishing returns after 2 hours.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start -->
+        <div class="section" id="start">
+            <div class="section-header open" onclick="toggleSection(this)">
+                <span class="section-icon">🚀</span>
+                <div class="section-info">
+                    <div class="section-title">Get Started Today</div>
+                    <div class="section-desc">Your action plan</div>
+                </div>
+                <span class="section-badge">5 min</span>
+                <span class="section-arrow">▼</span>
+            </div>
+            <div class="section-body show">
+                <div class="card">
+                    <h4>🎯 Week 1 Goals</h4>
+                    <p><strong>Apply:</strong> Sign up for all platforms (some have waitlists)</p>
+                    <p><strong>Practice:</strong> Get typing to 60+ WPM if you're not there</p>
+                    <p><strong>Expect:</strong> $0-50 (mostly onboarding and practice)</p>
+                </div>
+
+                <div class="checklist">
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Test typing speed</strong> - Know where you stand</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Apply to GoTranscript</strong> - Most accessible</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Apply to TranscribeMe</strong> - Best for ADHD</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Join Rev waitlist</strong> - Backup option</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Get good headphones</strong> - Seriously worth it</span>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <div class="check-box">✓</div>
+                        <span class="check-text"><strong>Complete your first file</strong> - Any file!</span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="https://gotranscript.com/transcription-jobs" class="cta" target="_blank">
+                        🎧 Apply to GoTranscript (Open Now)
+                    </a>
+                    <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.9rem;">Most accessible. Get started while waiting for others.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom -->
+        <div style="text-align: center; padding: 40px 20px; color: var(--text-dim);">
+            <p>Transcription won't make you rich in 2025.</p>
+            <p>But if you like audio work and typing, it's decent supplemental income. 🎧</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(header) {
+            const body = header.nextElementSibling;
+            const isOpen = header.classList.contains('open');
+            
+            document.querySelectorAll('.section-header').forEach(h => {
+                h.classList.remove('open');
+                h.nextElementSibling.classList.remove('show');
+            });
+            
+            if (!isOpen) {
+                header.classList.add('open');
+                body.classList.add('show');
+            }
+        }
+
+        function toggleCheck(item) {
+            item.classList.toggle('done');
+        }
+    </script>
+</body>
+</html>

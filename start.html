@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Working Online | Speed Run Edition 🎮</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a12;
+            --card: #151525;
+            --card-hover: #1e1e35;
+            --accent-1: #00ff88;
+            --accent-2: #00d4ff;
+            --accent-3: #ff6b6b;
+            --accent-4: #ffd93d;
+            --accent-5: #c56cf0;
+            --text: #ffffff;
+            --text-dim: #7a7a9a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .timer-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: rgba(10, 10, 18, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            border-bottom: 2px solid var(--accent-1);
+        }
+
+        .timer-left { display: flex; align-items: center; gap: 15px; }
+
+        .speed-badge {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: var(--bg);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .timer-display {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-4);
+        }
+
+        .step-counter {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            color: var(--text-dim);
+        }
+
+        .step-counter span { color: var(--accent-1); font-weight: 700; }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 30px 0 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--card);
+            border: 2px solid var(--accent-2);
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            color: var(--accent-2);
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub { color: var(--text-dim); font-size: 1.15rem; }
+
+        .step {
+            margin: 25px 0;
+            opacity: 0.4;
+            transition: all 0.5s ease;
+        }
+
+        .step.active { opacity: 1; }
+        .step.completed { opacity: 0.6; }
+
+        .step-card {
+            background: var(--card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-card {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.15);
+        }
+
+        .step.completed .step-card { border-color: var(--accent-1); }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            cursor: pointer;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--card-hover);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            border: 3px solid var(--text-dim);
+        }
+
+        .step.active .step-number {
+            border-color: var(--accent-1);
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--accent-1);
+        }
+
+        .step.completed .step-number {
+            background: var(--accent-1);
+            border-color: var(--accent-1);
+            color: var(--bg);
+        }
+
+        .step-info { flex: 1; }
+
+        .step-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .step-preview { color: var(--text-dim); font-size: 0.9rem; }
+
+        .step-time-badge {
+            background: var(--accent-2)22;
+            color: var(--accent-2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .step-content {
+            padding: 0 25px 25px;
+            display: none;
+        }
+
+        .step.active .step-content {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-2);
+        }
+
+        .info-box.tip { border-left-color: var(--accent-1); }
+        .info-box.warning { border-left-color: var(--accent-4); }
+
+        .info-box h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .task-list { margin: 15px 0; }
+
+        .task {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            background: var(--card-hover);
+            border-radius: 10px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .task:hover { background: rgba(0, 255, 136, 0.05); }
+
+        .task.done {
+            border-color: var(--accent-1);
+            background: rgba(0, 255, 136, 0.08);
+        }
+
+        .task-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-dim);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .task.done .task-check {
+            background: var(--accent-1);
+            border-color: var(--accent-1);
+            color: var(--bg);
+        }
+
+        .task-text { flex: 1; font-size: 0.95rem; }
+        .task.done .task-text { text-decoration: line-through; opacity: 0.7; }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-hover);
+            padding: 10px 18px;
+            border-radius: 25px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quick-link:hover {
+            border-color: var(--accent-2);
+            transform: translateY(-2px);
+        }
+
+        .quick-link.primary {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: var(--bg);
+        }
+
+        .complete-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: var(--bg);
+            transition: all 0.3s ease;
+        }
+
+        .complete-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .victory {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .victory.show { display: block; }
+
+        .victory-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .victory h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-4));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .victory-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .victory-stat { text-align: center; }
+
+        .victory-stat-value {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-1);
+        }
+
+        .victory-stat-label { font-size: 0.9rem; color: var(--text-dim); }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--card);
+            border: 2px solid var(--accent-1);
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .timer-bar { padding: 0 15px; }
+            .step-header { padding: 20px; gap: 15px; }
+            .step-number { width: 40px; height: 40px; font-size: 1.1rem; }
+            .victory-stats { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <div class="timer-bar">
+        <div class="timer-left">
+            <span class="speed-badge">⚡ SPEED RUN</span>
+            <span class="timer-display" id="timer">00:00</span>
+        </div>
+        <span class="step-counter">Step <span id="currentStep">1</span> of <span id="totalSteps">5</span></span>
+    </div>
+
+    <div class="toast" id="toast">
+        <span id="toastIcon">✅</span>
+        <span id="toastText">Step completed!</span>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <div class="hero-badge">🎮 Interactive Setup Guide</div>
+            <h1><span class="highlight">Start Working Online</span><br>Speed Run Edition</h1>
+            <p class="hero-sub">Get from zero to earning in one focused session. No fluff, just action.</p>
+        </div>
+
+        <div id="stepsContainer">
+            <div class="step active" data-step="1">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-info">
+                            <div class="step-title">📧 Work Email</div>
+                            <div class="step-preview">Separate work from personal spam</div>
+                        </div>
+                        <span class="step-time-badge">2-3 min</span>
+                    </div>
+                    <div class="step-content">
+                        <div class="info-box tip">
+                            <h4>💡 Why First?</h4>
+                            <p>A dedicated work email keeps everything organized. You won't lose payment emails in your Netflix notifications.</p>
+                        </div>
+                        <div class="task-list">
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">Create a Gmail like firstname.lastname.work@gmail.com</span>
+                            </div>
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">Enable 2-factor authentication</span>
+                            </div>
+                        </div>
+                        <div class="quick-links">
+                            <a href="https://accounts.google.com/signup" target="_blank" class="quick-link primary">✨ Create Gmail →</a>
+                        </div>
+                        <button class="complete-btn" onclick="completeStep(1)">Complete Step 1 →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" data-step="2">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-info">
+                            <div class="step-title">💳 Payment Setup</div>
+                            <div class="step-preview">Get ready to receive money</div>
+                        </div>
+                        <span class="step-time-badge">5-7 min</span>
+                    </div>
+                    <div class="step-content">
+                        <div class="info-box">
+                            <h4>💰 Reality</h4>
+                            <p>80%+ platforms pay through PayPal. Set up a business account for better tracking.</p>
+                        </div>
+                        <div class="task-list">
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">Create PayPal Business account</span>
+                            </div>
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">Link your bank account</span>
+                            </div>
+                        </div>
+                        <div class="quick-links">
+                            <a href="https://paypal.com/business" target="_blank" class="quick-link primary">💳 PayPal Business →</a>
+                        </div>
+                        <button class="complete-btn" onclick="completeStep(2)">Complete Step 2 →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" data-step="3">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-info">
+                            <div class="step-title">🎯 Quick Win Platforms</div>
+                            <div class="step-preview">Sign up for the best ones</div>
+                        </div>
+                        <span class="step-time-badge">10-15 min</span>
+                    </div>
+                    <div class="step-content">
+                        <div class="info-box tip">
+                            <h4>⚡ Strategy</h4>
+                            <p>Sign up for ALL of these. More platforms = more money.</p>
+                        </div>
+                        <div class="task-list">
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text"><strong>User Interviews</strong> - $50-200/session 🔥</span>
+                            </div>
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text"><strong>Prolific</strong> - $8-18/hr studies</span>
+                            </div>
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text"><strong>Respondent</strong> - Focus groups</span>
+                            </div>
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text"><strong>UserTesting</strong> - $10/test</span>
+                            </div>
+                        </div>
+                        <div class="quick-links">
+                            <a href="https://userinterviews.com" target="_blank" class="quick-link primary">🎤 User Interviews</a>
+                            <a href="https://prolific.co" target="_blank" class="quick-link">📊 Prolific</a>
+                            <a href="https://respondent.io" target="_blank" class="quick-link">💼 Respondent</a>
+                        </div>
+                        <button class="complete-btn" onclick="completeStep(3)">Complete Step 3 →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" data-step="4">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-info">
+                            <div class="step-title">✨ Complete Profiles</div>
+                            <div class="step-preview">100% profiles = more opportunities</div>
+                        </div>
+                        <span class="step-time-badge">5-10 min</span>
+                    </div>
+                    <div class="step-content">
+                        <div class="info-box warning">
+                            <h4>⚠️ Important</h4>
+                            <p>Incomplete profiles = fewer matches. Fill out EVERYTHING.</p>
+                        </div>
+                        <div class="task-list">
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">Upload a professional photo</span>
+                            </div>
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">Complete ALL demographic questions</span>
+                            </div>
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">List skills and experiences</span>
+                            </div>
+                        </div>
+                        <button class="complete-btn" onclick="completeStep(4)">Complete Step 4 →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" data-step="5">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-info">
+                            <div class="step-title">🚀 First Task</div>
+                            <div class="step-preview">Time to earn something!</div>
+                        </div>
+                        <span class="step-time-badge">10-20 min</span>
+                    </div>
+                    <div class="step-content">
+                        <div class="info-box tip">
+                            <h4>🎮 Mission</h4>
+                            <p>Find ONE task and complete it. Doesn't matter if it pays $1 or $100. First completion matters most!</p>
+                        </div>
+                        <div class="task-list">
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">Check Prolific for studies</span>
+                            </div>
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">Apply to 3+ User Interviews projects</span>
+                            </div>
+                            <div class="task" onclick="toggleTask(this)">
+                                <div class="task-check">✓</div>
+                                <span class="task-text">Complete first paid task 🎉</span>
+                            </div>
+                        </div>
+                        <button class="complete-btn" onclick="finishRun()">🏆 Complete Speed Run!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="victory" id="victory">
+            <div class="victory-icon">🏆</div>
+            <h2>Speed Run Complete!</h2>
+            <p style="color: var(--text-dim);">You're ready to start earning online!</p>
+            <div class="victory-stats">
+                <div class="victory-stat">
+                    <div class="victory-stat-value" id="finalTime">00:00</div>
+                    <div class="victory-stat-label">Time</div>
+                </div>
+                <div class="victory-stat">
+                    <div class="victory-stat-value">5</div>
+                    <div class="victory-stat-label">Steps</div>
+                </div>
+                <div class="victory-stat">
+                    <div class="victory-stat-value">4+</div>
+                    <div class="victory-stat-label">Platforms</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let seconds = 0;
+        let timerInterval = setInterval(() => {
+            seconds++;
+            const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${mins}:${secs}`;
+        }, 1000);
+
+        let currentStep = 1;
+
+        function toggleTask(task) {
+            task.classList.toggle('done');
+        }
+
+        function completeStep(stepNum) {
+            const step = document.querySelector(`.step[data-step="${stepNum}"]`);
+            step.classList.remove('active');
+            step.classList.add('completed');
+            showToast('✅', `Step ${stepNum} complete!`);
+
+            if (stepNum < 5) {
+                currentStep = stepNum + 1;
+                document.getElementById('currentStep').textContent = currentStep;
+                const nextStep = document.querySelector(`.step[data-step="${currentStep}"]`);
+                nextStep.classList.add('active');
+                setTimeout(() => nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+            }
+        }
+
+        function finishRun() {
+            clearInterval(timerInterval);
+            document.querySelector('.step[data-step="5"]').classList.add('completed');
+            document.getElementById('stepsContainer').style.display = 'none';
+            document.getElementById('victory').classList.add('show');
+            document.getElementById('finalTime').textContent = document.getElementById('timer').textContent;
+        }
+
+        function showToast(icon, text) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastIcon').textContent = icon;
+            document.getElementById('toastText').textContent = text;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
