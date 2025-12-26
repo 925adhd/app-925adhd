@@ -73,10 +73,17 @@
   const injectCoreCSS = ()=>{
     if (document.getElementById('site-layout-css')) return;
     const css = `
-      .site-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card,#1A1A1A);border-top:1px solid rgba(255,255,255,.1);padding:8px 0;z-index:100;box-sizing:border-box;min-height:56px;padding-top:8px;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 8px) !important}
-      .site-nav .nav-items{display:flex;justify-content:space-around;align-items:center;max-width:600px;margin:0 auto;height:100%;justify-content:space-around !important}
-      .site-nav .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px !important;color:var(--text-muted,#fff);font-size:11px;font-weight:600;text-decoration:none;margin:0 !important;line-height:1 !important;justify-content:center !important;min-width:48px;box-sizing:border-box}
+      /* Injected header (top) */
+      .site-header{position:sticky;top:0;z-index:100;background:var(--brand,#5BBFB5);padding:10px 16px;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
+      .site-header .title{font-weight:800;color:#0F0F0F}
+      .site-header .back-btn{position:absolute;left:12px;background:none;border:none;color:#0F0F0F !important;font-size:26px !important;padding:10px 14px !important;border-radius:10px;cursor:pointer}
+      .site-header .back-btn:hover{background:rgba(0,0,0,0.04)}
+
+      .site-nav{position:fixed;bottom:0;left:0;background:var(--card,#1A1A1A);border-top:1px solid rgba(255,255,255,.1);padding:8px 0;z-index:100;box-sizing:border-box;min-height:56px;padding-top:8px;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 8px) !important;width:100vw}
+      .site-nav .nav-items{display:flex;justify-content:space-around;align-items:center;max-width:none !important;width:100% !important;padding:0 12px !important;margin:0 !important;box-sizing:border-box}
+      .site-nav .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px !important;color:var(--text-muted,#fff);font-size:11px;font-weight:600;text-decoration:none;margin:0 !important;line-height:1 !important;justify-content:center !important;min-width:48px;box-sizing:border-box;flex:1 !important;max-width:120px;text-align:center}
       .site-nav .nav-item.active{color:var(--brand,#5BBFB5) !important}
+      .site-nav .nav-item.active .icon{color:var(--brand) !important;opacity:1 !important}
       .site-nav .nav-item .icon{font-size:20px !important;display:block !important;line-height:1 !important;width:auto !important}
       .site-nav .nav-item span{display:block}
       .site-nav .nav-item:hover{color:var(--text,#fff) !important}
@@ -95,5 +102,15 @@
   };
 
   // Apply
-  document.addEventListener('DOMContentLoaded', ()=>{ insertHeader(); insertNav(); });
+  document.addEventListener('DOMContentLoaded', ()=>{
+    try{
+      const current = (location.pathname || location.href || '').split('/').pop() || '';
+      // Skip injecting header and nav on the login page entirely
+      if (/login\.html$/i.test(current)) {
+        return;
+      }
+      insertHeader();
+      insertNav();
+    }catch(e){ insertHeader(); insertNav(); }
+  });
 })();
