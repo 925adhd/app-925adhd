@@ -261,7 +261,7 @@
       cursor: pointer;
       padding: 4px 8px;
     }
-    
+
     .clear-filters:hover {
       text-decoration: underline;
     }
@@ -513,9 +513,7 @@
     <!-- Quick Filters -->
     <div class="filter-row">
       <button class="filter-chip active" data-filter="all">Show All</button>
-      <button class="filter-chip" data-filter="favorites">❤️ Saved</button>
       <button class="filter-chip" data-filter="quick">⚡ Quick Start</button>
-      <button class="filter-chip" data-filter="browser">💻 Browser Only</button>
       <button class="filter-chip" data-filter="highpay">💰 High Pay</button>
       <button class="filter-chip" data-filter="beginner">🌱 Beginner</button>
     </div>
@@ -818,7 +816,8 @@
       
       energyBtns.forEach(b => b.classList.remove('active'));
       filterChips.forEach(c => c.classList.remove('active'));
-      document.querySelector('[data-filter="all"]').classList.add('active');
+      const allChip = document.querySelector('[data-filter="all"]');
+      if (allChip) allChip.classList.add('active');
       
       renderGigs();
     }
