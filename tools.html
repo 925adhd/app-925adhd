@@ -4,14 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tools - 925 ADHD</title>
+  
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#5BBFB5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="925 ADHD">
+  <link rel="apple-touch-icon" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
+  
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
   
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     
     :root {
       --bg: #0F0F0F;
@@ -33,10 +39,7 @@
       padding-bottom: 80px;
     }
     
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
     
     /* Header */
     .header {
@@ -45,14 +48,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     
-    .header h1 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #0F0F0F;
-    }
+    .header h1 { font-size: 18px; font-weight: 700; color: #0F0F0F; }
     
     .back-btn {
       position: absolute;
@@ -68,203 +69,245 @@
     /* Main Content */
     .main-content {
       padding: 20px 16px;
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
     }
     
-    /* Brain.fm Hero Section */
-    .brainfm-hero {
-      background: var(--card);
-      border: 1px solid var(--border);
+    /* Updated Badge */
+    .updated-badge {
+      color: var(--brand);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    
+    /* Brain.fm Hero */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(91, 191, 181, 0.15) 0%, rgba(91, 191, 181, 0.05) 100%);
+      border: 1px solid rgba(91, 191, 181, 0.3);
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 24px;
     }
     
-    .brainfm-header {
+    .hero-header {
       display: flex;
       align-items: center;
       gap: 16px;
       margin-bottom: 16px;
     }
     
-    .brainfm-logo {
+    .hero-logo {
       width: 72px;
       height: 72px;
       border-radius: 16px;
       object-fit: cover;
+      border: 2px solid var(--brand);
     }
     
-    .brainfm-info {
-      flex: 1;
-    }
+    .hero-info { flex: 1; }
     
     .favorite-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: rgba(91, 191, 181, 0.15);
+      display: inline-block;
+      background: rgba(91, 191, 181, 0.2);
       color: var(--brand);
       font-size: 10px;
       font-weight: 700;
       padding: 4px 8px;
       border-radius: 4px;
       margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
     
-    .brainfm-info h2 {
+    .hero-info h2 {
       font-size: 20px;
       font-weight: 800;
       margin-bottom: 2px;
     }
     
-    .brainfm-info p {
+    .hero-info p {
       font-size: 13px;
       color: var(--text-muted);
     }
     
-    /* Audio Player */
     .audio-player {
-      background: #2a2a2a;
-      border-radius: 12px;
-      padding: 12px 16px;
       margin-bottom: 16px;
     }
     
     .audio-player audio {
       width: 100%;
-      height: 40px;
+      height: 44px;
+      border-radius: 8px;
     }
     
-    /* Custom audio styling */
-    audio::-webkit-media-controls-panel {
-      background: #2a2a2a;
-    }
-    
-    .brainfm-text {
+    .hero-text p {
       font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.6;
+      margin-bottom: 10px;
     }
     
-    .brainfm-text .highlight {
-      color: #ef4444;
+    .hero-text .highlight {
+      color: var(--brand);
+      font-weight: 700;
+    }
+    
+    .hero-text a {
+      color: var(--brand);
       text-decoration: underline;
     }
     
-    .brainfm-text .tired {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
+    /* Category Tabs */
+    .category-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      -webkit-overflow-scrolling: touch;
     }
     
-    .brainfm-text a {
-      color: var(--brand);
+    .category-tabs::-webkit-scrollbar { display: none; }
+    
+    .tab-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
     }
     
-    /* Section Divider */
-    .section-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 24px 0;
+    .tab-btn:hover { border-color: var(--brand); color: var(--text); }
+    .tab-btn.active { background: var(--brand); color: #0F0F0F; border-color: var(--brand); }
+    
+    /* Section */
+    .section { margin-bottom: 28px; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+    
+    .section-title .emoji { font-size: 20px; }
     
     /* Tools Grid */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-bottom: 24px;
     }
     
     .tool-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 12px;
       padding: 16px 12px;
       text-align: center;
       transition: all 0.2s;
-      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
     .tool-card:hover {
-      background: var(--card-hover);
       border-color: var(--brand);
       transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
     
     .tool-icon {
       width: 56px;
       height: 56px;
-      margin: 0 auto 10px;
+      border-radius: 14px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 28px;
+      overflow: hidden;
     }
     
     .tool-icon img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
+      border-radius: 14px;
     }
     
     .tool-card h3 {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       margin-bottom: 4px;
       line-height: 1.3;
     }
     
     .tool-card p {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
       line-height: 1.4;
     }
     
-    /* Game Break Section */
-    .section-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-    
+    /* Game Card */
     .game-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
+      background: linear-gradient(135deg, #6c5ce7 0%, #a855f7 100%);
+      border-radius: 14px;
+      padding: 18px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-top: 8px;
       transition: all 0.2s;
     }
     
     .game-card:hover {
-      background: var(--card-hover);
-      border-color: var(--brand);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.4);
     }
     
     .game-card-content {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
     
-    .game-card-icon {
-      font-size: 24px;
-    }
+    .game-card-icon { font-size: 32px; }
     
     .game-card h3 {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
     }
     
     .game-card-arrow {
-      color: var(--text-muted);
-      font-size: 18px;
+      font-size: 24px;
+      font-weight: 300;
+      opacity: 0.8;
     }
+    
+    /* Info Card */
+    .info-card {
+      background: rgba(91, 191, 181, 0.08);
+      border: 1px solid rgba(91, 191, 181, 0.2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+    
+    .info-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    
+    .info-card p:last-child { margin-bottom: 0; }
     
     /* Bottom Navigation */
     .bottom-nav {
@@ -272,18 +315,18 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: #1A1A1A;
+      background: #111;
       border-top: 1px solid var(--border);
-      padding: 6px 0;
-      padding-bottom: max(6px, env(safe-area-inset-bottom));
-      z-index: 100;
+      padding: 8px 0;
+      padding-bottom: max(8px, env(safe-area-inset-bottom));
+      z-index: 1000;
     }
     
     .nav-items {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      max-width: 400px;
+      max-width: 500px;
       margin: 0 auto;
     }
     
@@ -296,91 +339,38 @@
       color: var(--text-muted);
       font-size: 10px;
       font-weight: 600;
-      transition: color 0.2s;
     }
     
-    .nav-item.active {
-      color: var(--brand);
-    }
+    .nav-item.active { color: var(--brand); }
+    .nav-item:hover { color: var(--text); }
+    .nav-item .icon { font-size: 20px; }
     
-    .nav-item:hover {
-      color: var(--text);
-    }
+    .hidden { display: none !important; }
     
-    .nav-item .icon {
-      font-size: 20px;
-    }
-    
-    /* Tablet & Desktop */
     @media (min-width: 600px) {
-      .main-content {
-        padding: 28px 24px;
-        max-width: 700px;
-      }
-      
-      .brainfm-hero {
-        padding: 24px;
-      }
-      
-      .brainfm-logo {
-        width: 80px;
-        height: 80px;
-      }
-      
-      .brainfm-info h2 {
-        font-size: 22px;
-      }
-      
-      .tools-grid {
-        gap: 16px;
-      }
-      
-      .tool-card {
-        padding: 20px 14px;
-      }
-      
-      .tool-icon {
-        width: 64px;
-        height: 64px;
-      }
-      
-      .tool-card h3 {
-        font-size: 14px;
-      }
-      
-      .tool-card p {
-        font-size: 12px;
-      }
-      
-      .nav-items {
-        max-width: 500px;
-      }
-      
-      .nav-item {
-        font-size: 11px;
-        padding: 8px 14px;
-      }
-      
-      .nav-item .icon {
-        font-size: 22px;
-      }
+      .main-content { padding: 28px 24px; }
+      .tools-grid { gap: 16px; }
+      .tool-icon { width: 64px; height: 64px; }
+      .tool-card h3 { font-size: 13px; }
+      .tool-card p { font-size: 11px; }
+      .hero-logo { width: 80px; height: 80px; }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
     <a href="dashboard.html" class="back-btn">←</a>
     <h1>Tools</h1>
   </header>
   
-  <!-- Main Content -->
   <main class="main-content">
+    <p class="updated-badge">Member Tools</p>
+    
     <!-- Brain.fm Hero -->
-    <section class="brainfm-hero">
-      <div class="brainfm-header">
-        <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gGKdFr4xAr4dXt6XV3rg/Logo%20(multicolored%20backround).png" alt="Brain.fm" class="brainfm-logo">
-        <div class="brainfm-info">
+    <section class="hero-card">
+      <div class="hero-header">
+        <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gGKdFr4xAr4dXt6XV3rg/Logo%20(multicolored%20backround).png" alt="Brain.fm" class="hero-logo">
+        <div class="hero-info">
           <span class="favorite-badge">💚 Favorite</span>
           <h2>Brain.fm</h2>
           <p>ADHD focus music backed by science!</p>
@@ -390,141 +380,176 @@
       <div class="audio-player">
         <audio controls>
           <source src="https://www.dropbox.com/scl/fi/5vkgpt2hsrj2rhkxbomy3/Geode-Grooves-Focus-Deep-Work.wav?rlkey=bku0yamcro88yuipv4b2ed675&st=hchol8mj&raw=1" type="audio/wav">
-          Your browser does not support the audio element.
         </audio>
       </div>
       
-      <div class="brainfm-text">
+      <div class="hero-text">
         <p>Put this on in the background for at least <span class="highlight">5 minutes</span> and watch your productivity skyrocket! Seriously. Just give it a try. 🤷‍♀️</p>
-        <p class="tired">😴 Tired of this same song? Use my affiliate link to get 1 month free and unlock all kinds of dope vibes!<br>
-        🔗 <a href="https://www.brain.fm/925adhd" target="_blank">https://www.brain.fm/925adhd</a></p>
+        <p>😴 Tired of this song? Use my affiliate link for <span class="highlight">1 month free</span>!<br>
+        🔗 <a href="https://www.brain.fm/925adhd" target="_blank">brain.fm/925adhd</a></p>
       </div>
     </section>
     
-    <div class="section-divider"></div>
-    
-    <!-- Tools Grid - Row 1 -->
-    <div class="tools-grid">
-      <a href="tools/hourly-optimizer.html" class="tool-card">
-        <div class="tool-icon">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/hourly-optimizer.png" alt="Hourly Optimizer" onerror="this.parentElement.innerHTML='🕐'">
-        </div>
-        <h3>Hourly Optimizer</h3>
-        <p>Maximize focus every working hour</p>
-      </a>
-      
-      <a href="tools/receipt-stacking.html" class="tool-card">
-        <div class="tool-icon">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/receipt-stacking.png" alt="Receipt Stacking" onerror="this.parentElement.innerHTML='🧾'">
-        </div>
-        <h3>Receipt Stacking</h3>
-        <p>Upload, track, multiply cashback rewards</p>
-      </a>
-      
-      <a href="tools/gig-essentials.html" class="tool-card">
-        <div class="tool-icon">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gig-essentials.png" alt="Gig Work Essentials" onerror="this.parentElement.innerHTML='🎧'">
-        </div>
-        <h3>Gig Work Essentials</h3>
-        <p>Core tools for flexible freelancing</p>
-      </a>
+    <!-- Category Tabs -->
+    <div class="category-tabs">
+      <button class="tab-btn active" data-category="all">All Tools</button>
+      <button class="tab-btn" data-category="productivity">📊 Productivity</button>
+      <button class="tab-btn" data-category="money">💰 Money</button>
+      <button class="tab-btn" data-category="wellness">🧘 Wellness</button>
+      <button class="tab-btn" data-category="fun">🎮 Fun</button>
     </div>
     
-    <!-- Tools Grid - Row 2 -->
-    <div class="tools-grid">
-      <a href="tools/passion-finder.html" class="tool-card">
-        <div class="tool-icon">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/passion-finder.png" alt="Passion Finder" onerror="this.parentElement.innerHTML='🧠'">
-        </div>
-        <h3>Passion Finder</h3>
-        <p>Discover what excites you!</p>
-      </a>
-      
-      <a href="tools/daily-schedule.html" class="tool-card">
-        <div class="tool-icon">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/daily-schedule.png" alt="Daily Schedule" onerror="this.parentElement.innerHTML='📅'">
-        </div>
-        <h3>Daily Schedule</h3>
-        <p>Structure tasks, boost daily flow</p>
-      </a>
-      
-      <a href="tools/earnings-tracker.html" class="tool-card">
-        <div class="tool-icon">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/earnings-tracker.png" alt="Earnings Tracker" onerror="this.parentElement.innerHTML='💰'">
-        </div>
-        <h3>Earnings Tracker</h3>
-        <p>Monitor income, progress, financial clarity</p>
-      </a>
-    </div>
-    
-    <!-- Tools Grid - Row 3 -->
-    <div class="tools-grid">
-      <a href="tools/breathwork.html" class="tool-card">
-        <div class="tool-icon">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/breathwork.png" alt="Breathwork Studio" onerror="this.parentElement.innerHTML='🫁'">
-        </div>
-        <h3>Breathwork Studio</h3>
-        <p>Calm mind through guided breathing</p>
-      </a>
-      
-      <a href="tools/mindshift.html" class="tool-card">
-        <div class="tool-icon">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/mindshift.png" alt="Mindshift" onerror="this.parentElement.innerHTML='💭'">
-        </div>
-        <h3>Mindshift</h3>
-        <p>Reframe thoughts, spark new perspectives</p>
-      </a>
-      
-      <a href="tools/freelance-calculator.html" class="tool-card">
-        <div class="tool-icon">
-          <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/freelance-calculator.png" alt="Freelance Calculator" onerror="this.parentElement.innerHTML='🧮'">
-        </div>
-        <h3>Freelance Calculator</h3>
-        <p>Estimate rates, plan income goals</p>
-      </a>
-    </div>
-    
-    <div class="section-divider"></div>
-    
-    <!-- Game Break Section -->
-    <h2 class="section-title">Game Break?</h2>
-    <a href="games/gir-adventure.html" class="game-card">
-      <div class="game-card-content">
-        <span class="game-card-icon">👾</span>
-        <h3>Gir's ADHD Adventure</h3>
+    <!-- Productivity Tools -->
+    <section class="section" data-category="productivity">
+      <h2 class="section-title"><span class="emoji">📊</span> Productivity</h2>
+      <div class="info-card">
+        <p>🧠 These tools are designed to work WITH your ADHD brain—not against it. Short bursts, visual tracking, and instant feedback.</p>
       </div>
-      <span class="game-card-arrow">›</span>
-    </a>
+      <div class="tools-grid">
+        <a href="https://925adhd.github.io/memberpages/dailygigplan.html" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/7HwiSh3EDujCj29qgiUm.png" alt="Daily Schedule" onerror="this.parentElement.innerHTML='📅'">
+          </div>
+          <h3>Daily Schedule</h3>
+          <p>Structure tasks, boost daily flow</p>
+        </a>
+        
+        <a href="https://925adhd.github.io/memberpages/adhdearningsoptimizer.html" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/wBhoYHSa5Q04KK4FKtXE.png" alt="Hourly Optimizer" onerror="this.parentElement.innerHTML='🕐'">
+          </div>
+          <h3>Hourly Optimizer</h3>
+          <p>Maximize focus every hour</p>
+        </a>
+        
+        <a href="https://925adhd.github.io/memberpages/Passionfinder.html" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/V9fFmHmj0sNrFWEZxvre.png" alt="Passion Finder" onerror="this.parentElement.innerHTML='🧠'">
+          </div>
+          <h3>Passion Finder</h3>
+          <p>Discover what excites you!</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Money Tools -->
+    <section class="section" data-category="money">
+      <h2 class="section-title"><span class="emoji">💰</span> Money Management</h2>
+      <div class="tools-grid">
+        <a href="https://925adhd.github.io/memberpages/adhdgigtracker.html" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/BdMduJSDImXq22qq3v3m.png" alt="Earnings Tracker" onerror="this.parentElement.innerHTML='💵'">
+          </div>
+          <h3>Earnings Tracker</h3>
+          <p>Monitor income & progress</p>
+        </a>
+        
+        <a href="https://925adhd.github.io/memberpages/freelancercalculator.html" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/doTXb9E6rkYYbYQZbgkq.png" alt="Freelance Calculator" onerror="this.parentElement.innerHTML='🧮'">
+          </div>
+          <h3>Freelance Calculator</h3>
+          <p>Estimate rates & plan goals</p>
+        </a>
+        
+        <a href="https://925adhd.github.io/memberpages/receipt%20tracker.html" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/uakfmOX6h8gm1CT9YMpc.png" alt="Receipt Stacking" onerror="this.parentElement.innerHTML='🧾'">
+          </div>
+          <h3>Receipt Stacking</h3>
+          <p>Multiply cashback rewards</p>
+        </a>
+        
+        <a href="https://925adhd.github.io/memberpages/arsenal.html" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/5Xaz4x2wv7VWpHIGXX9Q.png" alt="Gig Work Essentials" onerror="this.parentElement.innerHTML='🎧'">
+          </div>
+          <h3>Gig Essentials</h3>
+          <p>Core tools for freelancing</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Wellness Tools -->
+    <section class="section" data-category="wellness">
+      <h2 class="section-title"><span class="emoji">🧘</span> Wellness & Focus</h2>
+      <div class="info-card">
+        <p>🌿 Take care of yourself first. These tools help you reset, reframe, and refocus when your brain needs a break.</p>
+      </div>
+      <div class="tools-grid">
+        <a href="https://925adhd.github.io/memberpages/breathe.html" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/LEknNOXuweNmn1ki5uUj.png" alt="Breathwork Studio" onerror="this.parentElement.innerHTML='🫁'">
+          </div>
+          <h3>Breathwork Studio</h3>
+          <p>Guided breathing exercises</p>
+        </a>
+        
+        <a href="https://925adhd.github.io/memberpages/mindshift.html" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/qww1P1UZ8Fd2VXf9iCmm.png" alt="Mindshift" onerror="this.parentElement.innerHTML='💭'">
+          </div>
+          <h3>Mindshift</h3>
+          <p>Reframe negative thoughts</p>
+        </a>
+        
+        <a href="https://www.brain.fm/925adhd" class="tool-card" target="_blank">
+          <div class="tool-icon">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gGKdFr4xAr4dXt6XV3rg/Logo%20(multicolored%20backround).png" alt="Brain.fm" onerror="this.parentElement.innerHTML='🎵'">
+          </div>
+          <h3>Brain.fm</h3>
+          <p>Focus music for ADHD</p>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Fun Section -->
+    <section class="section" data-category="fun">
+      <h2 class="section-title"><span class="emoji">🎮</span> Game Break</h2>
+      <div class="info-card">
+        <p>🕹️ Sometimes you just need a quick dopamine hit. Take a break, then get back to it!</p>
+      </div>
+      <a href="games/gir-adventure.html" class="game-card">
+        <div class="game-card-content">
+          <span class="game-card-icon">👾</span>
+          <h3>Gir's ADHD Adventure</h3>
+        </div>
+        <span class="game-card-arrow">›</span>
+      </a>
+    </section>
   </main>
   
-  <!-- Bottom Navigation -->
   <nav class="bottom-nav">
     <div class="nav-items">
-      <a href="dashboard.html" class="nav-item">
-        <span class="icon">🏠</span>
-        <span>Home</span>
-      </a>
-      <a href="guides.html" class="nav-item">
-        <span class="icon">📖</span>
-        <span>Guides</span>
-      </a>
-      <a href="gigs.html" class="nav-item">
-        <span class="icon">💰</span>
-        <span>Cash</span>
-      </a>
-      <a href="apps.html" class="nav-item">
-        <span class="icon">📱</span>
-        <span>Apps</span>
-      </a>
-      <a href="favorites.html" class="nav-item">
-        <span class="icon">❤️</span>
-        <span>Saved</span>
-      </a>
-      <a href="tools.html" class="nav-item active">
-        <span class="icon">🛠️</span>
-        <span>Tools</span>
-      </a>
+      <a href="dashboard.html" class="nav-item"><span class="icon">🏠</span><span>Home</span></a>
+      <a href="guides.html" class="nav-item"><span class="icon">📖</span><span>Guides</span></a>
+      <a href="gigs.html" class="nav-item"><span class="icon">💰</span><span>Cash</span></a>
+      <a href="apps.html" class="nav-item"><span class="icon">📱</span><span>Apps</span></a>
+      <a href="favorites.html" class="nav-item"><span class="icon">❤️</span><span>Saved</span></a>
+      <a href="tools.html" class="nav-item active"><span class="icon">🛠️</span><span>Tools</span></a>
     </div>
   </nav>
+
+  <script>
+    // Category tab filtering
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active tab
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const category = btn.dataset.category;
+        
+        // Show/hide sections
+        document.querySelectorAll('.section').forEach(section => {
+          if (category === 'all' || section.dataset.category === category) {
+            section.classList.remove('hidden');
+          } else {
+            section.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,26 @@
+{
+  "name": "925 ADHD",
+  "short_name": "925 ADHD",
+  "description": "Flexible work opportunities for ADHD minds",
+  "start_url": "/dashboard.html",
+  "display": "standalone",
+  "background_color": "#0F0F0F",
+  "theme_color": "#5BBFB5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "finance", "lifestyle"],
+  "lang": "en-US"
+}
