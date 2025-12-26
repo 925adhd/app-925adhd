@@ -67,6 +67,67 @@
     const nav = makeNav();
     if(placeholder){ placeholder.replaceWith(nav); }
     else{ document.body.appendChild(nav); }
+
+    // Align nav width/position to the page's main content on larger screens
+    const alignNavToContent = () => {
+      try {
+        const content = document.querySelector('.main-content') || document.querySelector('main');
+        const navItems = nav.querySelector('.nav-items');
+        // On small screens keep full-bleed width for background and items
+        if (!content || window.innerWidth < 600) {
+          nav.style.left = '0';
+          nav.style.width = '100vw';
+          if (navItems) { navItems.style.width = ''; navItems.style.margin = ''; }
+          return;
+        }
+
+        const rect = content.getBoundingClientRect();
+        // Prefer the computed max-width if the page sets one (keeps consistent across pages)
+        const cs = window.getComputedStyle(content);
+        let targetWidth = rect.width;
+        if (cs && cs.maxWidth && cs.maxWidth !== 'none') {
+          const parsed = parseFloat(cs.maxWidth);
+          if (!Number.isNaN(parsed) && parsed > 0) {
+            // use the smaller of the parsed maxWidth and the available rect width
+            targetWidth = Math.min(parsed, rect.width);
+          }
+        }
+        // Round to integer to avoid sub-pixel layout shifts between pages
+        targetWidth = Math.round(targetWidth);
+        // Cap nav items to a consistent max so pages with different content widths
+        // (favorites/guides) don't shift the icons. Adjust this value if you want a different max.
+        const NAV_MAX = 700;
+        let finalWidth = Math.min(targetWidth, NAV_MAX);
+
+        // Force a stable width for favorites which was still moving between pages
+        // (some pages set different per-page .nav-items rules). This makes
+        // favorites match the capped NAV_MAX so icons don't shift.
+        const currentPage = (location.pathname || location.href || '').split('/').pop() || 'dashboard.html';
+        if (currentPage.toLowerCase() === 'favorites.html') {
+          finalWidth = NAV_MAX;
+        }
+
+        // Keep nav background full-bleed but align the inner items container to content
+        nav.style.left = '0';
+        nav.style.width = '100%';
+        if (navItems) {
+          navItems.style.width = finalWidth + 'px';
+          navItems.style.maxWidth = NAV_MAX + 'px';
+          navItems.style.margin = '0 auto';
+          navItems.style.boxSizing = 'border-box';
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
+
+    // Initial align and on resize
+    alignNavToContent();
+    let resizeTimer;
+    window.addEventListener('resize', ()=>{
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(alignNavToContent, 120);
+    });
   };
 
   // Ensure core layout CSS is available on pages that don't include assets/layout.css
@@ -79,7 +140,11 @@
       .site-header .back-btn{position:absolute;left:12px;background:none;border:none;color:#0F0F0F !important;font-size:26px !important;padding:10px 14px !important;border-radius:10px;cursor:pointer}
       .site-header .back-btn:hover{background:rgba(0,0,0,0.04)}
 
-      .site-nav{position:fixed;bottom:0;left:0;background:var(--card,#1A1A1A);border-top:1px solid rgba(255,255,255,.1);padding:8px 0;z-index:100;box-sizing:border-box;min-height:56px;padding-top:8px;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 8px) !important;width:100vw}
+      .site-nav{position:fixed;bottom:0;left:0;background:var(--card,#1A1A1A);border-top:1px solid rgba(255,255,255,.1);padding:8px 0;z-index:100;box-sizing:border-box;min-height:56px;padding-top:8px;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 8px) !important;width:100%}
+
+      @media (max-width:599px) {
+        .site-nav{width:100vw}
+      }
       .site-nav .nav-items{display:flex;justify-content:space-around;align-items:center;max-width:none !important;width:100% !important;padding:0 12px !important;margin:0 !important;box-sizing:border-box}
       .site-nav .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px !important;color:var(--text-muted,#fff);font-size:11px;font-weight:600;text-decoration:none;margin:0 !important;line-height:1 !important;justify-content:center !important;min-width:48px;box-sizing:border-box;flex:1 !important;max-width:120px;text-align:center}
       .site-nav .nav-item.active{color:var(--brand,#5BBFB5) !important}
