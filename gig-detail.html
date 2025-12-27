@@ -340,6 +340,36 @@
       text-decoration: none;
       font-weight: 600;
     }
+
+    /* Responsive: reduce CTA button size on small screens while keeping them side-by-side */
+    @media (max-width: 520px) {
+      .cta-section {
+        padding: 8px 12px max(8px, env(safe-area-inset-bottom));
+      }
+
+      .cta-container {
+        gap: 8px;
+        padding: 0;
+        align-items: center;
+      }
+
+      .cta-btn {
+        padding: 10px 12px;
+        font-size: 14px;
+        border-radius: 12px;
+        min-height: 44px;
+      }
+
+      .cta-container .cta-btn:first-child,
+      .cta-container .cta-btn:last-child {
+        max-width: 49%;
+        box-sizing: border-box;
+      }
+
+      @media (max-width: 360px) {
+        .cta-btn { font-size: 13px; padding: 8px 10px; }
+      }
+    }
   </style>
 </head>
 <body>
