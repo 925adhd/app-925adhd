@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>GIR's ADHD Adventures</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Comic Sans MS',cursive;background:linear-gradient(45deg,#0a0a0a,#1a4a1a,#2a1a4a,#4a1a2a);background-size:400% 400%;animation:bg 10s ease infinite;min-height:100vh;color:#0f0;touch-action:none;user-select:none;padding-bottom:50px}
+@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.gc{position:relative;width:100%;min-height:calc(100vh - 120px);height:620px;overflow:visible;margin-bottom:20px}
+.gir{position:absolute;width:60px;height:75px;cursor:pointer;transition:transform .1s;z-index:100;will-change:transform;animation:breathe 2s ease-in-out infinite;pointer-events:none}
+.gn,.gd{width:100%;height:100%;object-fit:contain;pointer-events:none}
+.gn{display:block}.gd{display:none}
+.gir.disguise .gn{display:none}.gir.disguise .gd{display:block}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.gir.resting{filter:brightness(.7);animation:rest 3s ease-in-out infinite}
+@keyframes rest{0%,100%{transform:scale(1)}50%{transform:scale(.95)}}
+.gir.game-over{filter:grayscale(50%) brightness(.5);animation:over 2s ease-in-out infinite}
+@keyframes over{0%,100%{opacity:1}50%{opacity:.3}}
+.dist{position:absolute;width:40px;height:40px;border-radius:50%;animation:pulse 2s infinite,float 3s ease-in-out infinite;transition:all .3s;will-change:transform;pointer-events:none}
+@keyframes pulse{0%,100%{opacity:.7;transform:scale(1);box-shadow:0 0 20px rgba(0,255,0,.8)}50%{opacity:1;transform:scale(1.05);box-shadow:0 0 30px rgba(0,255,0,1),0 0 40px rgba(0,255,0,.6)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.taco{background:#D2691E;border-radius:60% 40% 40% 60%;box-shadow:0 0 15px #FFD700;display:flex;align-items:center;justify-content:center;font-size:28px}
+.taco::before{content:"🌮"}
+.shiny{background:radial-gradient(circle,#FFD700,#FFA500);box-shadow:0 0 20px #FFD700;animation:sparkle 1s infinite;display:flex;align-items:center;justify-content:center;font-size:24px}
+.shiny::before{content:"✨"}
+.rubber{background:#FF1493;border-radius:50%;box-shadow:0 0 15px #DC143C;display:flex;align-items:center;justify-content:center;font-size:24px}
+.rubber::before{content:"🐖"}
+.waffles{background:#DEB887;border-radius:20%;box-shadow:inset 0 0 10px #8B4513,0 0 10px #F5DEB3;display:flex;align-items:center;justify-content:center;font-size:24px}
+.waffles::before{content:"🧇"}
+.ui{position:absolute;top:10px;left:10px;z-index:200;background:rgba(0,20,0,.9);padding:12px;border-radius:8px;box-shadow:0 4px 15px rgba(0,255,0,.3);border:2px solid #0f0;color:#0f0;font-size:12px}
+.ui h3{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.gir-head{width:24px;height:24px;position:relative;display:inline-block}
+.gir-head::before{content:'';position:absolute;width:24px;height:20px;background:linear-gradient(135deg,#2dd,#1aa);border-radius:50% 50% 45% 45%;top:0;left:0;border:2px solid #0f0}
+.gir-head::after{content:'';position:absolute;width:6px;height:3px;background:#f84;border-radius:50%;top:14px;left:9px;box-shadow:0 0 3px #f84}
+.gir-eyes{position:absolute;top:4px;left:3px;width:18px;height:8px}
+.gir-eyes::before,.gir-eyes::after{content:'';position:absolute;width:6px;height:6px;background:radial-gradient(circle,#f48,#f06);border-radius:50%;animation:blink 3s infinite}
+.gir-eyes::before{left:0}
+.gir-eyes::after{right:0}
+@keyframes blink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.meter{width:120px;height:15px;background:#011;border-radius:8px;margin:3px 0;overflow:hidden;border:1px solid #0f0}
+.mf{height:100%;transition:width .5s;border-radius:8px}
+.cf{background:linear-gradient(90deg,#f04,#f48,#f8c)}
+.ef{background:linear-gradient(90deg,#0f0,#4f4,#8f8)}
+.df{background:linear-gradient(90deg,#ff0,#ff4,#ff8)}
+.hs{color:#FFD700;font-weight:bold;animation:hsg 2s infinite}
+@keyframes hsg{0%,100%{text-shadow:0 0 5px #FFD700}50%{text-shadow:0 0 15px #FFD700,0 0 25px #FFD700}}
+.mc{position:static;z-index:300;display:block;margin:15px auto 10px auto;text-align:center;background:rgba(0,20,0,.8);padding:15px;border-radius:12px;border:2px solid #0f0;max-width:320px}
+.top-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;width:100%}
+.center-controls{display:flex;gap:6px;justify-content:center;align-items:center}
+.jc{position:relative;width:80px;height:80px;background:rgba(0,50,0,.8);border:3px solid #0f0;border-radius:50%;margin:0 auto;touch-action:none}
+.js{position:absolute;width:25px;height:25px;background:#0f0;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);transition:none;box-shadow:0 0 10px #0f0;touch-action:none}
+.mb{display:none}
+.btn{width:38px;height:38px;background:rgba(0,50,0,.8);border:2px solid #0f0;border-radius:50%;color:#0f0;font-size:16px;display:flex;align-items:center;justify-content:center;user-select:none;touch-action:manipulation;font-weight:bold}
+.btn:active{background:rgba(0,255,0,.3);transform:scale(.95)}
+.rb{background:rgba(100,100,100,.8);border-color:#888;color:#888}
+.rb.av{background:rgba(0,100,200,.8);border-color:#08f;color:#08f;animation:rp 2s infinite}
+@keyframes rp{0%,100%{box-shadow:0 0 5px #08f}50%{box-shadow:0 0 15px #08f,0 0 25px #08f}}
+.tl{position:absolute;top:10px;right:10px;background:rgba(0,20,0,.9);padding:12px;border-radius:8px;box-shadow:0 4px 15px rgba(0,255,0,.3);border:2px solid #0f0;max-width:200px;z-index:200;color:#0f0;font-size:11px}
+.task{padding:4px;margin:2px 0;border-radius:4px;transition:all .3s}
+.task.completed{background:rgba(0,255,0,.2);text-decoration:line-through}
+.task.current{background:rgba(255,255,0,.2);font-weight:bold;animation:tg 2s infinite}
+@keyframes tg{0%,100%{box-shadow:0 0 5px rgba(255,255,0,.5)}50%{box-shadow:0 0 15px rgba(255,255,0,1)}}
+
+/* FIXED GAME OVER SCREEN */
+.gos{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;z-index:500;color:#f04;text-align:center;padding:20px;box-sizing:border-box;overflow-y:auto;justify-content:center;align-items:center}
+.goc{background:rgba(20,0,0,.9);padding:30px;border-radius:15px;border:3px solid #f04;animation:gog 2s ease-in-out infinite;max-width:90%;width:100%;max-width:400px;min-height:fit-content}
+@keyframes gog{0%,100%{box-shadow:0 0 20px #f04}50%{box-shadow:0 0 40px #f04,0 0 60px #f04}}
+.got{font-size:28px;margin-bottom:15px;color:#f04}
+.fs{font-size:20px;margin:12px 0;color:#0f0}
+.nhs{color:#FFD700;animation:nhsg 1s infinite}
+@keyframes nhsg{0%,100%{text-shadow:0 0 10px #FFD700}50%{text-shadow:0 0 20px #FFD700,0 0 30px #FFD700}}
+.rstb{background:#0f0;color:#000;border:none;padding:12px 25px;font-size:16px;border-radius:8px;cursor:pointer;margin-top:15px;font-family:inherit;font-weight:bold}
+.rstb:hover{background:#4f4;transform:scale(1.05)}
+.cm{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,0,64,.9);display:none;justify-content:center;align-items:center;z-index:400;animation:cf 1s infinite}
+@keyframes cf{0%{background:rgba(255,0,64,.9)}25%{background:rgba(0,255,0,.7)}50%{background:rgba(255,255,0,.8)}75%{background:rgba(0,255,255,.7)}100%{background:rgba(255,0,64,.9)}}
+.ca{background:#000;color:#f04;padding:30px;border-radius:15px;text-align:center;border:3px solid #0f0;animation:cg 1s ease-in-out infinite;max-width:90%}
+@keyframes cg{0%,100%{box-shadow:0 0 20px #f04;transform:scale(1)}50%{box-shadow:0 0 40px #0f0;transform:scale(1.05)}}
+.ct{font-size:36px;font-weight:bold;color:#0f0;margin:15px 0;text-shadow:0 0 10px #0f0}
+.ci{font-size:16px;margin:12px 0;color:#fff}
+.cpb{width:100%;height:18px;background:#333;border-radius:8px;margin:15px 0;overflow:hidden;border:2px solid #0f0}
+.cpf{height:100%;background:linear-gradient(90deg,#f04,#f48,#0f0);transition:width .1s;animation:pg .5s infinite}
+@keyframes pg{0%,100%{box-shadow:inset 0 0 10px rgba(0,255,0,.5)}50%{box-shadow:inset 0 0 20px rgba(0,255,0,1)}}
+.mission-hint{position:absolute;top:15px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.95);color:#0f0;padding:12px 16px;border-radius:25px;font-size:32px;border:3px solid #0f0;z-index:400;display:block;animation:pulse 2s infinite;text-shadow:0 0 10px #0f0}
+.gs{position:absolute;top:100px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#0f0;padding:6px 12px;border-radius:15px;font-weight:bold;border:1px solid #0f0;animation:sb .3s ease;z-index:500;display:none;max-width:200px;text-align:center;font-size:11px}
+@keyframes sb{0%{transform:translateX(-50%) scale(0)}100%{transform:translateX(-50%) scale(1)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+.gir.hyperactive{animation:gb .3s infinite}
+@keyframes gb{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-15px) rotate(-5deg)}75%{transform:translateY(-15px) rotate(5deg)}}
+.gir.distracted{filter:blur(1px);animation:gw .5s infinite}
+@keyframes gw{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+.stars{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:tw 2s infinite}
+@keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}
+.fp{position:fixed;top:20%;right:10px;background:rgba(0,0,0,.8);color:#0f0;padding:8px 12px;border-radius:8px;border:1px solid #0f0;font-size:14px;font-weight:bold;z-index:600;animation:pf 1.2s ease-in-out;pointer-events:none;max-width:150px;text-align:center}
+@keyframes pf{0%{opacity:0;transform:translateX(20px) scale(.8)}15%{opacity:1;transform:translateX(0) scale(1)}85%{opacity:1;transform:translateX(0) scale(1)}100%{opacity:0;transform:translateX(20px) scale(.8)}}
+
+.pause-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:none;justify-content:center;align-items:center;z-index:450;color:#0f0;text-align:center}
+.pause-content{background:rgba(0,20,0,.9);padding:30px;border-radius:15px;border:3px solid #0f0;max-width:90%;max-height:90%;overflow-y:auto;animation:pauseGlow 2s ease-in-out infinite}
+@keyframes pauseGlow{0%,100%{box-shadow:0 0 20px #0f0}50%{box-shadow:0 0 40px #0f0,0 0 60px #0f0}}
+.pause-title{font-size:28px;margin-bottom:20px;color:#0f0;text-shadow:0 0 10px #0f0}
+.pause-section{margin:15px 0;text-align:left}
+.pause-section h4{color:#ff0;font-size:16px;margin-bottom:8px;text-shadow:0 0 5px #ff0}
+.pause-section p, .pause-section div{font-size:12px;margin:5px 0;line-height:1.4}
+.pause-controls{text-align:center;margin-top:20px}
+.resume-btn{background:#0f0;color:#000;border:none;padding:12px 25px;font-size:16px;border-radius:8px;cursor:pointer;margin:5px;font-family:inherit;font-weight:bold}
+.resume-btn:hover{background:#4f4;transform:scale(1.05)}
+
+.win-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:550;color:#0f0;text-align:center}
+.win-content{background:rgba(0,20,0,.9);padding:30px;border-radius:15px;border:3px solid #0f0;max-width:90%;max-width:400px;animation:winGlow 2s ease-in-out infinite}
+@keyframes winGlow{0%,100%{box-shadow:0 0 20px #0f0}50%{box-shadow:0 0 40px #0f0,0 0 60px #0f0}}
+.win-title{font-size:28px;margin-bottom:15px;color:#0f0;text-shadow:0 0 15px #0f0}
+.win-score{font-size:20px;margin:12px 0;color:#ff0}
+.win-high{color:#FFD700;animation:hsg 2s infinite}
+.win-btn{background:#0f0;color:#000;border:none;padding:12px 25px;font-size:16px;border-radius:8px;cursor:pointer;margin-top:15px;font-family:inherit;font-weight:bold}
+.win-btn:hover{background:#4f4;transform:scale(1.05)}
+
+/* Mission item visual enhancement */
+.dist.mission-item{
+  animation: pulse 1.5s infinite, float 2s ease-in-out infinite, mission-glow 2s infinite;
+  border: 2px solid #FFD700;
+}
+@keyframes mission-glow{
+  0%,100%{box-shadow:0 0 20px rgba(255,215,0,.8)}
+  50%{box-shadow:0 0 40px rgba(255,215,0,1),0 0 60px rgba(255,215,0,.6)}
+}
+
+/* Task timer styling */
+.timer-critical{color:#f04 !important;animation:blink .5s infinite !important}
+.timer-warning{color:#fa0 !important}
+.timer-normal{color:#0f0 !important}
+
+/* Urgency visual effects */
+.urgency-high{animation:urgency-shake .3s infinite}
+@keyframes urgency-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+
+/* Idle punishment effects */
+.idle-warning{filter:brightness(.8) saturate(.7)}
+.idle-critical{filter:brightness(.6) saturate(.5);animation:idle-pulse 1s infinite}
+@keyframes idle-pulse{0%,100%{opacity:1}50%{opacity:.7}}
+
+/* Mobile optimizations */
+@media (max-width:768px){
+body{padding-bottom:40px}
+.gc{height:520px;min-height:520px}
+.gir{width:50px;height:65px}
+.dist{width:35px;height:35px}
+.ui{top:5px;left:5px;padding:6px;font-size:9px;background:rgba(0,20,0,.7);max-width:140px}
+.ui h3{margin-bottom:4px}
+.gir-head{width:18px;height:18px}
+.gir-head::before{width:18px;height:15px}
+.gir-head::after{width:4px;height:2px;top:11px;left:7px}
+.gir-eyes{top:3px;left:2px;width:14px;height:6px}
+.gir-eyes::before,.gir-eyes::after{width:4px;height:4px}
+.meter{width:80px;height:10px}
+.tl{top:5px;right:5px;padding:6px;font-size:9px;max-width:120px;background:rgba(0,20,0,.7)}
+.mc{margin:3px auto 3px auto;padding:6px;max-width:280px}
+.top-controls{margin-bottom:10px}
+.center-controls{gap:4px}
+.jc{width:60px;height:60px}
+.js{width:18px;height:18px}
+.btn{width:28px;height:28px;font-size:12px}
+.gs{font-size:10px;padding:4px 8px;max-width:180px;top:55px}
+.fp{top:100px;right:5px;font-size:12px;padding:6px 8px;max-width:120px}
+.mission-hint{font-size:28px;padding:10px 14px;top:12px;max-width:260px}
+.task{padding:2px;margin:1px 0;font-size:8px}
+.win-content{padding:20px;max-width:280px}
+.win-title{font-size:24px}
+.win-score{font-size:18px}
+.win-btn{padding:10px 20px;font-size:14px}
+}
+
+@media (max-width:480px){
+body{padding-bottom:35px}
+.gc{height:470px;min-height:470px}
+.gir{width:45px;height:60px}
+.dist{width:32px;height:32px;font-size:20px}
+.ui{font-size:8px;padding:4px;max-width:120px;background:rgba(0,15,0,.6)}
+.gir-head{width:16px;height:16px}
+.gir-head::before{width:16px;height:13px}
+.gir-head::after{width:3px;height:2px;top:9px;left:6px}
+.gir-eyes{top:2px;left:2px;width:12px;height:5px}
+.gir-eyes::before,.gir-eyes::after{width:3px;height:3px}
+.meter{width:70px;height:8px}
+.tl{font-size:8px;padding:4px;max-width:110px;background:rgba(0,15,0,.6)}
+.mc{margin:2px auto 2px auto;padding:4px;max-width:260px}
+.top-controls{margin-bottom:8px}
+.center-controls{gap:3px}
+.jc{width:55px;height:55px}
+.js{width:16px;height:16px}
+.btn{width:26px;height:26px;font-size:11px}
+.got{font-size:24px}
+.fs{font-size:18px}
+.ct{font-size:28px}
+.ci{font-size:14px}
+.gs{font-size:9px;padding:3px 6px;max-width:150px;top:50px}
+.fp{top:90px;right:3px;font-size:11px;padding:4px 6px;max-width:100px}
+.mission-hint{font-size:24px;padding:8px 12px;top:10px;max-width:240px}
+.task{font-size:7px;padding:1px}
+.win-content{padding:15px;max-width:240px}
+.win-title{font-size:20px}
+.win-score{font-size:16px}
+.win-btn{padding:8px 16px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div class="gc">
+<div class="gir" id="g">
+<img class="gn" src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/GIR_open_mouth.webp/:/rs=h:175,m" alt="Normal GIR">
+<img class="gd" src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/d1me5u2-a9635d79-16f1-474e-8fd2-428380d93f53.png/:/rs=h:175,m" alt="Disguise GIR">
+</div>
+
+<div class="pause-screen" id="pauseScreen">
+<div class="pause-content">
+<div class="pause-title">⏸️ GAME PAUSED</div>
+<div class="pause-controls">
+<button class="resume-btn" onclick="togglePause()">RESUME GAME</button>
+</div>
+<div class="pause-section">
+<h4>🎮 Controls</h4>
+<div>Joystick: Move GIR around</div>
+<div>💃: Dance/Random Action</div>
+<div>🐕: Toggle Dog Disguise</div>
+<div>😴: Rest (Restore Energy)</div>
+<div>👁️: Toggle UI visibility</div>
+<div>⏸️: Pause/Resume game</div>
+</div>
+<div class="pause-section">
+<h4>🎯 Mission</h4>
+<p>Collect items matching your current mission! Mission items glow gold. Wrong items cause big energy penalties. Each task has a time limit!</p>
+</div>
+<div class="pause-section">
+<h4>⏰ Time Pressure</h4>
+<div>• Each task has a countdown timer</div>
+<div>• Failing to complete tasks in time causes major penalties</div>
+<div>• Being idle for too long drains energy faster</div>
+<div>• Items spawn faster as urgency increases</div>
+</div>
+<div class="pause-section">
+<h4>🌪️ Chaos System</h4>
+<div>• High chaos = faster energy drain & erratic movement</div>
+<div>• 100 chaos = DOOM SONG mode! Tap rapidly to calm down</div>
+</div>
+<div class="pause-section">
+<h4>😵‍💫 Distraction System</h4>
+<div>• High distraction = inaccurate movement</div>
+<div>• 80+ distraction = controls might reverse!</div>
+</div>
+<div class="pause-section">
+<h4>🐕 Dog Disguise Mode</h4>
+<div>• Slower movement but better control</div>
+<div>• Less chaos/distraction buildup</div>
+<div>• Reduced energy penalties</div>
+<div>• Bonus points for correct items!</div>
+</div>
+<div class="pause-section">
+<h4>💡 Tips</h4>
+<div>• Rest when energy is low to avoid game over</div>
+<div>• Use dog mode when chaos gets too high</div>
+<div>• Watch your mission indicator - it shows what to collect!</div>
+<div>• Mission items have a golden glow and spawn more frequently!</div>
+<div>• Keep moving! Staying idle too long increases energy drain</div>
+<div>• Complete tasks quickly - time limits get shorter each level</div>
+</div>
+</div>
+</div>
+<div class="ui">
+<h3>🤖 GIR Status</h3>
+<div>Level: <span id="lv">1</span></div>
+<div>Chaos:<div class="meter"><div class="mf cf" id="cm"></div></div></div>
+<div>Energy:<div class="meter"><div class="mf ef" id="em"></div></div></div>
+<div>Distraction:<div class="meter"><div class="mf df" id="dm"></div></div></div>
+<div>Score: <span id="sc">0</span></div>
+<div class="hs">High: <span id="hs">0</span></div>
+<div>Time: <span id="tm">0</span>s</div>
+<div>Task: <span id="tt">45</span>s</div>
+<div style="font-size:9px;margin-top:3px">
+<div>Tasks: <span id="tc">0</span> | Items: <span id="ic">0</span></div>
+<div id="gst">Active</div>
+</div>
+</div>
+<div class="tl">
+<h4><span id="me">🌮</span> Mission</h4>
+<div id="tkc"></div>
+</div>
+<div class="mission-hint" id="mh">🌮</div>
+<div class="gs" id="gs"></div>
+</div>
+
+<div class="mc">
+<div class="top-controls">
+<div class="btn" id="pb" style="background:rgba(0,50,100,.8);border-color:#08f;color:#08f">⏸️</div>
+<div class="center-controls">
+<div class="btn" id="ab">💃</div>
+<div class="btn" id="db">🐕</div>
+<div class="btn rb" id="rb">😴</div>
+</div>
+<div class="btn" id="tb" style="background:rgba(50,50,0,.8);border-color:#aa0;color:#aa0">👁️</div>
+</div>
+<div class="jc" id="jc"><div class="js" id="js"></div></div>
+</div>
+
+<div class="gos" id="gos">
+<div class="goc">
+<div class="got">GIR.EXE STOPPED</div>
+<div>💀 OVERLOAD 💀</div>
+<div class="fs">Score: <span id="fs">0</span></div>
+<div id="hsm"></div>
+<div style="margin:15px 0;color:#888">GIR ran out of energy!<br>Remember to rest!</div>
+<button class="rstb" onclick="restart()">REBOOT</button>
+</div>
+</div>
+<div class="cm" id="cm2">
+<div class="ca">
+<h2>🤖 CHAOS MODE! 🤖</h2>
+<div class="ci">DOOM SONG!</div>
+<div class="ct" id="ct2">10</div>
+<div class="ci">TAP TO CALM!<br><small>Each tap = -1 sec</small></div>
+<div class="cpb"><div class="cpf" id="cpf"></div></div>
+<div style="color:#0f0;font-size:12px" id="ds">"Doom..."</div>
+</div>
+</div>
+
+<div class="win-screen" id="winScreen">
+<div class="win-content">
+<div class="win-title">👑 YOU WIN! 👑</div>
+<div class="win-score">Score: <span id="ws">0</span></div>
+<div class="win-high">High Score: <span id="whs">0</span></div>
+<button class="win-btn" onclick="restart()">PLAY AGAIN</button>

@@ -39,7 +39,6 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
       padding-bottom: 90px;
       -webkit-font-smoothing: antialiased;
     }
@@ -604,6 +603,15 @@
       { id: "dscout", name: "Dscout", rate: "$20–$150/hr", desc: "Influence your favorite brands by sharing insights through video missions.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ir5Usfji0u0VtJf8iXTn.png", link: "https://dscout.com/participate-in-research-studies", category: "surveys", energy: "med", tags: ["highpay"], browser: false },
       { id: "respondentio", name: "Respondent.io", rate: "$20–$150/hr", desc: "Specialized, high-paying studies and interviews with top companies.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/tHrBfm7B9TRyDq7uZh73.png", link: "https://www.respondent.io/signup", category: "surveys", energy: "med", tags: ["highpay"], browser: false },
       { id: "usertesting", name: "UserTesting", rate: "$10–$60/hr", desc: "Test websites and apps for bigger payouts. Share your screen and voice.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/THI1IS5clNzV8HIJ96gn.png", link: "https://www.usertesting.com/get-paid-to-test", category: "surveys", energy: "med", tags: ["highpay"], browser: false },
+      // Playtesting & App Testing
+      { id: "playtestcloud", name: "PlaytestCloud", rate: "$10–$50/hr", desc: "Paid playtests and prototype feedback for games and apps.", logo: "https://via.placeholder.com/150?text=PlaytestCloud", link: "https://playtestcloud.com/", category: "testing", energy: "med", tags: ["app-testing","games"], browser: false },
+      { id: "trymata", name: "Trymata", rate: "$10–$60/hr", desc: "Unmoderated and moderated playtesting for apps and prototypes.", logo: "https://via.placeholder.com/150?text=Trymata", link: "https://trymata.com/", category: "testing", energy: "med", tags: ["app-testing"], browser: false },
+      { id: "testbirds", name: "Testbirds", rate: "$10–$60/hr", desc: "Crowdtesting for apps, websites and IoT with real-user sessions.", logo: "https://via.placeholder.com/150?text=Testbirds", link: "https://www.testbirds.com/", category: "testing", energy: "med", tags: ["app-testing","ux"], browser: false },
+
+      // Microtask & Crowdsourcing Platforms
+      { id: "mturk", name: "Amazon MTurk", rate: "$2–$12/hr", desc: "Short Human Intelligence Tasks (HITs) for quick micro-earnings.", logo: "https://via.placeholder.com/150?text=MTurk", link: "https://www.mturk.com/", category: "microtasks", energy: "low", tags: ["quick","beginner"], browser: false },
+      { id: "lionbridge", name: "Lionbridge", rate: "$3–$20/hr", desc: "Language, search evaluation and AI data tasks from a major vendor.", logo: "https://via.placeholder.com/150?text=Lionbridge", link: "https://lionbridge.ai/", category: "ai", energy: "med", tags: ["ai","data-work"], browser: false },
+      { id: "justanswer", name: "JustAnswer", rate: "$10–$50/hr", desc: "Answer questions as an expert for paid consultations and advice.", logo: "https://via.placeholder.com/150?text=JustAnswer", link: "https://www.justanswer.com/experts", category: "expert", energy: "high", tags: ["expert","consult"], browser: false },
       { id: "pineconeresearch", name: "Pinecone Research", rate: "$3–$12/hr", desc: "High payouts for surveys and product tests. Invite-only but worth it.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bibC3v0lT4ryuYu9LMCr.png", link: "https://members.pineconeresearch.com/#/", category: "surveys", energy: "low", tags: ["beginner"], browser: false },
       { id: "surveyjunkie", name: "Survey Junkie", rate: "$1–$5/hr", desc: "Trusted, steady survey earnings. One of the most popular platforms.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4sv9XSwPHs8dV9zETDsd.jpg", link: "https://www.surveyjunkie.com/", category: "surveys", energy: "low", tags: ["beginner", "quick"], browser: false },
       { id: "toluna", name: "Toluna", rate: "$3–$5/hr", desc: "Community-based surveys with polls, games, and discussions.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/El5li3CDmxyW2lFaPwyz.png", link: "https://www.toluna.com/home", category: "surveys", energy: "low", tags: ["beginner"], browser: false },
@@ -695,6 +703,9 @@
       fun: { icon: "🎮", name: "Fun or Interesting" },
       surveys: { icon: "📊", name: "Surveys & Market Research" },
       ai: { icon: "🤖", name: "AI Training & Data Work" },
+      testing: { icon: "🕹️", name: "Playtesting & App Testing" },
+      microtasks: { icon: "⚙️", name: "Microtasks & Crowdsourcing" },
+      expert: { icon: "🧑‍⚕️", name: "Expert Consultations" },
       mystery: { icon: "🕵️", name: "Mystery Shoppers" },
       transcription: { icon: "🎧", name: "Transcription" },
       voice: { icon: "🎙️", name: "Voice & Audio Work" },
@@ -746,7 +757,7 @@
       
       // Render
       let html = '';
-      const catOrder = ['fun', 'surveys', 'ai', 'mystery', 'transcription', 'voice', 'writing', 'teaching', 'va', 'freelance', 'social', 'handmade', 'care'];
+      const catOrder = ['fun', 'surveys', 'ai', 'testing', 'microtasks', 'mystery', 'transcription', 'voice', 'writing', 'teaching', 'va', 'freelance', 'expert', 'social', 'handmade', 'care'];
       
       catOrder.forEach(catKey => {
         if (!grouped[catKey]) return;
@@ -769,7 +780,7 @@
           
           html += `
             <a href="gig-detail.html?gig=${gig.id}" class="gig-card ${isFav ? 'favorite' : ''}" data-id="${gig.id}">
-              <img src="${gig.logo}" class="gig-logo" alt="${gig.name}" loading="lazy">
+              <img src="images/${gig.id}.png" class="gig-logo" alt="${gig.name}" loading="lazy" onerror="attemptImageFallback(this,'${gig.id}','${gig.logo}')">
               <div class="gig-content">
                 <div class="gig-header">
                   <div class="gig-name">${gig.name}</div>
@@ -906,6 +917,56 @@
       proTipEl.innerHTML = `<strong>${tip.strong}</strong> ${tip.text}`;
     }, 12000);
     
+    // Image files available locally (used to match IDs to existing filenames)
+    const imageFiles = [
+      "99designs.png","acx.jpg","amazonhandmade.png","appen.jpg","artfire.png","behance.png","belay.png","benjamin.jpg","benjamn.jpg","best play.jpg","bestmark.jpg","bigcartel.png","blob-bacb09e.webp","brain.jpeg","bytlixir.png","caht gpt.png","cambly.png","castingwords.png","channels4_profile.jpg","Chewy-logo-web.png","claude.jpg","claude.png","clearvoice.png","clickworker.png","contently.jpg","crowdtap.jpg","designcrowd.png","discord logo.png","doordash.png","download.jpeg","download.png","dribble.png","dscout.png","etsy.jpg","facebook.png","fancy hand.jpg","fetch.png","fieldagent.png","fiverr.png","flex.png","folksy.png","freelanmcer.png","gigspot.jpg","gigspot.png","gotranscript.png","honeygain.png","ibotta.png","influenster.png","instacart.png","instagram.jpg","isecretshop.jpg","italki.png","ivueit.png","just play.jpg","kofi.png","lifepoints.png","linkedin.png","marketforce.png","methinks.png","minsk-belarus-03272023-openai-chatgpt-600nw-2281899103.webp","mistplay.jpg","mode earn app.jpg","neevo.png","neighbor.png","outlier.png","paidviewpoint.png","papa.jpg","patreon.png","pawns.png","pinecone.png","pogo.jpg","posting_checklist.png","preply.png","pressplay.png","presto.jpg","printify.png","prolific.png","proxypics.png","quicktate.png","rakuten.jpg","respondent.png","rev.png","rover.png","rs=w_600,cg_true.webp","rs=w_600,h_300,cg_true (1).webp","rs=w_600,h_300,cg_true.webp","rs=w_600,h_800,cg_true.webp","rs=w_984,h_984.webp","scribie.jpg","scribie.png","scripted.png","shopify.png","slicethepie.jpg","snapchat.png","spark.png","speechpad.jpg","streetbees.png","surveyjunkie.jpg","swagbucks.png","sweatcoin.jpg","syllaby.png","tastrabbit.jpg","tigerfish.jpg","tiktok.png","timeect.png","toluna.png","toptal.png","transcribeme.jpg","trust.png","trustedhousesitters.png","twitch.png","ubereats.png","upwork.png","usertesting.png","voice123.png","voices.png","wag.png","writeraccess.png","wyzant.jpg","x.png","youtube.png"
+    ];
+    const imageMap = {
+      'respondentio': 'respondent.png',
+      'pineconeresearch': 'pinecone.png',
+      'prestoshopper': 'presto.jpg',
+      'timeetc': 'timeect.png',
+      'fancyhands': 'fancy hand.jpg',
+      'belaysolutions': 'belay.png',
+      'freelancer': 'freelanmcer.png',
+      'carecom': 'care.jpg'
+    };
+
+    function attemptImageFallback(img, id, remote) {
+      try {
+        const norm = s => s.replace(/[^a-z0-9]/g,'').toLowerCase();
+        const idNorm = norm(id);
+
+        // If there's an explicit mapping for this id, use it first
+        if (imageMap && imageMap[id]) {
+          img.onerror = null;
+          img.src = 'images/' + imageMap[id];
+          return;
+        }
+
+        // If there are local files that include the id text, prefer them
+        for (const f of imageFiles) {
+          if (norm(f).includes(idNorm) || idNorm.includes(norm(f))) {
+            img.onerror = null;
+            img.src = 'images/' + f;
+            return;
+          }
+        }
+
+        // Otherwise, try common extensions for the canonical id filename
+        if (!img.dataset.attempt) { img.dataset.attempt = 'png'; img.src = `images/${id}.png`; return; }
+        if (img.dataset.attempt === 'png') { img.dataset.attempt = 'jpg'; img.src = `images/${id}.jpg`; return; }
+        if (img.dataset.attempt === 'jpg') { img.dataset.attempt = 'webp'; img.src = `images/${id}.webp`; return; }
+
+        // Last resort: use inline SVG placeholder (no external fallbacks)
+        img.onerror = null;
+        img.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%232a2a2a%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2240%22>💼</text></svg>';
+      } catch (e) {
+        img.onerror = null;
+        img.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%232a2a2a%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2240%22>💼</text></svg>';
+      }
+    }
+
     // Initialize
     renderGigs();
   </script>

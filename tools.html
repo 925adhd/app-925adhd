@@ -35,7 +35,6 @@
       font-family: system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
       line-height: 1.5;
       padding-bottom: 80px;
     }
@@ -112,13 +111,14 @@
     
     .favorite-badge {
       display: inline-block;
-      background: rgba(91, 191, 181, 0.2);
-      color: var(--brand);
-      font-size: 10px;
+      background: transparent;
+      color: #3b82f6;
+      font-size: 12px;
       font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
+      padding: 0;
+      border-radius: 0;
       margin-bottom: 6px;
+      border: none;
     }
     
     .hero-info h2 {
@@ -369,7 +369,7 @@
       <div class="hero-header">
         <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gGKdFr4xAr4dXt6XV3rg/Logo%20(multicolored%20backround).png" alt="Brain.fm" class="hero-logo">
         <div class="hero-info">
-          <span class="favorite-badge">💚 Favorite</span>
+          <span class="favorite-badge">💙 Personal Favorite</span>
           <h2>Brain.fm</h2>
           <p>ADHD focus music backed by science!</p>
         </div>
@@ -383,8 +383,7 @@
       
       <div class="hero-text">
         <p>Put this on in the background for at least <span class="highlight">5 minutes</span> and watch your productivity skyrocket! Seriously. Just give it a try. 🤷‍♀️</p>
-        <p>😴 Tired of this song? Use my affiliate link for <span class="highlight">1 month free</span>!<br>
-        🔗 <a href="https://www.brain.fm/925adhd" target="_blank">brain.fm/925adhd</a></p>
+        <p><a href="https://www.brain.fm/925adhd" target="_blank">Try Brain.fm</a> — <span class="highlight">1 month free</span> (affiliate link)</p>
       </div>
     </section>
     
@@ -549,7 +548,7 @@
       <div class="info-card">
         <p>🕹️ Sometimes you just need a quick dopamine hit. Take a break, then get back to it!</p>
       </div>
-      <a href="games/gir-adventure.html" class="game-card">
+      <a href="gir.html" class="game-card">
         <div class="game-card-content">
           <span class="game-card-icon">👾</span>
           <h3>Gir's ADHD Adventure</h3>

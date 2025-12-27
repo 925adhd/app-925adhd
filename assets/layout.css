@@ -140,3 +140,11 @@ body{
 
 /* Optional: if some pages set main to full height or weird padding, this helps */
 main, .main-content { min-height:calc(100vh - var(--header-h) - var(--nav-h)); }
+
+/* Ensure vertical scrolling is allowed site-wide */
+html, body {
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}

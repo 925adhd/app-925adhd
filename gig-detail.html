@@ -38,7 +38,6 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
       padding-bottom: 100px;
       line-height: 1.6;
     }
@@ -444,6 +443,102 @@ const gigData = {
     taskTypes: [],
     finalTake: '**UserTesting** is one of the most reliable platforms for paid usability testing. The pay is fair for short bursts of work, and tasks are straightforward once you get the hang of speaking your thoughts clearly. However, competition for tests can be high, so it’s not consistent income—you’ll need to be quick and check often.',
     idealFor: ['People comfortable speaking aloud and sharing opinions', 'Those with a flexible schedule who can grab tests quickly', 'Side hustlers looking for extra pocket money (not a full-time gig)', 'Tech-friendly folks with a laptop, smartphone, and PayPal account']
+  },
+  'playtestcloud': {
+    name: 'PlaytestCloud',
+    logo: 'https://via.placeholder.com/150?text=PlaytestCloud',
+    link: 'https://playtestcloud.com/',
+    rate: '$10–$50/hr',
+    description: 'Paid playtests and prototype feedback for games and apps.',
+    category: 'testing',
+    intro: '**PlaytestCloud** connects players with developers to test mobile and web games. Tests are usually short play sessions where you provide feedback on gameplay, bugs, and enjoyment.',
+    whyAdhd: ['Short sessions with clear goals make it easy to focus', 'Novelty of games keeps engagement high', 'Fast feedback loops and tangible results reduce frustration'],
+    standOut: ['Specifically targets game playtesting', 'Moderated and unmoderated sessions available', 'Fair pay compared to basic survey sites'],
+    importantNotes: ['Tests can require specific devices or platforms', 'Some sessions are scheduled—check availability'],
+    payoutInfo: [],
+    taskTypes: ['Playtests – short gameplay sessions', 'Bug reports – note crashes or issues', 'Surveys – post-test feedback forms'],
+    finalTake: '',
+    idealFor: ['Gamers and mobile app users', 'People who can describe bugs and user experience clearly']
+  },
+  'trymata': {
+    name: 'Trymata',
+    logo: 'https://via.placeholder.com/150?text=Trymata',
+    link: 'https://trymata.com/',
+    rate: '$10–$60/hr',
+    description: 'Unmoderated and moderated usability testing for apps and prototypes.',
+    category: 'testing',
+    intro: '**Trymata** (formerly known as TryMyUI/other testing brands) provides both moderated and unmoderated user tests for apps and prototypes. Tests often involve following tasks and speaking aloud while interacting with a prototype.',
+    whyAdhd: ['Short, task-based sessions provide structure', 'Immediate feedback and clear deliverables', 'Moderated tests can be engaging and social'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: ['Usability tests', 'Prototype walkthroughs', 'Surveys and follow-ups'],
+    finalTake: '',
+    idealFor: []
+  },
+  'testbirds': {
+    name: 'Testbirds',
+    logo: 'https://via.placeholder.com/150?text=Testbirds',
+    link: 'https://www.testbirds.com/',
+    rate: '$10–$60/hr',
+    description: 'Crowdtesting for apps, websites and connected devices with real-user sessions.',
+    category: 'testing',
+    intro: '**Testbirds** runs large-scale crowdtesting campaigns and provides a platform for real users to test real products. Tasks range from simple UX checks to extended scenario testing.',
+    whyAdhd: ['A variety of test types keeps things interesting', 'Flexible participation—pick tests that fit your attention window'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: ['Exploratory testing', 'Acceptance testing', 'Bug reports'],
+    finalTake: '',
+    idealFor: []
+  },
+  'mturk': {
+    name: 'Amazon Mechanical Turk',
+    logo: 'https://via.placeholder.com/150?text=MTurk',
+    link: 'https://www.mturk.com/',
+    rate: '$2–$12/hr',
+    description: 'Short Human Intelligence Tasks (HITs) for quick micro-earnings.',
+    category: 'microtasks',
+    intro: '**Amazon Mechanical Turk (MTurk)** is a marketplace for microtasks where requesters post small jobs (HITs) that workers complete for pay. Tasks include surveys, data labeling, and simple categorization.',
+    whyAdhd: ['Lots of quick, bite-sized tasks that fit short attention spans', 'Easy to jump in and out based on focus windows'],
+    standOut: [],
+    importantNotes: ['Pay varies widely—pick reputable requesters and check approval rates', 'Some tasks have strict quality checks that can result in rejections'],
+    payoutInfo: [],
+    taskTypes: ['Surveys', 'Annotation', 'Data entry'],
+    finalTake: '',
+    idealFor: []
+  },
+  'lionbridge': {
+    name: 'Lionbridge',
+    logo: 'https://via.placeholder.com/150?text=Lionbridge',
+    link: 'https://lionbridge.ai/',
+    rate: '$3–$20/hr',
+    description: 'Language, search evaluation and AI data tasks from a large vendor.',
+    category: 'ai',
+    intro: '**Lionbridge** offers tasks in language services, search evaluation, and AI training. Work can include translation checks, relevance scoring, and data labeling.',
+    whyAdhd: ['Structured guidelines and clear tasks help maintain focus', 'Variety of microtasks and longer projects available'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: ['Search evaluation', 'Annotation', 'Localization checks'],
+    finalTake: '',
+    idealFor: []
+  },
+  'justanswer': {
+    name: 'JustAnswer',
+    logo: 'https://via.placeholder.com/150?text=JustAnswer',
+    link: 'https://www.justanswer.com/experts',
+    rate: '$10–$50/hr',
+    description: 'Answer questions as a verified expert and earn for consultations.',
+    category: 'expert',
+    intro: '**JustAnswer** connects users with professionals who answer questions on medical, legal, tech and other expert topics. Experts earn based on answers and consultations.',
+    whyAdhd: ['High-skill work that can pay well for focused expertise', 'Sessions are often discrete and task-oriented'],
+    standOut: [],
+    importantNotes: ['Requires verification as an expert in your field', 'Not suitable for casual microtask seekers'],
+    payoutInfo: [],
+    taskTypes: ['Q&A consultations', 'Follow-up messaging'],
+    finalTake: '',
+    idealFor: ['Professionals with verified expertise']
   },
   'pineconeresearch': {
     name: 'Pinecone Research',
@@ -1509,6 +1604,53 @@ const gigData = {
     
     // Favorites
     let favorites = JSON.parse(localStorage.getItem('925adhd_favorites') || '[]');
+
+    // Local image files (help match IDs to existing filenames)
+    const imageFiles = [
+      "99designs.png","acx.jpg","amazonhandmade.png","appen.jpg","artfire.png","behance.png","belay.png","benjamin.jpg","benjamn.jpg","best play.jpg","bestmark.jpg","bigcartel.png","blob-bacb09e.webp","brain.jpeg","bytlixir.png","caht gpt.png","cambly.png","castingwords.png","channels4_profile.jpg","Chewy-logo-web.png","claude.jpg","claude.png","clearvoice.png","clickworker.png","contently.jpg","crowdtap.jpg","designcrowd.png","discord logo.png","doordash.png","download.jpeg","download.png","dribble.png","dscout.png","etsy.jpg","facebook.png","fancy hand.jpg","fetch.png","fieldagent.png","fiverr.png","flex.png","folksy.png","freelanmcer.png","gigspot.jpg","gigspot.png","gotranscript.png","honeygain.png","ibotta.png","influenster.png","instacart.png","instagram.jpg","isecretshop.jpg","italki.png","ivueit.png","just play.jpg","kofi.png","lifepoints.png","linkedin.png","marketforce.png","methinks.png","minsk-belarus-03272023-openai-chatgpt-600nw-2281899103.webp","mistplay.jpg","mode earn app.jpg","neevo.png","neighbor.png","outlier.png","paidviewpoint.png","papa.jpg","patreon.png","pawns.png","pinecone.png","pogo.jpg","posting_checklist.png","preply.png","pressplay.png","presto.jpg","printify.png","prolific.png","proxypics.png","quicktate.png","rakuten.jpg","respondent.png","rev.png","rover.png","rs=w_600,cg_true.webp","rs=w_600,h_300,cg_true (1).webp","rs=w_600,h_300,cg_true.webp","rs=w_600,h_800,cg_true.webp","rs=w_984,h_984.webp","scribie.jpg","scribie.png","scripted.png","shopify.png","slicethepie.jpg","snapchat.png","spark.png","speechpad.jpg","streetbees.png","surveyjunkie.jpg","swagbucks.png","sweatcoin.jpg","syllaby.png","tastrabbit.jpg","tigerfish.jpg","tiktok.png","timeect.png","toluna.png","toptal.png","transcribeme.jpg","trust.png","trustedhousesitters.png","twitch.png","ubereats.png","upwork.png","usertesting.png","voice123.png","voices.png","wag.png","writeraccess.png","wyzant.jpg","x.png","youtube.png"
+    ];
+    const imageMap = {
+      'respondentio': 'respondent.png',
+      'pineconeresearch': 'pinecone.png',
+      'prestoshopper': 'presto.jpg',
+      'timeetc': 'timeect.png',
+      'fancyhands': 'fancy hand.jpg',
+      'belaysolutions': 'belay.png',
+      'freelancer': 'freelanmcer.png',
+      'carecom': 'care.jpg'
+    };
+
+    function attemptImageFallback(img, id, remote) {
+      try {
+        const norm = s => s.replace(/[^a-z0-9]/g,'').toLowerCase();
+        const idNorm = norm(id);
+
+        // If there's an explicit mapping for this id, use it first
+        if (imageMap && imageMap[id]) {
+          img.onerror = null;
+          img.src = 'images/' + imageMap[id];
+          return;
+        }
+
+        for (const f of imageFiles) {
+          if (norm(f).includes(idNorm) || idNorm.includes(norm(f))) {
+            img.onerror = null;
+            img.src = 'images/' + f;
+            return;
+          }
+        }
+
+        if (!img.dataset.attempt) { img.dataset.attempt = 'png'; img.src = `images/${id}.png`; return; }
+        if (img.dataset.attempt === 'png') { img.dataset.attempt = 'jpg'; img.src = `images/${id}.jpg`; return; }
+        if (img.dataset.attempt === 'jpg') { img.dataset.attempt = 'webp'; img.src = `images/${id}.webp`; return; }
+
+        img.onerror = null;
+        img.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%232a2a2a%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2240%22>💼</text></svg>';
+      } catch (e) {
+        img.onerror = null;
+        img.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%232a2a2a%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2240%22>💼</text></svg>';
+      }
+    }
     
     function renderGig(gig) {
       const isFav = favorites.includes(gigId);
@@ -1516,7 +1658,7 @@ const gigData = {
       
       let html = `
         <div class="hero">
-          <img src="${gig.logo}" class="hero-logo" alt="${gig.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%232a2a2a%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2240%22>💼</text></svg>'">
+          <img src="images/${gigId}.png" class="hero-logo" alt="${gig.name}" onerror="attemptImageFallback(this,'${gigId}','${gig.logo}')">
           <div class="hero-info">
             <h1>${gig.name}</h1>
             <div class="hero-rate">${gig.rate}</div>
