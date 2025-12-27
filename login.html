@@ -27,6 +27,7 @@
       font-family: system-ui, -apple-system, sans-serif;
       background: #5BBFB5;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
@@ -38,6 +39,7 @@
       padding: 48px 40px;
       width: 100%;
       max-width: 420px;
+      margin: 0 auto;
       text-align: center;
     }
     
@@ -247,6 +249,11 @@
     }
 
     @media (max-width: 480px) {
+      body {
+        align-items: flex-start;
+        padding-top: 24px;
+      }
+
       .login-card {
         padding: 36px 24px;
       }
@@ -256,8 +263,9 @@
 <body>
   <div id="site-header"></div>
   <div class="login-card">
-      <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="925 ADHD">
-    </div>
+      <div class="logo">
+        <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="925 ADHD">
+      </div>
     
     <h1>925 ADHD</h1>
     <p class="subtitle">Flexible, ADHD-friendly ways to earn online.<br>Already joined? Log in below</p>
