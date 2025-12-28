@@ -7,7 +7,7 @@
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#5BBFB5">
+  <meta name="theme-color" content="#56C3AE">
   <link rel="stylesheet" href="assets/layout.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -27,8 +27,8 @@
       --border: rgba(255,255,255,.1);
       --text: #fff;
       --text-muted: rgba(255,255,255,.55);
-      --brand: #5BBFB5;
-      --brand-glow: rgba(91, 191, 181, 0.25);
+      --brand: #56C3AE;
+      --brand-glow: rgba(86, 195, 174, 0.25);
     }
     
     body {
@@ -85,8 +85,8 @@
     
     /* Brain.fm Hero */
     .hero-card {
-      background: linear-gradient(135deg, rgba(91, 191, 181, 0.15) 0%, rgba(91, 191, 181, 0.05) 100%);
-      border: 1px solid rgba(91, 191, 181, 0.3);
+      background: transparent;
+      border: none;
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 24px;
@@ -112,7 +112,7 @@
     .favorite-badge {
       display: inline-block;
       background: transparent;
-      color: #3b82f6;
+      color: var(--brand);
       font-size: 12px;
       font-weight: 700;
       padding: 0;
@@ -294,8 +294,8 @@
     
     /* Info Card */
     .info-card {
-      background: rgba(91, 191, 181, 0.08);
-      border: 1px solid rgba(91, 191, 181, 0.2);
+      background: rgba(86, 195, 174, 0.08);
+      border: 1px solid rgba(86, 195, 174, 0.2);
       border-radius: 12px;
       padding: 14px 16px;
       margin-bottom: 16px;
@@ -369,21 +369,233 @@
       <div class="hero-header">
         <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gGKdFr4xAr4dXt6XV3rg/Logo%20(multicolored%20backround).png" alt="Brain.fm" class="hero-logo">
         <div class="hero-info">
-          <span class="favorite-badge">💙 Personal Favorite</span>
+          <span class="favorite-badge">❤ Favorite</span>
           <h2>Brain.fm</h2>
           <p>ADHD focus music backed by science!</p>
         </div>
       </div>
       
-      <div class="audio-player">
-        <audio id="brainAudio" controls title="Focus Music - Brain.Fm">
-          <source src="https://www.dropbox.com/scl/fi/5vkgpt2hsrj2rhkxbomy3/Geode-Grooves-Focus-Deep-Work.wav?rlkey=bku0yamcro88yuipv4b2ed675&st=hchol8mj&raw=1" type="audio/wav">
-        </audio>
+      <!-- Custom Audio Player Component -->
+      <style>
+        /* Custom Audio Player Styles */
+        .custom-audio-player {
+          background: #1a1a1a;
+          border-radius: 25px;
+          padding: 12px 16px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 16px;
+        }
+
+        .audio-play-btn {
+          background: none;
+          border: none;
+          color: #fff;
+          cursor: pointer;
+          padding: 0;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .audio-play-btn svg {
+          width: 20px;
+          height: 20px;
+          fill: #fff;
+        }
+
+        .audio-time {
+          font-size: 13px;
+          color: #fff;
+          font-family: system-ui, -apple-system, sans-serif;
+          min-width: 75px;
+          flex-shrink: 0;
+        }
+
+        .audio-progress-container {
+          flex: 1;
+          height: 4px;
+          background: #666;
+          border-radius: 2px;
+          cursor: pointer;
+          position: relative;
+        }
+
+        .audio-progress-bar {
+          height: 100%;
+          background: #999;
+          border-radius: 2px;
+          width: 0%;
+          transition: width 0.1s linear;
+        }
+
+        .audio-controls-right {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-shrink: 0;
+        }
+
+        .audio-volume-btn {
+          background: none;
+          border: none;
+          color: #fff;
+          cursor: pointer;
+          padding: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .audio-volume-btn svg {
+          width: 20px;
+          height: 20px;
+          fill: #fff;
+        }
+
+        .audio-menu-btn {
+          background: none;
+          border: none;
+          color: #fff;
+          cursor: pointer;
+          padding: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+          line-height: 1;
+        }
+
+        .audio-menu-btn svg {
+          width: 20px;
+          height: 20px;
+          fill: #fff;
+        }
+      </style>
+
+      <div class="custom-audio-player">
+        <!-- Play/Pause Button -->
+        <button class="audio-play-btn" id="playPauseBtn" aria-label="Play">
+          <svg viewBox="0 0 24 24" id="playIcon">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <svg viewBox="0 0 24 24" id="pauseIcon" style="display: none;">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+        </button>
+        
+        <!-- Time Display -->
+        <span class="audio-time"><span id="currentTime">0:00</span> / <span id="duration">0:00</span></span>
+        
+        <!-- Progress Bar -->
+        <div class="audio-progress-container" id="progressContainer">
+          <div class="audio-progress-bar" id="progressBar"></div>
+        </div>
+        
+        <!-- Volume & Menu -->
+        <div class="audio-controls-right">
+          <button class="audio-volume-btn" id="volumeBtn" aria-label="Mute">
+            <svg viewBox="0 0 24 24" id="volumeOnIcon">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+            <svg viewBox="0 0 24 24" id="volumeOffIcon" style="display: none;">
+              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            </svg>
+          </button>
+          <button class="audio-menu-btn" aria-label="More options">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
+          </button>
+        </div>
       </div>
-      
-      <div class="hero-text">
-        <p>Put this on in the background for at least <span class="highlight">5 minutes</span> and watch your productivity skyrocket! Seriously. Just give it a try. 🤷‍♀️</p>
-        <p><a href="https://www.brain.fm/925adhd" target="_blank">Try Brain.fm</a> — <span class="highlight">1 month free</span> (affiliate link)</p>
+
+      <!-- Hidden actual audio element -->
+      <audio id="brainAudio" preload="metadata">
+        <source src="https://www.dropbox.com/scl/fi/5vkgpt2hsrj2rhkxbomy3/Geode-Grooves-Focus-Deep-Work.wav?rlkey=bku0yamcro88yuipv4b2ed675&st=hchol8mj&raw=1" type="audio/wav">
+      </audio>
+
+      <script>
+      (function() {
+        const audio = document.getElementById('brainAudio');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
+        const volumeBtn = document.getElementById('volumeBtn');
+        const volumeOnIcon = document.getElementById('volumeOnIcon');
+        const volumeOffIcon = document.getElementById('volumeOffIcon');
+
+        function formatTime(seconds) {
+          if (isNaN(seconds)) return '0:00';
+          const mins = Math.floor(seconds / 60);
+          const secs = Math.floor(seconds % 60);
+          return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        audio.addEventListener('loadedmetadata', () => {
+          durationEl.textContent = formatTime(audio.duration || 0);
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+          if (audio.paused) audio.play(); else audio.pause();
+        });
+
+        audio.addEventListener('play', () => {
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = 'block';
+        });
+
+        audio.addEventListener('pause', () => {
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+        });
+
+        audio.addEventListener('timeupdate', () => {
+          const percent = (audio.currentTime / (audio.duration || 1)) * 100;
+          progressBar.style.width = `${percent}%`;
+          currentTimeEl.textContent = formatTime(audio.currentTime);
+        });
+
+        progressContainer.addEventListener('click', (e) => {
+          const rect = progressContainer.getBoundingClientRect();
+          const percent = (e.clientX - rect.left) / rect.width;
+          audio.currentTime = percent * (audio.duration || 0);
+        });
+
+        volumeBtn.addEventListener('click', () => {
+          audio.muted = !audio.muted;
+          volumeOnIcon.style.display = audio.muted ? 'none' : 'block';
+          volumeOffIcon.style.display = audio.muted ? 'block' : 'none';
+        });
+
+        if ('mediaSession' in navigator) {
+          try {
+            navigator.mediaSession.metadata = new MediaMetadata({
+              title: 'Focus',
+              artist: 'Brain.Fm',
+              album: '',
+              artwork: [{ src: document.querySelector('.hero-logo')?.src || '', sizes: '512x512', type: 'image/png' }]
+            });
+            navigator.mediaSession.setActionHandler('play', () => audio.play());
+            navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+          } catch (e) { /* ignore */ }
+        }
+      })();
+      </script>
+
+    <div class="hero-text">
+        <p>Put this on in the background for at least <span class="highlight" style="color: #c0392b">5 minutes</span> and watch your productivity skyrocket! Seriously. Just give it a try. 🤷‍♀️</p>
+
+        <p>😴 Tired of this same song?</p>
+        <p><a href="https://www.brain.fm/925adhd" target="_blank" style="text-decoration:none">🔗 Try Brain.fm</a> — <span class="highlight" style="color: #ffffff">1 month free</span> (affiliate link)</p>
       </div>
     </section>
     
