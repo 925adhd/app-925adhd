@@ -137,6 +137,7 @@
     // Build a focused menu with only the requested items
     const menuItems = [
       { href: 'beginnerlist.html', text: 'Beginner List' },
+      { href: 'ai-playground.html', text: 'AI Playground' },
       { href: 'aimadesimple.html', text: 'AI Made Simple' },
       { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
       { href: 'playlist.html', text: 'Motivation Playlist' }
@@ -467,6 +468,7 @@
               // Menu items (same curated list as overlay)
               const items = [
                 { href: 'beginnerlist.html', text: 'Beginner List' },
+                { href: 'ai-playground.html', text: 'AI Playground' },
                 { href: 'aimadesimple.html', text: 'AI Made Simple' },
                 { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
                 { href: 'playlist.html', text: 'Motivation Playlist' }
