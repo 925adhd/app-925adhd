@@ -1,6 +1,6 @@
 /* layout.css (standardized, fixed heights) */
 :root{
-  --brand:#5BBFB5;
+  --brand:#56C3AE;
   --bg:#0F0F0F;
   --card:#1A1A1A;
   --border:rgba(255,255,255,.10);
@@ -69,6 +69,90 @@ body{
   font-size:26px;
   text-decoration:none;
   cursor:pointer;
+}
+
+/* Remove back buttons site-wide */
+.back-btn{ display: none !important; }
+
+/* Brand logo + name in the left corner */
+.site-header .brand{
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none; /* hidden on mobile by default */
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+  pointer-events: auto; /* allow clicks */
+}
+.site-header .brand .brand-logo{
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.site-header .brand .brand-name{
+  display: none;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+@media (min-width: 900px) {
+  .site-header .brand{ display: flex; }
+  .site-header .brand .brand-name{ display: inline-block; }
+}
+
+/* Mobile menu button (hamburger) shown in the header on small screens */
+@media (max-width: 899px) {
+  .site-header .menu-btn,
+  .menu-btn {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    color: var(--text);
+    font-size: 22px;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 10001;
+  }
+
+  /* Ensure any page-specific menu buttons or stray buttons inside nav are hidden */
+  .site-nav .menu-btn,
+  .nav-item .menu-btn,
+  main .menu-btn,
+  .hero .menu-btn { display: none !important; }
+
+  /* But allow the header's menu button to show (visibility still controlled by media queries) */
+  .site-header .menu-btn { display: flex !important; }
+
+  /* Hide any inline SVGs or stray icons inside the primary nav to remove
+    unexpected glyphs (safely targets only the nav area). */
+  .site-nav svg { display: none !important; }
+  .site-nav img[src*="data:image/svg+xml"] { display: none !important; }
+
+  /* Ensure only `.nav-item` children appear in the nav-items container. */
+  .site-nav .nav-items > * {
+    display: none;
+  }
+  .site-nav .nav-items > .nav-item {
+    display: inline-flex !important;
+  }
 }
 
 /* Bottom nav: fixed height, consistent everywhere */
@@ -148,3 +232,358 @@ html, body {
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch;
 }
+
+/* Desktop: move bottom nav to top and style like horizontal pill nav */
+@media (min-width: 900px) {
+  .site-nav{
+    bottom: auto;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    height: var(--nav-h);
+    min-height: var(--nav-h);
+    z-index: 9998;
+
+    background: var(--brand);
+    border-top: none;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .site-nav .nav-items{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .site-nav .nav-item{
+    height: 40px;
+    min-width: auto;
+    padding: 8px 14px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 700;
+    background: transparent;
+    border: none;
+  }
+
+  .site-nav .nav-item .icon{ display:inline-flex; font-size:18px; height:auto; line-height:1; }
+
+  .site-nav .nav-item:hover{ color: var(--text); }
+
+  .site-nav .nav-item.active{
+    color: var(--text);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: none;
+  }
+
+  /* ensure header stays above nav */
+  .site-header{ z-index:10000; }
+}
+
+/* Keep top reserved space equal to header + nav on desktop so thickness matches mobile */
+@media (min-width: 900px) {
+  /* Keep top reserved space equal only to header height so nav overlaps it */
+  body {
+    padding-top: var(--header-h);
+  }
+
+  /* Make header visually transparent so the nav bar shows as the top bar
+     while keeping the header's back button visible on top. */
+  .site-header {
+    background: transparent;
+    z-index: 10000;
+    pointer-events: none; /* allow clicks to pass through to the nav beneath */
+  }
+
+  /* Hide the back-arrow on desktop when the top nav is visible */
+  .site-header .back-btn {
+    display: none;
+  }
+
+  /* Position nav to overlap header and match header height */
+  .site-nav{
+    top: 0;
+    height: var(--header-h);
+    min-height: var(--header-h);
+    background: var(--brand);
+    border-top: none;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding: 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Back button removed on desktop */
+  .site-header .back-btn {
+    display: none !important;
+  }
+
+  .site-nav .nav-items{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .site-nav .nav-item{
+    height: 36px;
+    padding: 6px 12px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 700;
+    background: transparent;
+    border: none;
+  }
+
+  .site-nav .nav-item .icon{ display:inline-flex; font-size:18px; height:auto; line-height:1; }
+
+  .site-nav .nav-item:hover{ color: var(--text); }
+
+  .site-nav .nav-item.active{
+    color: var(--text);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: none;
+  }
+
+  /* Show the header menu button on larger screens and position it
+     on the right side so it sits in the empty spot next to nav items. */
+  .site-header .menu-btn {
+    display: flex !important;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 20px;
+    border-radius: 8px;
+    z-index: 10002;
+    pointer-events: auto; /* header had pointer-events:none on desktop */
+  }
+
+  .site-header .menu-btn:hover {
+    background: rgba(255,255,255,0.03);
+  }
+}
+
+/* Wider content on larger screens: use more horizontal space */
+@media (min-width: 1100px) {
+  main, .main-content, .gc {
+    max-width: 1400px; /* allow content to stretch wider */
+    width: calc(100% - 48px);
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* Give the nav more room to breathe on very wide screens */
+  .site-nav .nav-items{ max-width: 1400px; }
+}
+
+/* High-specificity override for pages that include their own .main-content rules
+   (some pages define .main-content in inline <style> blocks). When the shared
+   layout is active, force wider widths so all pages match the unified layout. */
+@media (min-width: 1100px) {
+  body.has-site-layout main,
+  body.has-site-layout .main-content,
+  body.has-site-layout .gc {
+    max-width: 1400px !important;
+    width: calc(100% - 48px) !important;
+    margin: 0 auto !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+}
+
+/* Guides page: slightly narrower on very wide screens because the
+   large hero and full-width cards feel too wide at 1400px. */
+@media (min-width: 1100px) {
+  body.has-site-layout.page-guides main,
+  body.has-site-layout.page-guides .main-content,
+  body.has-site-layout.page-guides .gc {
+    max-width: 1100px !important;
+    width: calc(100% - 48px) !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* Hamburger overlay and panel (mobile) */
+.hamburger-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,0.6);
+  z-index:10005;
+  /* stretch the overlay fully; align-items:stretch so the panel can be full-height */
+  align-items:stretch;
+  justify-content:flex-start;
+  padding: 0; /* flush to the left edge */
+}
+.hamburger-overlay.open{ display:flex; }
+.hamburger-panel{
+  width: 320px;
+  max-width: calc(100% - 0px);
+  height: 100%;            /* full-height panel */
+  max-height: none;
+  background: var(--card);
+  color: var(--text);
+  /* flush against the left edge, rounded on the right only */
+  border-radius: 0 12px 12px 0;
+  padding: 40px 16px 24px 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  align-items: flex-start;
+  align-self: stretch; /* ensure it stretches to overlay height */
+  padding-top: calc(16px + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  position: relative;
+}
+.hamburger-panel .hamburger-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+}
+.hamburger-panel .hamburger-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:var(--text);
+}
+.hamburger-panel .hamburger-brand .brand-name{ color: var(--brand); font-weight:800; font-size:16px; }
+.hamburger-panel .top-close-btn{
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.95);
+  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  cursor:pointer;
+  position: absolute;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  right: 12px;
+  z-index: 10010;
+}
+
+/* Show the bottom logout/close button and pin it to the panel bottom
+   so it's always reachable (accounts for safe-area on mobile). */
+.hamburger-panel #closeMenuBtn,
+.hamburger-panel .logout-btn{
+  display: block !important;
+  width: calc(100% - 0px);
+  margin-top: 12px;
+  margin-bottom: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--brand);
+  color: #000;
+  border: none;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  align-self: stretch;
+}
+
+/* Pin logout button to the bottom of the panel */
+.hamburger-panel .logout-btn{
+  margin-top: auto;
+  position: sticky;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+}
+
+.hamburger-panel a,
+.hamburger-panel .nav-item{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:12px;
+  padding:12px 8px;
+  border-radius:8px;
+  color:var(--text);
+  text-decoration:none;
+  margin-bottom:8px;
+  font-size:16px;
+  text-align:left;
+}
+
+.hamburger-panel .nav-item .icon{
+  width:34px;
+  height:34px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,0.04);
+  border-radius:8px;
+  font-size:18px;
+}
+
+/* Ensure label text takes remaining space and is left-aligned */
+.hamburger-panel a span:not(.icon),
+.hamburger-panel .nav-item span:not(.icon) {
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+/* Force menu items to be row-oriented and full-width */
+.hamburger-panel .nav-item{
+  flex-direction: row !important;
+  width: 100%;
+}
+
+.hamburger-panel .nav-item .icon{ margin-right: 12px; }
+
+.hamburger-panel a:hover{ background: rgba(255,255,255,0.02); }
+
+/* While the mobile menu is open, hide the header brand (logo + name) */
+.menu-open .site-header .brand { display: none !important; }
+
+/* Also hide common page-level logo elements while the mobile menu is open */
+.menu-open .hero-logo,
+.menu-open .hero-logo img,
+.menu-open img.hero-logo,
+.menu-open .hero .hero-logo,
+.menu-open .hero-logo * {
+  display: none !important;
+}
+
+/* As a last-resort target: hide the known logo image by src substring when menu open */
+.menu-open img[src*="SmartSelect_20241218_055052_Gallery.png"] { display: none !important; }
