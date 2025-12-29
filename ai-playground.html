@@ -82,7 +82,23 @@
       margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
     }
     .tips-icon { flex-shrink: 0; width: 28px; height: 28px; background: rgba(251,191,36,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-    .tips-text { font-size: 14px; color: var(--text-muted); transition: opacity 0.3s ease; display: inline-block; width: var(--tip-width, auto); white-space: normal; word-break: break-word; }
+    /* Lock tip banner height to prevent layout shift; height is set by JS to match longest tip */
+    .tips-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: opacity 0.3s ease;
+      min-height: var(--tip-min-height, 2.6em); /* JS will override to exact pixel height when available */
+      display: flex;
+      align-items: center;
+      width: var(--tip-width, auto);
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    /* Slightly taller on very small screens as a sensible fallback */
+    @media (max-width: 480px) {
+      .tips-text { min-height: var(--tip-min-height, 3.4em); }
+    }
     .progress-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 30px; }
     .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
     .progress-title { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
@@ -168,9 +184,32 @@
     .prompts-scroll::-webkit-scrollbar { display: none; }
     .prompts-scroll .prompt-btn { flex: 0 1 auto; min-width: 100px; border-radius: 999px; padding: 8px 10px; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; text-align: left; }
     .prompts-scroll .prompt-btn .icon { font-size: 16px; line-height: 1; }
-    @media (max-width: 420px) {
-      .prompts-scroll .prompt-btn { min-width: 88px; padding: 6px 8px; font-size: 13px; }
-      .prompts-scroll { gap: 6px; }
+    /* Mobile: single-row swipeable prompt pills */
+    @media (max-width: 480px) {
+      .prompts-scroll {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        padding: 6px 4px;
+      }
+
+      .prompts-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .prompts-scroll .prompt-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 10px 14px;
+        font-size: 13px;
+        border-radius: 999px;
+      }
+
+      .prompts-scroll .prompt-btn .icon {
+        font-size: 18px;
+      }
     }
     .prompt-btn { padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font); font-size: 14px; text-align: left; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 10px; }
     .prompt-btn:hover { border-color: var(--brand); background: rgba(86,195,174,0.05); transform: translateY(-2px); }
@@ -240,6 +279,25 @@
       .learn-grid { grid-template-columns: 1fr; }
       .ready-banner { padding: 16px; }
       .progress-section { padding: 16px; }
+      /* Fixed, swipeable tab bar on mobile */
+      .tabs {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        z-index: 950;
+        display: flex;
+        gap: 8px;
+        padding: 8px 12px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        background: rgba(10,10,11,0.95);
+        border-bottom: 1px solid var(--border);
+      }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tabs .tab { flex: 0 0 auto; min-width: 88px; }
+      /* Prevent fixed tabs from covering content */
+      .container { padding-top: calc(70px + 64px); }
     }
     @keyframes badgeUnlock { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
     .badge.just-unlocked { animation: badgeUnlock 0.5s ease; }
@@ -645,6 +703,8 @@
         const measurer = document.createElement('div');
         measurer.style.position = 'absolute';
         measurer.style.visibility = 'hidden';
+        measurer.style.left = '-9999px';
+        measurer.style.top = '0';
         measurer.style.whiteSpace = 'nowrap';
         measurer.style.font = cs.font || (cs.fontSize + ' ' + cs.fontFamily);
         measurer.style.fontSize = cs.fontSize;
@@ -652,17 +712,33 @@
         measurer.style.fontWeight = cs.fontWeight;
         measurer.style.lineHeight = cs.lineHeight;
         document.body.appendChild(measurer);
+
+        // First measure the widest single-line width needed
         let maxW = 0;
         tips.forEach(t => {
+          measurer.style.whiteSpace = 'nowrap';
           measurer.textContent = t;
           maxW = Math.max(maxW, measurer.offsetWidth);
         });
-        document.body.removeChild(measurer);
+
         // Respect viewport limits so it never overflows mobile width
         const maxAllowed = Math.floor(window.innerWidth * 0.8);
         const finalW = Math.min(maxW + 12, maxAllowed);
-        // Apply the width as a CSS variable so layout is stable and text wraps to multiple lines
+
+        // Now measure heights when wrapped to finalW to compute required min-height
+        measurer.style.whiteSpace = 'normal';
+        measurer.style.width = finalW + 'px';
+        let maxH = 0;
+        tips.forEach(t => {
+          measurer.textContent = t;
+          maxH = Math.max(maxH, measurer.offsetHeight);
+        });
+
+        document.body.removeChild(measurer);
+
+        // Apply measured width and height as CSS variables so layout is stable and text wraps inside
         el.style.setProperty('--tip-width', finalW + 'px');
+        el.style.setProperty('--tip-min-height', maxH + 'px');
         el.style.display = 'inline-block';
         el.style.whiteSpace = 'normal';
         el.style.wordBreak = 'break-word';
