@@ -322,6 +322,25 @@
       }
     }
 
+    /* Mobile: tabs styled as rounded container with pill buttons (match mock) */
+    @media (max-width: 480px) {
+      .tabs {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 6px;
+      }
+      .tabs .tab { flex: 0 1 auto; padding: 8px 12px; border-radius: 8px; min-width: 0; display: inline-flex; align-items: center; gap: 8px; }
+      .tabs .tab svg { width: 14px; height: 14px; }
+      .tabs .tab { color: var(--text-muted); background: transparent; }
+      .tabs .tab.active { background: var(--brand); color: var(--bg); box-shadow: none; }
+      .tabs .tab:hover { background: rgba(255,255,255,0.03); color: var(--text); }
+    }
+
     @keyframes badgeUnlock { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
     .badge.just-unlocked { animation: badgeUnlock 0.5s ease; }
     .page-footer { margin-top: 60px; padding: 30px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim); font-size: 13px; }
@@ -592,6 +611,13 @@
       // Recalculate tip width on resize (debounced)
       let _rt;
       window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setTimeout(() => setStableTipWidth(), 150); });
+      // Also recalc after fonts load (prevents reflow when webfonts arrive)
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => setTimeout(setStableTipWidth, 80)).catch(() => {});
+      } else {
+        // fallback small delay
+        setTimeout(setStableTipWidth, 150);
+      }
       // Ensure initial sizing on load
       elements.chatInput.dispatchEvent(new Event('input'));
     }
@@ -736,19 +762,22 @@
         measurer.style.lineHeight = cs.lineHeight;
         document.body.appendChild(measurer);
 
-        // First measure the widest single-line width needed
-        let maxW = 0;
-        tips.forEach(t => {
-          measurer.style.whiteSpace = 'nowrap';
-          measurer.textContent = t;
-          maxW = Math.max(maxW, measurer.offsetWidth);
-        });
+        // Determine the actual available width inside the banner (account for icon and padding)
+        let containerWidth = el.parentElement ? Math.floor(el.parentElement.getBoundingClientRect().width) : Math.floor(window.innerWidth * 0.8);
+        // subtract width of the icon if present
+        const iconEl = el.parentElement ? el.parentElement.querySelector('.tips-icon') : null;
+        if (iconEl) {
+          const iconW = Math.ceil(iconEl.getBoundingClientRect().width);
+          containerWidth = Math.max(80, containerWidth - iconW - 24); // subtract icon and some padding
+        } else {
+          containerWidth = Math.max(80, containerWidth - 24);
+        }
 
-        // Respect viewport limits so it never overflows mobile width
-        const maxAllowed = Math.floor(window.innerWidth * 0.8);
-        const finalW = Math.min(maxW + 12, maxAllowed);
+        // Cap to viewport proportion as a safety
+        const maxAllowed = Math.floor(window.innerWidth * 0.95);
+        const finalW = Math.min(containerWidth, maxAllowed);
 
-        // Now measure heights when wrapped to finalW to compute required min-height
+        // Measure heights when wrapped to finalW to compute required min-height
         measurer.style.whiteSpace = 'normal';
         measurer.style.width = finalW + 'px';
         let maxH = 0;
