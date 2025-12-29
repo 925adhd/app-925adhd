@@ -427,14 +427,34 @@
   
   <!-- Audio Section -->
   <section class="audio-section">
-    <audio id="motAudio" controls style="width: 100%;">
+    <!-- Keep the audio element hidden (we launch playback in the shared player tab) -->
+    <audio id="motAudio" preload="metadata" style="display:none">
       <source src="https://www.dropbox.com/scl/fi/gz8wfwcwnop1lledsbc3o/Grateful.mp3?rlkey=6uiabpmvb87wulsqw63x2hb0l&st=dt0a6e2o&raw=1" type="audio/mpeg">
     </audio>
+
+    <button id="openPlayerBtnMot" style="background:var(--brand);color:#0F0F0F;border:none;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer">Play in 925 ADHD Player</button>
+    <div style="font-size:13px;color:var(--text-muted);margin-top:8px">Opens player in new tab for continuous play while you use the app.</div>
+
     <p class="audio-caption">
       🎧 Grateful – NEFFEX: The anthem for your ADHD-fueled freedom journey.<br>
       <a href="https://ffm.bio/neffexmusic" target="_blank">Explore 150+ more tracks →</a>
     </p>
   </section>
+
+  <script>
+    (function(){
+      const btn = document.getElementById('openPlayerBtnMot');
+      const audioSrc = document.querySelector('#motAudio source')?.src || document.getElementById('motAudio')?.src;
+      btn && btn.addEventListener('click', ()=>{
+        try{
+          const w = window.open('assets/music-player.html','music_player');
+          const msg = { type: 'play', provider: 'audio', src: audioSrc, title: document.title };
+          try{ localStorage.setItem('persistent_music', JSON.stringify(msg)); }catch(e){}
+          setTimeout(()=>{ try{ w.postMessage(msg, '*'); }catch(e){} }, 300);
+        }catch(e){ console.error('open player error', e); }
+      });
+    })();
+  </script>
   
   <!-- Main Content -->
   <main class="main-content">
@@ -655,6 +675,8 @@
       motAudio.addEventListener('ended', onEnded);
     })();
   </script>
+  <script src="assets/persistent-player.js"></script>
     <script src="assets/layout.js"></script>
 </body>
 </html>
+
