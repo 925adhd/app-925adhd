@@ -279,25 +279,8 @@
       .learn-grid { grid-template-columns: 1fr; }
       .ready-banner { padding: 16px; }
       .progress-section { padding: 16px; }
-      /* Fixed, swipeable tab bar on mobile */
-      .tabs {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        z-index: 950;
-        display: flex;
-        gap: 8px;
-        padding: 8px 12px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        background: rgba(10,10,11,0.95);
-        border-bottom: 1px solid var(--border);
-      }
-      .tabs::-webkit-scrollbar { display: none; }
-      .tabs .tab { flex: 0 0 auto; min-width: 88px; }
-      /* Prevent fixed tabs from covering content */
-      .container { padding-top: calc(70px + 64px); }
+      /* keep tabs in normal flow on mobile */
+      .tabs { padding: 4px; }
     }
     @keyframes badgeUnlock { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
     .badge.just-unlocked { animation: badgeUnlock 0.5s ease; }
