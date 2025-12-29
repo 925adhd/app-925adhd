@@ -162,7 +162,7 @@
     @keyframes bounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
     .chat-input-area { padding: 8px 10px; border-top: 1px solid var(--border); background: var(--bg-elevated); }
     .input-wrapper { display: flex; gap: 12px; align-items: center; }
-    .chat-input { flex: 1; padding: 14px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font); font-size: 15px; resize: none; min-height: 72px; max-height: 40vh; transition: border-color 0.2s ease; overflow-y: auto; }
+    .chat-input { flex: 1; padding: 14px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font); font-size: 15px; height: auto; resize: none; min-height: 72px; max-height: 45vh; transition: border-color 0.2s ease; overflow-y: hidden; }
     .chat-input:focus { outline: none; border-color: var(--brand); }
     .chat-input::placeholder { color: var(--text-dim); }
     .btn { padding: 12px 24px; border: none; border-radius: var(--radius); font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px; }
@@ -507,7 +507,7 @@
         </div>
         <div class="chat-input-area">
             <div class="input-wrapper">
-              <textarea class="chat-input" id="chatInput" placeholder="Ask AI to help with a freelance task..." rows="2"></textarea>
+              <textarea class="chat-input" id="chatInput" placeholder="Ask AI to help with a freelance task..."></textarea>
               <button class="btn btn-primary send-btn" id="sendBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
             </div>
         </div>
@@ -619,20 +619,26 @@
     const $ = id => document.getElementById(id);
     const elements = { modelSelect: $('modelSelect'), chatMessages: $('chatMessages'), chatInput: $('chatInput'), sendBtn: $('sendBtn'), clearChatBtn: $('clearChat'), errorMessage: $('errorMessage'), errorText: $('errorText'), templatesGrid: $('templatesGrid'), tipText: $('tipText'), toast: $('toast') };
 
+    // Helper: auto-resize a textarea element to fit content, with max height handling
+    function autoResizeInput(el) {
+      try {
+        if (!el) return;
+        el.style.height = 'auto';
+        const viewportLimit = Math.floor(window.innerHeight * 0.45); // 45% of viewport
+        const maxAllowed = Math.max(200, viewportLimit);
+        const newHeight = Math.min(el.scrollHeight, maxAllowed);
+        el.style.height = newHeight + 'px';
+        el.style.overflowY = (el.scrollHeight > maxAllowed) ? 'auto' : 'hidden';
+      } catch (e) { /* ignore */ }
+    }
+
     function init() {
       renderTemplates();
       setupEventListeners();
       // Auto-resize the textarea; allow it to grow up to a percentage of the viewport
-      elements.chatInput.addEventListener('input', function() {
-        try {
-          this.style.height = 'auto';
-          const viewportLimit = Math.floor(window.innerHeight * 0.45); // 45% of viewport
-          const maxAllowed = Math.max(200, viewportLimit);
-          const newHeight = Math.min(this.scrollHeight, maxAllowed);
-          this.style.height = newHeight + 'px';
-          this.style.overflowY = (this.scrollHeight > maxAllowed) ? 'auto' : 'hidden';
-        } catch (e) { /* ignore */ }
-      });
+      elements.chatInput.addEventListener('input', function() { autoResizeInput(this); });
+      elements.chatInput.addEventListener('paste', function() { const self = this; setTimeout(() => autoResizeInput(self), 0); });
+      elements.chatInput.addEventListener('change', function() { autoResizeInput(this); });
       // Lock tip width to avoid shifts and then start rotating tips
       setStableTipWidth();
       rotateTips();
@@ -744,8 +750,9 @@
       if (!isMobile) {
         elements.chatInput.focus();
       }
-      elements.chatInput.style.height = 'auto';
-      elements.chatInput.style.height = elements.chatInput.scrollHeight + 'px';
+      // Resize the textarea to fit the inserted prompt (immediate + a short delayed pass to handle layout changes)
+      autoResizeInput(elements.chatInput);
+      setTimeout(() => autoResizeInput(elements.chatInput), 60);
       // On mobile, scroll the page all the way to the bottom so the chat area is visible
       if (isMobile) {
         setTimeout(() => {
