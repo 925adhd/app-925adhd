@@ -353,9 +353,10 @@
       .hero p { display: none; }
     }
     @media (max-width: 480px) {
-      .prompts-scroll { position: relative; padding-left: 28px; padding-right: 28px; }
-      .prompts-scroll::before, .prompts-scroll::after {
-        content: '';
+      .prompt-scroll-wrapper { position: relative; }
+
+      .prompt-scroll-wrapper::before,
+      .prompt-scroll-wrapper::after {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -365,8 +366,9 @@
         line-height: 1;
         text-shadow: 0 1px 0 rgba(0,0,0,0.6);
       }
-      .prompts-scroll::before { content: '‹'; left: 6px; }
-      .prompts-scroll::after { content: '›'; right: 6px; }
+
+      .prompt-scroll-wrapper::before { content: '‹'; left: 6px; }
+      .prompt-scroll-wrapper::after { content: '›'; right: 6px; }
     }
     .page-footer a { color: var(--brand); text-decoration: none; }
     .page-footer a:hover { text-decoration: underline; }
@@ -451,13 +453,15 @@
 
     <div class="tab-content active" id="playground-tab">
       <div class="ready-banner">
-        <div class="prompts-scroll" style="width:100%;">
-          <button class="prompt-btn" data-prompt="Write a polite but firm email to a client whose payment is 2 weeks overdue. Keep it professional and mention that I'll need to pause work until payment is received." data-category="client"><span class="icon">💰</span><span>Ask for Payment</span></button>
-          <button class="prompt-btn" data-prompt="Write a proposal for a website redesign project. Include an introduction about my approach, estimated timeline of 4-6 weeks, and why I'm a good fit. Keep it under 200 words." data-category="proposal"><span class="icon">📋</span><span>Make a Proposal</span></button>
-          <button class="prompt-btn" data-prompt="Help me write a response to a client who keeps adding new requests outside the original scope. I want to be firm but not lose the relationship." data-category="client"><span class="icon">🛑</span><span>Handle Extra Requests</span></button>
-          <button class="prompt-btn" data-prompt="Write a LinkedIn post about landing my first freelance client. Make it engaging, authentic, and include a subtle call-to-action. Keep it under 150 words." data-category="content"><span class="icon">📱</span><span>Write a LinkedIn Post</span></button>
-          <button class="prompt-btn" data-prompt="Help me write a polite but confident response declining a project offer because the budget is too low. Suggest that I'd be happy to discuss if their budget changes." data-category="client"><span class="icon">🙅</span><span>Say No to Low Pay</span></button>
-          <button class="prompt-btn" data-prompt="I'm stuck on how to find my first clients as a new freelancer. Can you help me brainstorm 3 different solutions with pros and cons for each?" data-category="problem"><span class="icon">🧠</span><span>Brainstorm Ideas</span></button>
+        <div class="prompt-scroll-wrapper" style="width:100%;">
+          <div class="prompts-scroll">
+            <button class="prompt-btn" data-prompt="Write a polite but firm email to a client whose payment is 2 weeks overdue. Keep it professional and mention that I'll need to pause work until payment is received." data-category="client"><span class="icon">💰</span><span>Ask for Payment</span></button>
+            <button class="prompt-btn" data-prompt="Write a proposal for a website redesign project. Include an introduction about my approach, estimated timeline of 4-6 weeks, and why I'm a good fit. Keep it under 200 words." data-category="proposal"><span class="icon">📋</span><span>Make a Proposal</span></button>
+            <button class="prompt-btn" data-prompt="Help me write a response to a client who keeps adding new requests outside the original scope. I want to be firm but not lose the relationship." data-category="client"><span class="icon">🛑</span><span>Handle Extra Requests</span></button>
+            <button class="prompt-btn" data-prompt="Write a LinkedIn post about landing my first freelance client. Make it engaging, authentic, and include a subtle call-to-action. Keep it under 150 words." data-category="content"><span class="icon">📱</span><span>Write a LinkedIn Post</span></button>
+            <button class="prompt-btn" data-prompt="Help me write a polite but confident response declining a project offer because the budget is too low. Suggest that I'd be happy to discuss if their budget changes." data-category="client"><span class="icon">🙅</span><span>Say No to Low Pay</span></button>
+            <button class="prompt-btn" data-prompt="I'm stuck on how to find my first clients as a new freelancer. Can you help me brainstorm 3 different solutions with pros and cons for each?" data-category="problem"><span class="icon">🧠</span><span>Brainstorm Ideas</span></button>
+          </div>
         </div>
       </div>
 
