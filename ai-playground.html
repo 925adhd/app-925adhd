@@ -114,8 +114,7 @@
     .badge-icon { font-size: 14px; filter: grayscale(1); opacity: 0.5; transition: all 0.3s ease; }
     .badge.unlocked .badge-icon { filter: none; opacity: 1; }
     .tabs-container { margin-bottom: 24px; }
-    .tabs { display: flex; gap: 8px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px; overflow-x: auto; scrollbar-width: none; }
-    .tabs::-webkit-scrollbar { display: none; }
+    .tabs { display: flex; gap: 8px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px; overflow-x: visible; flex-wrap: wrap; }
     .tab { flex: 1; min-width: fit-content; padding: 12px 20px; border: none; background: transparent; color: var(--text-muted); font-family: var(--font); font-size: 14px; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; }
     .tab:hover { color: var(--text); background: rgba(255,255,255,0.05); }
     .tab.active { background: var(--brand); color: var(--bg); }
@@ -282,6 +281,47 @@
       /* keep tabs in normal flow on mobile */
       .tabs { padding: 4px; }
     }
+
+    /* Visual hint that prompt pills are swipeable on narrow screens */
+    @media (max-width: 480px) {
+      .quick-prompts { position: relative; }
+
+      /* Right edge fade */
+      .quick-prompts::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 48px;
+        height: 100%;
+        pointer-events: none;
+        background: linear-gradient(
+          to left,
+          rgba(10,10,11,0.95),
+          rgba(10,10,11,0)
+        );
+      }
+
+      /* Chevron hint */
+      .quick-prompts::before {
+        content: "›";
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        color: rgba(232,232,237,0.5);
+        pointer-events: none;
+        animation: swipeHint 1.6s ease-in-out infinite;
+      }
+
+      @keyframes swipeHint {
+        0% { opacity: 0.3; transform: translate(0, -50%); }
+        50% { opacity: 0.8; transform: translate(-4px, -50%); }
+        100% { opacity: 0.3; transform: translate(0, -50%); }
+      }
+    }
+
     @keyframes badgeUnlock { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
     .badge.just-unlocked { animation: badgeUnlock 0.5s ease; }
     .page-footer { margin-top: 60px; padding: 30px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim); font-size: 13px; }
