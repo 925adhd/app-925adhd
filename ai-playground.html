@@ -375,6 +375,18 @@
 
       /* keep the inner row as the real scroller; add internal padding so pills don't sit under chevrons */
       .prompts-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; z-index: 1; padding-left: 20px; padding-right: 20px; }
+
+      /* When we want exactly two pills visible between chevrons, toggle this class via JS */
+      .prompt-scroll-wrapper.two-visible .prompts-scroll {
+        padding-left: 0; /* JS will set precise padding based on chevron width */
+        padding-right: 0;
+      }
+
+      .prompt-scroll-wrapper.two-visible .prompts-scroll .prompt-btn {
+        flex: 0 0 calc((var(--visible-width, 200px) - var(--prompts-gap, 8px)) / 2);
+        max-width: calc((var(--visible-width, 200px) - var(--prompts-gap, 8px)) / 2);
+        white-space: normal; /* allow wrapping inside constrained pill if needed */
+      }
     }
     .page-footer a { color: var(--brand); text-decoration: none; }
     .page-footer a:hover { text-decoration: underline; }
@@ -399,22 +411,7 @@
     </section>
 
 
-    <!-- Hidden progress placeholder (kept for JS compatibility) -->
-    <section class="progress-section" style="display:none;">
-      <div class="progress-header">
-        <div class="progress-title">Your AI Journey</div>
-        <div class="progress-stats"><span id="promptCount">0</span> prompts sent • <span id="badgeCount">0</span>/6 badges</div>
-      </div>
-      <div class="progress-bar-container"><div class="progress-bar" id="progressBar" style="width: 0%"></div></div>
-      <div class="badges-grid" id="badgesGrid">
-        <div class="badge" data-badge="first-prompt"><span class="badge-icon">🎯</span>First Prompt</div>
-        <div class="badge" data-badge="email-writer"><span class="badge-icon">✉️</span>Email Writer</div>
-        <div class="badge" data-badge="proposal-pro"><span class="badge-icon">📝</span>Proposal Pro</div>
-        <div class="badge" data-badge="client-whisperer"><span class="badge-icon">🤝</span>Client Whisperer</div>
-        <div class="badge" data-badge="content-creator"><span class="badge-icon">✨</span>Content Creator</div>
-        <div class="badge" data-badge="problem-solver"><span class="badge-icon">🧩</span>Problem Solver</div>
-      </div>
-    </section>
+    <!-- progress and badge UI removed -->
 
 
     <div class="tabs-container">
@@ -611,14 +608,12 @@
     let messages = [];
     let isLoading = false;
     let currentTipIndex = 0;
-    let progress = JSON.parse(localStorage.getItem('ai_playground_progress')) || { promptCount: 0, badges: [], categoriesUsed: [] };
 
     const $ = id => document.getElementById(id);
-    const elements = { modelSelect: $('modelSelect'), chatMessages: $('chatMessages'), chatInput: $('chatInput'), sendBtn: $('sendBtn'), clearChatBtn: $('clearChat'), errorMessage: $('errorMessage'), errorText: $('errorText'), promptCount: $('promptCount'), badgeCount: $('badgeCount'), progressBar: $('progressBar'), templatesGrid: $('templatesGrid'), tipText: $('tipText'), toast: $('toast') };
+    const elements = { modelSelect: $('modelSelect'), chatMessages: $('chatMessages'), chatInput: $('chatInput'), sendBtn: $('sendBtn'), clearChatBtn: $('clearChat'), errorMessage: $('errorMessage'), errorText: $('errorText'), templatesGrid: $('templatesGrid'), tipText: $('tipText'), toast: $('toast') };
 
     function init() {
       renderTemplates();
-      updateProgressUI();
       setupEventListeners();
       // Auto-resize the textarea; allow it to grow up to a percentage of the viewport
       elements.chatInput.addEventListener('input', function() {
@@ -677,7 +672,6 @@
         const data = await response.json();
         if (!data.success) throw new Error(data.error || 'Something went wrong');
         messages.push({ role: 'assistant', content: data.message });
-        trackPromptSent();
       } catch (error) {
         showError(error.message || 'Failed to get response. Please try again.');
         messages.pop();
@@ -741,30 +735,52 @@
       elements.chatInput.focus();
       elements.chatInput.style.height = 'auto';
       elements.chatInput.style.height = elements.chatInput.scrollHeight + 'px';
-      if (category && !progress.categoriesUsed.includes(category)) { progress.categoriesUsed.push(category); saveProgress(); checkBadges(); }
+      // no-op: badges/progress removed
     }
 
-    function trackPromptSent() { progress.promptCount++; saveProgress(); checkBadges(); updateProgressUI(); }
+    // Ensure exactly two prompt pills fit fully between the chevrons on small screens
+    function adjustPromptsTwoVisible() {
+      try {
+        const wrapper = document.querySelector('.prompt-scroll-wrapper');
+        const scroller = wrapper ? wrapper.querySelector('.prompts-scroll') : null;
+        if (!wrapper || !scroller) return;
+        const isMobile = window.matchMedia('(max-width:480px)').matches;
+        if (!isMobile) {
+          wrapper.classList.remove('two-visible');
+          scroller.style.removeProperty('--visible-width');
+          scroller.style.removeProperty('--prompts-gap');
+          scroller.style.removeProperty('padding-left');
+          scroller.style.removeProperty('padding-right');
+          return;
+        }
 
-    function checkBadges() {
-      const newBadges = [];
-      if (progress.promptCount >= 1 && !progress.badges.includes('first-prompt')) { progress.badges.push('first-prompt'); newBadges.push('First Prompt'); }
-      if (progress.categoriesUsed.includes('client') && !progress.badges.includes('email-writer')) { progress.badges.push('email-writer'); newBadges.push('Email Writer'); }
-      if (progress.categoriesUsed.includes('proposal') && !progress.badges.includes('proposal-pro')) { progress.badges.push('proposal-pro'); newBadges.push('Proposal Pro'); }
-      if (progress.promptCount >= 5 && progress.categoriesUsed.includes('client') && !progress.badges.includes('client-whisperer')) { progress.badges.push('client-whisperer'); newBadges.push('Client Whisperer'); }
-      if ((progress.categoriesUsed.includes('content') || progress.categoriesUsed.includes('social')) && !progress.badges.includes('content-creator')) { progress.badges.push('content-creator'); newBadges.push('Content Creator'); }
-      if ((progress.categoriesUsed.includes('problem') || progress.categoriesUsed.includes('pricing')) && !progress.badges.includes('problem-solver')) { progress.badges.push('problem-solver'); newBadges.push('Problem Solver'); }
-      if (newBadges.length > 0) { saveProgress(); updateProgressUI(); showToast('🎉 Badge unlocked: ' + newBadges.join(', ') + '!'); }
+        // Measure a chevron width by creating a hidden element with same font size
+        const meas = document.createElement('span');
+        meas.style.position = 'absolute'; meas.style.visibility = 'hidden'; meas.style.fontSize = '20px'; meas.style.lineHeight = '1'; meas.style.fontFamily = getComputedStyle(wrapper).fontFamily || 'inherit';
+        meas.textContent = '‹';
+        document.body.appendChild(meas);
+        const chevW = Math.ceil(meas.getBoundingClientRect().width) + 8; // add small padding
+        document.body.removeChild(meas);
+
+        const wrapperW = wrapper.clientWidth;
+        const gap = parseFloat(getComputedStyle(scroller).gap) || 8;
+        const visibleWidth = Math.max(80, wrapperW - (chevW * 2));
+
+        scroller.style.setProperty('--visible-width', visibleWidth + 'px');
+        scroller.style.setProperty('--prompts-gap', gap + 'px');
+        scroller.style.paddingLeft = chevW + 'px';
+        scroller.style.paddingRight = chevW + 'px';
+        wrapper.classList.add('two-visible');
+      } catch (e) { /* ignore measurement errors */ }
     }
 
-    function saveProgress() { localStorage.setItem('ai_playground_progress', JSON.stringify(progress)); }
+    // run on load and when viewport changes
+    window.addEventListener('DOMContentLoaded', adjustPromptsTwoVisible);
+    window.addEventListener('load', adjustPromptsTwoVisible);
+    window.addEventListener('resize', adjustPromptsTwoVisible);
+    window.addEventListener('orientationchange', adjustPromptsTwoVisible);
 
-    function updateProgressUI() {
-      elements.promptCount.textContent = progress.promptCount;
-      elements.badgeCount.textContent = progress.badges.length;
-      elements.progressBar.style.width = (progress.badges.length / 6) * 100 + '%';
-      document.querySelectorAll('.badge').forEach(badge => badge.classList.toggle('unlocked', progress.badges.includes(badge.dataset.badge)));
-    }
+    // Progress and badge functions removed — feature deprecated and cleaned up
 
     function rotateTips() { setInterval(() => { currentTipIndex = (currentTipIndex + 1) % tips.length; elements.tipText.style.opacity = '0'; setTimeout(() => { elements.tipText.textContent = tips[currentTipIndex]; elements.tipText.style.opacity = '1'; }, 300); }, 6000); }
 
