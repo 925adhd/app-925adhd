@@ -353,7 +353,7 @@
       .hero p { display: none; }
     }
     @media (max-width: 480px) {
-      .prompt-scroll-wrapper { position: relative; }
+      .prompt-scroll-wrapper { position: relative; overflow: visible; }
 
       .prompt-scroll-wrapper::before,
       .prompt-scroll-wrapper::after {
@@ -365,10 +365,14 @@
         font-size: 20px;
         line-height: 1;
         text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+        z-index: 10;
       }
 
       .prompt-scroll-wrapper::before { content: '‹'; left: 6px; }
       .prompt-scroll-wrapper::after { content: '›'; right: 6px; }
+
+      /* ensure the scrolling row remains the scrollable element */
+      .prompts-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; z-index: 1; }
     }
     .page-footer a { color: var(--brand); text-decoration: none; }
     .page-footer a:hover { text-decoration: underline; }
