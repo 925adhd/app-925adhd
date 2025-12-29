@@ -352,6 +352,35 @@
     @media (max-width: 480px) {
       .hero p { display: none; }
     }
+
+    /* Compact single-screen mobile layout: hide non-essential sections and
+       make chat area fill the viewport without overall page scroll. */
+    @media (max-width: 480px) {
+      html, body, .container { height: 100vh; }
+      body { overflow: hidden; padding-top: 60px; }
+
+      /* hide heavier UI that isn't needed for quick practice */
+      .hero, .tabs-container, .tips-banner, .progress-section, .templates-grid, .learn-grid, .page-footer { display: none !important; }
+
+      /* tighten ready banner and quick prompts */
+      .ready-banner { padding: 8px 12px; margin-bottom: 8px; }
+      .ready-text p { display: none; }
+      .quick-prompts { margin-top: 6px; }
+      .prompts-scroll { padding: 4px; gap: 6px; }
+
+      /* Make chat take remaining vertical space and be independently scrollable */
+      .chat-container { margin-bottom: 6px; display: flex; flex-direction: column; height: calc(100vh - 120px); }
+      .chat-messages { flex: 1; min-height: 0; max-height: none; overflow-y: auto; padding: 8px; }
+
+      /* Compact the empty state */
+      .empty-chat { padding: 8px 12px; }
+
+      /* Keep input area small and fixed so the page remains within one screen */
+      .chat-input-area { padding: 8px 10px; }
+      .input-wrapper { gap: 8px; }
+      .chat-input { min-height: 44px !important; max-height: 44px !important; height: 44px !important; overflow-y: hidden; }
+      .send-btn { width: 44px; height: 44px; }
+    }
     .page-footer a { color: var(--brand); text-decoration: none; }
     .page-footer a:hover { text-decoration: underline; }
   </style>
@@ -606,11 +635,19 @@
       elements.chatInput.addEventListener('input', function() {
         try {
           this.style.height = 'auto';
-          const viewportLimit = Math.floor(window.innerHeight * 0.45); // 45% of viewport
-          const maxAllowed = Math.max(200, viewportLimit);
+          const isNarrow = window.innerWidth <= 480;
+          // use a smaller portion of the viewport on very small screens so the
+          // entire UI can remain visible without page scrolling
+          const viewportLimit = Math.floor(window.innerHeight * (isNarrow ? 0.25 : 0.45));
+          const maxAllowed = isNarrow ? Math.max(120, viewportLimit) : Math.max(200, viewportLimit);
           const newHeight = Math.min(this.scrollHeight, maxAllowed);
           this.style.height = newHeight + 'px';
           this.style.overflowY = (this.scrollHeight > maxAllowed) ? 'auto' : 'hidden';
+          if (isNarrow) {
+            // clamp height strictly on narrow screens to keep layout in one view
+            this.style.height = Math.min(newHeight, 44) + 'px';
+            this.style.overflowY = 'hidden';
+          }
         } catch (e) { /* ignore */ }
       });
       // Lock tip width to avoid shifts and then start rotating tips
