@@ -174,6 +174,41 @@
     .send-btn svg { width: 18px; height: 18px; }
     .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+    /* Copy button in chat header */
+    .copy-btn { margin-left: 8px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); cursor: pointer; }
+    .copy-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); }
+
+    /* Modal shown after copying to remind user to remove extra AI response */
+    .copy-modal { position: fixed; inset: 0; display: none; align-items: flex-start; justify-content: center; z-index: 2000; }
+    .copy-modal.show { display: flex; }
+    .copy-modal .backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
+    .copy-modal .dialog { position: relative; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); padding: 18px; border-radius: 12px; max-width: 420px; width: calc(100% - 40px); box-shadow: 0 12px 40px rgba(0,0,0,0.6); z-index: 2; margin-top: 18vh; }
+
+    /* ADHD-friendly reminder styling inside modal */
+    .copy-modal .dialog .reminder-label {
+      color: var(--brand);
+      font-weight: 600;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 6px;
+    }
+    .copy-modal .dialog .reminder-label .icon { font-size: 16px; line-height: 1; }
+    .copy-modal .dialog .reminder-text {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    /* Mobile: nudge the modal further down so it doesn't sit under small headers */
+    @media (max-width: 480px) {
+      .copy-modal .dialog { margin-top: 30vh; }
+    }
+    .copy-modal .dialog h4 { margin-bottom: 8px; font-size: 16px; }
+    .copy-modal .dialog p { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
+    .copy-modal .dialog .ok-btn { padding: 8px 12px; border-radius: 8px; background: var(--brand); color: var(--bg); border: none; cursor: pointer; }
+
     /* reduce space below the chat card */
     .chat-container { margin-bottom: 12px; }
     .quick-prompts { margin-top: 24px; }
@@ -499,6 +534,10 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
               Clear
             </button>
+            <button class="copy-btn" id="copyBtn" title="Copy last AI response">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
           </div>
         </div>
         <div class="chat-messages" id="chatMessages">
@@ -578,6 +617,21 @@
   </div>
 
   <div class="toast" id="toast"></div>
+  <!-- Copy confirmation modal -->
+  <div class="copy-modal" id="copyModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="backdrop" id="copyModalBackdrop"></div>
+    <div class="dialog" role="document">
+      <h4>Copied!</h4>
+      <p><span class="reminder-label"><span class="icon">💡</span> Reminder</span><span class="reminder-text">remove any extra AI response lines or assistant labels before pasting this into your documents.</span></p>
+      <div style="margin-top:8px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <label style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-muted);">
+          <input type="checkbox" id="copyModalDontShow" />
+          Do not show this again
+        </label>
+        <div style="text-align:right"><button class="ok-btn" id="copyModalOk">OK</button></div>
+      </div>
+    </div>
+  </div>
   <script src="assets/layout.js"></script>
   <script>
     // CONFIG - UPDATE AFTER DEPLOYING EDGE FUNCTION
@@ -620,7 +674,7 @@
     let currentTipIndex = 0;
 
     const $ = id => document.getElementById(id);
-    const elements = { modelSelect: $('modelSelect'), chatMessages: $('chatMessages'), chatInput: $('chatInput'), sendBtn: $('sendBtn'), clearChatBtn: $('clearChat'), errorMessage: $('errorMessage'), errorText: $('errorText'), templatesGrid: $('templatesGrid'), tipText: $('tipText'), toast: $('toast') };
+    const elements = { modelSelect: $('modelSelect'), chatMessages: $('chatMessages'), chatInput: $('chatInput'), sendBtn: $('sendBtn'), clearChatBtn: $('clearChat'), copyBtn: $('copyBtn'), copyModal: $('copyModal'), copyModalOk: $('copyModalOk'), copyModalDontShow: $('copyModalDontShow'), errorMessage: $('errorMessage'), errorText: $('errorText'), templatesGrid: $('templatesGrid'), tipText: $('tipText'), toast: $('toast') };
 
     // Helper: auto-resize a textarea element to fit content, with max height handling
     function autoResizeInput(el) {
@@ -663,11 +717,55 @@
       elements.sendBtn.addEventListener('click', sendMessage);
       elements.chatInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
       elements.clearChatBtn.addEventListener('click', clearChat);
+      if (elements.copyBtn) elements.copyBtn.addEventListener('click', copyLastAssistant);
+      if (elements.copyModalOk) elements.copyModalOk.addEventListener('click', () => {
+        try { if (elements.copyModalDontShow && elements.copyModalDontShow.checked) localStorage.setItem('ai_copy_reminder_hide', '1'); } catch (e) {}
+        hideCopyModal();
+      });
+      const backdrop = document.getElementById('copyModalBackdrop'); if (backdrop) backdrop.addEventListener('click', () => {
+        try { if (elements.copyModalDontShow && elements.copyModalDontShow.checked) localStorage.setItem('ai_copy_reminder_hide', '1'); } catch (e) {}
+        hideCopyModal();
+      });
       document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
       document.querySelectorAll('.prompt-btn').forEach(btn => btn.addEventListener('click', () => usePrompt(btn.dataset.prompt, btn.dataset.category)));
       document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', () => filterTemplates(btn.dataset.filter)));
       document.querySelectorAll('.try-prompt-btn').forEach(btn => btn.addEventListener('click', () => { usePrompt(btn.dataset.prompt, 'learn'); switchTab('playground'); }));
     }
+
+    function copyLastAssistant() {
+      try {
+        const assistantMsgs = elements.chatMessages ? elements.chatMessages.querySelectorAll('.message.assistant .message-content') : [];
+        if (!assistantMsgs || assistantMsgs.length === 0) { showToast('No AI response to copy'); return; }
+        const last = assistantMsgs[assistantMsgs.length - 1];
+        const text = last ? last.innerText.trim() : '';
+        if (!text) { showToast('No AI response to copy'); return; }
+        // Attempt clipboard copy, but always show the reminder modal so users see the note
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showCopyModal();
+          }).catch(() => {
+            showCopyModal();
+            showToast('Copy failed — try selecting text manually');
+          });
+        } else {
+          // fallback: show modal and suggest manual copy
+          showCopyModal();
+          showToast('Clipboard not available — select text and copy manually');
+        }
+      } catch (e) { showCopyModal(); showToast('Copy failed'); }
+    }
+
+    function showCopyModal() {
+      try {
+        if (localStorage && localStorage.getItem && localStorage.getItem('ai_copy_reminder_hide') === '1') return; // user opted out
+      } catch (e) { /* ignore */ }
+      const m = document.getElementById('copyModal'); if (!m) return;
+      // ensure checkbox reflects current preference
+      try { const cb = document.getElementById('copyModalDontShow'); if (cb) cb.checked = (localStorage && localStorage.getItem && localStorage.getItem('ai_copy_reminder_hide') === '1'); } catch (e) {}
+      m.classList.add('show'); m.setAttribute('aria-hidden','false');
+    }
+
+    function hideCopyModal() { const m = document.getElementById('copyModal'); if (!m) return; m.classList.remove('show'); m.setAttribute('aria-hidden','true'); }
 
     async function sendMessage() {
       const content = elements.chatInput.value.trim();
