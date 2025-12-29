@@ -204,8 +204,8 @@
       .prompts-scroll .prompt-btn {
         flex: 0 0 auto;
         white-space: nowrap;
-        padding: 10px 14px;
-        font-size: 13px;
+        padding: 12px 18px;
+        font-size: 14px;
         border-radius: 999px;
         justify-content: center; /* center content horizontally */
         text-align: center; /* center multi-word labels */
@@ -739,7 +739,11 @@
 
     function usePrompt(prompt, category) {
       elements.chatInput.value = prompt;
-      elements.chatInput.focus();
+      // On mobile, avoid focusing the input to prevent opening the on-screen keyboard.
+      const isMobile = window.matchMedia('(max-width:480px)').matches;
+      if (!isMobile) {
+        elements.chatInput.focus();
+      }
       elements.chatInput.style.height = 'auto';
       elements.chatInput.style.height = elements.chatInput.scrollHeight + 'px';
       // no-op: badges/progress removed
@@ -771,7 +775,9 @@
 
         const wrapperW = wrapper.clientWidth;
         const gap = parseFloat(getComputedStyle(scroller).gap) || 8;
-        const visibleWidth = Math.max(80, wrapperW - (chevW * 2));
+        // Add a small extra allowance so pill text fits comfortably
+        const extraAllowance = 16;
+        const visibleWidth = Math.max(100, wrapperW - (chevW * 2) + extraAllowance);
 
         scroller.style.setProperty('--visible-width', visibleWidth + 'px');
         scroller.style.setProperty('--prompts-gap', gap + 'px');
