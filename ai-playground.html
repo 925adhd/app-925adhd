@@ -204,8 +204,8 @@
       .prompts-scroll .prompt-btn {
         flex: 0 0 auto;
         white-space: nowrap;
-        padding: 12px 18px;
-        font-size: 14px;
+        padding: 10px 14px;
+        font-size: 13px;
         border-radius: 999px;
         justify-content: center; /* center content horizontally */
         text-align: center; /* center multi-word labels */
@@ -775,9 +775,7 @@
 
         const wrapperW = wrapper.clientWidth;
         const gap = parseFloat(getComputedStyle(scroller).gap) || 8;
-        // Add a small extra allowance so pill text fits comfortably
-        const extraAllowance = 16;
-        const visibleWidth = Math.max(100, wrapperW - (chevW * 2) + extraAllowance);
+        const visibleWidth = Math.max(80, wrapperW - (chevW * 2));
 
         scroller.style.setProperty('--visible-width', visibleWidth + 'px');
         scroller.style.setProperty('--prompts-gap', gap + 'px');
@@ -788,10 +786,27 @@
     }
 
     // run on load and when viewport changes
-    window.addEventListener('DOMContentLoaded', adjustPromptsTwoVisible);
-    window.addEventListener('load', adjustPromptsTwoVisible);
-    window.addEventListener('resize', adjustPromptsTwoVisible);
-    window.addEventListener('orientationchange', adjustPromptsTwoVisible);
+    window.addEventListener('DOMContentLoaded', () => { adjustPromptsTwoVisible(); adjustPromptLabelsMobile(); });
+    window.addEventListener('load', () => { adjustPromptsTwoVisible(); adjustPromptLabelsMobile(); });
+    window.addEventListener('resize', () => { adjustPromptsTwoVisible(); adjustPromptLabelsMobile(); });
+    window.addEventListener('orientationchange', () => { adjustPromptsTwoVisible(); adjustPromptLabelsMobile(); });
+
+    // Remove specific leading words from prompt labels on mobile to save space
+    function adjustPromptLabelsMobile() {
+      try {
+        const isMobile = window.matchMedia('(max-width:480px)').matches;
+        document.querySelectorAll('.prompt-btn > span').forEach(span => {
+          if (!span.dataset.fullLabel) span.dataset.fullLabel = span.textContent;
+          const original = span.dataset.fullLabel;
+          if (isMobile) {
+            const stripped = original.replace(/^(Handle\s+)/i, '').replace(/^(Write a\s+)/i, '');
+            span.textContent = stripped;
+          } else {
+            span.textContent = original;
+          }
+        });
+      } catch (e) { /* ignore */ }
+    }
 
     // Progress and badge functions removed — feature deprecated and cleaned up
 
