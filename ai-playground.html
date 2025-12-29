@@ -183,6 +183,19 @@
     .prompts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
     /* Horizontal prompt pills that wrap so all are visible on any screen size */
     .prompts-scroll { display: flex; gap: 6px; padding: 4px 4px; flex-wrap: wrap; overflow-x: visible; align-items: center; }
+
+    /* Wrapper for overlay hints */
+    .prompt-scroll-wrapper { position: relative; width: 100%; }
+
+    /* Chevron hints */
+    .scroll-hint { position: absolute; top: 50%; transform: translateY(-50%); font-size: 22px; color: rgba(232,232,237,0.45); pointer-events: none; opacity: 0; transition: opacity 0.3s ease; }
+    .scroll-hint.left { left: 6px; }
+    .scroll-hint.right { right: 6px; }
+
+    /* Show only on mobile */
+    @media (max-width: 480px) {
+      .scroll-hint { opacity: 1; }
+    }
     .prompts-scroll::-webkit-scrollbar { display: none; }
     .prompts-scroll .prompt-btn { flex: 0 1 auto; min-width: 100px; border-radius: 999px; padding: 8px 10px; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; text-align: left; }
     .prompts-scroll .prompt-btn .icon { font-size: 16px; line-height: 1; }
@@ -435,13 +448,19 @@
 
     <div class="tab-content active" id="playground-tab">
       <div class="ready-banner">
-        <div class="prompts-scroll" style="width:100%;">
-          <button class="prompt-btn" data-prompt="Write a polite but firm email to a client whose payment is 2 weeks overdue. Keep it professional and mention that I'll need to pause work until payment is received." data-category="client"><span class="icon">💰</span><span>Ask for Payment</span></button>
-          <button class="prompt-btn" data-prompt="Write a proposal for a website redesign project. Include an introduction about my approach, estimated timeline of 4-6 weeks, and why I'm a good fit. Keep it under 200 words." data-category="proposal"><span class="icon">📋</span><span>Make a Proposal</span></button>
-          <button class="prompt-btn" data-prompt="Help me write a response to a client who keeps adding new requests outside the original scope. I want to be firm but not lose the relationship." data-category="client"><span class="icon">🛑</span><span>Handle Extra Requests</span></button>
-          <button class="prompt-btn" data-prompt="Write a LinkedIn post about landing my first freelance client. Make it engaging, authentic, and include a subtle call-to-action. Keep it under 150 words." data-category="content"><span class="icon">📱</span><span>Write a LinkedIn Post</span></button>
-          <button class="prompt-btn" data-prompt="Help me write a polite but confident response declining a project offer because the budget is too low. Suggest that I'd be happy to discuss if their budget changes." data-category="client"><span class="icon">🙅</span><span>Say No to Low Pay</span></button>
-          <button class="prompt-btn" data-prompt="I'm stuck on how to find my first clients as a new freelancer. Can you help me brainstorm 3 different solutions with pros and cons for each?" data-category="problem"><span class="icon">🧠</span><span>Brainstorm Ideas</span></button>
+        <div class="prompt-scroll-wrapper">
+          <span class="scroll-hint left">‹</span>
+
+          <div class="prompts-scroll" style="width:100%;">
+            <button class="prompt-btn" data-prompt="Write a polite but firm email to a client whose payment is 2 weeks overdue. Keep it professional and mention that I'll need to pause work until payment is received." data-category="client"><span class="icon">💰</span><span>Ask for Payment</span></button>
+            <button class="prompt-btn" data-prompt="Write a proposal for a website redesign project. Include an introduction about my approach, estimated timeline of 4-6 weeks, and why I'm a good fit. Keep it under 200 words." data-category="proposal"><span class="icon">📋</span><span>Make a Proposal</span></button>
+            <button class="prompt-btn" data-prompt="Help me write a response to a client who keeps adding new requests outside the original scope. I want to be firm but not lose the relationship." data-category="client"><span class="icon">🛑</span><span>Handle Extra Requests</span></button>
+            <button class="prompt-btn" data-prompt="Write a LinkedIn post about landing my first freelance client. Make it engaging, authentic, and include a subtle call-to-action. Keep it under 150 words." data-category="content"><span class="icon">📱</span><span>Write a LinkedIn Post</span></button>
+            <button class="prompt-btn" data-prompt="Help me write a polite but confident response declining a project offer because the budget is too low. Suggest that I'd be happy to discuss if their budget changes." data-category="client"><span class="icon">🙅</span><span>Say No to Low Pay</span></button>
+            <button class="prompt-btn" data-prompt="I'm stuck on how to find my first clients as a new freelancer. Can you help me brainstorm 3 different solutions with pros and cons for each?" data-category="problem"><span class="icon">🧠</span><span>Brainstorm Ideas</span></button>
+          </div>
+
+          <span class="scroll-hint right">›</span>
         </div>
       </div>
 
@@ -800,6 +819,19 @@
     function showError(message) { elements.errorText.textContent = message; elements.errorMessage.classList.add('show'); }
     function hideError() { elements.errorMessage.classList.remove('show'); }
     function showToast(message) { elements.toast.textContent = message; elements.toast.classList.add('show', 'success'); setTimeout(() => elements.toast.classList.remove('show', 'success'), 3000); }
+
+    // Scroll hint: hide chevrons after first interaction with the prompts scroll area
+    (function setupPromptScrollHints(){
+      try {
+        const promptScroll = document.querySelector('.prompts-scroll');
+        const hints = document.querySelectorAll('.scroll-hint');
+        if (!promptScroll || !hints || hints.length === 0) return;
+        const hideHints = () => hints.forEach(h => h.style.opacity = '0');
+        promptScroll.addEventListener('scroll', hideHints, { once: true, passive: true });
+        promptScroll.addEventListener('touchstart', hideHints, { once: true, passive: true });
+        promptScroll.addEventListener('click', hideHints, { once: true });
+      } catch (e) { /* ignore */ }
+    })();
 
     init();
   </script>
