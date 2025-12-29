@@ -385,7 +385,11 @@
       .prompt-scroll-wrapper.two-visible .prompts-scroll .prompt-btn {
         flex: 0 0 calc((var(--visible-width, 200px) - var(--prompts-gap, 8px)) / 2);
         max-width: calc((var(--visible-width, 200px) - var(--prompts-gap, 8px)) / 2);
-        white-space: normal; /* allow wrapping inside constrained pill if needed */
+        min-width: 0;
+        box-sizing: border-box;
+        white-space: nowrap; /* keep pill a single line */
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
     .page-footer a { color: var(--brand); text-decoration: none; }
