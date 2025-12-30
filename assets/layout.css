@@ -1,6 +1,7 @@
 /* layout.css (standardized, fixed heights) */
 :root{
   --brand:#56C3AE;
+  --cyan:#56C3AE;
   --bg:#0F0F0F;
   --card:#1A1A1A;
   --border:rgba(255,255,255,.10);
@@ -398,6 +399,24 @@ html, body {
 }
 
 /* Wider content on larger screens: use more horizontal space */
+
+/* TL;DR box for gig detail pages */
+.tldr-box {
+  background: linear-gradient(135deg, rgba(90,195,174,0.15), rgba(124,58,237,0.08));
+  border: 1px solid rgba(90,195,174,0.3);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.tldr-label {
+  font-weight: 700;
+  color: var(--cyan);
+  margin-right: 8px;
+}
+
 @media (min-width: 1100px) {
   main, .main-content, .gc {
     max-width: 1400px; /* allow content to stretch wider */
