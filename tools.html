@@ -189,83 +189,104 @@
     /* Section */
     .section { margin-bottom: 28px; }
     .section-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       margin-bottom: 14px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(4px);
     }
-    
-    .section-title .emoji { font-size: 20px; }
+
+    .section-title .emoji { font-size: 18px; }
     
     /* Tools Grid */
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+      align-items: start;
     }
     
     .tool-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
       text-align: center;
-      transition: all 0.2s;
+      transition: none;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     
     .tool-card:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transform: none;
+      box-shadow: none;
     }
     
     .tool-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      margin-bottom: 10px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
+      font-size: 48px;
       overflow: hidden;
+      background: transparent;
     }
     
     .tool-icon img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 14px;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .tool-icon img.small-logo {
+      width: 88px;
+      height: 88px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto;
     }
     
     .tool-card h3 {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 900;
       margin-bottom: 4px;
-      line-height: 1.3;
+      line-height: 1.1;
+      letter-spacing: 0.2px;
     }
     
     .tool-card p {
       font-size: 10px;
-      color: var(--text-muted);
-      line-height: 1.4;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.2;
+      margin: 0;
+      margin-top: 4px;
+      max-width: 160px;
     }
     
     /* Game Card */
     .game-card {
       background: linear-gradient(135deg, #6c5ce7 0%, #a855f7 100%);
-      border-radius: 14px;
-      padding: 18px 20px;
+      border-radius: 12px;
+      padding: 10px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-top: 8px;
-      transition: all 0.2s;
+      transition: all 0.12s;
     }
     
     .game-card:hover {
@@ -276,14 +297,15 @@
     .game-card-content {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
     }
     
     .game-card-icon { font-size: 32px; }
     
     .game-card h3 {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
+      margin: 0;
     }
     
     .game-card-arrow {
@@ -351,7 +373,8 @@
     @media (min-width: 600px) {
       .main-content { padding: 28px 24px; }
       .tools-grid { gap: 16px; }
-      .tool-icon { width: 64px; height: 64px; }
+      .tool-icon { width: 140px; height: 140px; font-size: 56px; }
+      .tool-icon img.small-logo { width: 110px; height: 110px; }
       .tool-card h3 { font-size: 13px; }
       .tool-card p { font-size: 11px; }
       .hero-logo { width: 80px; height: 80px; }
@@ -746,7 +769,7 @@
         
         <a href="https://www.brain.fm/925adhd" class="tool-card" target="_blank">
           <div class="tool-icon">
-            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gGKdFr4xAr4dXt6XV3rg/Logo%20(multicolored%20backround).png" alt="Brain.fm" onerror="this.parentElement.innerHTML='🎵'">
+            <img class="small-logo" src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/gGKdFr4xAr4dXt6XV3rg/Logo%20(multicolored%20backround).png" alt="Brain.fm" onerror="this.parentElement.innerHTML='🎵'">
           </div>
           <h3>Brain.fm</h3>
           <p>Focus music for ADHD</p>

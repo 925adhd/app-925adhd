@@ -1,24 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AI</title>
-  <meta name="theme-color" content="#56C3AE">
-  <style> :root{--bg:#0f0f0f;--text:#fff} body{background:var(--bg);color:var(--text);margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif} </style>
-</head>
-<body data-page-title="AI">
-  <script src="assets/layout.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#56C3AE">
   <title>AI for Beginners</title>
   <style>
     :root {
@@ -55,7 +43,6 @@
       background: var(--primary-bg);
       color: var(--text-primary);
       line-height: 1.8;
-      overflow-x: hidden;
     }
 
     /* Background Effects */
@@ -70,6 +57,7 @@
         radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
       z-index: -1;
       animation: gradientShift 20s ease-in-out infinite alternate;
+      pointer-events: none;
     }
 
     @keyframes gradientShift {
@@ -85,6 +73,7 @@
       opacity: 0.12;
       z-index: -1;
       animation: float 25s infinite ease-in-out;
+      pointer-events: none;
     }
 
     .orb-1 {
@@ -116,15 +105,13 @@
       padding: 0 20px;
     }
 
-    /* Header */
-    header {
-      background: rgba(15, 20, 25, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-subtle);
+    /* Page Header - NOT the site header */
+    .page-header {
+      background: transparent;
       padding: 2rem 0 1.5rem 0;
       text-align: center;
       position: relative;
-      z-index: 100;
+      z-index: 1;
     }
 
     h1 {
@@ -461,159 +448,155 @@
     }
 
     /* Mobile-First Responsive Design */
-    .container {
-      max-width: 100%;
-      padding: 0 12px;
-    }
+    @media (max-width: 767px) {
+      .container {
+        max-width: 100%;
+        padding: 0 12px;
+      }
 
-    /* Header Mobile Optimizations */
-    header {
-      padding: 1.5rem 0 1rem 0;
-    }
+      .page-header {
+        padding: 1.5rem 0 1rem 0;
+      }
 
-    h1 {
-      font-size: 1.6rem;
-      line-height: 1.1;
-      margin-bottom: 8px;
-    }
+      h1 {
+        font-size: 1.6rem;
+        line-height: 1.1;
+        margin-bottom: 8px;
+      }
 
-    .hero-subtitle {
-      font-size: 0.9rem;
-      padding: 0 10px;
-      line-height: 1.3;
-      margin-bottom: 0;
-    }
+      .hero-subtitle {
+        font-size: 0.9rem;
+        padding: 0 10px;
+        line-height: 1.3;
+        margin-bottom: 0;
+      }
 
-    /* Content Mobile Optimizations */
-    .content-section {
-      padding: 30px 0;
-    }
+      .content-section {
+        padding: 30px 0;
+      }
 
-    .section-card {
-      padding: 20px;
-      margin-bottom: 25px;
-      border-radius: 16px;
-    }
+      .section-card {
+        padding: 20px;
+        margin-bottom: 25px;
+        border-radius: 16px;
+      }
 
-    .section-header {
-      flex-direction: column;
-      text-align: center;
-      gap: 8px;
-      margin-bottom: 25px;
-    }
+      .section-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        margin-bottom: 25px;
+      }
 
-    .section-icon {
-      font-size: 2.5rem;
-    }
+      .section-icon {
+        font-size: 2.5rem;
+      }
 
-    .section-title {
-      font-size: 1.6rem;
-      line-height: 1.2;
-    }
+      .section-title {
+        font-size: 1.6rem;
+        line-height: 1.2;
+      }
 
-    .section-subtitle {
-      font-size: 1rem;
-    }
+      .section-subtitle {
+        font-size: 1rem;
+      }
 
-    .big-text {
-      font-size: 1.1rem;
-      margin: 25px 0;
-      padding: 0 5px;
-    }
+      .big-text {
+        font-size: 1.1rem;
+        margin: 25px 0;
+        padding: 0 5px;
+      }
 
-    /* Cards Mobile Optimizations */
-    .concept-grid, .tool-grid {
-      grid-template-columns: 1fr;
-      gap: 15px;
-      margin: 25px 0;
-    }
+      .concept-grid, .tool-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 25px 0;
+      }
 
-    .concept-card, .tool-card {
-      padding: 18px;
-      min-height: auto;
-    }
+      .concept-card, .tool-card {
+        padding: 18px;
+        min-height: auto;
+      }
 
-    .concept-emoji {
-      font-size: 2.2rem;
-      margin-bottom: 12px;
-    }
+      .concept-emoji {
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+      }
 
-    .concept-title, .tool-name {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
+      .concept-title, .tool-name {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+      }
 
-    .concept-desc, .tool-desc {
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
+      .concept-desc, .tool-desc {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
 
-    /* Steps Mobile Optimizations */
-    .steps-container {
-      gap: 20px;
-      margin: 25px 0;
-    }
+      .steps-container {
+        gap: 20px;
+        margin: 25px 0;
+      }
 
-    .step-card {
-      padding: 25px 20px;
-      padding-top: 35px;
-    }
+      .step-card {
+        padding: 25px 20px;
+        padding-top: 35px;
+      }
 
-    .step-number {
-      top: -12px;
-      left: 20px;
-      width: 35px;
-      height: 35px;
-      font-size: 1rem;
-    }
+      .step-number {
+        top: -12px;
+        left: 20px;
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
 
-    .step-title {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-      margin-top: 8px;
-    }
+      .step-title {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+        margin-top: 8px;
+      }
 
-    .step-desc {
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
+      .step-desc {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
 
-    /* Alert Mobile Optimizations */
-    .alert {
-      padding: 15px;
-      gap: 12px;
-      margin: 20px 0;
-      flex-direction: row;
-      align-items: flex-start;
-    }
+      .alert {
+        padding: 15px;
+        gap: 12px;
+        margin: 20px 0;
+        flex-direction: row;
+        align-items: flex-start;
+      }
 
-    .alert-icon {
-      font-size: 1.3rem;
-      margin-top: 1px;
-      flex-shrink: 0;
-    }
+      .alert-icon {
+        font-size: 1.3rem;
+        margin-top: 1px;
+        flex-shrink: 0;
+      }
 
-    .alert-title {
-      font-size: 1rem;
-      margin-bottom: 6px;
-    }
+      .alert-title {
+        font-size: 1rem;
+        margin-bottom: 6px;
+      }
 
-    /* Text Mobile Optimizations */
-    p {
-      font-size: 1rem;
-      margin-bottom: 15px;
-      line-height: 1.6;
-    }
+      p {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
 
-    li {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 10px;
-      padding-left: 25px;
-    }
+      li {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        padding-left: 25px;
+      }
 
-    li::before {
-      font-size: 1.1rem;
+      li::before {
+        font-size: 1.1rem;
+      }
     }
 
     /* Touch-Friendly Interactions */
@@ -626,81 +609,13 @@
       transform: scale(0.98);
     }
 
-    /* Tablet Adjustments */
-    @media (min-width: 768px) {
-      .container {
-        max-width: 900px;
-        padding: 0 20px;
-      }
-
-      header {
-        padding: 2rem 0 1.5rem 0;
-      }
-
-      h1 {
-        font-size: 2.2rem;
-        margin-bottom: 10px;
-      }
-
-      .hero-subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 0;
-      }
-
-      .section-card {
-        padding: 30px;
-      }
-
-      .section-title {
-        font-size: 2rem;
-      }
-
-      .concept-grid, .tool-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-      }
-    }
-
-    /* Desktop Adjustments */
-    @media (min-width: 1024px) {
-      .container {
-        max-width: 1000px;
-      }
-
-      header {
-        padding: 2.5rem 0 2rem 0;
-      }
-
-      h1 {
-        font-size: 2.8rem;
-        margin-bottom: 12px;
-      }
-
-      .hero-subtitle {
-        font-size: 1.2rem;
-        margin-bottom: 0;
-      }
-
-      .section-card {
-        padding: 40px;
-      }
-
-      .section-title {
-        font-size: 2.2rem;
-      }
-
-      .concept-grid, .tool-grid {
-        gap: 25px;
-      }
-    }
-
     /* Very Small Screens */
     @media (max-width: 360px) {
       .container {
         padding: 0 8px;
       }
 
-      header {
+      .page-header {
         padding: 1rem 0 0.75rem 0;
       }
 
@@ -733,19 +648,17 @@
     }
   </style>
 </head>
-<body>
+<body data-page-title="AI Made Simple">
   <div class="bg-gradient"></div>
   <div class="floating-orb orb-1"></div>
   <div class="floating-orb orb-2"></div>
 
-  <header>
-    <div class="container">
+  <div class="container">
+    <div class="page-header">
       <h1><span class="gradient-text">AI Made Simple</span></h1>
       <p class="hero-subtitle">A beginner's guide to using AI tools that actually helps</p>
     </div>
-  </header>
 
-  <div class="container">
     <div class="content-section">
 
       <!-- What is AI Section -->
@@ -1103,10 +1016,10 @@
     </div>
   </div>
 
+  <script src="assets/layout.js"></script>
   <script>
     // Enhanced mobile interactions
     document.querySelectorAll('.concept-card, .step-card, .tool-card').forEach(card => {
-      // Remove hover effects on mobile, add touch feedback
       if ('ontouchstart' in window) {
         card.addEventListener('touchstart', function() {
           this.style.transform = 'translateY(-3px) scale(1.01)';
@@ -1120,7 +1033,6 @@
           }, 100);
         });
       } else {
-        // Desktop hover effects
         card.addEventListener('mouseenter', function() {
           this.style.transform = 'translateY(-5px) scale(1.02)';
         });
@@ -1131,7 +1043,7 @@
       }
     });
 
-    // Optimize reading progress for mobile
+    // Reading progress bar
     function updateReadingProgress() {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -1143,12 +1055,12 @@
         progressBar.id = 'reading-progress';
         progressBar.style.cssText = `
           position: fixed;
-          top: 0;
+          top: 56px;
           left: 0;
           width: ${scrollPercent}%;
           height: 3px;
           background: linear-gradient(90deg, #4f46e5, #06b6d4);
-          z-index: 1000;
+          z-index: 9998;
           transition: width 0.2s ease;
           pointer-events: none;
         `;
@@ -1158,7 +1070,6 @@
       }
     }
 
-    // Throttle scroll events for better mobile performance
     let ticking = false;
     function requestTick() {
       if (!ticking) {
@@ -1170,9 +1081,6 @@
 
     window.addEventListener('scroll', requestTick, { passive: true });
     updateReadingProgress();
-
-    // Prevent zoom on input focus (if any inputs are added later)
-    document.addEventListener('touchstart', function() {}, { passive: true });
   </script>
 </body>
 </html>

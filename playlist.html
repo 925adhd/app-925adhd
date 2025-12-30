@@ -208,6 +208,24 @@
       background: rgba(0, 0, 0, 0.3);
     }
 
+    /* SoundCloud pill */
+    .sc-pill {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff5e57 0%, #ff7a7a 100%);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .sc-pill:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.32);
+    }
+
     .focus-indicator {
       position: absolute;
       top: 1rem;
@@ -265,6 +283,9 @@
       loading="lazy">
     </iframe>
     
+    <div style="text-align:center;margin-top:16px;">
+      <a class="sc-pill" href="https://on.soundcloud.com/xqmJSkN9Cd8VmvW4aH" target="_blank" rel="noopener noreferrer">Open in SoundCloud</a>
+    </div>
 
   </div>
   <script src="assets/layout.js"></script>
