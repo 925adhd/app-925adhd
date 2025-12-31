@@ -181,8 +181,8 @@
     /* The main card */
     .login-card {
       width: 100%;
-      max-width: 400px;
-      min-height: 520px;
+      max-width: 440px;
+      min-height: 560px;
       border-radius: var(--card-radius);
       position: relative;
       display: grid;
@@ -217,7 +217,7 @@
         linear-gradient(135deg, rgba(86, 195, 174, 0.05) 0%, transparent 50%),
         linear-gradient(225deg, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
         var(--card-bg);
-      padding: 40px 32px;
+      padding: 48px 40px;
       position: relative;
       z-index: 1;
     }
@@ -370,9 +370,9 @@
     }
     
     .logo-container {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 16px;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
       position: relative;
     }
     
@@ -390,10 +390,10 @@
     }
     
     .logo {
-      width: 72px;
-      height: 72px;
+      width: 80px;
+      height: 80px;
       background: linear-gradient(135deg, rgba(86, 195, 174, 0.2) 0%, rgba(168, 85, 247, 0.1) 100%);
-      border-radius: 18px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -402,15 +402,15 @@
     }
     
     .logo img {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
     }
     
     h1 {
       font-family: 'Space Mono', monospace;
       color: #fff;
-      font-size: 26px;
+      font-size: 30px;
       font-weight: 700;
       letter-spacing: -0.5px;
       margin-bottom: 8px;
@@ -671,6 +671,40 @@
     @keyframes successShimmer {
       0%, 100% { filter: brightness(1) contrast(1.5) saturate(2); }
       50% { filter: brightness(1.2) contrast(1.8) saturate(2.5); }
+    }
+    
+    /* Larger screens - even bigger card */
+    @media (min-width: 768px) {
+      .login-card {
+        max-width: 480px;
+        min-height: 600px;
+      }
+      
+      .card-inner {
+        padding: 56px 48px;
+      }
+      
+      .card-content {
+        gap: 28px;
+      }
+      
+      h1 {
+        font-size: 32px;
+      }
+      
+      .subtitle {
+        font-size: 15px;
+      }
+      
+      input[type="email"] {
+        padding: 18px 22px;
+        font-size: 17px;
+      }
+      
+      .btn {
+        padding: 18px 28px;
+        font-size: 17px;
+      }
     }
     
     /* Mobile adjustments */
