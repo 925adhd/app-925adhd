@@ -8,6 +8,15 @@
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#56C3AE">
+  <style id="layout-temp-style">
+    body:not(.has-site-layout) .top-header,
+    body:not(.has-site-layout) .header,
+    body:not(.has-site-layout) .bottom-nav,
+    body:not(.has-site-layout) .page-nav,
+    body:not(.has-site-layout) header:not(.site-header),
+    body:not(.has-site-layout) nav:not(.site-nav),
+    .back-btn, .back-button, button.back, a.back, .btn-back, .back, .back-arrow, .back-arrow-btn, .page-back, button[aria-label="Back"], .menu-btn { display: none !important; }
+  </style>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="925 ADHD">
@@ -22,7 +31,7 @@
       --card-hover: #222;
       --text: #ffffff;
       --text-muted: #888;
-      --brand: #7c3aed;
+      --brand: #56C3AE;
       --green: #22c55e;
       --yellow: #facc15;
       --orange: #f97316;
@@ -30,6 +39,10 @@
       --pink: #ec4899;
       --cyan: #5ac3ae;
       --red: #ef4444;
+    }
+    /* Page-specific: hide the inline brand on small screens so it doesn't sit behind the hamburger */
+    @media (max-width: 899px) {
+      .site-header .brand { display: none !important; }
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -373,7 +386,13 @@
   </style>
 </head>
 <body>
-  <div id="site-header"></div>
+  <header class="site-header" style="position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:var(--brand);padding:0 16px;z-index:10000;">
+    <button class="menu-btn" aria-label="Open menu" type="button" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text);font-size:22px;border-radius:10px;cursor:pointer;">☰</button>
+    <a class="brand" href="dashboard.html" aria-label="Home" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);">
+      <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="logo" class="brand-logo" width="28" height="28" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">
+      <span class="brand-name" style="font-size:16px;font-weight:800;color:var(--text);display:inline-block;">925 ADHD</span>
+    </a>
+  </header>
   
   <header class="header">
     <button class="back-btn" onclick="history.back()">←</button>
@@ -381,7 +400,7 @@
     <button class="fav-btn-header" id="favBtn">🤍</button>
   </header>
   
-  <main id="mainContent">
+  <main id="mainContent" style="visibility: hidden;">
     <div class="loading">
       <div class="loading-spinner"></div>
       <p>Loading opportunity details...</p>
@@ -390,8 +409,8 @@
   
   <div class="cta-section" id="ctaSection" style="display:none;">
     <div class="cta-container">
-      <a href="#" class="cta-btn cta-secondary" onclick="history.back()">← Back</a>
-      <a href="#" class="cta-btn cta-primary" id="ctaLink" target="_blank">Try This Opportunity →</a>
+      <a href="#" class="cta-btn cta-secondary" onclick="history.back()" style="background: var(--card); color: var(--text); border: 1px solid rgba(255,255,255,0.1);">← Back</a>
+      <a href="#" class="cta-btn cta-primary" id="ctaLink" target="_blank" style="background: #56C3AE; color: #ffffff;">Try This Opportunity →</a>
     </div>
   </div>
   
@@ -2103,35 +2122,143 @@ const gigData = {
   },
   'toptal': {
     name: 'Toptal',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/z6xQQ7MZhH05Jephsdwo.png',
-    link: 'https://toptal.com/',
-    rate: '$60–$150+/hr',
-    description: 'Elite 3% acceptance, premium clients',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
+    link: 'https://www.toptal.com/',
+    rate: '$60–$200+/hr',
+    description: 'Elite freelance network that only accepts the top 3% of applicants — high pay, premium clients, but extremely difficult to get in.',
     category: 'freelance',
-    intro: '**Toptal** is a high-end freelancing platform that connects top-tier talent with big companies for specialized projects. Think of it like the “Ivy League” of freelancing.  \nIt’s designed for experienced developers, designers, finance experts, and project managers who want to work with premium clients on long-term, high-paying contracts.',
-    whyAdhd: ['Structured projects with clear client expectations (less ambiguity).', 'Fewer but higher-quality clients (less juggling compared to Fiverr).', 'Longer-term contracts reduce the need to constantly chase new work.', 'Remote-first environment = flexibility in how and where you work.', 'Big, meaningful projects can keep ADHD hyperfocus engaged for weeks or months.'],
-    standOut: [],
-    importantNotes: ['The screening process is intense and not ADHD-friendly if you struggle with tests or long application steps.', 'Only suited for highly skilled professionals (coding, design, finance, etc.).', 'Competitive to get in—many talented people don’t make it past screening.', 'Less variety than gig-based platforms (work tends to be more structured and corporate).', 'If you thrive on quick novelty, the long contracts may feel monotonous.'],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '',
-    idealFor: ['Senior-level developers, designers, or finance experts.', 'ADHD professionals who do better with fewer, high-value clients.', 'Freelancers who want long-term stability but still enjoy remote work.', 'People tired of low-paying gigs and ready for premium clients.']
+    tldr: 'Premium freelance network (founded 2010, fully remote company). Only 3% of applicants accepted after brutal 4-step screening. Set your own rate ($60-200+/hr), keep 100% — no platform fees taken from freelancers. Toptal adds markup on client side. Best for experienced developers, designers, finance experts, and PMs. Not for beginners.',
+    intro: '<strong>Toptal</strong> is the Ivy League of freelance platforms. The name literally means "Top Talent" and they\'re serious about it — only ~3% of applicants make it through their multi-week screening process.\n\nFounded in 2010 by Taso Du Val and Breanden Beneschott. Fully remote company with no headquarters. $200M+ annual revenue. Clients include Microsoft, Airbnb, Pfizer, and Salesforce. If you get in, you get access to premium projects at premium rates.',
+    whyAdhd: [
+      'Set your own schedule and hours',
+      'No bidding wars — matched to projects',
+      'Toptal handles all client acquisition',
+      'Payment guaranteed and on time',
+      'Long-term engagements common',
+      'Work with interesting clients/projects'
+    ],
+    standOut: [
+      'Only accepts top 3% of applicants',
+      'No platform fees for freelancers',
+      'You set your own rate',
+      'Toptal handles invoicing and billing',
+      'Full-time, part-time, or hourly options',
+      'Trial period protects both sides',
+      '93% client satisfaction with first match',
+      'Global network — work from anywhere'
+    ],
+    importantNotes: [
+      '⚠️ Extremely difficult to get accepted',
+      '4-step screening takes 2-5 weeks',
+      'Step 1: English/communication interview (26.4% pass)',
+      'Step 2: Timed technical skills test (7.4% pass)',
+      'Step 3: Live coding/problem-solving screen (3.6% pass)',
+      'Step 4: Test project 1-3 weeks (3.2% pass)',
+      'Need 2-3+ years professional experience minimum',
+      'Limited fields: developers, designers, finance, PM only',
+      'No creatives like writers, photographers, video editors',
+      'Toptal reviews/approves your rate changes',
+      'Some reviews mention opaque markup (up to 50%)',
+      'Can reapply if rejected (waiting period required)'
+    ],
+    payoutInfo: [
+      'You set your own hourly rate',
+      'Typical rates: $60–$200+/hour',
+      'Top freelancers: $50K–$234K+/year',
+      'Toptal takes $0 from your rate',
+      'Clients pay Toptal rate (your rate + markup)',
+      'Payment via Hyperwallet',
+      'Automated billing — always paid on time',
+      'Full-time (40 hrs), part-time (20 hrs), or hourly'
+    ],
+    categories: [
+      'Software developers/engineers',
+      'UI/UX designers',
+      'Finance experts',
+      'Project managers',
+      'Product managers',
+      'Management consultants'
+    ],
+    finalTake: '<strong>Toptal is the gold standard for high-earning freelancers — if you can get in.</strong> The screening is brutal (only 3% make it), but once you\'re in, you get premium clients, set your own rate, keep 100% of earnings, and Toptal handles all the business headaches. Not for beginners or anyone outside tech/design/finance. If you have 3+ years of solid experience and can pass algorithm tests under pressure, it\'s absolutely worth applying.',
+    idealFor: [
+      'Experienced developers (2-3+ years)',
+      'Senior designers with strong portfolios',
+      'Finance professionals',
+      'Project/product managers',
+      'Anyone who wants premium rates without client hunting',
+      'NOT for beginners or career changers'
+    ]
   },
   'freelancer': {
-    name: 'Freelancer',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zp6u2DdwP3cg0mFJxlSy.png',
-    link: 'https://freelancer.com/',
-    rate: '$10–$80+/hr',
-    description: 'Competitive bidding platform',
+    name: 'Freelancer.com',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
+    link: 'https://www.freelancer.com/',
+    rate: 'Varies by project',
+    description: 'Massive bidding marketplace — post proposals on projects and compete for work. High volume, but race-to-bottom pricing is common.',
     category: 'freelance',
-    intro: '**Freelancer** is a global freelancing platform where clients post jobs and freelancers bid on them. Think of it like an online job board mixed with an auction.  \nIt’s designed for people with digital skills (writing, design, coding, marketing, admin work, etc.) who want to find short-term or long-term projects from clients worldwide.',
-    whyAdhd: ['Huge variety of projects to keep novelty-seekers engaged.', 'Flexible—you choose when and how much to work.', 'Built-in client pool (no need to cold pitch).', 'Clear task-based jobs instead of vague long-term commitments.', 'Good for experimenting with different types of work.'],
-    standOut: [],
-    importantNotes: ['Platform takes a 10% fee (or $5 minimum) on projects.', 'Very competitive—lots of freelancers bid low to win jobs.', 'Can be overwhelming with so many listings (filtering helps).', 'Some clients post vague or low-paying jobs—sorting through takes patience.', 'Premium membership unlocks more bids, but costs extra.'],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '',
-    idealFor: ['Beginners testing freelancing without committing to one niche.', 'ADHD folks who love variety and short, focused tasks.', 'Freelancers comfortable competing on bids.', 'People who want global access to clients.']
+    tldr: 'World\'s largest freelance marketplace by users (84M+ registered). Bid on projects, compete on price. You keep 90% (10% fee) or less with membership. Free members get limited bids. Contest feature lets you submit work speculatively. High volume but brutal competition.',
+    intro: '<strong>Freelancer.com</strong> is pure bidding warfare. Clients post jobs, freelancers submit proposals with price quotes, lowest bidder often wins. 84M+ users across 247 countries, 2,000+ skill categories.\n\nAustralian company (founded 2009, Sydney HQ). Publicly traded on ASX. Owns Escrow.com for payment security. Top categories: IT/software (34%), design (31%), writing (13%).',
+    whyAdhd: [
+      'Huge variety of project types',
+      'Work when you want',
+      'Small and large projects available',
+      'Contest mode = submit work, maybe win',
+      'Mobile app for bidding on-the-go',
+      'Milestone payments protect you'
+    ],
+    standOut: [
+      '84M+ registered users worldwide',
+      '2,000+ skill categories',
+      'Contest feature for design work',
+      'Escrow payment protection',
+      'Preferred Freelancer program (top 3%)',
+      'Time tracker for hourly work',
+      'Enterprise plan for steady work'
+    ],
+    importantNotes: [
+      '⚠️ 10% commission on earnings (or $5 min)',
+      'Free account = limited bids per month',
+      'Paid memberships for more bids/features',
+      'Brutal price competition — race to bottom',
+      'Many low-quality/scam postings to wade through',
+      'Contest work is speculative (might not win)',
+      'Disputes cost $5 or 5% per side',
+      'Upgrades (Featured, Urgent, NDA) add up fast',
+      'Reviews cite fake profiles and ghosting'
+    ],
+    payoutInfo: [
+      'You keep 90% (10% fee or $5 min)',
+      'Clients pay 3% fee on their end',
+      'Contest winners: 10% fee or $5',
+      'Milestone payments via escrow',
+      'Withdraw via PayPal, bank, Skrill',
+      'Paid memberships reduce fees slightly',
+      'XP rewards system (paid members only)'
+    ],
+    membershipTiers: [
+      'Free: Limited bids, basic features',
+      'Basic ($4.95/mo): 50 bids, basic skills',
+      'Plus ($9.95/mo): 100 bids, more features',
+      'Professional ($29.95/mo): 300 bids, priority',
+      'Premier ($59.95/mo): 1500 bids, lowest fees'
+    ],
+    categories: [
+      'IT & Software Development',
+      'Design & Creative',
+      'Writing & Content',
+      'Data Entry & Admin',
+      'Sales & Marketing',
+      'Engineering & Science',
+      'Legal & Finance'
+    ],
+    finalTake: '<strong>High volume but exhausting.</strong> You\'ll spend significant time writing proposals and competing on price with freelancers from lower cost-of-living countries. Best for: building initial portfolio, finding small quick gigs, or if you\'re willing to grind through the noise. The Preferred Freelancer program (top 3%) is worth aiming for — reduces the bidding chaos significantly.',
+    idealFor: [
+      'Beginners building a portfolio',
+      'Those willing to compete on price',
+      'Freelancers in lower-cost regions',
+      'People who like variety',
+      'NOT for those wanting premium rates'
+    ]
   },
   'amazonhandmade': {
     name: 'Amazon Handmade',
@@ -4277,14 +4404,54 @@ const gigData = {
       });
     }
     
-    // Initialize
+    // Initialize immediately (no waiting)
     if (gigId && gigData[gigId]) {
       renderGig(gigData[gigId]);
     } else {
       renderNotFound();
     }
+    // Reveal content after render (prevents flash of loading state)
+    const _mainEl = document.getElementById('mainContent');
+    if (_mainEl) _mainEl.style.visibility = 'visible';
   </script>
-    <div id="site-nav"></div>
+    <nav class="site-nav">
+      <div class="nav-items">
+        <a href="dashboard.html" class="nav-item"><span class="icon">🏠</span><span>Home</span></a>
+        <a href="guides.html" class="nav-item"><span class="icon">📖</span><span>Guides</span></a>
+        <a href="earn.html" class="nav-item"><span class="icon">💰</span><span>Earn</span></a>
+        <a href="apps.html" class="nav-item"><span class="icon">📱</span><span>Apps</span></a>
+        <a href="favorites.html" class="nav-item"><span class="icon">❤️</span><span>Saved</span></a>
+        <a href="tools.html" class="nav-item"><span class="icon">🛠️</span><span>Tools</span></a>
+      </div>
+    </nav>
     <script src="assets/layout.js"></script>
+    <script>
+      // Robust reveal: wait until layout populates header/nav, then show them.
+      (function(){
+        const h = document.getElementById('site-header');
+        const n = document.getElementById('site-nav');
+        const reveal = () => { if (h) h.style.visibility = 'visible'; if (n) n.style.visibility = 'visible'; };
+
+        // If already populated, reveal immediately
+        if ((h && h.children.length) || (n && n.children.length)) { reveal(); return; }
+
+        let revealed = false;
+        const tryReveal = () => {
+          if (revealed) return;
+          if ((h && h.children.length) || (n && n.children.length)) {
+            revealed = true;
+            reveal();
+            obs.disconnect();
+          }
+        };
+
+        const obs = new MutationObserver(() => tryReveal());
+        if (h) obs.observe(h, { childList: true, subtree: true, characterData: true });
+        if (n) obs.observe(n, { childList: true, subtree: true, characterData: true });
+
+        // Fallback: reveal after 800ms to avoid permanent hidden state
+        setTimeout(() => { if (!revealed) { revealed = true; reveal(); obs.disconnect(); } }, 800);
+      })();
+    </script>
 </body>
 </html>

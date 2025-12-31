@@ -8,6 +8,15 @@
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#56C3AE">
+  <style id="layout-temp-style">
+    body:not(.has-site-layout) .top-header,
+    body:not(.has-site-layout) .header,
+    body:not(.has-site-layout) .bottom-nav,
+    body:not(.has-site-layout) .page-nav,
+    body:not(.has-site-layout) header:not(.site-header),
+    body:not(.has-site-layout) nav:not(.site-nav),
+    .back-btn, .back-button, button.back, a.back, .btn-back, .back, .back-arrow, .back-arrow-btn, .page-back, button[aria-label="Back"], .menu-btn { display: none !important; }
+  </style>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="925 ADHD">
@@ -44,30 +53,6 @@
     }
     
     /* Header */
-    .battery{
-      --fill:50%;
-      --c1: rgba(80,200,120,.95);
-      --c2: rgba(80,200,120,.55);
-
-      position:relative;
-      flex:0 0 auto;
-      width:52px;
-      height:26px;
-      border-radius:8px;
-      border:2px solid rgba(255,255,255,.32);
-      background:transparent; /* no background so it appears to float */
-      box-shadow:0 8px 18px rgba(0,0,0,.28); /* subtle shadow to lift it */
-      overflow:visible;
-    }
-      left: 0;
-      background: none;
-      border: none;
-      padding: 4px 8px;
-      color: #0F0F0F;
-      font-size: 20px;
-      cursor: pointer;
-      text-decoration: none;
-    }
     
     .header h1 {
       font-size: 18px;
@@ -204,7 +189,7 @@
     .energy-card[data-level="hyper"] .battery{--c1: rgba(80,200,120,.95);--c2: rgba(80,200,120,.55)}
     .energy-card[data-level="hyper"] .battery-mouth{width:14px;height:7px;top:5px}
 
-    .battery{--fill:50%;--c1: rgba(80,200,120,.95);--c2: rgba(80,200,120,.55);position:relative;flex:0 0 auto;width:52px;height:26px;border-radius:8px;border:2px solid rgba(255,255,255,.32);background:rgba(0,0,0,.25);box-shadow:inset 0 0 0 1px rgba(0,0,0,.45), inset 0 10px 18px rgba(255,255,255,.06);overflow:hidden;transition:box-shadow .18s ease, transform .18s ease}
+    /* compact duplicate .battery removed (kept expanded readable definition above) */
 
     .energy-card[aria-pressed="true"] .battery{
       box-shadow: 0 0 20px 8px rgba(86, 195, 174, 0.4);
@@ -302,6 +287,9 @@
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+      /* Non-standard flag in some editors; provide progressive fallback */
+      line-clamp: 3;
+      max-height: calc(1.5em * 3);
       text-overflow: ellipsis;
     }
     
@@ -468,6 +456,9 @@
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      /* fallback for non-WebKit browsers */
+      line-clamp: 2;
+      max-height: calc(1.4em * 2);
       overflow: hidden;
     }
     
@@ -1255,7 +1246,40 @@
     }
 
     // Initialize
+    // Save scroll position before navigating away
+    function saveScrollPosition() {
+      sessionStorage.setItem('925adhd_earn_scroll', window.scrollY);
+    }
+
+    // Restore scroll position on page load (for back navigation)
+    function restoreScrollPosition() {
+      const savedScroll = sessionStorage.getItem('925adhd_earn_scroll');
+      if (savedScroll !== null) {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, parseInt(savedScroll, 10));
+        });
+      }
+    }
+
+    // Attach click handlers to gig cards to save scroll before navigating
+    function attachScrollSaveToCards() {
+      document.querySelectorAll('.gig-card').forEach(card => {
+        card.addEventListener('click', saveScrollPosition);
+      });
+    }
+
+    // Override renderGigs to also attach scroll save handlers
+    const originalRenderGigs = renderGigs;
+    renderGigs = function() {
+      originalRenderGigs();
+      attachScrollSaveToCards();
+    };
+
+    // Initialize
     renderGigs();
+
+    // Restore scroll position after render (handles back navigation)
+    restoreScrollPosition();
   </script>
   <script src="assets/layout.js"></script>
 </body>
