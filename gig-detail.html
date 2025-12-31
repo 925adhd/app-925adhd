@@ -406,6 +406,18 @@
       <p>Loading opportunity details...</p>
     </div>
   </main>
+
+  <script>
+    // If the detail page was opened from the listing, set the last-gig marker
+    // so the list page can restore scroll reliably when the user hits Back.
+    (function(){
+      try {
+        const params = new URLSearchParams(location.search);
+        const fromGig = params.get('fromGig');
+        if (fromGig) sessionStorage.setItem('925adhd_last_gig', fromGig);
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
   
   <div class="cta-section" id="ctaSection" style="display:none;">
     <div class="cta-container">
@@ -1097,19 +1109,82 @@ const gigData = {
   },
   'justanswer': {
     name: 'JustAnswer',
-    logo: 'https://via.placeholder.com/150?text=JustAnswer',
-    link: 'https://www.justanswer.com/experts',
-    rate: '$10–$50/hr',
-    description: 'Answer questions as a verified expert and earn for consultations.',
-    category: 'expert',
-    intro: '**JustAnswer** connects users with professionals who answer questions on medical, legal, tech and other expert topics. Experts earn based on answers and consultations.',
-    whyAdhd: ['High-skill work that can pay well for focused expertise', 'Sessions are often discrete and task-oriented'],
-    standOut: [],
-    importantNotes: ['Requires verification as an expert in your field', 'Not suitable for casual microtask seekers'],
-    payoutInfo: [],
-    taskTypes: ['Q&A consultations', 'Follow-up messaging'],
-    finalTake: '',
-    idealFor: ['Professionals with verified expertise']
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
+    link: 'https://www.justanswer.com/info/how-to-become-an-expert',
+    rate: '$2–$50+/answer',
+    description: 'Get paid to answer questions in your professional field — law, medicine, tech, auto repair, veterinary, and 150+ more categories.',
+    category: 'freelance',
+    tldr: 'Expert Q&A platform (founded 2003, San Francisco by Andy Kurtzig). 12,000+ verified experts answer questions from paying members. You see pay before accepting ($2-$50+ per answer). Top earners make $7,000-$15,000/month. 150+ categories: lawyers, doctors, mechanics, vets, tech support, appraisers. Third-party credential verification (4-7 days US, 2-4 weeks international). Monthly payout via PayPal/Payoneer, $40 minimum.',
+    intro: '<strong>JustAnswer</strong> connects paying customers with verified professionals who answer questions on-demand. Founded in 2003 when Andy Kurtzig wanted his pregnant wife to have 24/7 doctor access, it now operates in 196 countries with 16+ million users.\n\nYou answer questions via text chat, and customers can pay extra for phone calls. You see exactly what each question pays before accepting it — skip the $3 questions, grab the $30 ones. No bidding, no proposals, no chasing clients.',
+    whyAdhd: [
+      'See pay upfront — no guessing or negotiating',
+      'Skip questions that do not interest you',
+      'Short bursts of focused work',
+      'Variety of topics within your specialty',
+      'No client management or invoicing',
+      'Answer from phone app anywhere',
+      'No minimum hours or schedules'
+    ],
+    standOut: [
+      '150+ expert categories available',
+      'See exact pay before accepting questions',
+      'Phone calls pay more than text answers',
+      'Tips allowed on top of base pay',
+      'Charles Schwab on the board (legit company)',
+      '$50.7M in funding, 700+ employees',
+      'Mobile app for answering on-the-go',
+      'Secret shoppers ensure quality (keeps platform credible)',
+      'Advisory boards review answers'
+    ],
+    importantNotes: [
+      'Must be verified expert with credentials/experience',
+      'Verification takes 4-7 days (US/Canada), 2-4 weeks (international)',
+      'Need degree, certification, or 2-5+ years experience',
+      'Quality algorithm monitors your performance',
+      'Poor ratings can get you removed',
+      'Other experts can flag your answers',
+      'Secret shoppers test you periodically',
+      'Competitive — first expert to answer often wins',
+      '$40 minimum balance to withdraw',
+      'Monthly payouts (end of month)'
+    ],
+    payoutInfo: [
+      'Per-answer pay: $2-$50+ (you see before accepting)',
+      'Phone calls: Pay more than text',
+      'Tips: Customers can add extra',
+      'Top categories (monthly averages):',
+      '— Appraisals: $8,457/month',
+      '— Tech support: $7,612/month',
+      '— Homework help: $6,200/month',
+      '— Legal: $2,000-$7,000/month',
+      'Lowest: Wellness $1,167, General $614',
+      'Top individual earners: $10,000-$15,000/month',
+      'Payout: Monthly, $40 minimum',
+      'Methods: PayPal, Payoneer, direct deposit'
+    ],
+    taskTypes: [
+      'Legal questions — contracts, disputes, rights',
+      'Medical questions — symptoms, medications, second opinions',
+      'Veterinary — pet health, behavior, emergencies',
+      'Auto mechanics — diagnostics, repairs, maintenance',
+      'Tech support — computers, phones, software',
+      'Appraisals — antiques, art, collectibles',
+      'Tax and accounting questions',
+      'Home improvement and repair',
+      'Appliance troubleshooting',
+      'Mental health and counseling',
+      'RV and boat mechanics',
+      'Homework and tutoring help'
+    ],
+    finalTake: '<strong>Legit platform with real earning potential for credentialed professionals.</strong> Top earners (appraisers, mechanics, tech support) make $7,000-$15,000/month. The catch: brutal quality control. Secret shoppers, algorithm monitoring, expert flagging, and customer ratings all determine if you stay. Best for professionals with niche expertise who can answer quickly and accurately. Not for beginners — you need real credentials to get verified.',
+    idealFor: [
+      'Licensed professionals (lawyers, doctors, vets)',
+      'Certified technicians (ASE mechanics, IT certs)',
+      'Experts with 2-5+ years verifiable experience',
+      'Those who want short Q&A bursts, not long projects',
+      'People who hate proposals and client hunting',
+      'NOT for beginners without credentials'
+    ]
   },
   'pineconeresearch': {
     name: 'Pinecone Research',
@@ -2108,17 +2183,54 @@ const gigData = {
     name: 'Fiverr',
     logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Tji9gPHOWc8JX0Fr7lI6.png',
     link: 'https://fiverr.com/',
-    rate: '$5–$500+ per project',
-    description: '20% platform fee, project-based',
+    rate: '$5–$10,000+/gig',
+    description: 'Create fixed-price gigs and let clients come to you. No bidding required.',
     category: 'freelance',
-    intro: '**Fiverr** is a global freelancing marketplace where people sell digital services (called "gigs") starting at $5. Think of it like a digital job fair where you set up a booth and buyers come to hire you.  \nIt’s designed for freelancers, side hustlers, and creatives who want to make money online offering skills like writing, design, voice work, coding, and more.',
-    whyAdhd: [],
-    standOut: [],
-    importantNotes: ['Fiverr takes a 20% commission from each order.', 'The platform can feel competitive—standing out takes effort.', 'Buyers sometimes expect fast delivery at low prices.', 'Reviews are critical—one bad review can hurt sales.', 'Can be stressful if you overcommit or accept too many urgent gigs.'],
-    payoutInfo: [],
+    tldr: 'Create "gigs" with fixed prices — clients buy directly, no bidding. You keep 80% (Fiverr takes 20%). 3.6M+ buyers, 700+ categories. 14-day payment clearance.',
+    intro: '<strong>Fiverr</strong> flipped freelancing. Create service listings with set prices, clients buy directly. No proposals, no negotiations.\\n\\n3.6M active buyers, 160+ countries. $5 quick tasks to $10K+ projects. Fiverr Pro tier for vetted premium freelancers.',
+    whyAdhd: [
+      'No bidding or proposals — clients buy directly',
+      'Set your own prices and packages',
+      'Work when orders come in',
+      'Create multiple gigs for different services',
+      'Clear scope prevents scope creep',
+      'Repeat buyers = passive income potential'
+    ],
+    standOut: [
+      'No proposal writing — gigs sell themselves',
+      'Fixed pricing = no negotiations',
+      '700+ service categories',
+      'Mobile app for management',
+      'Fiverr Pro tier for premium freelancers',
+      'Payment held in escrow until delivery',
+      'Level system unlocks more features'
+    ],
+    importantNotes: [
+      '⚠️ Fiverr takes 20% of every sale (including tips)',
+      '14-day clearing period before withdrawal',
+      'New sellers start with limited visibility',
+      'Rating system is make-or-break',
+      'Some categories extremely saturated',
+      'Race-to-bottom pricing in some niches',
+      'Withdraw via PayPal, bank transfer, Payoneer'
+    ],
+    payoutInfo: [
+      'You keep 80% of each sale',
+      'Fiverr takes 20% commission (flat)',
+      '14-day clearance before withdrawal',
+      'Withdraw via PayPal, bank, Payoneer',
+      'All earnings in USD'
+    ],
     taskTypes: [],
-    finalTake: '',
-    idealFor: ['ADHD creatives who thrive on novelty and fast turnarounds.', 'People wanting to test a skill for side income.', 'Freelancers who don’t want to chase clients—clients come to you.', 'Sellers who enjoy variety and juggling multiple small projects.']
+    finalTake: '<strong>Ideal if you hate writing proposals and want clients to come to you.</strong> 20% fee is steep but you are paying for traffic. New sellers struggle until they build reviews — niche down, price low at first, raise rates once established.',
+    idealFor: [
+      'Designers and creatives',
+      'Writers and translators',
+      'Video/audio creators',
+      'Developers (small projects)',
+      'Anyone who hates proposals',
+      'Side hustlers testing skills'
+    ]
   },
   'toptal': {
     name: 'Toptal',

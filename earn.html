@@ -296,6 +296,19 @@
     .pro-tip strong {
       color: var(--purple);
     }
+    /* Make pro-tip expand on small screens so text isn't clipped */
+    @media (max-width: 480px) {
+      .pro-tip {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        display: block !important;
+        -webkit-line-clamp: unset !important;
+        line-clamp: unset !important;
+        font-size: 12px;
+        padding: 10px 12px;
+      }
+    }
     
     /* Results bar + filter UI */
     .results-bar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:10px 0 14px; }
@@ -932,7 +945,7 @@
           if (gig.fave) tags.push('<span class="tag fave">🥰 Favorite</span>');
           
           html += `
-            <a href="gig-detail.html?gig=${gig.id}" class="gig-card ${isFav ? 'favorite' : ''}" data-id="${gig.id}">
+            <a href="gig-detail.html?gig=${gig.id}&fromGig=${gig.id}" class="gig-card ${isFav ? 'favorite' : ''}" data-id="${gig.id}">
               <img src="images/${gig.id}.png" class="gig-logo" alt="${gig.name}" loading="lazy" onerror="attemptImageFallback(this,'${gig.id}','${gig.logo}')">
               <div class="gig-content">
                 <div class="gig-header">
@@ -1246,26 +1259,180 @@
     }
 
     // Initialize
-    // Save scroll position before navigating away
+    // Find the nearest scrollable ancestor of an element (or return `window`)
+    function getScrollContainer(el) {
+      if (!el) return window;
+      let node = el;
+      while (node && node !== document.documentElement) {
+        const style = window.getComputedStyle(node);
+        const overflowY = style ? style.overflowY : '';
+        if ((overflowY === 'auto' || overflowY === 'scroll') && node.scrollHeight > node.clientHeight) {
+          return node;
+        }
+        node = node.parentElement;
+      }
+      return window;
+    }
+
+    // Save scroll position before navigating away. Also save which container we used.
     function saveScrollPosition() {
-      sessionStorage.setItem('925adhd_earn_scroll', window.scrollY);
+      try {
+        const grid = document.getElementById('gigGrid');
+        const container = getScrollContainer(grid);
+        if (container === window) {
+          sessionStorage.setItem('925adhd_earn_scroll', String(window.scrollY || window.pageYOffset || 0));
+          sessionStorage.setItem('925adhd_scroll_container', 'window');
+        } else {
+          // Prefer storing an id selector when available
+          const id = container.id ? `#${container.id}` : null;
+          if (id) sessionStorage.setItem('925adhd_scroll_container', id);
+          else sessionStorage.setItem('925adhd_scroll_container', 'element');
+          sessionStorage.setItem('925adhd_earn_scroll', String(container.scrollTop || 0));
+        }
+      } catch (e) { /* ignore */ }
     }
 
     // Restore scroll position on page load (for back navigation)
     function restoreScrollPosition() {
+      // Prefer restoring by last-viewed gig (more reliable across navigation types)
+      const lastGig = sessionStorage.getItem('925adhd_last_gig');
       const savedScroll = sessionStorage.getItem('925adhd_earn_scroll');
+      const savedContainer = sessionStorage.getItem('925adhd_scroll_container') || 'window';
+      if (lastGig) {
+        // If the element is already present, scroll immediately
+        const attemptScroll = () => {
+          const elNow = document.querySelector(`.gig-card[data-id="${lastGig}"]`);
+          if (elNow) {
+            // If a custom container was used, ensure we scroll within that container.
+            try {
+              const container = (savedContainer && savedContainer !== 'window') ? document.querySelector(savedContainer) : getScrollContainer(elNow);
+              if (container && container !== window) {
+                // scroll the card into view within the container
+                elNow.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'auto' });
+              } else {
+                elNow.scrollIntoView({ block: 'center', behavior: 'auto' });
+              }
+            } catch (e) {
+              elNow.scrollIntoView({ block: 'center', behavior: 'auto' });
+            }
+            try { sessionStorage.removeItem('925adhd_last_gig'); } catch (e) {}
+            try { sessionStorage.removeItem('925adhd_earn_scroll'); } catch (e) {}
+            return true;
+          }
+          return false;
+        };
+
+        if (attemptScroll()) return;
+
+        // Otherwise observe the gig grid until it stabilizes, then scroll
+        const grid = document.querySelector('.gig-grid');
+        if (!grid) {
+          // fallback to absolute scroll after a short delay
+          if (savedScroll !== null) {
+            requestAnimationFrame(() => {
+              if (savedContainer && savedContainer !== 'window') {
+                const cont = document.querySelector(savedContainer);
+                if (cont) cont.scrollTop = parseInt(savedScroll, 10);
+                else window.scrollTo(0, parseInt(savedScroll, 10));
+              } else {
+                window.scrollTo(0, parseInt(savedScroll, 10));
+              }
+              try { sessionStorage.removeItem('925adhd_earn_scroll'); } catch(e){}
+            });
+          }
+          return;
+        }
+
+        let stabilityTimer = null;
+        const obs = new MutationObserver(() => {
+          if (stabilityTimer) clearTimeout(stabilityTimer);
+          stabilityTimer = setTimeout(() => {
+            if (attemptScroll()) {
+              obs.disconnect();
+            }
+          }, 250);
+        });
+        obs.observe(grid, { childList: true, subtree: true });
+
+        // Safety timeout: if nothing found after ~6s, fallback to absolute scroll
+        setTimeout(() => {
+          try { obs.disconnect(); } catch (e) {}
+          const elFinally = document.querySelector(`.gig-card[data-id="${lastGig}"]`);
+          if (elFinally) {
+            try {
+              if (savedContainer && savedContainer !== 'window') {
+                const cont = document.querySelector(savedContainer);
+                if (cont) elFinally.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'auto' });
+                else elFinally.scrollIntoView({ block: 'center', behavior: 'auto' });
+              } else {
+                elFinally.scrollIntoView({ block: 'center', behavior: 'auto' });
+              }
+            } catch (e) { elFinally.scrollIntoView({ block: 'center', behavior: 'auto' }); }
+            try { sessionStorage.removeItem('925adhd_last_gig'); } catch (e) {}
+            try { sessionStorage.removeItem('925adhd_earn_scroll'); } catch (e) {}
+            return;
+          }
+          if (savedScroll !== null) {
+            requestAnimationFrame(() => {
+              if (savedContainer && savedContainer !== 'window') {
+                const cont = document.querySelector(savedContainer);
+                if (cont) cont.scrollTop = parseInt(savedScroll, 10);
+                else window.scrollTo(0, parseInt(savedScroll, 10));
+              } else {
+                window.scrollTo(0, parseInt(savedScroll, 10));
+              }
+              try { sessionStorage.removeItem('925adhd_earn_scroll'); } catch(e){}
+            });
+          }
+        }, 6000);
+        return;
+      }
+
       if (savedScroll !== null) {
         requestAnimationFrame(() => {
-          window.scrollTo(0, parseInt(savedScroll, 10));
+          if (savedContainer && savedContainer !== 'window') {
+            const cont = document.querySelector(savedContainer);
+            if (cont) cont.scrollTop = parseInt(savedScroll, 10);
+            else window.scrollTo(0, parseInt(savedScroll, 10));
+          } else {
+            window.scrollTo(0, parseInt(savedScroll, 10));
+          }
+          try { sessionStorage.removeItem('925adhd_earn_scroll'); } catch (e) {}
         });
       }
     }
 
     // Attach click handlers to gig cards to save scroll before navigating
     function attachScrollSaveToCards() {
+      // Per-card listeners (attach to current nodes)
       document.querySelectorAll('.gig-card').forEach(card => {
-        card.addEventListener('click', saveScrollPosition);
+        card.removeEventListener('click', card._saveHandler);
+        card._saveHandler = function saveAndMark(ev) {
+          try {
+            saveScrollPosition();
+            const id = card.getAttribute('data-id') || card.dataset.id;
+            if (id) sessionStorage.setItem('925adhd_last_gig', id);
+          } catch (e) {}
+        };
+        card.addEventListener('click', card._saveHandler);
       });
+
+      // Delegated handler on the grid as a robust fallback (works if nodes are swapped)
+      const grid = document.getElementById('gigGrid');
+      if (grid && !grid._delegatedSaveHandler) {
+        grid._delegatedSaveHandler = function (ev) {
+          try {
+            const card = ev.target.closest && ev.target.closest('.gig-card');
+            if (!card) return;
+            const id = card.getAttribute('data-id') || card.dataset.id;
+            if (id) {
+              sessionStorage.setItem('925adhd_last_gig', id);
+              saveScrollPosition();
+            }
+          } catch (e) {}
+        };
+        grid.addEventListener('click', grid._delegatedSaveHandler, true);
+      }
     }
 
     // Override renderGigs to also attach scroll save handlers
@@ -1276,10 +1443,22 @@
     };
 
     // Initialize
+    // Prevent browser auto-restoration interfering with our manual logic
+    try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch (e) {}
     renderGigs();
 
     // Restore scroll position after render (handles back navigation)
     restoreScrollPosition();
+
+    // Save scroll when page is being hidden (covers some navigation types)
+    window.addEventListener('pagehide', function () { saveScrollPosition(); });
+
+    // When navigating back via bfcache, `pageshow` fires with `persisted===true`.
+    // Call restoreScrollPosition on pageshow to handle cache restores.
+    window.addEventListener('pageshow', function (e) {
+      // Always attempt to restore (covers both normal load and bfcache)
+      restoreScrollPosition();
+    });
   </script>
   <script src="assets/layout.js"></script>
 </body>
