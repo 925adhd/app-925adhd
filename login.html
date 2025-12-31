@@ -7,7 +7,7 @@
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#56C3AE">
+  <meta name="theme-color" content="#0a0a0f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="925 ADHD">
@@ -16,7 +16,47 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
   
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      /* Pointer tracking vars */
+      --pointer-x: 50%;
+      --pointer-y: 50%;
+      --pointer-from-center: 0;
+      --pointer-from-top: 0.5;
+      --pointer-from-left: 0.5;
+      --card-opacity: 0;
+      --rotate-x: 0deg;
+      --rotate-y: 0deg;
+      --background-x: 50%;
+      --background-y: 50%;
+      
+      /* Brand colors */
+      --teal: #56C3AE;
+      --teal-light: #7EE0D6;
+      --teal-glow: #56C3AE;
+      --purple: #A855F7;
+      --pink: #EC4899;
+      --blue: #3B82F6;
+      --dark: #0a0a0f;
+      --card-bg: #1a1a24;
+      
+      /* Holographic spectrum - teal/purple/pink focused */
+      --holo-1: #56C3AE;
+      --holo-2: #7EE0D6;
+      --holo-3: #A855F7;
+      --holo-4: #EC4899;
+      --holo-5: #3B82F6;
+      --holo-6: #22D3EE;
+      
+      --card-radius: 24px;
+      --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    
     * {
       box-sizing: border-box;
       margin: 0;
@@ -24,130 +64,441 @@
     }
     
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #56C3AE;
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: var(--dark);
+      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      overflow-x: hidden;
+      position: relative;
     }
     
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(86, 195, 174, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 60% at 50% 100%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      animation: bgPulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes bgPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--teal);
+      border-radius: 50%;
+      opacity: 0;
+      animation: float 15s infinite;
+    }
+    
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; background: var(--teal); }
+    .particle:nth-child(2) { left: 20%; animation-delay: 2s; background: var(--purple); }
+    .particle:nth-child(3) { left: 30%; animation-delay: 4s; background: var(--pink); }
+    .particle:nth-child(4) { left: 40%; animation-delay: 1s; background: var(--teal-light); }
+    .particle:nth-child(5) { left: 50%; animation-delay: 3s; background: var(--blue); }
+    .particle:nth-child(6) { left: 60%; animation-delay: 5s; background: var(--teal); }
+    .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; background: var(--purple); }
+    .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; background: var(--pink); }
+    .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; background: var(--teal); }
+    .particle:nth-child(10) { left: 15%; animation-delay: 3.5s; background: var(--blue); }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+      }
+    }
+    
+    /* Card wrapper with perspective */
+    .card-wrapper {
+      perspective: 1000px;
+      transform: translate3d(0, 0, 0.1px);
+      position: relative;
+      touch-action: none;
+      z-index: 10;
+    }
+    
+    /* Glow effect behind card */
+    .card-wrapper::before {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      border-radius: var(--card-radius);
+      background: 
+        radial-gradient(
+          farthest-side circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+          rgba(86, 195, 174, calc(var(--card-opacity) * 0.6)) 0%,
+          rgba(168, 85, 247, calc(var(--card-opacity) * 0.4)) 25%,
+          rgba(236, 72, 153, calc(var(--card-opacity) * 0.2)) 50%,
+          transparent 70%
+        ),
+        radial-gradient(ellipse 60% 40% at 30% 20%, rgba(86, 195, 174, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 50% at 70% 80%, rgba(168, 85, 247, 0.3) 0%, transparent 50%);
+      filter: blur(40px);
+      opacity: 0.5;
+      transition: all 0.5s ease;
+      transform: scale(0.85) translate3d(0, 0, 0.1px);
+    }
+    
+    .card-wrapper:hover::before,
+    .card-wrapper.active::before {
+      opacity: 1;
+      transform: scale(0.95) translate3d(0, 0, 0.1px);
+    }
+    
+    /* The main card */
     .login-card {
-      background: #2D2D2D;
-      border-radius: 24px;
-      padding: 48px 40px;
       width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
+      max-width: 400px;
+      min-height: 520px;
+      border-radius: var(--card-radius);
+      position: relative;
+      display: grid;
+      background: var(--card-bg);
+      box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 25px 50px -12px rgba(0, 0, 0, 0.8),
+        0 0 100px -20px rgba(86, 195, 174, 0.3);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      transform: translate3d(0, 0, 0.1px) rotateX(0deg) rotateY(0deg);
+      overflow: hidden;
+    }
+    
+    .login-card:hover,
+    .login-card.active {
+      transition: transform 0.1s ease;
+      transform: translate3d(0, 0, 0.1px) rotateX(var(--rotate-y)) rotateY(var(--rotate-x));
+      box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.15),
+        rgba(0, 0, 0, 0.9) calc((var(--pointer-from-left) * 30px) - 15px) calc((var(--pointer-from-top) * 40px) - 20px) 60px -10px,
+        0 0 120px -20px rgba(86, 195, 174, 0.5);
+    }
+    
+    .login-card > * {
+      grid-area: 1 / -1;
+    }
+    
+    /* Card inner background */
+    .card-inner {
+      border-radius: var(--card-radius);
+      background: 
+        linear-gradient(135deg, rgba(86, 195, 174, 0.05) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+        var(--card-bg);
+      padding: 40px 32px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Holographic shine layer */
+    .card-shine {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--card-radius);
+      z-index: 2;
+      pointer-events: none;
+      mix-blend-mode: color-dodge;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      
+      background: 
+        repeating-linear-gradient(
+          0deg,
+          var(--holo-1) 0%,
+          var(--holo-2) 14%,
+          var(--holo-3) 28%,
+          var(--holo-4) 42%,
+          var(--holo-5) 56%,
+          var(--holo-6) 70%,
+          var(--holo-1) 84%,
+          var(--holo-2) 100%
+        ),
+        repeating-linear-gradient(
+          133deg,
+          #0e152e 0%,
+          hsl(180, 10%, 60%) 3.8%,
+          hsl(180, 29%, 66%) 4.5%,
+          hsl(180, 10%, 60%) 5.2%,
+          #0e152e 10%,
+          #0e152e 12%
+        );
+      
+      background-size: 200% 400%, 300% 300%;
+      background-position: 0% var(--background-y), var(--background-x) var(--background-y);
+      background-blend-mode: color, hard-light;
+      filter: brightness(0.7) contrast(1.2) saturate(1.5);
+      
+      mask-image: 
+        radial-gradient(
+          farthest-corner circle at var(--pointer-x) var(--pointer-y),
+          rgba(0, 0, 0, 0.5) 0%,
+          rgba(0, 0, 0, 0.3) 30%,
+          rgba(0, 0, 0, 0.1) 60%,
+          transparent 80%
+        );
+    }
+    
+    .card-wrapper:hover .card-shine,
+    .card-wrapper.active .card-shine {
+      opacity: 0.6;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    @keyframes shimmer {
+      0%, 100% { filter: brightness(0.7) contrast(1.2) saturate(1.5); }
+      50% { filter: brightness(0.9) contrast(1.4) saturate(2); }
+    }
+    
+    /* Glare/reflection layer */
+    .card-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--card-radius);
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      
+      background: 
+        radial-gradient(
+          farthest-corner circle at var(--pointer-x) var(--pointer-y),
+          rgba(255, 255, 255, 0.25) 0%,
+          rgba(255, 255, 255, 0.1) 20%,
+          transparent 60%
+        );
+      
+      mix-blend-mode: overlay;
+    }
+    
+    .card-wrapper:hover .card-glare,
+    .card-wrapper.active .card-glare {
+      opacity: 1;
+    }
+    
+    /* Sparkle overlay */
+    .card-sparkle {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--card-radius);
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      background: var(--grain);
+      background-size: 150px 150px;
+      mix-blend-mode: overlay;
+      filter: contrast(150%) brightness(200%);
+    }
+    
+    .card-wrapper:hover .card-sparkle,
+    .card-wrapper.active .card-sparkle {
+      opacity: 0.08;
+    }
+    
+    /* Border glow */
+    .card-border {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--card-radius);
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      
+      border: 1px solid transparent;
+      background: 
+        linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+        linear-gradient(
+          calc(var(--pointer-from-left) * 360deg),
+          var(--teal),
+          var(--purple),
+          var(--pink),
+          var(--teal)
+        ) border-box;
+    }
+    
+    .card-wrapper:hover .card-border,
+    .card-wrapper.active .card-border {
+      opacity: 0.6;
+    }
+    
+    /* Content styling */
+    .card-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    /* Header section */
+    .card-header {
       text-align: center;
+      margin-bottom: 8px;
+    }
+    
+    .logo-container {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 16px;
+      position: relative;
+    }
+    
+    .logo-glow {
+      position: absolute;
+      inset: -8px;
+      background: radial-gradient(circle, rgba(86, 195, 174, 0.4) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+    
+    @keyframes logoGlow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
     }
     
     .logo {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 20px;
-      background: rgba(86, 195, 174, 0.15);
-      border-radius: 16px;
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, rgba(86, 195, 174, 0.2) 0%, rgba(168, 85, 247, 0.1) 100%);
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      border: 1px solid rgba(86, 195, 174, 0.3);
     }
     
     .logo img {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
     }
     
     h1 {
+      font-family: 'Space Mono', monospace;
       color: #fff;
-      font-size: 28px;
-      font-weight: 800;
-      margin-bottom: 12px;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff 0%, var(--teal-light) 50%, var(--purple) 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleShine 4s ease infinite;
+    }
+    
+    @keyframes titleShine {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     
     .subtitle {
-      color: rgba(255,255,255,.6);
-      font-size: 15px;
-      line-height: 1.5;
-      margin-bottom: 32px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 400;
     }
     
+    /* Form elements */
     .input-group {
-      margin-bottom: 20px;
+      position: relative;
     }
     
     input[type="email"] {
       width: 100%;
       padding: 16px 20px;
-      background: transparent;
-      border: 2px solid #56C3AE;
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
       color: #fff;
+      font-family: 'Outfit', sans-serif;
       font-size: 16px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all 0.3s ease;
     }
     
     input[type="email"]::placeholder {
-      color: rgba(255,255,255,.5);
+      color: rgba(255, 255, 255, 0.35);
     }
     
     input[type="email"]:focus {
-      border-color: #7EE0D6;
+      border-color: var(--teal);
+      background: rgba(86, 195, 174, 0.05);
+      box-shadow: 0 0 0 3px rgba(86, 195, 174, 0.1), 0 0 20px -5px rgba(86, 195, 174, 0.3);
     }
     
-    .checkbox-group {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      text-align: left;
-      margin-bottom: 24px;
-    }
-    
-    .checkbox-group input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      accent-color: #56C3AE;
-      cursor: pointer;
-    }
-    
-    .checkbox-group label {
-      color: rgba(255,255,255,.6);
-      font-size: 14px;
-      line-height: 1.4;
-    }
-    
-    .checkbox-group a {
-      color: #56C3AE;
-      text-decoration: none;
-    }
-    
-    .checkbox-group a:hover {
-      text-decoration: underline;
-    }
-    
+    /* Buttons */
     .btn {
       width: 100%;
       padding: 16px 24px;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
+      font-family: 'Outfit', sans-serif;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
     
     .btn-primary {
-      background: #56C3AE;
-      color: #2D2D2D;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+      color: #0a0a0f;
+      box-shadow: 0 4px 15px -3px rgba(86, 195, 174, 0.4);
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--teal-light) 0%, #fff 50%, var(--teal-light) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
     
     .btn-primary:hover:not(:disabled) {
-      background: #7EE0D6;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px -5px rgba(86, 195, 174, 0.5);
+    }
+    
+    .btn-primary:hover:not(:disabled)::before {
+      opacity: 0.2;
     }
     
     .btn-primary:disabled {
@@ -155,11 +506,15 @@
       cursor: not-allowed;
     }
     
+    .btn-primary span {
+      position: relative;
+      z-index: 1;
+    }
+    
     .divider {
       display: flex;
       align-items: center;
       gap: 16px;
-      margin: 24px 0;
     }
     
     .divider::before,
@@ -167,27 +522,30 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: rgba(255,255,255,.15);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
     }
     
     .divider span {
-      color: rgba(255,255,255,.4);
-      font-size: 13px;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     
     .btn-google {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,.2);
-      color: rgba(255,255,255,.8);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
     }
     
     .btn-google:hover {
-      background: rgba(255,255,255,.05);
-      border-color: rgba(255,255,255,.3);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
     }
     
     .btn-google img {
@@ -195,44 +553,65 @@
       height: 20px;
     }
     
+    /* Messages */
     .message {
       padding: 14px 18px;
-      border-radius: 10px;
-      margin-bottom: 20px;
+      border-radius: 12px;
       font-size: 14px;
       display: none;
+      text-align: center;
     }
     
     .message.success {
-      background: rgba(34, 197, 94, 0.15);
-      border: 1px solid rgba(34, 197, 94, 0.3);
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
       color: #4ADE80;
       display: block;
+      animation: messageIn 0.4s ease;
     }
     
     .message.error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
       color: #F87171;
       display: block;
+      animation: messageIn 0.4s ease;
     }
     
-    .signup-link {
-      margin-top: 24px;
-      color: rgba(255,255,255,.5);
-      font-size: 14px;
-    }
-    
-    .signup-link a {
-      color: #56C3AE;
+    .message a {
+      color: var(--teal);
       text-decoration: none;
       font-weight: 600;
     }
     
-    .signup-link a:hover {
+    .message a:hover {
       text-decoration: underline;
     }
     
+    @keyframes messageIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Signup link */
+    .signup-link {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 14px;
+    }
+    
+    .signup-link a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    
+    .signup-link a:hover {
+      color: var(--teal-light);
+    }
+    
+    /* Loading spinner */
     .loading {
       display: inline-block;
       width: 18px;
@@ -242,67 +621,306 @@
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
       margin-right: 8px;
+      vertical-align: middle;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-
+    
+    /* Member badge teaser */
+    .member-badge-teaser {
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    
+    .badge-icon {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--purple) 100%);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+    
+    /* Success state - legendary reveal */
+    .card-wrapper.success .login-card {
+      animation: legendaryPulse 2s ease infinite;
+    }
+    
+    .card-wrapper.success .card-shine {
+      opacity: 0.8 !important;
+      animation: successShimmer 1s ease infinite !important;
+    }
+    
+    @keyframes legendaryPulse {
+      0%, 100% { box-shadow: 0 0 0 1px rgba(86, 195, 174, 0.3), 0 0 60px -10px rgba(86, 195, 174, 0.6); }
+      50% { box-shadow: 0 0 0 1px rgba(86, 195, 174, 0.5), 0 0 80px -10px rgba(168, 85, 247, 0.6); }
+    }
+    
+    @keyframes successShimmer {
+      0%, 100% { filter: brightness(1) contrast(1.5) saturate(2); }
+      50% { filter: brightness(1.2) contrast(1.8) saturate(2.5); }
+    }
+    
+    /* Mobile adjustments */
     @media (max-width: 480px) {
       body {
-        align-items: flex-start;
-        padding-top: 24px;
+        padding: 16px;
+        justify-content: flex-start;
+        padding-top: 40px;
       }
-
+      
       .login-card {
-        padding: 36px 24px;
+        min-height: auto;
+      }
+      
+      .card-inner {
+        padding: 32px 24px;
+      }
+      
+      h1 {
+        font-size: 22px;
+      }
+      
+      .member-badge-teaser {
+        display: none;
+      }
+    }
+    
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 <body>
-  <div id="site-header"></div>
-  <div class="login-card">
-      <div class="logo">
-        <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="925 ADHD">
-      </div>
-    
-    <h1>925 ADHD</h1>
-    <p class="subtitle">Flexible, ADHD-friendly ways to earn online.<br>Already joined? Log in below</p>
-    
-    <div id="message" class="message"></div>
-    
-    <form id="loginForm">
-      <div class="input-group">
-        <input 
-          type="email" 
-          id="email" 
-          placeholder="Enter your email" 
-          required
-          autocomplete="email"
-        >
-      </div>
+  <!-- Floating particles background -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  
+  <div class="card-wrapper">
+    <div class="login-card">
+      <!-- Holographic effect layers -->
+      <div class="card-shine"></div>
+      <div class="card-glare"></div>
+      <div class="card-sparkle"></div>
+      <div class="card-border"></div>
       
-      <button type="submit" class="btn btn-primary" id="submitBtn">
-        Continue
-      </button>
-    </form>
+      <!-- Content -->
+      <div class="card-inner">
+        <div class="card-content">
+          <div class="card-header">
+            <div class="logo-container">
+              <div class="logo-glow"></div>
+              <div class="logo">
+                <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="925 ADHD">
+              </div>
+            </div>
+            <h1>925 ADHD</h1>
+            <p class="subtitle">Your portal to ADHD-friendly income.<br>Unlock your dashboard below.</p>
+          </div>
+          
+          <div id="message" class="message"></div>
+          
+          <form id="loginForm">
+            <div class="card-content" style="gap: 16px;">
+              <div class="input-group">
+                <input 
+                  type="email" 
+                  id="email" 
+                  placeholder="Enter your email" 
+                  required
+                  autocomplete="email"
+                >
+              </div>
+              
+              <button type="submit" class="btn btn-primary" id="submitBtn">
+                <span>Continue</span>
+              </button>
+            </div>
+          </form>
+          
+          <div class="divider"><span>or</span></div>
+          
+          <button class="btn btn-google" id="googleBtn">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+            Continue with Google
+          </button>
+          
+          <p class="signup-link">
+            Don't have an account? <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </div>
     
-    <div class="divider"><span>or</span></div>
-    
-    <button class="btn btn-google" id="googleBtn">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-      Continue with Google
-    </button>
-    
-    <p class="signup-link">
-      Don't have an account? <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05">Sign up</a>
-    </p>
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Initialize Supabase
+    // ========================================
+    // HOLOGRAPHIC CARD INTERACTION (Desktop Only)
+    // ========================================
+    
+    const $wrap = document.querySelector(".card-wrapper");
+    const $card = document.querySelector(".login-card");
+    
+    // Detect mobile/touch devices
+    const isMobile = () => {
+      return window.matchMedia("(max-width: 768px)").matches || 
+             window.matchMedia("(pointer: coarse)").matches ||
+             'ontouchstart' in window;
+    };
+    
+    // On mobile, just show a nice static glow state
+    if (isMobile()) {
+      $wrap.classList.add("active");
+      $card.classList.add("active");
+      // Set centered values for a nice static look
+      $wrap.style.setProperty('--pointer-x', '50%');
+      $wrap.style.setProperty('--pointer-y', '50%');
+      $wrap.style.setProperty('--background-x', '50%');
+      $wrap.style.setProperty('--background-y', '50%');
+      $wrap.style.setProperty('--pointer-from-center', '0');
+      $wrap.style.setProperty('--pointer-from-top', '0.5');
+      $wrap.style.setProperty('--pointer-from-left', '0.5');
+      $wrap.style.setProperty('--rotate-x', '0deg');
+      $wrap.style.setProperty('--rotate-y', '0deg');
+    } else {
+      // Desktop: full interactive experience
+      const round = (value, precision = 3) => parseFloat(value.toFixed(precision));
+      const clamp = (value, min = 0, max = 100) => Math.min(Math.max(value, min), max);
+      const adjust = (value, fromMin, fromMax, toMin, toMax) => {
+        return round(toMin + ((toMax - toMin) * (value - fromMin)) / (fromMax - fromMin));
+      };
+      
+      function ease(x) {
+        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+      }
+      
+      function easedAnimation(durationMs, onProgress, onComplete) {
+        let startTime = performance.now();
+        let canceled = false;
+        
+        function loop() {
+          if (canceled) return;
+          const progress = Math.min((performance.now() - startTime) / durationMs, 1);
+          onProgress(ease(progress));
+          if (progress < 1) {
+            requestAnimationFrame(loop);
+          } else if (onComplete) {
+            onComplete();
+          }
+        }
+        loop();
+        return { cancel: () => { canceled = true; } };
+      }
+      
+      const cardUpdate = (e) => {
+        const rect = $card.getBoundingClientRect();
+        const l = e.clientX - rect.left;
+        const t = e.clientY - rect.top;
+        const h = rect.height;
+        const w = rect.width;
+        
+        const px = clamp((100 / w) * l, 0, 100);
+        const py = clamp((100 / h) * t, 0, 100);
+        const cx = px - 50;
+        const cy = py - 50;
+        
+        $wrap.style.setProperty('--pointer-x', `${px}%`);
+        $wrap.style.setProperty('--pointer-y', `${py}%`);
+        $wrap.style.setProperty('--background-x', `${adjust(px, 0, 100, 35, 65)}%`);
+        $wrap.style.setProperty('--background-y', `${adjust(py, 0, 100, 35, 65)}%`);
+        $wrap.style.setProperty('--pointer-from-center', clamp(Math.sqrt(cy * cy + cx * cx) / 50, 0, 1));
+        $wrap.style.setProperty('--pointer-from-top', py / 100);
+        $wrap.style.setProperty('--pointer-from-left', px / 100);
+        $wrap.style.setProperty('--rotate-x', `${round(-(cx / 3.5))}deg`);
+        $wrap.style.setProperty('--rotate-y', `${round(cy / 4)}deg`);
+      };
+      
+      let easer;
+      const halfW = () => $card.clientWidth / 2;
+      const halfH = () => $card.clientHeight / 2;
+      
+      $card.addEventListener("pointerenter", (e) => {
+        if (e.pointerType === "touch") return; // Ignore touch
+        if (easer) easer.cancel();
+        $card.classList.add("active");
+        $wrap.classList.add("active");
+      });
+      
+      $card.addEventListener("pointermove", (e) => {
+        if (e.pointerType === "touch") return; // Ignore touch
+        cardUpdate(e);
+      });
+      
+      $card.addEventListener("pointerleave", (e) => {
+        if (e.pointerType === "touch") return; // Ignore touch
+        const rect = $card.getBoundingClientRect();
+        const startX = e.clientX - rect.left;
+        const startY = e.clientY - rect.top;
+        
+        easer = easedAnimation(800, (p) => {
+          const fakeEvent = {
+            clientX: rect.left + adjust(p, 0, 1, startX, halfW()),
+            clientY: rect.top + adjust(p, 0, 1, startY, halfH())
+          };
+          cardUpdate(fakeEvent);
+        }, () => {
+          $card.classList.remove("active");
+          $wrap.classList.remove("active");
+        });
+      });
+      
+      // Initial animated entrance on desktop
+      setTimeout(() => {
+        const rect = $card.getBoundingClientRect();
+        $wrap.classList.add("active");
+        $card.classList.add("active");
+        
+        easedAnimation(2000, (p) => {
+          const fakeEvent = {
+            clientX: rect.left + adjust(p, 0, 1, rect.width - 50, halfW()),
+            clientY: rect.top + adjust(p, 0, 1, 50, halfH())
+          };
+          cardUpdate(fakeEvent);
+        }, () => {
+          $card.classList.remove("active");
+          $wrap.classList.remove("active");
+        });
+      }, 500);
+    }
+    
+    // ========================================
+    // SUPABASE AUTHENTICATION
+    // ========================================
+    
     const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
     
@@ -318,13 +936,18 @@
     function showMessage(text, type) {
       messageDiv.innerHTML = text;
       messageDiv.className = `message ${type}`;
+      
+      // Trigger success effect
+      if (type === 'success') {
+        $wrap.classList.add('success');
+      }
     }
     
     function setLoading(loading) {
       submitBtn.disabled = loading;
       submitBtn.innerHTML = loading 
-        ? '<span class="loading"></span>Sending...' 
-        : 'Continue';
+        ? '<span><span class="loading"></span>Sending...</span>' 
+        : '<span>Continue</span>';
     }
     
     // Email Magic Link Login
@@ -337,7 +960,6 @@
       setLoading(true);
       
       try {
-        // First check if email is in Paid table
         const { data: member, error: memberError } = await supabaseClient
           .from('Paid')
           .select('email, status')
@@ -346,12 +968,11 @@
           .single();
         
         if (!member) {
-          showMessage('No active membership found for this email. <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05" style="color: #56C3AE;">Sign up here</a>', 'error');
+          showMessage('No active membership found for this email. <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05">Sign up here</a>', 'error');
           setLoading(false);
           return;
         }
         
-        // Member found, send magic link
         const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
         const redirectUrl = window.location.origin + basePath + '/dashboard.html';
         
@@ -364,7 +985,7 @@
         
         if (error) throw error;
         
-        showMessage('✓ Check your email for a login link!', 'success');
+        showMessage('✦ Check your email for a magic login link!', 'success');
         emailInput.value = '';
         
       } catch (error) {
@@ -395,11 +1016,7 @@
         showMessage(error.message || 'Google sign-in failed. Please try again.', 'error');
       }
     });
-    
-    // Don't auto-redirect - let users stay on login page
-    // Dashboard will handle membership verification
   </script>
-  <div id="site-nav"></div>
-  <script src="assets/layout.js"></script>
+  
 </body>
 </html>
