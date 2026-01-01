@@ -67,12 +67,13 @@
     }
     
     .updated-badge {
-      color: var(--brand);
-      font-size: 11px;
-      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      opacity: 0.9;
     }
     
     /* Energy Selector - The key ADHD feature */
@@ -271,6 +272,61 @@
       transform: translateY(-50%);
       font-size: 16px;
     }
+
+    /* Category Tabs (mobile-friendly horizontal scroller) */
+    .category-wrap { position: relative; }
+    .category-tabs {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0 18px;
+      overflow-x: auto;
+      /* left-aligned: small left padding, larger right padding for scroll-right arrow */
+      padding: 6px 56px 6px 12px;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+    .category-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { border-color: var(--brand); color: var(--text); }
+    .tab-btn.active { background: var(--brand); color: #0F0F0F; border-color: var(--brand); }
+
+    /* Desktop arrows for category scroller */
+    .cat-scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(0,0,0,0.35);
+      color: var(--text);
+      display: none; /* shown on desktop */
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      backdrop-filter: blur(4px);
+    }
+    .cat-scroll-btn.left { left: 6px; }
+    .cat-scroll-btn.right { right: 6px; }
+
+    /* Show arrow controls on larger screens */
+    @media (min-width: 720px) {
+      .cat-scroll-btn { display: flex; }
+      /* keep left padding small on desktop so tabs start at left edge */
+      .category-tabs { padding: 6px 56px 6px 12px; }
+    }
     
     /* Pro Tip */
     .pro-tip {
@@ -346,12 +402,51 @@
     .pill-x{ width:34px; height:34px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color:#fff; cursor:pointer; display:grid; place-items:center; line-height:1; font-size:18px; }
     .pill-x:hover, .filter-pill:hover{ background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.16); }
 
-    .filter-menu{ position:absolute; right:0; top: calc(100% + 10px); width: 240px; padding: 10px; border-radius: 16px; border:1px solid rgba(255,255,255,.10); background: rgba(20,20,20,.92); backdrop-filter: blur(12px); box-shadow: 0 18px 50px rgba(0,0,0,.55); z-index: 50; }
+    .filter-menu{
+      position:absolute;
+      right:0;
+      top: calc(100% + 10px);
+      width: 260px;
+      padding: 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(20,20,20,.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.55);
+      z-index: 50;
+
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:flex-start;
+    }
     .filter-menu.hidden { display: none !important; }
     .menu-item{ width:100%; display:flex; align-items:center; gap:10px; padding: 12px 12px; border-radius: 12px; border:0; background: transparent; color:#fff; cursor:pointer; text-align:left; font-weight:600; }
     .menu-item .icon{ width:20px; text-align:center; opacity:.9; }
     .menu-item:hover{ background: rgba(255,255,255,.07); }
     .menu-item.is-active{ background: rgba(255,255,255,.10); }
+
+    /* Tag chips inside the Tags popover — match card tag styling */
+    .tag-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      line-height: 1;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .tag-chip:focus{ outline: none; box-shadow: 0 0 0 3px rgba(86,195,174,0.12); }
+    .tag-chip.active{ background: var(--brand); color:#0F0F0F; border-color: var(--brand); }
+
+    /* specific color variants to match .tag.* classes used in cards */
+    .tag-chip.quick { background: rgba(90,195,174,0.12); color: #22d3ee; border-color: rgba(90,195,174,0.14); }
+    .tag-chip.highpay { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.14); }
+    .tag-chip.beginner { background: rgba(255,255,255,0.03); color: var(--text); border-color: rgba(255,255,255,0.04); }
+    .tag-chip.gift { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.14); }
 
     .hidden{ display:none !important; }
     
@@ -649,22 +744,23 @@
       <button class="filter-chip" data-filter="beginner">🌱 Beginner</button>
     </div>
     
+    <!-- Pro Tip -->
+    <div class="pro-tip" id="proTip">
+      <strong>🧠 ADHD tip:</strong> Pick ONE option that fits your energy. Sign up while you’re motivated. Future you says thanks.
+    </div>
+
     <!-- Search -->
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Search opportunities...">
     </div>
-    
-    <!-- Pro Tip -->
-    <div class="pro-tip" id="proTip">
-      <strong>🧠 ADHD Pro Tip:</strong> Pick ONE opportunity that matches your energy right now. Sign up while you're motivated—future you will thank you!
+    <!-- Category tabs (apps-like) with desktop arrow controls -->
+    <div class="category-wrap">
+      <button type="button" id="catScrollLeft" class="cat-scroll-btn left" aria-hidden="true">◀</button>
+      <div class="category-tabs" id="categoryTabs" aria-label="Categories"></div>
+      <button type="button" id="catScrollRight" class="cat-scroll-btn right" aria-hidden="true">▶</button>
     </div>
     
-    <!-- Key -->
-    <div class="key-box">
-      <div class="key-item">💻 Browser only</div>
-      <div class="key-item">🎁 Gift cards</div>
-      <div class="key-item">🥰 My favorite</div>
-    </div>
+    <!-- Key removed per request -->
     
     <!-- Results Bar -->
     <div class="results-bar">
@@ -672,24 +768,22 @@
 
       <div class="results-controls">
         <div class="filter" id="filter">
-          <button class="filter-label" id="filterBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <button class="filter-label" id="filterBtn" type="button" aria-haspopup="true" aria-expanded="false">
             <svg class="filter-icon" width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
               <rect x="0" y="0" width="18" height="2" rx="1" fill="currentColor" />
               <rect x="4" y="6" width="10" height="2" rx="1" fill="currentColor" />
               <rect x="8" y="12" width="4" height="2" rx="1" fill="currentColor" />
             </svg>
-            <span class="filter-text">Filter</span>
-            <span class="filter-value" id="filterValue">All</span>
+            <span class="filter-text">Tags</span>
             <span class="chev" aria-hidden="true">▾</span>
           </button>
 
           <button class="pill-x hidden" id="clearBtn" type="button" aria-label="Clear filter">×</button>
 
-          <div class="filter-menu hidden" id="filterMenu" role="listbox" aria-label="Filter results">
-            <button class="menu-item" role="option" data-value="all" aria-selected="false">All</button>
-            <button class="menu-item" role="option" data-value="quick" aria-selected="false"><span class="icon">⚡</span> Quick Start</button>
-            <button class="menu-item" role="option" data-value="highpay" aria-selected="false"><span class="icon">💰</span> High Pay</button>
-            <button class="menu-item" role="option" data-value="beginner" aria-selected="false"><span class="icon">🌱</span> Beginner</button>
+          <div class="filter-menu hidden" id="filterMenu" role="menu" aria-label="Tag filters">
+            <button class="tag-chip quick" type="button" data-value="quick">⚡ Quick Start</button>
+            <button class="tag-chip highpay" type="button" data-value="highpay">💰 High Pay</button>
+            <button class="tag-chip beginner" type="button" data-value="beginner">🌱 Beginner</button>
           </div>
         </div>
       </div>
@@ -698,13 +792,16 @@
     <script>
       // Ensure a single authoritative initial filter state on load
       document.addEventListener('DOMContentLoaded', function () {
-        if (typeof setFilter === 'function') {
-          setFilter('all');
-        } else {
-          // If setFilter is defined later, try again shortly
-          setTimeout(function () { if (typeof setFilter === 'function') setFilter('all'); }, 250);
-        }
-      });
+          if (typeof setFilter === 'function') {
+                setFilter('all');
+                if (typeof renderCategoryTabs === 'function') renderCategoryTabs();
+                if (typeof setupCategoryScroller === 'function') setupCategoryScroller();
+                if (typeof setupTagPanel === 'function') setupTagPanel();
+              } else {
+                // If setFilter is defined later, try again shortly
+                setTimeout(function () { if (typeof setFilter === 'function') setFilter('all'); if (typeof renderCategoryTabs === 'function') renderCategoryTabs(); if (typeof setupCategoryScroller === 'function') setupCategoryScroller(); if (typeof setupTagPanel === 'function') setupTagPanel(); }, 250);
+              }
+        });
     </script>
     
     <!-- Gig List -->
@@ -755,7 +852,7 @@
       { id: "influenster", name: "Influenster", rate: "🎁 Free products", desc: "Test and review products through VoxBoxes; earn freebies, not cash.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4A7UA3KtSXUkc9ueckJH.png", link: "https://www.influenster.com/", category: "fun", energy: "low", tags: ["beginner", "gift"], browser: false },
       
       // Surveys & Market Research
-      { id: "prolific", name: "💻🥰 Prolific", rate: "$8–$18/hr", desc: "High-paying academic studies. Guaranteed minimum pay and PayPal cashouts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/immy0sOGu8FJH0lgD7VN.png", link: "https://www.prolific.com/participants", category: "surveys", energy: "low", tags: ["beginner", "quick", "highpay", "academic"], browser: true, fave: true },
+      { id: "prolific", name: "Prolific", rate: "$8–$18/hr", desc: "High-paying academic studies. Guaranteed minimum pay and PayPal cashouts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/immy0sOGu8FJH0lgD7VN.png", link: "https://www.prolific.com/participants", category: "surveys", energy: "low", tags: ["beginner", "quick", "highpay", "academic"], browser: true, fave: true },
       { id: "dscout", name: "Dscout", rate: "$25–$250/mission", desc: "Video diaries, app testing, and live interviews for top brands.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ir5Usfji0u0VtJf8iXTn.png", link: "https://dscout.com/participate-in-research-studies", category: "surveys", energy: "med", tags: ["highpay","mobile","video"], browser: false },
       { id: "respondentio", name: "Respondent.io", rate: "$50–$250+/study", desc: "High-paying research studies for professionals.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/tHrBfm7B9TRyDq7uZh73.png", link: "https://www.respondent.io/signup", category: "surveys", energy: "med", tags: ["highpay","professional"], browser: false },
       { id: "usertesting", name: "UserTesting", rate: "$10–$60/hr", desc: "Test websites and apps for bigger payouts. Share your screen and voice.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/THI1IS5clNzV8HIJ96gn.png", link: "https://www.usertesting.com/get-paid-to-test", category: "surveys", energy: "med", tags: ["highpay"], browser: false },
@@ -873,6 +970,12 @@
       handmade: { icon: "🎨", name: "Handmade Goods" },
       care: { icon: "🐾", name: "Care & Service" }
     };
+    // Category order used for tabs & rendering
+    const catOrder = ['fun','surveys','ai','testing','microtasks','mystery','transcription','voice','writing','teaching','va','freelance','expert','social','handmade','care'];
+
+    // Category state (single-select) and tags (multi-select)
+    let activeCategory = null; // null === All
+    const activeTags = new Set(); // e.g. 'quick','highpay','beginner'
     
     // State
     let activeEnergy = null;
@@ -895,8 +998,8 @@
     // Sync clear button hidden attribute for accessibility
     function syncClearButton() {
       if (!clearBtn) return;
-      // hidden when no active filters/search/energy
-      const active = !!(activeEnergy || activeFilter !== 'all' || searchQuery);
+      // hidden when no active filters/search/energy/categories/tags
+      const active = !!(activeEnergy || activeFilter !== 'all' || searchQuery || activeCategory || activeTags.size > 0);
       clearBtn.hidden = !active;
     }
     
@@ -944,8 +1047,10 @@
           if (gig.tags.includes('gift')) tags.push('<span class="tag gift">🎁 Gift cards</span>');
           if (gig.fave) tags.push('<span class="tag fave">🥰 Favorite</span>');
           
+          // include a data-tags attribute so small client-side filters can also work
+          const tagAttr = (gig.tags && gig.tags.length) ? ` data-tags="${gig.tags.join(' ')}"` : '';
           html += `
-            <a href="gig-detail.html?gig=${gig.id}&fromGig=${gig.id}" class="gig-card ${isFav ? 'favorite' : ''}" data-id="${gig.id}">
+            <a href="gig-detail.html?gig=${gig.id}&fromGig=${gig.id}" class="gig-card ${isFav ? 'favorite' : ''}" data-id="${gig.id}"${tagAttr}>
               <img src="images/${gig.id}.png" class="gig-logo" alt="${gig.name}" loading="lazy" onerror="attemptImageFallback(this,'${gig.id}','${gig.logo}')">
               <div class="gig-content">
                 <div class="gig-header">
@@ -968,7 +1073,7 @@
       if (totalCount) totalCount.textContent = filtered.length;
 
       // Show/hide clear button (keep class-based logic for compatibility)
-      if (activeEnergy || activeFilter !== 'all' || searchQuery) {
+      if (activeEnergy || activeFilter !== 'all' || searchQuery || activeCategory || activeTags.size > 0) {
         clearBtn.classList.remove('hidden');
       } else {
         clearBtn.classList.add('hidden');
@@ -976,26 +1081,186 @@
       // sync hidden attribute for accessibility
       if (typeof syncClearButton === 'function') syncClearButton();
     }
+
+    // Render category tabs (apps-like)
+    function renderCategoryTabs() {
+      const container = document.getElementById('categoryTabs');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const makeButton = (label, key, isActive) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tab-btn' + (isActive ? ' active' : '');
+        btn.dataset.cat = key;
+        btn.innerHTML = label;
+
+        // 'all' clears category selection
+        if (key === 'all') {
+          btn.addEventListener('click', () => {
+            activeCategory = null;
+            if (typeof renderCategoryTabs === 'function') renderCategoryTabs();
+            renderGigs();
+          });
+          return btn;
+        }
+
+        btn.addEventListener('click', () => {
+          const currentlyActive = activeCategory === key;
+          if (currentlyActive) {
+            activeCategory = null;
+          } else {
+            activeCategory = key;
+          }
+          // re-render tabs to update 'All' state
+          if (typeof renderCategoryTabs === 'function') renderCategoryTabs();
+          renderGigs();
+        });
+        return btn;
+      };
+
+      // Add explicit 'All' button first
+      container.appendChild(makeButton('All', 'all', activeCategory === null));
+
+      // Build the rest of the tabs (single-select)
+      catOrder.forEach(key => {
+        const cat = categories[key];
+        if (!cat) return;
+        const label = `${cat.icon} ${cat.name}`;
+        container.appendChild(makeButton(label, key, activeCategory === key));
+      });
+    }
+
+    // Setup desktop arrow scroller for category tabs
+    function setupCategoryScroller() {
+      const container = document.getElementById('categoryTabs');
+      const left = document.getElementById('catScrollLeft');
+      const right = document.getElementById('catScrollRight');
+      if (!container || !left || !right) return;
+
+      const scrollAmount = () => Math.max(container.clientWidth * 0.6, 160);
+
+      left.addEventListener('click', () => {
+        container.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+      });
+      right.addEventListener('click', () => {
+        container.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      });
+
+      function updateButtons() {
+        // hide left at start, hide right at end
+        left.style.display = container.scrollLeft > 8 ? 'flex' : 'none';
+        right.style.display = (container.scrollLeft + container.clientWidth) < (container.scrollWidth - 8) ? 'flex' : 'none';
+      }
+
+      container.addEventListener('scroll', updateButtons);
+      window.addEventListener('resize', updateButtons);
+
+      // re-evaluate after tabs are rendered
+      setTimeout(updateButtons, 60);
+      // ensure visible state immediately
+      updateButtons();
+    }
+    
+    // Tag panel behavior (improved): toggles chips, persists selection in `activeTags`, and delegates filtering to renderGigs()
+    function setupTagPanel() {
+      const filter = document.getElementById('filter');
+      const btn = document.getElementById('filterBtn');
+      const menu = document.getElementById('filterMenu');
+      const clearBtnEl = document.getElementById('clearBtn');
+      const resultsTextEl = document.getElementById('resultsText');
+
+      if (!filter || !btn || !menu || !clearBtnEl || !resultsTextEl) return;
+
+      function openMenu() { menu.classList.remove('hidden'); btn.setAttribute('aria-expanded','true'); }
+      function closeMenu() { menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+
+      function updateClearBtn() {
+        const has = activeTags.size > 0;
+        clearBtnEl.classList.toggle('hidden', !has);
+        clearBtnEl.hidden = !has;
+      }
+
+      function syncChipStates() {
+        menu.querySelectorAll('.tag-chip').forEach(chip => {
+          const v = chip.dataset.value;
+          chip.classList.toggle('active', activeTags.has(v));
+        });
+        const label = btn.querySelector('.filter-text');
+        if (label) label.textContent = activeTags.size ? `Tags (${activeTags.size})` : 'Tags';
+      }
+
+      // Open/close toggle
+      btn.addEventListener('click', (e) => { e.stopPropagation(); const isOpen = !menu.classList.contains('hidden'); isOpen ? closeMenu() : openMenu(); });
+
+      // Chip toggle via delegated click inside menu
+      menu.addEventListener('click', (e) => {
+        const chip = e.target.closest('.tag-chip');
+        if (!chip) return;
+        e.stopPropagation();
+        const value = chip.dataset.value;
+        if (!value) return;
+        if (activeTags.has(value)) activeTags.delete(value); else activeTags.add(value);
+        syncChipStates();
+        updateClearBtn();
+        // delegate filtering to existing renderGigs/filterGigs logic which reads `activeTags`
+        if (typeof renderGigs === 'function') renderGigs();
+      });
+
+      // Clear handler
+      clearBtnEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        activeTags.clear();
+        syncChipStates();
+        updateClearBtn();
+        if (typeof renderGigs === 'function') renderGigs();
+        closeMenu();
+      });
+
+      // Close when clicking outside the filter area
+      document.addEventListener('click', (e) => { if (!filter.contains(e.target)) closeMenu(); });
+
+      // Keyboard: Escape closes, Enter/Space toggles when focused on chip
+      menu.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { closeMenu(); }
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const focused = document.activeElement;
+          if (focused && focused.classList.contains('tag-chip')) focused.click();
+        }
+      });
+
+      // Initialize chip states and clear button
+      syncChipStates();
+      updateClearBtn();
+    }
+    
+    // Active tags are shown inside the Tags popover; we no longer duplicate them at the top.
     
     // Filter gigs
     function filterGigs() {
       return gigs.filter(gig => {
+        // category filter (tabs) — single-select
+        if (activeCategory && gig.category !== activeCategory) return false;
+        // tag filters (AND): every selected tag must be present
+        if (activeTags.size > 0) {
+          for (const t of activeTags) {
+            if (!gig.tags || !gig.tags.includes(t)) return false;
+          }
+        }
         // Energy filter
         if (activeEnergy && gig.energy !== activeEnergy) return false;
-        
-        // Category/tag filter
+
+        // Other dropdown-based legacy filters (favorites/browser) kept for compatibility
         if (activeFilter === 'favorites' && !favorites.includes(gig.id)) return false;
-        if (activeFilter === 'quick' && !gig.tags.includes('quick')) return false;
         if (activeFilter === 'browser' && !gig.browser) return false;
-        if (activeFilter === 'highpay' && !gig.tags.includes('highpay')) return false;
-        if (activeFilter === 'beginner' && !gig.tags.includes('beginner')) return false;
-        
+
         // Search
         if (searchQuery) {
           const text = (gig.name + ' ' + gig.desc + ' ' + gig.category).toLowerCase();
           if (!text.includes(searchQuery)) return false;
         }
-        
+
         return true;
       });
     }
@@ -1025,6 +1290,8 @@
     function clearAllFilters() {
       activeEnergy = null;
       activeFilter = 'all';
+      activeCategory = null;
+      activeTags.clear();
       searchQuery = '';
       searchInput.value = '';
       
@@ -1036,7 +1303,8 @@
       // reset dropdown filter if present
       const filterSelectEl = document.getElementById('filterSelect');
       if (filterSelectEl) filterSelectEl.value = 'all';
-      
+      // re-render tabs to clear state and then refresh gigs
+      if (typeof renderCategoryTabs === 'function') renderCategoryTabs();
       renderGigs();
     }
     
@@ -1071,116 +1339,7 @@
       });
     });
 
-    // Filter pill + menu behavior
-    (function(){
-      const filterBtn = document.getElementById("filterBtn");
-      const menu = document.getElementById("filterMenu");
-      const valueEl = document.getElementById("filterValue");
-      const clearBtn = document.getElementById("clearBtn");
-      const filterRoot = document.getElementById("filter");
-
-      let current = "all";
-      let isClosing = false; // guard to prevent immediate reopen when selecting an item
-
-      const labels = {
-        all:  { text: "All" },
-        quick:{ icon: "⚡", text: "Quick Start" },
-        highpay:{ icon: "💰", text: "High Pay" },
-        beginner:{ icon: "🌱", text: "Beginner" },
-      };
-
-      function setFilter(val){
-        current = val;
-        const l = labels[val];
-        if (valueEl) {
-          valueEl.innerHTML = l.icon ? `<span class="icon">${l.icon}</span> ${l.text}` : l.text;
-        }
-
-        if (clearBtn) clearBtn.classList.toggle("hidden", val === "all");
-
-        // menu active state: clear all then set the selected one
-        menu.querySelectorAll('.menu-item').forEach(btn => {
-          btn.classList.remove('is-active');
-          btn.setAttribute('aria-selected','false');
-        });
-        const activeItem = menu.querySelector(`[data-value="${val}"]`);
-        if (activeItem) {
-          activeItem.classList.add('is-active');
-          activeItem.setAttribute('aria-selected','true');
-        }
-
-        // Update app filter state & re-render
-        activeFilter = val;
-        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-        const match = document.querySelector(`[data-filter="${val}"]`);
-        if (match) match.classList.add('active');
-        renderGigs();
-      }
-
-      function openMenu(){
-        menu.classList.remove('hidden');
-        menu.hidden = false;
-        filterBtn.setAttribute('aria-expanded','true');
-        // focus first menu item for keyboard users
-        const first = menu.querySelector('.menu-item'); if (first) first.focus();
-      }
-      function closeMenu(){
-        menu.classList.add('hidden');
-        menu.hidden = true;
-        filterBtn.setAttribute('aria-expanded','false');
-        filterBtn.focus();
-      }
-
-      filterBtn.addEventListener('click', () => {
-        if (isClosing) {
-          // ignore a toggle that occurs immediately after a selection
-          isClosing = false;
-          return;
-        }
-        const isOpen = !menu.classList.contains('hidden');
-        isOpen ? closeMenu() : openMenu();
-      });
-
-      // click selection closes menu and returns focus
-      menu.addEventListener('click', (e) => {
-        const item = e.target.closest('.menu-item');
-        if(!item) return;
-        e.preventDefault();
-        e.stopPropagation();
-        setFilter(item.dataset.value);
-        closeMenu();
-      });
-
-      // keyboard support: Enter/Space selects, ArrowDown opens
-      menu.addEventListener('keydown', (e) => {
-        const active = document.activeElement;
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          e.stopPropagation();
-          const item = active.closest && active.closest('.menu-item') ? active : null;
-          if (item) { setFilter(item.dataset.value); isClosing = true; closeMenu(); setTimeout(() => { isClosing = false; }, 150); }
-        }
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          const next = active.nextElementSibling || menu.querySelector('.menu-item');
-          if (next) next.focus();
-        }
-        if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          const prev = active.previousElementSibling || menu.querySelector('.menu-item:last-child');
-          if (prev) prev.focus();
-        }
-        if (e.key === 'Escape') { closeMenu(); }
-      });
-
-      // clear button closes menu too
-      clearBtn.addEventListener('click', (e) => { e.stopPropagation(); setFilter('all'); isClosing = true; closeMenu(); setTimeout(() => { isClosing = false; }, 150); });
-
-      document.addEventListener('click', (e) => { if(!filterRoot.contains(e.target)) closeMenu(); });
-
-      // init
-      setFilter('all');
-    })();
+    
     
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.toLowerCase().trim();
@@ -1191,7 +1350,7 @@
     
     // Pro tips rotation
     const proTips = [
-      { strong: "🧠 ADHD Pro Tip:", text: "Pick ONE option that matches your energy right now. Sign up while you're motivated—future you will thank you!" },
+      { strong: "🧠 ADHD tip:", text: "Pick ONE option that fits your energy. Sign up while you’re motivated. Future you says thanks." },
       { strong: "💡 Decision Fatigue Fix:", text: "Use the energy filter above. Low? Stick to surveys. Hyperfocus mode? Try Etsy or freelancing!" },
       { strong: "❤️ Dopamine Hack:", text: "Save your favorites (tap the heart) so you can come back without decision paralysis." },
       { strong: "📈 Stacking Strategy:", text: "Sign up for 2-3 survey sites now. More options = more available tasks when you need them." },

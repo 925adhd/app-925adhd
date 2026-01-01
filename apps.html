@@ -73,14 +73,15 @@
       margin: 0 auto;
     }
     
-    /* Updated Badge */
+    /* Updated Badge (muted smaller treatment to match earn.html) */
     .updated-badge {
-      color: var(--brand);
-      font-size: 11px;
-      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 12px;
+      opacity: 0.9;
     }
     
     /* Key Card */
@@ -168,7 +169,10 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 14px;
+      justify-content: space-between;
     }
+    .header-left { display:flex; align-items:center; gap:10px; }
+    .header-right { display:flex; align-items:center; gap:10px; }
     
     .section-title {
       font-size: 18px;
@@ -295,6 +299,16 @@
     .nav-item .icon { font-size: 20px; }
     
     .hidden { display: none !important; }
+
+    /* Tags filter styles (shared with earn) */
+    .filter { position: relative; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .filter-label { font-size: 13px; color: var(--brand); display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: transparent; border: 0; padding: 6px 8px; border-radius: 8px; cursor: pointer; }
+    .filter-text{ display:inline-block }
+    .pill-x{ width:34px; height:34px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color:#fff; cursor:pointer; display:grid; place-items:center; line-height:1; font-size:18px; }
+    .pill-x.hidden{ display:none !important; }
+    .filter-menu{ position:absolute; right:0; top: calc(100% + 10px); width: 260px; padding: 12px; border-radius: 16px; border:1px solid rgba(255,255,255,.10); background: rgba(20,20,20,.92); backdrop-filter: blur(12px); box-shadow: 0 18px 50px rgba(0,0,0,.55); z-index: 50; display:flex; flex-wrap:wrap; gap:10px; align-items:flex-start; }
+    .tag-chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius: 999px; white-space: nowrap; line-height: 1; font-size: 12px; font-weight: 800; cursor: pointer; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); color:var(--text); }
+    .tag-chip.active{ background: var(--brand); color:#0F0F0F; border-color: var(--brand); }
     
     /* No results */
     .no-results {
@@ -320,12 +334,7 @@
   <main class="main-content">
     <p class="updated-badge">Updated December 2025</p>
     
-    <!-- Key -->
-    <div class="key-card">
-      <span class="key-item">🥰 My favorites</span>
-      <span class="key-item">🎁 Gift cards only</span>
-      <span class="key-item">👾 Crypto only</span>
-    </div>
+    <!-- Tags filter placed per-section (moved into first section header) -->
     
     <!-- Single Search -->
     <div class="search-box">
@@ -351,10 +360,26 @@
     
     <!-- Microgigs Section -->
     <section class="section" data-category="microgigs">
-      <div class="section-header">
-        <h2 class="section-title">📍 Real-World Microgigs</h2>
-        <span class="section-count">3 apps</span>
-      </div>
+        <div class="section-header">
+          <div class="header-left">
+            <h2 class="section-title">📍 Real-World Microgigs</h2>
+            <span class="section-count">3 apps</span>
+          </div>
+          <div class="header-right">
+            <div class="filter" id="appsFilter">
+              <button class="filter-label" id="appsFilterBtn" type="button" aria-haspopup="true" aria-expanded="false">
+                <span class="filter-text">Tags</span>
+                <span class="chev" aria-hidden="true">▾</span>
+              </button>
+              <button class="pill-x hidden" id="appsClearBtn" type="button" aria-label="Clear tags">×</button>
+              <div class="filter-menu hidden" id="appsFilterMenu" role="menu" aria-label="Tag filters">
+                <button class="tag-chip fave" type="button" data-value="fave">🥰 My favorites</button>
+                <button class="tag-chip gift" type="button" data-value="gift">🎁 Gift cards only</button>
+                <button class="tag-chip crypto" type="button" data-value="crypto">👾 Crypto only</button>
+              </div>
+            </div>
+          </div>
+        </div>
       <div class="info-card">
         Get paid for quick local tasks like taking photos, audits, and mystery shopping. Perfect for combining with errands!
       </div>
@@ -625,5 +650,67 @@
     }
   </script>
   <script src="assets/layout.js"></script>
+  <script>
+    // Apps page tags filter: toggles chips and filters .app-card by data-tags
+    document.addEventListener('DOMContentLoaded', function setupAppsTagPanel() {
+      const filter = document.getElementById('appsFilter');
+      const btn = document.getElementById('appsFilterBtn');
+      const menu = document.getElementById('appsFilterMenu');
+      const clearBtn = document.getElementById('appsClearBtn');
+
+      if (!filter || !btn || !menu || !clearBtn) return;
+
+      const selected = new Set();
+
+      function openMenu(){ menu.classList.remove('hidden'); btn.setAttribute('aria-expanded','true'); }
+      function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+
+      function updateClear(){ const has = selected.size>0; clearBtn.classList.toggle('hidden', !has); clearBtn.hidden = !has; }
+
+      function syncChips(){
+        menu.querySelectorAll('.tag-chip').forEach(chip => chip.classList.toggle('active', selected.has(chip.dataset.value)));
+        const label = btn.querySelector('.filter-text'); if (label) label.textContent = selected.size ? `Tags (${selected.size})` : 'Tags';
+      }
+
+      function applyFilters(){
+        const cards = document.querySelectorAll('.app-card');
+        let visible = 0;
+        cards.forEach(card => {
+          const tags = (card.dataset.tags||'').toLowerCase().split(/\s+/).filter(Boolean);
+          let ok = true;
+          if (selected.size) ok = [...selected].every(t => tags.includes(t));
+          card.style.display = ok ? '' : 'none';
+          if (ok) visible++;
+        });
+        // update section counts
+        document.querySelectorAll('.section').forEach(section => {
+          const countEl = section.querySelector('.section-count');
+          if (!countEl) return;
+          const total = section.querySelectorAll('.app-card').length;
+          const shown = Array.from(section.querySelectorAll('.app-card')).filter(c=> c.style.display !== 'none').length;
+          countEl.textContent = `${shown} app${shown===1?'':'s'}`;
+        });
+        // global no-results
+        const noResults = document.getElementById('noResults');
+        if (noResults) noResults.classList.toggle('hidden', visible>0);
+      }
+
+      // toggle menu
+      btn.addEventListener('click', (e)=>{ e.stopPropagation(); const isOpen = !menu.classList.contains('hidden'); isOpen?closeMenu():openMenu(); });
+
+      // chip clicks (delegated)
+      menu.addEventListener('click', (e)=>{
+        const chip = e.target.closest('.tag-chip'); if (!chip) return; e.stopPropagation(); const v = chip.dataset.value; if (!v) return; if (selected.has(v)) selected.delete(v); else selected.add(v); syncChips(); updateClear(); applyFilters();
+      });
+
+      clearBtn.addEventListener('click', (e)=>{ e.stopPropagation(); selected.clear(); syncChips(); updateClear(); applyFilters(); closeMenu(); });
+
+      // click outside closes
+      document.addEventListener('click', (e)=>{ if (!filter.contains(e.target)) closeMenu(); });
+
+      // init
+      syncChips(); updateClear(); applyFilters();
+    });
+  </script>
 </body>
 </html>
