@@ -900,8 +900,8 @@
              'ontouchstart' in window;
     };
     
-    // On mobile, just show a nice static glow state
-    if (isMobile()) {
+    // Mobile static behavior removed — interactive on all devices
+    if (false) {
       $wrap.classList.add("active");
       $card.classList.add("active");
       // Set centered values for a nice static look
@@ -972,19 +972,16 @@
       const halfH = () => $card.clientHeight / 2;
       
       $card.addEventListener("pointerenter", (e) => {
-        if (e.pointerType === "touch") return; // Ignore touch
         if (easer) easer.cancel();
         $card.classList.add("active");
         $wrap.classList.add("active");
       });
-      
+
       $card.addEventListener("pointermove", (e) => {
-        if (e.pointerType === "touch") return; // Ignore touch
         cardUpdate(e);
       });
-      
+
       $card.addEventListener("pointerleave", (e) => {
-        if (e.pointerType === "touch") return; // Ignore touch
         const rect = $card.getBoundingClientRect();
         const startX = e.clientX - rect.left;
         const startY = e.clientY - rect.top;
