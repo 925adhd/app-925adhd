@@ -140,7 +140,8 @@
       { href: 'ai-playground.html', text: 'AI Playground' },
       { href: 'aimadesimple.html', text: 'AI Made Simple' },
       { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
-      { href: 'playlist.html', text: 'Motivation Playlist' }
+      { href: 'playlist.html', text: 'Motivation Playlist' },
+      { href: 'feedback.html', text: 'Feedback' }
     ];
 
     menuItems.forEach((mi) => {
@@ -471,7 +472,8 @@
                 { href: 'ai-playground.html', text: 'AI Playground' },
                 { href: 'aimadesimple.html', text: 'AI Made Simple' },
                 { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
-                { href: 'playlist.html', text: 'Motivation Playlist' }
+                { href: 'playlist.html', text: 'Motivation Playlist' },
+                { href: 'feedback.html', text: 'Feedback' }
               ];
               items.forEach(mi => {
                 const a = document.createElement('a');
@@ -610,11 +612,12 @@
               dd.style.zIndex = 99999;
 
               const items = [
-                { href: 'beginnerlist.html', text: 'Beginner List' },
-                { href: 'aimadesimple.html', text: 'AI Made Simple' },
-                { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
-                { href: 'playlist.html', text: 'Motivation Playlist' }
-              ];
+                  { href: 'beginnerlist.html', text: 'Beginner List' },
+                  { href: 'aimadesimple.html', text: 'AI Made Simple' },
+                  { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
+                  { href: 'playlist.html', text: 'Motivation Playlist' },
+                  { href: 'feedback.html', text: 'Feedback' }
+                ];
               items.forEach(mi => {
                 const a = document.createElement('a');
                 a.href = mi.href;
@@ -736,7 +739,8 @@
               { href: 'beginnerlist.html', text: 'Beginner List' },
               { href: 'aimadesimple.html', text: 'AI Made Simple' },
               { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
-              { href: 'playlist.html', text: 'Motivation Playlist' }
+              { href: 'playlist.html', text: 'Motivation Playlist' },
+              { href: 'feedback.html', text: 'Feedback' }
             ];
             items.forEach(mi => {
               const a = document.createElement('a');
