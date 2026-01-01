@@ -370,13 +370,14 @@
     }
     
     /* Results bar + filter UI */
-    .results-bar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:10px 0 14px; }
-    .results-text { font-size:14px; color:var(--text-muted); }
+    .results-bar { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin:10px 0 14px; flex-wrap: nowrap; flex-direction: column; }
+    .results-controls { order: 1; width: 100%; display: flex; align-items: center; justify-content: flex-start; gap: 8px; min-width: 0; }
+    .results-text { order: 2; font-size:14px; color:var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; margin-top: 8px; }
     .results-controls { display:flex; align-items:center; gap:10px; }
 
     .filter { position: relative; display: inline-flex; align-items: center; gap: 8px; }
 
-    .filter-pill{ display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color:#fff; cursor:pointer; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+    .filter-pill{ display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color:#fff; cursor:pointer; box-shadow: 0 6px 16px rgba(0,0,0,.28); font-size:13px; }
     .filter-label {
       font-size: 13px;
       color: var(--brand);
@@ -438,14 +439,15 @@
     .tag-chip{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:8px 10px;
+      gap:6px;
+      padding:6px 8px;
       border-radius: 999px;
       white-space: nowrap;
       line-height: 1;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       cursor: pointer;
+      flex: 0 0 auto;
     }
     .tag-chip:focus{ outline: none; box-shadow: 0 0 0 3px rgba(86,195,174,0.12); }
     .tag-chip.active{ background: var(--brand); color:#0F0F0F; border-color: var(--brand); }
@@ -454,6 +456,7 @@
     .tag-chip.quick { background: rgba(90,195,174,0.12); color: #22d3ee; border-color: rgba(90,195,174,0.14); }
     .tag-chip.highpay { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.14); }
     .tag-chip.beginner { background: rgba(255,255,255,0.03); color: var(--text); border-color: rgba(255,255,255,0.04); }
+    .tag-chip.favorites { background: rgba(236,72,153,0.12); color: #f472b6; border-color: rgba(236,72,153,0.14); }
     .tag-chip.gift { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.14); }
 
     .hidden{ display:none !important; }
@@ -580,19 +583,46 @@
     
     .gig-tags {
       display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
+      flex-wrap: nowrap;
+      gap: 6px;
       margin-top: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
     }
-    
+
+    .gig-tags::-webkit-scrollbar { display: none; }
+
+    .tag { white-space: nowrap; }
+
     .tag {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 600;
-      padding: 3px 8px;
+      padding: 2px 6px;
       border-radius: 6px;
       text-transform: uppercase;
       letter-spacing: 0.3px;
     }
+
+    /* Hide visible energy level tags while keeping underlying data and logic intact */
+    .tag.energy-low,
+    .tag.energy-med,
+    .tag.energy-high {
+      display: none !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+    }
+
+    /* Smaller filter chips used in header */
+    .filter-chip{ display:inline-flex; align-items:center; gap:6px; padding:6px 8px; border-radius:999px; font-size:12px; font-weight:700; border:1px solid rgba(255,255,255,0.06); background: transparent; color:var(--text); cursor:pointer; white-space:nowrap; flex:0 0 auto; }
+
+    /* Keep filter chips and tag chips on a single line; allow horizontal scroll when needed */
+    .filter-row, .filter-menu { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; gap:6px; }
+    .filter-row::-webkit-scrollbar, .filter-menu::-webkit-scrollbar, .gig-tags::-webkit-scrollbar { display: none; }
     
     .tag.energy-low { background: rgba(34,197,94,0.2); color: #4ade80; }
     .tag.energy-med { background: rgba(250,204,21,0.2); color: #fde047; }
@@ -747,9 +777,10 @@
     <!-- Quick Filters (moved to dropdown) -->
     <div class="filter-row" aria-hidden="true">
       <button class="filter-chip active" data-filter="all">All</button>
-      <button class="filter-chip" data-filter="quick">⚡ Quick</button>
-      <button class="filter-chip" data-filter="highpay">💰 High Pay</button>
-      <button class="filter-chip" data-filter="beginner">🌱 Beginner</button>
+      <button class="filter-chip" data-filter="quick">⚡ Fast</button>
+      <button class="filter-chip" data-filter="highpay">💰 Top Pay</button>
+      <button class="filter-chip" data-filter="beginner">🌱 Easy</button>
+      <button class="filter-chip" data-filter="favorites">🥰 Favorite</button>
     </div>
     
     <!-- Pro Tip -->
@@ -777,20 +808,17 @@
       <div class="results-controls">
         <div class="filter" id="filter">
           <button class="filter-label" id="filterBtn" type="button" aria-haspopup="true" aria-expanded="false">
-            <svg class="filter-icon" width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-              <rect x="0" y="0" width="18" height="2" rx="1" fill="currentColor" />
-              <rect x="4" y="6" width="10" height="2" rx="1" fill="currentColor" />
-              <rect x="8" y="12" width="4" height="2" rx="1" fill="currentColor" />
-            </svg>
+            
             <span class="filter-text">Tags</span>
           </button>
 
           <button class="pill-x hidden" id="clearBtn" type="button" aria-label="Clear filter">×</button>
 
           <div class="filter-menu" id="filterMenu" role="menu" aria-label="Tag filters">
-            <button class="tag-chip quick" type="button" data-value="quick">⚡ Quick</button>
-            <button class="tag-chip highpay" type="button" data-value="highpay">💰 High Pay</button>
-            <button class="tag-chip beginner" type="button" data-value="beginner">🌱 Beginner</button>
+            <button class="tag-chip quick" type="button" data-value="quick">⚡ Fast</button>
+            <button class="tag-chip highpay" type="button" data-value="highpay">💰 Top Pay</button>
+            <button class="tag-chip beginner" type="button" data-value="beginner">🌱 Easy</button>
+            <button class="tag-chip favorites" type="button" data-value="favorites">🥰 Favorite</button>
           </div>
         </div>
       </div>
@@ -852,11 +880,11 @@
     // ===== ALL 70 GIGS DATA =====
     const gigs = [
       // Fun or Interesting
-      { id: "pressplay", name: "PressPlay", rate: "🎁 $0.60–$5/hr", desc: "Watch unreleased trailers & screenings for Amazon vouchers. Low pay but fun for movie fans.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/WUBBxNlrGzQLgbYSo2ns.png", link: "https://us.mypressplay.com", category: "fun", energy: "low", tags: ["beginner", "gift", "movies"], browser: false },
+      { id: "pressplay", name: "PressPlay", rate: "$0.60–$5/hr", desc: "Watch unreleased trailers & screenings for Amazon vouchers. Low pay but fun for movie fans.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/WUBBxNlrGzQLgbYSo2ns.png", link: "https://us.mypressplay.com", category: "fun", energy: "low", tags: ["beginner", "gift", "movies"], browser: false },
       { id: "slicethepie", name: "Slice The Pie", rate: "$1–$8/hr", desc: "Paid reviews on music, fashion, and commercials.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/N5HyBECr8SGscfvrXhHs.jpg", link: "https://www.slicethepie.com/", category: "fun", energy: "low", tags: ["beginner", "quick"], browser: false },
       { id: "methinks", name: "Methinks", rate: "$5–$100+/gig", desc: "Video interviews, app testing, and surveys for product research.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/alNW7pxDjaH7vy1c9gwt.png", link: "https://www.methinks.io/thinker", category: "surveys", energy: "med", tags: ["mobile","highpay"], browser: false },
       { id: "bestmark", name: "BestMark", rate: "$5–$25/shop", desc: "Mystery shopping assignments—visit businesses undercover, report back, and get paid.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png", link: "https://www.bestmark.com/become-a-mystery-shopper/", category: "fun", energy: "med", tags: ["in-person","mystery-shop"], browser: false },
-      { id: "influenster", name: "Influenster", rate: "🎁 Free products", desc: "Test and review products through VoxBoxes; earn freebies, not cash.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4A7UA3KtSXUkc9ueckJH.png", link: "https://www.influenster.com/", category: "fun", energy: "low", tags: ["beginner", "gift"], browser: false },
+      { id: "influenster", name: "Influenster", rate: "Free products", desc: "Test and review products through VoxBoxes; earn freebies, not cash.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4A7UA3KtSXUkc9ueckJH.png", link: "https://www.influenster.com/", category: "fun", energy: "low", tags: ["beginner", "gift"], browser: false },
       
       // Surveys & Market Research
       { id: "prolific", name: "Prolific", rate: "$8–$18/hr", desc: "High-paying academic studies. Guaranteed minimum pay and PayPal cashouts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/immy0sOGu8FJH0lgD7VN.png", link: "https://www.prolific.com/participants", category: "surveys", energy: "low", tags: ["beginner", "quick", "highpay", "academic"], browser: true, fave: true },
@@ -1101,8 +1129,8 @@
           if (gig.energy === 'med') tags.push('<span class="tag energy-med">😊 Medium</span>');
           if (gig.energy === 'high') tags.push('<span class="tag energy-high">⚡ High energy</span>');
           if (gig.browser) tags.push('<span class="tag browser">💻 Browser</span>');
-          if (gig.tags.includes('quick')) tags.push('<span class="tag quick">⚡ Quick</span>');
-          if (gig.tags.includes('gift')) tags.push('<span class="tag gift">🎁 Gift cards</span>');
+          if (gig.tags.includes('quick')) tags.push('<span class="tag quick">⚡ Fast</span>');
+          if (gig.tags.includes('gift')) tags.push('<span class="tag gift">Gift cards</span>');
           if (gig.fave) tags.push('<span class="tag fave">🥰 Favorite</span>');
           
           // include a data-tags attribute so small client-side filters can also work
@@ -1266,6 +1294,24 @@
         e.stopPropagation();
         const value = chip.dataset.value;
         if (!value) return;
+        // Special-case favorites: toggle the favorites filter (uses activeFilter)
+        if (value === 'favorites' || value === 'fave') {
+          if (activeFilter === 'favorites') {
+            activeFilter = 'all';
+            // also clear activeTags to avoid mixed states
+            activeTags.clear();
+          } else {
+            activeFilter = 'favorites';
+          }
+          // reflect new state on top filter chips
+          filterChips.forEach(fc => fc.classList.toggle('active', fc.dataset.filter === activeFilter));
+          syncChipStates();
+          updateClearBtn();
+          if (typeof renderGigs === 'function') renderGigs();
+          return;
+        }
+
+        // Default tag behavior: toggle in activeTags set
         if (activeTags.has(value)) activeTags.delete(value); else activeTags.add(value);
         syncChipStates();
         updateClearBtn();
