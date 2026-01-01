@@ -747,7 +747,7 @@
     <!-- Quick Filters (moved to dropdown) -->
     <div class="filter-row" aria-hidden="true">
       <button class="filter-chip active" data-filter="all">All</button>
-      <button class="filter-chip" data-filter="quick">⚡ Quick Start</button>
+      <button class="filter-chip" data-filter="quick">⚡ Quick</button>
       <button class="filter-chip" data-filter="highpay">💰 High Pay</button>
       <button class="filter-chip" data-filter="beginner">🌱 Beginner</button>
     </div>
@@ -788,7 +788,7 @@
           <button class="pill-x hidden" id="clearBtn" type="button" aria-label="Clear filter">×</button>
 
           <div class="filter-menu" id="filterMenu" role="menu" aria-label="Tag filters">
-            <button class="tag-chip quick" type="button" data-value="quick">⚡ Quick Start</button>
+            <button class="tag-chip quick" type="button" data-value="quick">⚡ Quick</button>
             <button class="tag-chip highpay" type="button" data-value="highpay">💰 High Pay</button>
             <button class="tag-chip beginner" type="button" data-value="beginner">🌱 Beginner</button>
           </div>
@@ -1101,7 +1101,7 @@
           if (gig.energy === 'med') tags.push('<span class="tag energy-med">😊 Medium</span>');
           if (gig.energy === 'high') tags.push('<span class="tag energy-high">⚡ High energy</span>');
           if (gig.browser) tags.push('<span class="tag browser">💻 Browser</span>');
-          if (gig.tags.includes('quick')) tags.push('<span class="tag quick">⚡ Quick start</span>');
+          if (gig.tags.includes('quick')) tags.push('<span class="tag quick">⚡ Quick</span>');
           if (gig.tags.includes('gift')) tags.push('<span class="tag gift">🎁 Gift cards</span>');
           if (gig.fave) tags.push('<span class="tag fave">🥰 Favorite</span>');
           
