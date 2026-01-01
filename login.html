@@ -395,6 +395,7 @@
     .logo-glow {
       position: absolute;
       inset: -8px;
+      top: 9px;
       background: radial-gradient(circle, rgba(86, 195, 174, 0.4) 0%, transparent 70%);
       border-radius: 50%;
       animation: logoGlow 3s ease-in-out infinite;
@@ -405,23 +406,21 @@
       50% { opacity: 1; transform: scale(1.1); }
     }
     
-    .logo {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, rgba(86, 195, 174, 0.2) 0%, rgba(168, 85, 247, 0.1) 100%);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      border: 1px solid rgba(86, 195, 174, 0.3);
-    }
+.logo {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
     
-    .logo img {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-    }
+.logo img {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  margin-top: 17px;
+}
     
     h1 {
       font-family: 'Space Mono', monospace;

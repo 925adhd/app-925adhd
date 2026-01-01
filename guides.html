@@ -144,7 +144,27 @@
       display: block;
     }
     
-    /* captions removed to show images only */
+    /* Caption styling: force single-line captions on small screens */
+    .guide-card h3 {
+      padding: 8px 10px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0;
+      color: var(--text);
+      display: block;
+    }
+
+    @media (max-width: 420px) {
+      .guide-card h3 {
+        font-size: 12px;
+        padding: 6px 8px 8px;
+        text-align: center;
+      }
+    }
     
     /* Bottom Navigation */
     .bottom-nav {
