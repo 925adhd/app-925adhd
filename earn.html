@@ -284,6 +284,9 @@
       padding: 6px 56px 6px 12px;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
+      /* Reserve space immediately to avoid layout shifts when JS populates tabs */
+      min-height: 44px;
+      transition: none; /* disable transition so tabs are present instantly */
     }
     .category-tabs::-webkit-scrollbar { display: none; }
     .tab-btn {
@@ -1129,6 +1132,7 @@
         const label = `${cat.icon} ${cat.name}`;
         container.appendChild(makeButton(label, key, activeCategory === key));
       });
+      // ensure container keeps its reserved space; no reveal needed
     }
 
     // Setup desktop arrow scroller for category tabs
