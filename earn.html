@@ -400,30 +400,35 @@
     }
     .filter-text{ display:inline-block }
     .filter-value{ font-weight:600; display:flex; align-items:center; gap:8px; color: var(--text); }
-    .chev{ color: var(--text); opacity:.95; margin-left:4px; font-size:12px; }
+    /* hide chevrons for inline chips (we show plain pills) */
+    .chev{ display: none !important; color: var(--text); opacity:.95; margin-left:4px; font-size:12px; }
+     /* category scroller arrows: default hidden on small screens; shown on wide screens via media query
+       JS will toggle their inline `style.display` to 'flex' when the tabs overflow */
+     /* leave control to CSS media query + JS (no !important) */
 
     .pill-x{ width:34px; height:34px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color:#fff; cursor:pointer; display:grid; place-items:center; line-height:1; font-size:18px; }
     .pill-x:hover, .filter-pill:hover{ background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.16); }
 
     .filter-menu{
-      position:absolute;
-      right:0;
-      top: calc(100% + 10px);
-      width: 260px;
-      padding: 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(20,20,20,.92);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 18px 50px rgba(0,0,0,.55);
-      z-index: 50;
+      /* render chips inline (like apps.html) */
+      position: static;
+      right: auto;
+      top: auto;
+      width: auto;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      background: transparent;
+      backdrop-filter: none;
+      box-shadow: none;
+      z-index: auto;
 
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
-      align-items:flex-start;
+      gap:8px;
+      align-items:center;
     }
-    .filter-menu.hidden { display: none !important; }
+    .filter-menu.hidden { display: flex !important; }
     .menu-item{ width:100%; display:flex; align-items:center; gap:10px; padding: 12px 12px; border-radius: 12px; border:0; background: transparent; color:#fff; cursor:pointer; text-align:left; font-weight:600; }
     .menu-item .icon{ width:20px; text-align:center; opacity:.9; }
     .menu-item:hover{ background: rgba(255,255,255,.07); }
@@ -778,12 +783,11 @@
               <rect x="8" y="12" width="4" height="2" rx="1" fill="currentColor" />
             </svg>
             <span class="filter-text">Tags</span>
-            <span class="chev" aria-hidden="true">▾</span>
           </button>
 
           <button class="pill-x hidden" id="clearBtn" type="button" aria-label="Clear filter">×</button>
 
-          <div class="filter-menu hidden" id="filterMenu" role="menu" aria-label="Tag filters">
+          <div class="filter-menu" id="filterMenu" role="menu" aria-label="Tag filters">
             <button class="tag-chip quick" type="button" data-value="quick">⚡ Quick Start</button>
             <button class="tag-chip highpay" type="button" data-value="highpay">💰 High Pay</button>
             <button class="tag-chip beginner" type="button" data-value="beginner">🌱 Beginner</button>
@@ -998,6 +1002,57 @@
     const filterChips = document.querySelectorAll('.filter-chip');
     const filterSelect = document.getElementById('filterSelect');
 
+    // Top filter chips (quick/highpay/beginner) should behave like the apps page tabs:
+    // - 'All' clears tag filters
+    // - clicking a tag makes it the active tag (single-select); clicking again clears it
+    if (filterChips && filterChips.length) {
+      filterChips.forEach(ch => {
+        ch.addEventListener('click', (e) => {
+          e.preventDefault();
+          const key = ch.dataset.filter;
+          if (!key) return;
+
+          if (key === 'all') {
+            // clear any active tag shortcuts
+            activeTags.clear();
+            // reset activeFilter to 'all' for legacy compatibility
+            activeFilter = 'all';
+          } else {
+            // single-select behavior: if clicked again, clear selection
+            if (activeTags.size === 1 && activeTags.has(key)) {
+              activeTags.clear();
+            } else {
+              activeTags.clear();
+              activeTags.add(key);
+            }
+            // mark that we're using a tag-based quick filter
+            activeFilter = key;
+          }
+
+          // update chip visual states
+          filterChips.forEach(fc => fc.classList.toggle('active', fc === ch ? activeTags.has(fc.dataset.filter) || (fc.dataset.filter === 'all' && activeTags.size===0) : false));
+
+          // update tag popover chips if present
+          const menu = document.getElementById('filterMenu');
+          if (menu) {
+            menu.querySelectorAll('.tag-chip').forEach(tc => {
+              const v = tc.dataset.value;
+              tc.classList.toggle('active', v && activeTags.has(v));
+            });
+          }
+          const topClear = document.getElementById('clearBtn');
+          if (topClear) {
+            const has = activeTags.size > 0 || activeFilter !== 'all' || activeEnergy || searchQuery || activeCategory;
+            topClear.classList.toggle('hidden', !has);
+            topClear.hidden = !has;
+          }
+
+          // re-render results
+          if (typeof renderGigs === 'function') renderGigs();
+        });
+      });
+    }
+
     // Sync clear button hidden attribute for accessibility
     function syncClearButton() {
       if (!clearBtn) return;
@@ -1152,6 +1207,13 @@
       });
 
       function updateButtons() {
+        // Only show scroller arrows when the tabs actually overflow the visible container.
+        const overflow = container.scrollWidth > container.clientWidth + 4; // small tolerance
+        if (!overflow) {
+          left.style.display = 'none';
+          right.style.display = 'none';
+          return;
+        }
         // hide left at start, hide right at end
         left.style.display = container.scrollLeft > 8 ? 'flex' : 'none';
         right.style.display = (container.scrollLeft + container.clientWidth) < (container.scrollWidth - 8) ? 'flex' : 'none';

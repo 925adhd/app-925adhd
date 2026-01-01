@@ -172,24 +172,51 @@
     
     .action-card {
       background: var(--card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 12px 8px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Subtle shine effect on hover */
+    .action-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(86, 195, 174, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .action-card:hover::before {
+      left: 100%;
     }
     
     .action-card:hover {
       background: var(--card-hover);
-      border-color: var(--brand);
+      border-color: rgba(86, 195, 174, 0.4);
       transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 0 20px rgba(86, 195, 174, 0.1);
     }
     
     .action-card .icon {
       font-size: 28px;
       margin-bottom: 8px;
       display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+      transition: transform 0.3s;
+    }
+    
+    .action-card:hover .icon {
+      transform: scale(1.1);
     }
     
     .action-card h3 {
@@ -205,26 +232,45 @@
     
     /* Featured Card */
     .featured-card {
-      background: linear-gradient(135deg, rgba(86, 195, 174, 0.12), rgba(86, 195, 174, 0.04));
-      border: 1px solid rgba(86, 195, 174, 0.2);
+      background: linear-gradient(135deg, rgba(86, 195, 174, 0.15), rgba(86, 195, 174, 0.05));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(86, 195, 174, 0.3);
       border-radius: 14px;
       padding: 12px;
       display: flex;
       align-items: center;
       gap: 12px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .featured-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(86, 195, 174, 0.1), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .featured-card:hover::after {
+      opacity: 1;
     }
     
     .featured-card:hover {
-      background: linear-gradient(135deg, rgba(86, 195, 174, 0.18), rgba(86, 195, 174, 0.08));
+      background: linear-gradient(135deg, rgba(86, 195, 174, 0.22), rgba(86, 195, 174, 0.08));
       transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 0 30px rgba(86, 195, 174, 0.15);
     }
     
     .featured-card .icon {
       font-size: 32px;
       flex-shrink: 0;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
     
     .featured-card h3 {
@@ -236,6 +282,66 @@
     .featured-card p {
       font-size: 12px;
       color: var(--text-muted);
+    }
+    
+    /* Discord CTA */
+    .discord-card {
+      background: linear-gradient(135deg, rgba(88, 101, 242, 0.15), rgba(88, 101, 242, 0.05));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(88, 101, 242, 0.3);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .discord-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 0 30px rgba(88, 101, 242, 0.15);
+      border-color: rgba(88, 101, 242, 0.5);
+    }
+    
+    .discord-card .icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    
+    .discord-card .content {
+      flex: 1;
+    }
+    
+    .discord-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    
+    .discord-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    
+    .discord-btn {
+      background: #5865F2;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(88, 101, 242, 0.3);
+    }
+    
+    .discord-btn:hover {
+      background: #4752C4;
+      box-shadow: 0 4px 12px rgba(88, 101, 242, 0.5);
+      transform: scale(1.05);
     }
     
     /* Discord CTA */
