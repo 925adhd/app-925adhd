@@ -240,8 +240,8 @@
     .quick-actions {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 6px;
+      margin-bottom: 8px;
     }
     
     .action-card {
@@ -252,7 +252,7 @@
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 14px 10px 12px;
+      padding: 10px 8px 10px;
       text-align: center;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -268,7 +268,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      min-height: 120px;
+      min-height: 100px;
     }
     
     /* Ambient glow - always visible */
@@ -519,10 +519,10 @@
       border-radius: 10px;
     }
 
-    /* Uniform action-card sizing and alignment */
+    /* Uniform action-card sizing and alignment (condensed for mobile) */
     .action-card {
-      padding: 16px;
-      min-height: 150px;
+      padding: 10px;
+      min-height: 110px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -530,48 +530,78 @@
     }
 
     .action-card .icon {
-      width: 72px;
-      height: 72px;
-      margin-bottom: 12px;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .action-card .icon img.icon-img {
-      width: 72px;
-      height: 72px;
+      width: 56px;
+      height: 56px;
       object-fit: contain;
       border-radius: 10px;
     }
 
+    /* Favorites: visually larger heart without affecting card size or text layout */
+    a.action-card[href="favorites.html"] .icon img.icon-img {
+      transform: scale(2.2);
+      transform-origin: center;
+      will-change: transform;
+      display: block;
+      z-index: 2;
+    }
+
+    @media (min-width: 600px) {
+      a.action-card[href="favorites.html"] .icon img.icon-img {
+        transform: scale(2.6);
+      }
+    }
+
+    /* Guides: slightly smaller visual scale */
+    a.action-card[href="guides.html"] .icon img.icon-img {
+      transform: scale(1.05);
+      transform-origin: center;
+      will-change: transform;
+      display: block;
+      z-index: 2;
+    }
+
+    @media (min-width: 600px) {
+      a.action-card[href="guides.html"] .icon img.icon-img {
+        transform: scale(1.2);
+      }
+    }
+
     @media (min-width: 600px) {
       .action-card {
-        padding: 24px 16px 20px;
-        min-height: 160px;
+        padding: 18px 12px 16px;
+        min-height: 140px;
       }
 
       .action-card .icon {
-        width: 88px;
-        height: 88px;
-        margin-bottom: 14px;
+        width: 76px;
+        height: 76px;
+        margin-bottom: 10px;
       }
 
       .action-card .icon img.icon-img {
-        width: 88px;
-        height: 88px;
+        width: 76px;
+        height: 76px;
       }
 
       .featured-card .icon,
       .discord-card .icon {
-        width: 56px;
-        height: 56px;
+        width: 48px;
+        height: 48px;
       }
 
       .featured-card .icon img.icon-img,
       .discord-card .icon img.icon-img {
-        width: 56px;
-        height: 56px;
+        width: 48px;
+        height: 48px;
       }
     }
 
@@ -874,12 +904,12 @@
       <p class="section-label">Quick Actions</p>
       <div class="quick-actions">
         <a href="earn.html" class="action-card">
-          <span class="icon"><img src="images/earnicon.png" alt="Earn" class="icon-img"></span>
+          <span class="icon"><img src="images/earnicon.webp" alt="Earn" class="icon-img"></span>
           <h3>Earn</h3>
           <p>50+ ways to earn</p>
         </a>
         <a href="guides.html" class="action-card">
-          <span class="icon"><img src="images/guidesicon.png" alt="Guides" class="icon-img"></span>
+          <span class="icon"><img src="images/guidesicon.webp" alt="Guides" class="icon-img"></span>
           <h3>Guides</h3>
           <p>Step-by-step help</p>
         </a>
@@ -894,7 +924,7 @@
           <p>Practice prompts & templates</p>
         </a>
         <a href="favorites.html" class="action-card">
-          <span class="icon">❤️</span>
+          <span class="icon"><img src="images/hearticon.webp" alt="Favorites" class="icon-img"></span>
           <h3>Favorites</h3>
           <p>Your saved items</p>
         </a>
