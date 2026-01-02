@@ -547,7 +547,7 @@
 
     /* Favorites: visually larger heart without affecting card size or text layout */
     a.action-card[href="favorites.html"] .icon img.icon-img {
-      transform: scale(2.2);
+      transform: scale(2.3) translateY(2px);
       transform-origin: center;
       will-change: transform;
       display: block;
@@ -556,7 +556,7 @@
 
     @media (min-width: 600px) {
       a.action-card[href="favorites.html"] .icon img.icon-img {
-        transform: scale(2.6);
+        transform: scale(2.7) translateY(4px);
       }
     }
 
@@ -602,6 +602,20 @@
       .discord-card .icon img.icon-img {
         width: 48px;
         height: 48px;
+      }
+    }
+
+    /* Slightly larger ADHD Hacks icon (visual only) */
+    a.action-card[href="adhdhacks.html"] .icon img.icon-img {
+      transform: scale(1.15);
+      transform-origin: center;
+      will-change: transform;
+      display: block;
+    }
+
+    @media (min-width: 600px) {
+      a.action-card[href="adhdhacks.html"] .icon img.icon-img {
+        transform: scale(1.25);
       }
     }
 
@@ -913,15 +927,15 @@
           <h3>Guides</h3>
           <p>Step-by-step help</p>
         </a>
-        <a href="adhdhacks.html" class="action-card">
-          <span class="icon"><img src="images/hacksicon.png" alt="Hacks" class="icon-img"></span>
-          <h3>ADHD Hacks</h3>
-          <p>Strategies that work</p>
-        </a>
         <a href="ai-playground.html" class="action-card">
           <span class="icon"><img src="images/playgroundicon.webp" alt="AI Playground" class="icon-img"></span>
           <h3>AI Playground</h3>
           <p>Practice prompts & templates</p>
+        </a>
+        <a href="adhdhacks.html" class="action-card">
+          <span class="icon"><img src="images/hacksicon.webp" alt="Hacks" class="icon-img"></span>
+          <h3>ADHD Hacks</h3>
+          <p>Strategies that work</p>
         </a>
         <a href="favorites.html" class="action-card">
           <span class="icon"><img src="images/hearticon.webp" alt="Favorites" class="icon-img"></span>
