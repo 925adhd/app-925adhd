@@ -87,6 +87,14 @@
       width: 100%;
       height: 50px;
     }
+
+    /* Invert the visual appearance of the motivation audio player */
+    #motAudio {
+      filter: invert(1) hue-rotate(180deg) contrast(1.05);
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
     
     .audio-caption {
       font-size: 13px;
@@ -115,9 +123,11 @@
     }
     
     .section-subtitle {
-      font-size: clamp(18px, 3vw, 24px);
+      font-size: clamp(13px, 1.6vw, 14px);
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+      font-weight: 500;
     }
     
     .section-tagline {
@@ -148,8 +158,8 @@
     }
     
     .content-block h3 {
-      font-size: clamp(16px, 2.5vw, 19px);
-      font-weight: 700;
+      font-size: clamp(18px, 2.6vw, 20px);
+      font-weight: 800;
       margin: 20px 0 12px;
       color: var(--brand);
     }
@@ -163,8 +173,9 @@
       padding: 8px 0;
       padding-left: 24px;
       position: relative;
-      color: rgba(255,255,255,.85);
-      font-size: clamp(15px, 2vw, 17px);
+      color: rgba(255,255,255,0.72);
+      font-size: clamp(14px, 1.9vw, 16px);
+      font-weight: 400;
     }
     
     .content-block li::before {
@@ -306,8 +317,9 @@
       font-size: 16px;
       font-weight: 600;
       line-height: 1.4;
-      text-align: left;
-      max-width: 240px;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
     }
     
     .dopamine-btn {
@@ -416,9 +428,6 @@
   <!-- Dopamine Boost Section -->
   <section class="dopamine-section">
     <div class="dopamine-row">
-      <div class="dopamine-logo">
-        <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="925 ADHD">
-      </div>
       <p class="dopamine-quote">"You've got the power to thrive, not just survive."</p>
     </div>
     <button class="dopamine-btn" id="dopamineBtn">I receive this!</button>
@@ -440,13 +449,11 @@
   <main class="main-content">
     <h1 class="section-title">Remember Your Why</h1>
     <p class="section-subtitle">🧠 ADHD Freelancer Edition 🧠</p>
-    <p class="section-tagline">When focus fades and motivation wanes, come back to this.</p>
     
     <div class="divider"></div>
     
-    <!-- Why My Freelance Journey Matters -->
     <div class="content-block">
-      <h2>🌟 Why My Freelance Journey Matters</h2>
+      <!-- section header removed — subsections start immediately -->
       
       <h3>🎨 I Create on My Own Terms</h3>
       <ul>
@@ -590,27 +597,75 @@
   </nav>
 
   <script>
-    // Dopamine button
-    const dopamineBtn = document.getElementById('dopamineBtn');
-    
-    dopamineBtn.addEventListener('click', () => {
-      dopamineBtn.classList.remove('pop');
-      void dopamineBtn.offsetWidth;
-      dopamineBtn.classList.add('pop');
-      
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      oscillator.frequency.value = 800;
-      oscillator.type = 'sine';
-      gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-      oscillator.start(audioCtx.currentTime);
-      oscillator.stop(audioCtx.currentTime + 0.1);
-    });
+    // Dopamine button: play a short "pop"/boop sound (noise + brief tone)
+    (function(){
+      const dopamineBtn = document.getElementById('dopamineBtn');
+      if (!dopamineBtn) return;
+
+      let audioCtx = null;
+
+      function ensureAudioContext() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      function playPop() {
+        ensureAudioContext();
+        const now = audioCtx.currentTime;
+
+        // Short noise burst (gives a cute 'pop' body)
+        const noiseLength = Math.max(0.02, 0.03); // 20-30ms
+        const bufferSize = Math.floor(audioCtx.sampleRate * noiseLength);
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          // shaped noise envelope (quick decay)
+          const env = 1 - i / bufferSize;
+          data[i] = (Math.random() * 2 - 1) * Math.pow(env, 1.5) * 0.8;
+        }
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        const noiseFilter = audioCtx.createBiquadFilter();
+        noiseFilter.type = 'bandpass';
+        noiseFilter.frequency.value = 1500;
+        noiseFilter.Q.value = 0.8;
+        const noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.2, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        noise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(audioCtx.destination);
+        noise.start(now);
+        noise.stop(now + 0.05);
+
+        // Bright little tone for the 'boop' top
+        const osc = audioCtx.createOscillator();
+        const oscGain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(900, now);
+        oscGain.gain.setValueAtTime(0.0001, now);
+        osc.connect(oscGain);
+        oscGain.connect(audioCtx.destination);
+        oscGain.gain.linearRampToValueAtTime(0.28, now + 0.006);
+        oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+        osc.start(now);
+        osc.stop(now + 0.07);
+      }
+
+      dopamineBtn.addEventListener('click', () => {
+        // visual pop animation
+        dopamineBtn.classList.remove('pop');
+        void dopamineBtn.offsetWidth;
+        dopamineBtn.classList.add('pop');
+
+        // resume context on user gesture to satisfy mobile autoplay policies
+        ensureAudioContext();
+        if (audioCtx.state === 'suspended' && typeof audioCtx.resume === 'function') {
+          audioCtx.resume().catch(() => {});
+        }
+
+        playPop();
+      });
+    })();
   </script>
   <script>
     // Update page title and Media Session metadata when the motivation audio plays

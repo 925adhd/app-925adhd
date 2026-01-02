@@ -546,7 +546,7 @@
 
     /* ADHD Hacks - slight top offset and larger icon */
     a.action-card[href="adhdhacks.html"] {
-      padding-top: 20px;
+      padding-top: 21px;
     }
 
     a.action-card[href="adhdhacks.html"] .icon {
@@ -650,12 +650,24 @@
       flex-shrink: 0;
       transition: all 0.2s;
       box-shadow: 0 2px 8px rgba(88, 101, 242, 0.3);
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      user-select: none;
+      -webkit-user-select: none;
     }
-    
+
     .discord-btn:hover {
       background: #4752C4;
       box-shadow: 0 4px 12px rgba(88, 101, 242, 0.5);
       transform: scale(1.05);
+    }
+
+    .discord-btn:focus {
+      outline: none;
+    }
+
+    .discord-btn:active {
+      outline: none;
     }
     
     /* Discord CTA */
@@ -941,7 +953,7 @@
       
       <!-- Featured -->
       <a href="motivation.html" class="featured-card">
-        <span class="icon"><img src="images/brainholographic.png" alt="Motivation" class="icon-img"></span>
+        <span class="icon"><img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="925 ADHD Logo" class="icon-img"></span>
         <div>
           <h3>Need a boost?</h3>
           <p>When focus fades, remember your why →</p>
