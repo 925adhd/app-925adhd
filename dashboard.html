@@ -15,7 +15,36 @@
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
-  
+
+  <style id="layout-temp-style">
+    /* Hide all elements until loading is complete */
+    .top-header,
+    .header,
+    .bottom-nav,
+    .page-nav,
+    header,
+    nav,
+    .site-header,
+    .site-nav,
+    .back-btn,
+    .back-button,
+    button.back,
+    a.back,
+    .btn-back,
+    .back,
+    .back-arrow,
+    .back-arrow-btn,
+    .page-back,
+    button[aria-label="Back"],
+    .menu-btn,
+    .logout-btn,
+    #menuBtn,
+    #logoutBtn,
+    #app {
+      display: none !important;
+    }
+  </style>
+
   <style>
     * {
       box-sizing: border-box;
@@ -106,7 +135,14 @@
         opacity: 0;
       }
     }
-    
+
+    /* Hide particles on mobile */
+    @media (max-width: 600px) {
+      .particle {
+        display: none;
+      }
+    }
+
     /* Top Header */
     .top-header {
       padding: 12px 16px;
@@ -115,56 +151,6 @@
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
     }
-    /* Hamburger menu overlay */
-    .hamburger-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      z-index: 300;
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
-    .hamburger-overlay.open { display: flex; }
-    .hamburger-panel {
-      width: 280px;
-      max-width: 80%;
-      background: var(--card);
-      padding: 16px;
-      border-right: 1px solid rgba(255,255,255,0.04);
-      box-shadow: 8px 0 24px rgba(0,0,0,0.6);
-      max-height: 100vh;
-      overflow: auto;
-    }
-    .hamburger-panel h3 { margin-bottom: 12px; font-size: 16px }
-    .hamburger-panel a { display: block; padding: 10px 8px; border-radius: 8px; color: var(--text); text-decoration: none; margin-bottom:6px }
-    .hamburger-panel a:hover { background: rgba(255,255,255,0.02) }
-    
-    .menu-btn {
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 22px;
-      cursor: pointer;
-      padding: 6px;
-    }
-    
-    .logout-btn {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .logout-btn:hover {
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-    }
-    
     /* Hero Section - Compact */
     .hero {
       text-align: center;
@@ -533,30 +519,30 @@
       border-radius: 10px;
     }
 
-    /* AI Playground - larger icon */
-    a.action-card[href="ai-playground.html"] .icon {
-      width: 84px;
-      height: 84px;
+    /* Uniform action-card sizing and alignment */
+    .action-card {
+      padding: 16px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    a.action-card[href="ai-playground.html"] .icon img.icon-img {
-      width: 84px;
-      height: 84px;
-    }
-
-    /* ADHD Hacks - slight top offset and larger icon */
-    a.action-card[href="adhdhacks.html"] {
-      padding-top: 21px;
-    }
-
-    a.action-card[href="adhdhacks.html"] .icon {
+    .action-card .icon {
       width: 72px;
       height: 72px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    a.action-card[href="adhdhacks.html"] .icon img.icon-img {
+    .action-card .icon img.icon-img {
       width: 72px;
       height: 72px;
+      object-fit: contain;
+      border-radius: 10px;
     }
 
     @media (min-width: 600px) {
@@ -566,53 +552,23 @@
       }
 
       .action-card .icon {
-        width: 72px;
-        height: 72px;
-        font-size: 52px;
+        width: 88px;
+        height: 88px;
+        margin-bottom: 14px;
       }
 
       .action-card .icon img.icon-img {
-        width: 72px;
-        height: 72px;
+        width: 88px;
+        height: 88px;
       }
 
-      /* AI Playground - larger on tablet */
-      a.action-card[href="ai-playground.html"] .icon {
-        width: 120px;
-        height: 120px;
-      }
-
-      a.action-card[href="ai-playground.html"] .icon img.icon-img {
-        width: 120px;
-        height: 120px;
-      }
-
-      /* ADHD Hacks - larger on tablet */
-      a.action-card[href="adhdhacks.html"] .icon {
-        width: 96px;
-        height: 96px;
-      }
-
-      a.action-card[href="adhdhacks.html"] .icon img.icon-img {
-        width: 96px;
-        height: 96px;
-      }
-
-      .featured-card .icon {
-        width: 56px;
-        height: 56px;
-      }
-
-      .featured-card .icon img.icon-img {
-        width: 56px;
-        height: 56px;
-      }
-
+      .featured-card .icon,
       .discord-card .icon {
         width: 56px;
         height: 56px;
       }
 
+      .featured-card .icon img.icon-img,
       .discord-card .icon img.icon-img {
         width: 56px;
         height: 56px;
@@ -734,14 +690,20 @@
     
     /* Loading State */
     .loading-screen {
-      min-height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--bg);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       gap: 16px;
+      z-index: 10000;
     }
-    
+
     .spinner {
       width: 36px;
       height: 36px;
@@ -750,7 +712,7 @@
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-    
+
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
@@ -820,26 +782,17 @@
         height: 80px;
       }
 
-      /* AI Playground - larger on desktop */
-      a.action-card[href="ai-playground.html"] .icon {
-        width: 140px;
-        height: 140px;
+      /* Keep all action-card icons uniform on desktop */
+      .action-card .icon {
+        width: 100px;
+        height: 100px;
+        font-size: 58px;
+        margin-bottom: 14px;
       }
 
-      a.action-card[href="ai-playground.html"] .icon img.icon-img {
-        width: 140px;
-        height: 140px;
-      }
-
-      /* ADHD Hacks - larger on desktop */
-      a.action-card[href="adhdhacks.html"] .icon {
-        width: 110px;
-        height: 110px;
-      }
-
-      a.action-card[href="adhdhacks.html"] .icon img.icon-img {
-        width: 110px;
-        height: 110px;
+      .action-card .icon img.icon-img {
+        width: 100px;
+        height: 100px;
       }
 
       .action-card h3 {
@@ -904,28 +857,7 @@
       <button class="menu-btn" id="menuBtn">☰</button>
       <button class="logout-btn" id="logoutBtn">Log out</button>
     </header>
-    <!-- Hamburger menu overlay -->
-    <div id="hamburgerOverlay" class="hamburger-overlay" aria-hidden="true">
-      <div class="hamburger-panel" role="dialog" aria-label="Menu">
-        <h3>Menu</h3>
-        <a href="beginnerlist.html">Beginner List</a>
-        <a href="ai-playground.html">AI Playground</a>
-        <a href="aimadesimple.html">AI Made Simple</a>
-        <a href="crypto-made-simple.html">Crypto Made Simple</a>
-        <a href="playlist.html">Motivation Playlist</a>
-        <a href="feedback.html">Feedback</a>
-        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:10px 0">
-        <a href="dashboard.html">Home</a>
-        <a href="guides.html">Guides</a>
-        <a href="earn.html">Earn</a>
-        <a href="apps.html">Apps</a>
-        <a href="favorites.html">Favorites</a>
-        <a href="tools.html">Tools</a>
-        <div style="height:20px"></div>
-        <button id="closeMenuBtn" class="logout-btn" style="display:block;width:100%;padding:8px 10px;border:none;background:#56C3AE;color:#ffffff;border-radius:8px;cursor:pointer;font-weight:600">Close</button>
-      </div>
-    </div>
-    
+
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-row" style="justify-content:center;">
@@ -967,7 +899,7 @@
           <p>Your saved items</p>
         </a>
         <a href="tools.html" class="action-card">
-          <span class="icon"><img src="images/toolsicon.png" alt="Tools" class="icon-img"></span>
+          <span class="icon"><img src="images/toolsicon.webp" alt="Tools" class="icon-img"></span>
           <h3>Tools</h3>
           <p>Focus & productivity</p>
         </a>
@@ -1060,29 +992,6 @@
     checkAuth();
   </script>
   <script>
-    // Hamburger menu toggle
-    (function(){
-      const menuBtn = document.getElementById('menuBtn');
-      const overlay = document.getElementById('hamburgerOverlay');
-      const closeBtn = document.getElementById('closeMenuBtn');
-      if (!menuBtn || !overlay) return;
-
-      function openMenu() {
-        overlay.classList.add('open');
-        overlay.setAttribute('aria-hidden', 'false');
-      }
-      function closeMenu() {
-        overlay.classList.remove('open');
-        overlay.setAttribute('aria-hidden', 'true');
-      }
-
-      menuBtn.addEventListener('click', (e) => { e.preventDefault(); openMenu(); });
-      closeBtn && closeBtn.addEventListener('click', (e) => { e.preventDefault(); closeMenu(); });
-      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeMenu(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-    })();
-  </script>
-  <script>
     // 3D Tilt Effect on Cards
     document.addEventListener('DOMContentLoaded', () => {
       const cards = document.querySelectorAll('.action-card, .featured-card, .discord-card');
@@ -1112,5 +1021,6 @@
       });
     });
   </script>
+  <script src="assets/layout.js"></script>
 </body>
 </html>
