@@ -92,6 +92,39 @@
       font-size: 22px;
       cursor: pointer;
     }
+    .site-fav-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--text);
+      cursor: pointer;
+      z-index: 10001;
+    }
+
+    .page-fav-btn {
+      position: fixed;
+      right: 20px;
+      top: 84px; /* sits below the brand header */
+      background: rgba(0,0,0,0.0);
+      border: none;
+      font-size: 26px;
+      color: var(--text);
+      cursor: pointer;
+      z-index: 10002;
+      padding: 6px;
+      border-radius: 8px;
+      transition: transform 0.12s ease;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+    .page-fav-btn:active { transform: scale(0.96); }
+
+    @media (max-width:520px) {
+      .page-fav-btn { right: 12px; top: 76px; font-size: 22px; }
+    }
     
     /* Main Content */
     main {
@@ -384,6 +417,24 @@
       }
     }
   </style>
+  <style>
+    /* Critical TL;DR styles inlined to prevent flash-of-unstyled-content */
+    .tldr-box {
+      background: linear-gradient(135deg, rgba(90,195,174,0.15), rgba(124,58,237,0.08));
+      border: 1px solid rgba(90,195,174,0.3);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .tldr-label {
+      font-weight: 700;
+      color: var(--cyan);
+      margin-right: 8px;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header" style="position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:var(--brand);padding:0 16px;z-index:10000;">
@@ -393,6 +444,8 @@
       <span class="brand-name" style="font-size:16px;font-weight:800;color:var(--text);display:inline-block;">925 ADHD</span>
     </a>
   </header>
+  </header>
+  <button class="page-fav-btn" id="pageFavBtn" aria-label="Save">🤍</button>
   
   <header class="header">
     <button class="back-btn" onclick="history.back()">←</button>
@@ -971,21 +1024,18 @@ const gigData = {
     ]
   },
   'mturk': {
-    name: 'Amazon Mechanical Turk',
+    name: 'Amazon MTurk',
     logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
     link: 'https://www.mturk.com/worker',
     rate: '$2–$6/hr avg',
-    description: 'Amazon\'s massive microtask marketplace with endless small jobs.',
-    category: 'data',
-    tldr: 'Amazon\'s crowdsourcing platform with thousands of microtasks (HITs) paying pennies to dollars each. Median earnings ~$2/hr, experienced workers make $6–10/hr. US workers get bank transfers; others get Amazon gift cards. Huge learning curve — takes months to unlock good-paying tasks.',
-    intro: 'Amazon Mechanical Turk (MTurk) is one of the oldest and largest crowdsourcing platforms, launched in 2005. Businesses and researchers post Human Intelligence Tasks (HITs) — small jobs that require human judgment — and workers complete them for pay.\n\nWith over 500,000 registered workers across 190+ countries, MTurk offers massive task variety but notoriously low pay. Studies show median earnings of ~$2/hour, though experienced "Turkers" using the right tools and strategies can earn $6–15/hour. It\'s best viewed as supplemental income, not a job replacement.',
+    description: 'Amazon\'s massive microtask marketplace with endless small jobs; median earnings ~$2/hr, experienced workers $6–15/hr.',
+    category: 'microtasks',
+    tldr: 'Microtasks galore — low pay, high volume; good for consistent small earnings.',
+    intro: 'Amazon Mechanical Turk (MTurk) is a crowdsourcing marketplace for microtasks (HITs). It offers high task volume but generally low pay; use extensions and qualifications to find better work.',
     whyAdhd: [
-      'Endless variety — surveys, images, audio, data entry',
-      'Work any time — 24/7 task availability',
-      'No commitments — accept only what interests you',
-      'Quick tasks — many HITs take under 5 minutes',
-      'Instant feedback — see earnings immediately',
-      'Gamified progression — milestones unlock better HITs'
+      'Flexible schedule — work anytime',
+      'Short tasks reduce burnout',
+      'Varied tasks help maintain interest'
     ],
     standOut: [
       'Owned by Amazon — legitimate and reliable',
@@ -1902,51 +1952,207 @@ const gigData = {
   },
   'rover': {
     name: 'Rover',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/n8yzcHBxOVGYzZeYTAPc.png',
-    link: 'rover.com',
-    rate: '$20–$40/hr',
-    description: 'Dog walking, pet sitting, boarding, overnight stays, animal companionship.  ',
-    category: 'care',
-    intro: '**Rover.com** is a popular online marketplace connecting pet owners with trusted pet sitters and dog walkers. Think of it as the “Airbnb for pets”—you create a profile, set your own rates, and decide what services you want to offer (boarding, walking, daycare, house sitting, drop-ins).  \n\nIt’s one of the bigger platforms in the pet care gig economy, so if you love animals and want flexible income, Rover is a legit option.',
-    whyAdhd: [],
-    standOut: [],
-    importantNotes: [],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '',
-    idealFor: ['Dog and cat lovers looking to earn extra income', 'Students, freelancers, or remote workers with flexible schedules', 'People with ADHD who thrive on variety and movement', 'Anyone wanting a low-stress, animal-centered gig']
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
+    link: 'https://www.rover.com/become-a-sitter/',
+    rate: '$15–$75+/service',
+    description: 'The largest pet care marketplace — dog walking, pet sitting, boarding, daycare, and drop-in visits.',
+    category: 'services',
+    tldr: 'Top pet care app with millions of pet owners. Set your own rates for walking ($15-30), sitting ($25-50/night), boarding ($35-75/night). Rover takes 20% of every booking. Free background check. $1M liability coverage. Weekly payouts via Stripe. Build repeat clients, keep 100% of tips.',
+    intro: '<strong>Rover</strong> is the nation\'s largest network of pet sitters and dog walkers. They connect pet owners with local caregivers for dog walking, pet sitting, boarding, daycare, and drop-in visits.\n\nAs a Rover sitter, you\'re an independent contractor who sets your own rates, schedule, and which pets you accept. Rover handles booking, payments, and provides $1M in liability coverage.',
+    whyAdhd: [
+      'Set your own schedule — work when you want',
+      'Choose which pets to care for',
+      'Work outside — walks are active, not desk-bound',
+      'Build relationships with regular clients',
+      'Variety of services keeps it interesting',
+      'Photos and updates make it engaging'
+    ],
+    standOut: [
+      'Largest pet care marketplace',
+      '5-star network of sitters',
+      'Set your own rates',
+      'Free background check',
+      '$1M liability coverage included',
+      'Rover Guarantee for vet emergencies',
+      '24/7 support available',
+      'Keep 100% of tips',
+      'Weekly Friday payouts',
+      'GPS-tracked walks via Rover Cards'
+    ],
+    importantNotes: [
+      'Rover takes 20% of every booking',
+      'California: Different fee structure (25% marketplace + 11% booking)',
+      'Background check required (free)',
+      'Must pass pet care safety quiz',
+      'Competition varies by location',
+      'Building reviews takes time',
+      'Pet owners can see your profile before booking',
+      'Technical glitches reported with app',
+      'Holiday seasons are busiest (and competitive)',
+      'You\'re responsible for your own taxes (1099)'
+    ],
+    payoutInfo: [
+      'Dog walking: $15–$30 per 30-min walk',
+      'Drop-in visits: $15–$25 per visit',
+      'Doggy daycare: $25–$45 per day',
+      'Overnight sitting: $25–$50 per night',
+      'Boarding: $35–$75 per night',
+      'Rover fee: 20% of every booking',
+      'Tips: Keep 100%',
+      'Payment: Weekly (Fridays) via Stripe',
+      'Instant Pay: 3% extra fee'
+    ],
+    taskTypes: [
+      'Dog walking — 20, 30, or 60-minute walks',
+      'Drop-in visits — feeding, playtime, potty breaks',
+      'Doggy daycare — daytime care at your home',
+      'Overnight boarding — pet stays at your home',
+      'House sitting — stay at pet owner\'s home',
+      'Cat care — visits and sitting',
+      'Multiple pet discounts'
+    ],
+    finalTake: '<strong>Rover is the go-to platform for pet care side hustles.</strong> The 20% fee is significant but you get a massive client base, insurance coverage, and payment protection. Best strategy: Start with competitive rates to build reviews, then raise prices. Many sitters earn $500-1,000+/month part-time. Full-time is possible but requires building a strong reputation and repeat clients.',
+    idealFor: [
+      'Animal lovers who want flexible work',
+      'People with homes suitable for boarding',
+      'Those who enjoy outdoor activity (walking)',
+      'Side hustlers wanting extra income',
+      'Anyone comfortable with the 20% platform fee'
+    ]
   },
   'wag': {
-    name: 'Wag',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Cw1AUklnSjvwc5cFkDgL.png',
-    link: 'wagwalking.com',
-    rate: '$13–$25/hr',
-    description: 'Quick dog walks, pet boarding, drop-ins, flexible part-time income.  ',
-    category: 'care',
-    intro: '**Wagwalking.com (Wag!)** is a gig platform focused on on-demand dog walking, pet sitting, and boarding. It’s often called the “Uber for dog walking,” since owners can book pet care through the app and nearby walkers get notified instantly.  \n\nUnlike Rover, which leans more toward longer-term pet sitting and boarding, Wag! is **built for quick, flexible dog-walking jobs**—great for people who want fast bookings and shorter commitments.',
-    whyAdhd: [],
-    standOut: [],
-    importantNotes: [],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '',
-    idealFor: ['City dwellers who want flexible, on-demand walking gigs', 'People with ADHD who thrive on short bursts of activity', 'Students or part-timers looking for quick side income', 'Dog lovers who don’t want to commit to boarding or house sitting']
+    name: 'Wag!',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
+    link: 'https://wagwalking.com/dog-walker',
+    rate: '$9–$33/service',
+    description: 'On-demand dog walking and pet care app — grab available walks nearby, but Wag takes 40% of your earnings.',
+    category: 'services',
+    tldr: 'On-demand dog walking app. 20-min walk: $9-12, 30-min: $13-17, 60-min: $20-25 (after Wag\'s 40% cut). $49.95 application fee. Background check required. Walks assigned via app — first to accept gets it. Weekly Friday payouts. Good for flexible work, but steep fees.',
+    intro: '<strong>Wag!</strong> is an on-demand dog walking app that works like Uber for pets. When dog owners request a walk, nearby walkers get notified and can accept the job. First to accept gets it.\n\nUnlike Rover where you build ongoing client relationships, Wag! is more transactional — you grab available walks when you want. Wag provides GPS tracking, lockbox access, and handles payments.',
+    whyAdhd: [
+      'Ultimate flexibility — walk when you want',
+      'No client management — just grab and go',
+      'Get outside and stay active',
+      'Quick tasks — 20-60 minute walks',
+      'App handles everything',
+      'Instant job notifications'
+    ],
+    standOut: [
+      'On-demand — walk available dogs nearby',
+      'GPS tracking for safety',
+      'Lockbox access (no owner needed)',
+      'Background check included',
+      '$1M insurance coverage',
+      'Keep 100% of tips',
+      'Weekly Friday payouts',
+      'App handles scheduling and payments',
+      'Wag Pro option for more features'
+    ],
+    importantNotes: [
+      '⚠️ Wag takes 40% of every walk (you keep 60%)',
+      'Application fee: $49.95 (covers background check)',
+      'Wag Pro: $149 one-time fee for extra perks',
+      'You don\'t set prices — Wag sets rates',
+      'Some cities: $15 for 20-min, $22 for 30-min, $33 for 60-min (before 40% cut)',
+      'After Wag\'s cut: ~$9 for 20-min, ~$13 for 30-min, ~$20 for 60-min',
+      'Jobs are first-come, first-served',
+      'Poor reviews from walkers on pay/support',
+      'Glassdoor: 2.5/5 rating',
+      'Coupons reduce walker pay further'
+    ],
+    payoutInfo: [
+      '20-min walk: ~$9 (after 40% fee)',
+      '30-min walk: ~$13 (after 40% fee)',
+      '60-min walk: ~$20 (after 40% fee)',
+      'Wag takes 40% of base rate',
+      'Tips: Keep 100%',
+      'Sitting/boarding rates vary',
+      'Payment: Weekly (Fridays) via Stripe',
+      'Instant Pay: 3% extra fee',
+      'Referral bonus: $50 per new client'
+    ],
+    taskTypes: [
+      'Express walks — 20 minutes',
+      'Standard walks — 30 minutes',
+      'Deluxe walks — 60 minutes',
+      'Drop-in visits — check on pets',
+      'Pet sitting — overnight care',
+      'Boarding — pet stays with you',
+      'Training — if qualified'
+    ],
+    finalTake: '<strong>Wag pays less than Rover but offers more flexibility.</strong> The 40% fee is brutal (vs Rover\'s 20%), but you don\'t need to manage clients or bookings — just grab walks when they\'re available. Best for: people who want truly on-demand work without commitment. Many walkers use both Rover AND Wag.',
+    idealFor: [
+      'People wanting ultimate flexibility',
+      'Those who prefer grab-and-go over client management',
+      'Dog lovers who want quick walks between activities',
+      'Side hustlers supplementing other income',
+      'NOT for those who want to maximize earnings'
+    ]
   },
   'taskrabbit': {
     name: 'TaskRabbit',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Y0lwF8oCSOa0ygsFLxiQ.jpg',
-    link: 'taskrabbit.com',
-    rate: '$17.50–$50+/hr',
-    description: 'Cleaning, handyman tasks, moving help, furniture assembly, general errands.  ',
-    category: 'care',
-    intro: '**TaskRabbit.com** is an online gig platform where people hire “Taskers” for everyday jobs—everything from moving furniture to assembling IKEA shelves, cleaning, delivery, and even tech help. Think of it as a marketplace for **local freelance labor**, where you set your rates, choose the tasks you want, and work on your own schedule.  \n\nIt’s widely available in major cities and has become a go-to platform for flexible, practical work.',
-    whyAdhd: ['Wide variety of tasks — no two jobs are the same, keeps things fresh', 'Active work — many gigs involve movement (cleaning, moving, deliveries)', 'Flexible scheduling — choose only the jobs you want', 'Quick payoffs — many tasks are same-day opportunities for cash'],
-    standOut: [],
-    importantNotes: ['TaskRabbit charges a service fee (15% of your rate per task)', 'You must pay a one-time $25 registration fee to join (non-refundable)', 'Highly competitive in large cities—ratings and reviews matter a lot', 'No guaranteed work—you’re responsible for finding tasks', 'You’re treated as an independent contractor, not an employee'],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '**TaskRabbit** is a great platform if you’re handy, active, or enjoy variety in your work. The ability to set your own rates is a big plus, but competition and reviews can make it tough for beginners. The **15% fee + $25 sign-up cost** are downsides, but with consistent effort, TaskRabbit can turn into a **solid side hustle or even full-time income stream** in busy cities.',
-    idealFor: ['People in cities who want local, flexible gig work', 'ADHD workers who thrive on variety and physical activity', 'Anyone skilled in cleaning, moving, or furniture assembly', 'Those looking for a practical alternative to desk-based gig apps']
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
+    link: 'https://www.taskrabbit.com/become-a-tasker',
+    rate: '$25–$75+/hr',
+    description: 'On-demand local tasks and services — furniture assembly, moving, cleaning, handyman work, and more.',
+    category: 'services',
+    tldr: 'On-demand task marketplace (owned by IKEA). Set your own hourly rates ($25-100+). No platform fee on your earnings — you keep 100%. Clients pay 15% service fee. $25 registration fee. Background check required. Best for handyman skills, furniture assembly, moving help. Major metro areas only.',
+    intro: '<strong>TaskRabbit</strong> connects local "Taskers" with people who need help with everyday tasks — furniture assembly, moving, cleaning, delivery, and more. Founded in 2008 and acquired by IKEA in 2017.\n\nUnlike most gig platforms, TaskRabbit doesn\'t take a cut of your earnings. You set your hourly rate and keep 100%. Clients pay a separate 15% service fee to TaskRabbit. Available in 70+ cities across US, UK, Canada, Germany, and more.',
+    whyAdhd: [
+      'Variety of tasks keeps it interesting',
+      'Set your own rates and schedule',
+      'Short, defined tasks with clear endpoints',
+      'Physical work — not sitting at a desk',
+      'Immediate results (task done = satisfaction)',
+      'Choose tasks that match your skills'
+    ],
+    standOut: [
+      'No platform fee — keep 100% of your rate + tips',
+      'Set your own hourly rates',
+      'Choose which tasks to accept',
+      '700+ service categories',
+      'IKEA partnership (lots of furniture assembly)',
+      'Happiness Pledge for client satisfaction',
+      '$1M+ liability coverage',
+      'Repeat client relationships possible',
+      'Mobile app for job management'
+    ],
+    importantNotes: [
+      '$25 registration fee (covers background check)',
+      'Clients pay 15% Trust & Support fee (not from your pay)',
+      'Background check required',
+      'Major metro areas only — limited rural coverage',
+      'Can\'t contact clients before accepting task',
+      'Newer Taskers start with lower visibility',
+      'Reviews heavily impact getting jobs',
+      'Must provide your own tools for many tasks',
+      'Self-employed — handle your own taxes',
+      'Some categories have pre-set rates (Task-Based Earning)'
+    ],
+    payoutInfo: [
+      'Average Tasker rate: $25–$75/hr',
+      'Furniture assembly: $40–$60/hr typical',
+      'Moving help: $35–$50/hr typical',
+      'Cleaning: $25–$45/hr typical',
+      'Handyman work: $50–$100+/hr',
+      'You keep 100% of your rate + tips',
+      'Clients pay 15% service fee separately',
+      'Payment via direct deposit',
+      '1099 independent contractor'
+    ],
+    taskTypes: [
+      'Furniture assembly — IKEA and all brands',
+      'Moving help — loading, unloading, packing',
+      'Mounting — TVs, shelves, artwork',
+      'Cleaning — home, move-out, deep clean',
+      'Handyman — repairs, installations',
+      'Delivery and errands',
+      'Yard work and outdoor tasks',
+      'Personal assistant tasks',
+      'Event help — setup, serving'
+    ],
+    finalTake: '<strong>TaskRabbit is one of the best gig platforms for skilled workers.</strong> No platform fee means you keep everything you earn. The $25 registration is minimal, and IKEA partnership means steady furniture assembly work. Best earners: handymen, movers, and assemblers who can command $50-100+/hr. Build reviews quickly, raise rates, and you can earn serious money.',
+    idealFor: ['Handy people with practical skills', 'Those who enjoy physical, varied work', 'Anyone in major metro areas', 'People who want to set their own rates', 'Side hustlers or full-time giggers']
   },
   'papa': {
     name: 'Papa',
@@ -1955,14 +2161,42 @@ const gigData = {
     rate: '$13–$20/hr',
     description: 'Senior companionship, errands, light household help, rides, friendly conversation.  ',
     category: 'care',
-    intro: '**Papa** is a digital platform that connects older adults, families, and underserved populations with friendly, vetted companions—called "Papa Pals"—who help with everyday tasks and provide social support. Think of it like having a caring neighbor or family friend on demand!\n\nIt’s designed for **seniors, families, and members of health plans or employer benefit programs**, making it easier to **combat social isolation, support aging-in-place, and lighten the load of routine tasks**.',
-    whyAdhd: [],
-    standOut: [],
-    importantNotes: [],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: 'If you’re **someone who thrives on human connection, loves flexibility, and values purpose over paycheck**, Papa.com might be your ADHD sweet spot. It’s not **medical caregiving**, but it *is* heartfelt, real-world help—with all the warm fuzzies.\n\nThink of it as delivering packages of joy and companionship—**You’re not changing lives with medical skills; you’re lifting spirits with presence.**',
-    idealFor: ['Compassionate students or flexible-workers looking to make a meaningful difference.', 'People who prefer autonomy and variety—never the same gig twice.', 'Human connectors—those who find fulfillment in chat, walks, or shared hobbies.', 'Families/employers offering care benefits—great value, engaging option.', 'Those not needing certified care but craving extra hands and warmth.']
+    tldr: 'Local "companion" gigs helping seniors and families — flexible, non-medical, social-first work that pays roughly $13–$20/hr.',
+    intro: '**Papa** connects older adults and families with vetted companions ("Papa Pals") who provide social support, rides, errands, and light household help. It’s positioned as non-medical companionship—help with everyday life rather than clinical care. Many gigs come through benefit programs, health plans, or family referrals, so availability can vary by region.',
+    whyAdhd: [
+      'Short, predictable visits that fit into fragmented schedules',
+      'Highly social work — rewarding for people who like one-on-one interaction',
+      'Clear, bounded tasks (ride, errand, conversation) reduce cognitive load',
+      'Flexible shifts — pick times that match your energy and focus windows',
+      'Routine and structure are provided by visit checklists and family instructions'
+    ],
+    standOut: [
+      'Focus on companionship and practical help rather than medical tasks',
+      'Platform often works with insurers/benefit programs (regional variability)',
+      'Background checks and basic onboarding increase client trust',
+      'Great fit for students, retirees, and people seeking meaningful, local work'
+    ],
+    importantNotes: [
+      'Not a substitute for medical or licensed caregiving — scope is non-medical',
+      'May require background checks, ID verification, or basic training',
+      'Expect in-person work, travel time, and occasional errands (mileage not always reimbursed)',
+      'Availability varies by region and by partnerships with benefit programs'
+    ],
+    payoutInfo: [
+      '$13–$20/hr typical depending on market and client',
+      'Tips are common and often appreciated',
+      'Payments and cadence depend on Papa policies — often weekly or biweekly via direct deposit',
+      'You are generally an independent contractor (tax responsibilities apply)'
+    ],
+    taskTypes: [
+      'Friendly visits and companionship',
+      'Accompanied errands and grocery runs',
+      'Transportation to appointments or social outings',
+      'Light household help and organizing',
+      'Tech help (phone/video calls), medication reminders (non-medical)'
+    ],
+    finalTake: 'Papa is an excellent option if you want flexible, social, and meaningful in-person work that doesn\'t require medical certification. It plays to strengths like empathy, conversational energy, and punctual reliability — ideal for ADHD workers who prefer short, relational shifts over long, repetitive tasks.',
+    idealFor: ['People who enjoy meaningful one-on-one interactions', 'Students or part-timers wanting flexible daytime work', 'Care-minded neighbors who prefer non-medical support roles', 'Workers who value variety and real-world connection over remote gig work']
   },
   'trustedhousesitters': {
     name: 'Trusted Housesitters',
@@ -1971,14 +2205,40 @@ const gigData = {
     rate: '$149–$299/yr',
     description: 'Pet and house sitting, worldwide travel exchange, annual membership required.  ',
     category: 'care',
-    intro: '**TrustedHousesitters** is a global online platform that connects **pet owners** needing caregivers for their pets and homes with **pet-loving travelers** who’ll stay for free in exchange for pet and house sitting. Think of it like trading heartfelt pet companionship and home care for rent-free travel—a mutually beneficial exchange rooted in trust.\n\nIt’s designed for **pet owners who want peace of mind** while away and **travelers or digital nomads** seeking unique places to stay—and it makes it easier to **travel affordably or enjoy quality pet care without a traditional pet sitter or kennel**.',
-    whyAdhd: [],
-    standOut: [],
-    importantNotes: [],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: 'If you\'re **a flexible traveler, animal lover, or a pet owner craving worry-free care**, **TrustedHousesitters** could be your ADHD-friendly win. It’s not just “free lodging”—it’s a heartfelt exchange of trust, pets, and adventure.\n\nThink of it like being a **temporary furry friend in gorgeous homes**—you’re not paying rent, but you\'re giving love, responsibility, and care in return.',
-    idealFor: ['Digital nomads and independent travelers who want affordable, meaningful accommodation.', 'Animal lovers who thrive on routine and companionship.', 'Pet owners who want trusted, review-backed care without kennel fees.', 'Travelers seeking unique stays instead of hotels or Airbnbs.']
+    tldr: 'Membership-based pet & house-sitting marketplace — trade pet care for lodging or paid gigs; annual membership required for access.',
+    intro: '**TrustedHousesitters** connects pet owners with vetted sitters who stay in homes to care for animals and property while owners travel. It primarily operates as a membership-based exchange: members find stays in exchange for pet and home care. Availability and payment models vary—many sitters accept lodging instead of direct pay, though paid opportunities and local arrangements do exist.',
+    whyAdhd: [
+      'Short-to-medium length stays with clear daily tasks',
+      'Low cognitive load — routines like feeding and walking pets',
+      'Great for people who like hands-on, animal-focused work',
+      'Opportunities to travel affordably and change scenery often'
+    ],
+    standOut: [
+      'Global network with thousands of listings',
+      'Strong review system and sitter verification',
+      'Travel + work trade model — often free lodging in exchange for care',
+      'Ideal for long-form stays rather than micro-gigs'
+    ],
+    importantNotes: [
+      'Requires annual membership (owner and sitter membership tiers)',
+      'Many opportunities are lodging-for-care, not direct pay',
+      'Expect host expectations — cleanliness, reliability, and trust matter',
+      'Insurance/coverage varies by region — read terms carefully'
+    ],
+    payoutInfo: [
+      'Listed rate shown earlier reflects membership price ranges ($149–$299/yr)',
+      'Sitters often receive lodging instead of hourly pay; some hosts offer payment or tips',
+      'Not primarily a high-cash gig platform — financials depend on host arrangements'
+    ],
+    taskTypes: [
+      'Pet feeding and walking',
+      'House checks and light maintenance',
+      'Mail and package handling',
+      'Plant care and garden watering',
+      'Basic home security routines (lights, locks)'
+    ],
+    finalTake: 'If you love animals and travel, TrustedHousesitters is one of the most ADHD-friendly ways to earn or trade for free lodging. It leans toward longer stays and reliable routines rather than quick cash gigs.',
+    idealFor: ['Animal lovers who enjoy routine and responsibility', 'Digital nomads seeking free/low-cost travel stays', 'People who prefer longer, predictable assignments over micro-gigs', 'Those comfortable with in-person responsibility and trust-based exchanges']
   },
   'neighbor': {
     name: 'Neighbor',
@@ -1987,14 +2247,38 @@ const gigData = {
     rate: '$50–$600/month',
     description: 'Rent storage spaces, garages, driveways, earn passive monthly income.  ',
     category: 'care',
-    intro: '**Neighbor.com** is a peer-to-peer marketplace that helps people rent out unused storage and parking spaces—like garages, sheds, driveways, and RV spots—to others looking for storage. Think of it like **Airbnb for your extra space**. It\'s designed for **renters who want affordable, nearby storage** and **hosts who have unused real estate on their hands**, helping both sides save money or earn passive income.',
-    whyAdhd: [],
-    standOut: [],
-    importantNotes: [],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: 'If you\'re someone who thrives on low-effort, high-impact side hustles—and you’ve got space to spare—**Neighbor.com** might just be your ADHD-friendly jackpot. It\'s not taxing like managing tenants or heavy duties, but it does let you earn reliably, simply, and locally.\n\nThink of it as renting out “airspace for your stuff,” keeping life clutter-free while your wallet gets a little thicker.',
-    idealFor: ['Minimalists with extra space (garage, driveway, shed) who want passive income.', 'People planning life transitions—moving, traveling, renovating—needing short-term storage.', 'Cost-conscious renters looking for cheaper, flexible storage near home.', 'Side hustlers seeking simple, scalable income without much overhead.']
+    tldr: 'Peer-to-peer storage rental marketplace — list unused garages, sheds, or driveways for monthly passive income ($50–$600/mo).',
+    intro: '**Neighbor.com** helps people rent out unused storage and parking spaces—garages, sheds, driveways, and RV spots—to neighbors in need of affordable, local storage. It resembles Airbnb for storage and is aimed at people who have extra space and want predictable monthly income.',
+    whyAdhd: [
+      'Low-effort listing and hands-off management',
+      'Predictable monthly payouts reduce financial stress',
+      'Minimal daily task load — mostly communication and occasional meetups',
+      'Good for people who prefer asynchronous work and passive income'
+    ],
+    standOut: [
+      'Passive, recurring income with low day-to-day effort',
+      'Local, flexible durations (short-term to monthly)',
+      'Simple listing flow and built-in renter communication tools'
+    ],
+    importantNotes: [
+      'Check local zoning, HOA rules, and lease agreements before listing',
+      'Security and insurance considerations — read Neighbor\'s coverage terms',
+      'May require occasional in-person handoffs or supervision',
+      'Earnings vary widely by location and space type'
+    ],
+    payoutInfo: [
+      'Typical earnings: $50–$600/month depending on space and location',
+      'Neighbor collects platform fees — review payout schedule in your dashboard',
+      'Payments typically monthly via ACH or direct deposit'
+    ],
+    taskTypes: [
+      'List and describe available space',
+      'Coordinate drop-off and pick-up with renters',
+      'Occasional on-site checks or meet-and-greets',
+      'Handle basic communication and scheduling'
+    ],
+    finalTake: 'Neighbor is a top pick for low-effort, steady side income if you have underused space. It\'s especially ADHD-friendly because once listed, it requires little maintenance and provides predictable monthly payouts.',
+    idealFor: ['Homeowners with spare garages or sheds', 'People with driveways or RV parking to rent', 'Minimalists who prefer passive income with little overhead', 'Those who can handle occasional in-person coordination']
   },
   'chewy': {
     name: 'Chewy',
@@ -2003,14 +2287,37 @@ const gigData = {
     rate: '$16/hr–$19.50/hr',
     description: 'Remote-friendly company offering flexible, ADHD-supportive jobs helping pets thrive.',
     category: 'care',
-    intro: '**Chewy.com** isn’t just for pet parents — it’s also a **massive remote-work employer** that’s quietly built a reputation for being one of the most **ADHD-friendly companies** in the eCommerce world. From customer service to tech, logistics, design, and writing, **Chewy** offers remote and hybrid roles that let you work from home while still feeling connected to a mission that genuinely matters: helping people care for their pets.',
-    whyAdhd: [],
-    standOut: [],
-    importantNotes: [],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: 'If you want a **stable, remote job** with a **mission that feels good**, **Chewy.com** might be your ADHD-safe haven. The company blends structure and empathy in a way that helps neurodivergent employees succeed — without sacrificing flexibility or purpose.  \n\nIt’s more than just work-from-home — it’s work-from-heart. 🐾',
-    idealFor: ['ADHD job seekers craving stability with flexibility.', 'Animal lovers who want their job to align with their values.', 'Introverts & homebodies who thrive in quiet, remote environments.', 'Anyone ready to earn from home while being part of something genuinely kind and mission-driven.']
+    tldr: 'Large pet e-commerce employer offering remote/hybrid roles (customer service, ops, tech); typical pay $16–$19.50/hr.',
+    intro: '**Chewy.com** operates both as a leading pet e-commerce retailer and a sizable employer offering remote and hybrid roles across customer service, operations, logistics, tech, and more. Roles vary from shift-based customer support to salaried tech positions; hiring and schedules depend on the specific team.',
+    whyAdhd: [
+      'Many roles provide structure, clear process, and repeatable workflows',
+      'Remote/hybrid options reduce commute stress and sensory load',
+      'Mission-driven work (pets) can improve focus and motivation',
+      'Shift-based roles offer predictable routines for planning focus blocks'
+    ],
+    standOut: [
+      'Large company with benefits and established HR processes',
+      'Variety of roles from entry-level support to technical positions',
+      'Pet-focused mission that many employees find motivating'
+    ],
+    importantNotes: [
+      'Customer-service roles may require night or weekend shifts',
+      'Hiring windows and pay bands vary by region and team',
+      'Expect structured performance metrics and shift schedules in support roles'
+    ],
+    payoutInfo: [
+      'Typical hourly range (support): $16–$19.50/hr',
+      'Salaried/tech roles follow company compensation bands and benefits',
+      'Benefits and cadence depend on role and location'
+    ],
+    taskTypes: [
+      'Customer service and support (phone/chat/email)',
+      'Warehouse and fulfillment (onsite roles)',
+      'Technical and engineering roles (remote/hybrid)',
+      'Content, design, and marketing positions'
+    ],
+    finalTake: 'Chewy is a reliable employer for people who want structured, mission-aligned work in the pet space. It offers roles that can support ADHD needs via routine, remote options, and clear responsibilities.',
+    idealFor: ['People who want stable hourly or salaried roles with predictable schedules', 'Animal lovers who want meaningful company mission alignment', 'Workers who benefit from structure and standard HR support']
   },
   
   'scripted': {
@@ -2374,83 +2681,403 @@ const gigData = {
   },
   'amazonhandmade': {
     name: 'Amazon Handmade',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/vXq9tx9PrQnlM3UYpxcQ.png',
-    link: 'https://amzn.to/4iuPkoW',
-    rate: '',
-    description: 'Amazon\'s dedicated marketplace for artisans to sell their handmade products.',
-    category: 'handmade',
-    intro: '**Amazon Handmade** is Amazon’s marketplace for artisans who create handcrafted goods. Think of it like Etsy, but inside the Amazon ecosystem.  \nIt’s designed for makers, crafters, and small creative businesses who want to sell unique, handmade products while tapping into Amazon’s huge customer base.',
-    whyAdhd: ['Creative outlet – making things by hand can be stimulating and rewarding.', 'Built-in audience – no need to stress over building traffic from scratch.', 'Clear structure – Amazon handles the listing format, shipping labels, and checkout.', 'Hyperfocus-friendly – when you get in the zone making products, it pays off.', 'Less overwhelming than running a full independent store – Amazon provides the backbone.'],
-    standOut: [],
-    importantNotes: ['The application process can be strict and not all sellers are approved.', 'Amazon takes a 15% referral fee on each sale.', 'You need strong product photos and descriptions to stand out.', 'Competition is tough, especially with Etsy and other handmade sellers.', 'Managing inventory and shipping can become stressful if you scale quickly.'],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '',
-    idealFor: ['Artists and crafters who already sell locally and want to expand online.', 'People with ADHD who thrive on creative, hands-on work.', 'Sellers who want access to Amazon’s customer trust and traffic.', 'Makers who are okay with Amazon’s fee structure in exchange for exposure.']
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
+    link: 'https://sell.amazon.com/programs/handmade',
+    rate: 'You set prices (keep 85%)',
+    description: 'Amazon\'s marketplace for artisans. 15% referral fee per sale, but NO listing fees and NO monthly fee for approved sellers. Access to 300M+ Amazon shoppers.',
+    category: 'creative',
+    tldr: 'Sell handcrafted products to Amazon\'s 300M+ customers. Flat 15% fee per sale — no listing fees, no monthly subscription (waived for approved sellers, saving $480/year). Stricter than Etsy: application required, handmade only (no vintage, no digital, no print-on-demand). Can use FBA for fulfillment. Higher fee than Etsy but simpler structure and massive audience.',
+    intro: '<strong>Amazon Handmade</strong> gives artisans access to Amazon\'s enormous customer base while keeping the marketplace exclusive to genuine handcrafted goods. Unlike regular Amazon, you must apply and be approved — this filters out mass-produced competition.\n\nThe 15% fee is higher than Etsy\'s ~10%, but there are no listing fees, no payment processing fees, and no monthly subscription. One simple fee structure. Best for artisans who can produce consistent inventory and want Prime-eligible exposure.',
+    whyAdhd: [
+      'ONE fee (15%) — no mental math juggling multiple charges',
+      'No listing fees = list as many items as you want',
+      'FBA option = Amazon handles shipping/returns',
+      'Huge built-in traffic — less marketing work',
+      'Customizable storefront to tell your story',
+      'Application process filters out competition',
+      'Prime badge attracts impulse buyers'
+    ],
+    standOut: [
+      '300+ million Amazon customers',
+      'Flat 15% fee — no listing or payment fees',
+      '$39.99/month subscription WAIVED for approved sellers',
+      'FBA (Fulfillment by Amazon) available',
+      'Prime eligibility for faster sales',
+      'Artisan-only marketplace (strict approval)',
+      'Customizable maker profile and storefront',
+      'Sponsored ads and marketing tools',
+      'Global expansion to other Amazon regions'
+    ],
+    importantNotes: [
+      'Application required — must prove items are handmade',
+      '15% referral fee on total sale (including shipping)',
+      'Minimum $1 fee per item',
+      'NO digital products allowed',
+      'NO vintage items allowed',
+      'NO print-on-demand allowed',
+      'Must be made by you or your small team',
+      'First month $39.99, then waived after approval',
+      'FBA adds additional fees if used',
+      'Higher margins needed (~40%+) to be profitable'
+    ],
+    payoutInfo: [
+      'Referral fee: 15% of total sale price',
+      'Minimum fee: $1 per item',
+      'NO listing fees (unlimited free listings)',
+      'NO payment processing fees',
+      'NO monthly fee (waived after approval)',
+      'Example $50 item + $8 shipping = $8.70 fee',
+      'You keep: ~85% of each sale',
+      'FBA fees: Additional if you use fulfillment',
+      'Payment: 3-5 days after shipment confirmation',
+      'Deposits to bank account'
+    ],
+    taskTypes: [
+      'Handcrafted jewelry',
+      'Handmade home décor',
+      'Artisan clothing and accessories',
+      'Custom/personalized items (via Amazon Custom)',
+      'Hand-altered or upcycled products',
+      'Handmade beauty and personal care',
+      'Artwork and sculptures',
+      'Handcrafted furniture'
+    ],
+    finalTake: '<strong>Best for artisans who want massive exposure and can handle 15% fees.</strong> The fee is higher than Etsy, but the structure is simpler (one fee, no listing costs) and you get access to 300M+ Amazon shoppers. The application process keeps out mass-produced junk. NOT for digital products, vintage, or print-on-demand — strictly handmade only. Works best for products priced $25-75+ with healthy margins. Consider using both Amazon Handmade AND Etsy for maximum reach.',
+    idealFor: [
+      'Artisans making genuine handcrafted products',
+      'Sellers who want Prime badge and FBA fulfillment',
+      'Those who can maintain 40%+ profit margins',
+      'Makers with consistent, repeatable product lines',
+      'NOT for digital products or downloads',
+      'NOT for vintage or craft supplies',
+      'NOT for print-on-demand sellers'
+    ]
   },
   'shopify': {
     name: 'Shopify',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/btCVM7WHtPjyDkOzTYM9.png',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
     link: 'https://www.shopify.com/',
-    rate: '',
-    description: 'Create your own online store and sell handmade products directly to customers.',
-    category: 'handmade',
-    intro: '**Shopify** is an all-in-one platform to build and run your own online store. Think of it like renting a digital storefront where you control everything.  \nIt’s designed for entrepreneurs, crafters, and small businesses who want to sell products online without relying only on marketplaces like Amazon or Etsy.',
-    whyAdhd: [],
-    standOut: [],
-    importantNotes: ['Monthly subscription fee (starting around $39/month after trial).', 'You’re responsible for marketing and driving traffic—Shopify doesn’t bring customers.', 'Can feel overwhelming at first with all the options and apps.', 'Add-on costs for apps and themes can add up quickly.', 'Requires consistent effort to maintain and grow.'],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '',
-    idealFor: ['Creatives who want to design a unique online store.', 'Entrepreneurs who want to build a long-term brand.', 'ADHD folks who thrive on novelty and flexibility.', 'Sellers tired of high marketplace fees and wanting more control.']
+    rate: 'You keep 97-100% (minus fees)',
+    description: 'Build your own online store. Monthly plans from $5-$399. Transaction fees 2.4-2.9% + 30¢ with Shopify Payments. Full control over branding and customer experience.',
+    category: 'creative',
+    tldr: 'Build and own your own ecommerce store. Plans: Starter $5/mo (social selling only), Basic $39/mo (full store), Grow $105/mo, Advanced $399/mo. Credit card fees: 2.4-2.9% + 30¢ depending on plan. NO transaction fees if using Shopify Payments. Extra fees if using third-party payment processors (0.6-2%). 3-day free trial, then $1/mo for first 3 months. You own your store, your brand, your customer list.',
+    intro: '<strong>Shopify</strong> lets you build your own branded online store instead of selling on someone else\'s marketplace (like Etsy or Amazon). You control everything: design, pricing, customer data, marketing.\n\nThe tradeoff: you have to drive your own traffic. No built-in audience like Etsy. But you keep more profit, own your customer relationships, and aren\'t subject to marketplace algorithm changes. Best for serious sellers ready to build a brand.',
+    whyAdhd: [
+      'Drag-and-drop store builder — no coding needed',
+      'Tons of templates to start with',
+      'Integrates with print-on-demand (Printify, Printful)',
+      'One dashboard for everything',
+      'Can automate a LOT with apps',
+      'Shopify handles hosting, security, payments',
+      '$1/month for first 3 months = low risk to try',
+      'Mobile app to manage store on the go'
+    ],
+    standOut: [
+      'Own your store and brand completely',
+      'Own your customer list and data',
+      'No marketplace fees eating into profits',
+      'Professional checkout (15% better conversion than competitors)',
+      'Sell everywhere: website, social, in-person (POS)',
+      'Massive app ecosystem (8,000+ apps)',
+      'Print-on-demand integrations built in',
+      'Dropshipping friendly',
+      'Scale from side hustle to enterprise'
+    ],
+    importantNotes: [
+      'Monthly fee required (starts $5, full store $39)',
+      'YOU drive traffic — no built-in marketplace audience',
+      'Credit card fees: 2.4-2.9% + 30¢ per transaction',
+      'Extra 0.6-2% fee if NOT using Shopify Payments',
+      'Shopify Payments not available in all countries',
+      'Apps can add up fast ($10-100+/mo each)',
+      'Premium themes cost $100-350 (free themes available)',
+      'Domain costs extra (~$14/year)',
+      'Learning curve for beginners'
+    ],
+    payoutInfo: [
+      'Starter: $5/mo (social selling only, 5% transaction fee)',
+      'Basic: $39/mo (2.9% + 30¢ online, 2% third-party fee)',
+      'Grow: $105/mo (2.6% + 30¢ online, 1% third-party fee)',
+      'Advanced: $399/mo (2.4% + 30¢ online, 0.6% third-party fee)',
+      'Plus: $2,300+/mo (enterprise)',
+      'NO transaction fees with Shopify Payments',
+      'Annual billing = 25% discount',
+      'First 3 months = $1/month promo',
+      'Payouts: 1-3 business days with Shopify Payments'
+    ],
+    taskTypes: [
+      'Physical products (handmade, wholesale, dropship)',
+      'Digital products and downloads',
+      'Print-on-demand merchandise',
+      'Dropshipping business',
+      'Subscription boxes',
+      'Services and bookings',
+      'In-person sales (Shopify POS)',
+      'B2B wholesale'
+    ],
+    finalTake: '<strong>Best for building a real brand you own — but requires marketing effort.</strong> Unlike Etsy/Amazon, you\'re not renting space in someone else\'s marketplace. You own everything: store, customers, data. The flip side: you must drive your own traffic through ads, social media, SEO, etc. Monthly fees + credit card fees are reasonable. Great for serious sellers who want control and are willing to learn marketing. Start with the $1/month promo to test it out.',
+    idealFor: [
+      'Sellers wanting to build their own brand',
+      'Print-on-demand and dropshipping businesses',
+      'Those already with an audience (social media, YouTube)',
+      'Serious sellers who will invest in marketing',
+      'NOT for those wanting instant traffic',
+      'NOT ideal if you hate marketing/advertising',
+      'NOT for testing ideas (use Etsy first)'
+    ]
   },
   'bigcartel': {
     name: 'Big Cartel',
     logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ewYZW2h7UsgFBwovET4X.png',
     link: 'https://www.bigcartel.com/',
-    rate: '',
-    description: 'Ideal for small-scale creators to showcase and sell handmade goods.',
+    rate: 'Free up to 5 products; paid plans expand listings (small monthly fee)',
+    description: 'Tiny, artist-focused storefronts for creators who want a simple, low-cost site without the complexity of bigger platforms.',
     category: 'handmade',
+    tldr: 'Artist-friendly storefronts — minimal features, minimal fuss. Great for small catalogs and creators who want a lightweight shop.',
     intro: '**Big Cartel** is a simple e-commerce platform made for artists and small creators who want to sell their work online. Think of it like a tiny art gallery where you get your own wall to hang things up.  \nIt’s designed for makers, musicians, and indie brands who want an easy, low-cost way to sell without the complexity of bigger platforms like Shopify.',
-    whyAdhd: ['Minimal setup – fewer options = less decision fatigue.', 'Free plan available (great for testing ideas without pressure).', 'Clean, uncluttered dashboard makes it easy to focus.', 'Great for small catalogs (no need to manage hundreds of products).', 'Low-maintenance – no need for constant tinkering or expensive apps.'],
-    standOut: [],
-    importantNotes: ['The free plan only allows up to 5 products.', 'Limited features compared to Shopify (no app marketplace, fewer integrations).', 'You’ll still need to bring your own traffic (Big Cartel doesn’t market for you).', 'Not ideal if you want to scale into a big e-commerce business.'],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '',
-    idealFor: ['Artists selling a handful of pieces.', 'ADHD folks who want low-pressure, low-maintenance selling.', 'Musicians and bands needing a simple merch store.', 'Makers who value simplicity over endless customization.']
+    whyAdhd: [
+      'Extremely simple setup — get selling quickly',
+      'Less to configure reduces overwhelm',
+      'Good for small catalogs and occasional sellers',
+      'Clean UI makes managing orders straightforward'
+    ],
+    standOut: [
+      'Free tier for tiny shops (up to 5 products)',
+      'Minimal UI and straightforward pricing',
+      'Designed specifically for artists and indie brands',
+      'No heavy app ecosystem to wade through'
+    ],
+    importantNotes: [
+      'Limited features compared to Shopify (no app marketplace)',
+      'Free plan restricts number of listings',
+      'You must drive your own traffic — no marketplace exposure',
+      'Not ideal if you plan to scale rapidly'
+    ],
+    payoutInfo: [
+      'Payments handled via Stripe or PayPal depending on setup',
+      'No marketplace commission — you pay payment processor fees only',
+      'Billing cadence depends on chosen payment gateway'
+    ],
+    taskTypes: [
+      'Listing a small number of handmade items',
+      'Order management and simple fulfillment',
+      'Occasional marketing via social or email'
+    ],
+    finalTake: 'Big Cartel is perfect as a tiny, low-maintenance shop for artists who don\'t want to manage lots of apps or complex settings. Use it when you have a small catalog and prefer simplicity over features.',
+    idealFor: ['Artists selling a handful of pieces', 'Makers who prioritize simplicity', 'Bands and creators selling limited-run merchandise']
   },
-  'artfire': {
-    name: 'ArtFire',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/afxoDW7YU71fUuIxGjL8.png',
-    link: 'https://www.artfire.com/',
-    rate: '',
-    description: 'Another platform for handmade goods, artisan jewelry, and craft supplies.',
-    category: 'handmade',
-    intro: '**ArtFire** is an online marketplace for handmade goods, vintage items, and craft supplies. Think of it like a smaller, indie version of Etsy.  \nIt’s designed for artisans, crafters, and collectors who want to sell unique products without competing in the massive chaos of Amazon or Etsy’s huge marketplace.',
-    whyAdhd: ['Smaller platform = less competition stress.', 'Simple seller dashboard compared to bigger e-commerce sites.', 'Community-driven, which can feel more supportive and less overwhelming.', 'Great for hyperfocus projects like creating handmade goods.', 'Easier to manage if you only have a modest product catalog.'],
-    standOut: [],
-    importantNotes: ['Monthly subscription fee (plans start around $4.95 to $20+ per month depending on shop size).', 'Marketplace traffic is smaller than Etsy or Amazon, so you’ll need to promote your shop too.', 'Competition is still there, but not as intense as Etsy.', 'Some users report the platform feels outdated compared to newer competitors.', 'If you scale up, you might outgrow ArtFire’s limited features.'],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '',
-    idealFor: ['Creators who don’t want to get lost in Etsy’s competition.', 'ADHD folks who need a simpler, less overwhelming marketplace.', 'Vintage collectors who want a place to showcase niche finds.', 'Crafters testing their products before moving to larger platforms.']
+  'big-cartel': {
+    name: 'Big Cartel',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
+    link: 'https://www.bigcartel.com/',
+    rate: 'You keep 100% (minus payment fees)',
+    description: 'Simple, affordable store builder for artists and makers. FREE plan for up to 5 products. No transaction fees — only pay Stripe/PayPal processing. Paid plans $9.99-$19.99/mo.',
+    category: 'creative',
+    tldr: 'The simplest, cheapest way for artists to sell online. FREE forever plan (5 products). Paid plans: Platinum $9.99/mo (50 products), Diamond $19.99/mo (500 products). NO platform transaction fees — Big Cartel never takes a cut. You only pay payment processor fees (Stripe 2.9% + $0.30 or PayPal 2.99% + $0.49). 20 years old, $2.5B+ in sales processed. Built by artists, for artists.',
+    intro: '<strong>Big Cartel</strong> is the anti-Shopify — designed for artists, makers, and small sellers who want simple and cheap, not powerful and complex. No marketplace fees, no transaction fees, no hidden costs.\n\nThe free plan actually lets you sell (unlike most "free trials"). Perfect for testing an idea, selling merch, or running a small art shop without the overhead of bigger platforms. You will outgrow it eventually, but it\'s the best starting point for creators on a budget.',
+    whyAdhd: [
+      'Dead simple — minimal features means less overwhelm',
+      'FREE plan that actually works (not just a trial)',
+      'Set up a store in minutes, not hours',
+      'No complex dashboards or settings',
+      'Mobile app to manage orders on the go',
+      'Flat monthly fee = predictable costs',
+      'No inventory tracking stress on free plan (manual)',
+      'Built for artists, not tech people'
+    ],
+    standOut: [
+      'FREE forever plan (5 products)',
+      'NO platform transaction fees ever',
+      'Flat monthly pricing — no surprises',
+      'Built by artists for artists (20 years)',
+      '$2.5 billion+ in sales processed',
+      'All themes are free',
+      'Mobile POS for in-person sales (markets, events)',
+      'Supports Stripe, PayPal, Venmo, Afterpay',
+      'Abandoned cart recovery (paid plans)',
+      'Discounted shipping labels'
+    ],
+    importantNotes: [
+      'Gold (Free): 5 products, 1 image per product, no custom domain',
+      'Platinum ($9.99/mo): 50 products, 5 images, custom domain, inventory tracking',
+      'Diamond ($19.99/mo): 500 products, priority support',
+      'Payment processing: Stripe 2.9% + $0.30 or PayPal 2.99% + $0.49',
+      'YOU drive traffic — no built-in marketplace',
+      'Limited features compared to Shopify',
+      'No app store — what you see is what you get',
+      'Free plan lacks Google Analytics, discount codes, inventory tracking',
+      'Limited theme customization without coding'
+    ],
+    payoutInfo: [
+      'Gold (Free): $0/month, 5 products',
+      'Platinum: $9.99/month, 50 products',
+      'Diamond: $19.99/month, 500 products',
+      'Annual discount available (~$12/mo Platinum, ~$24/mo Diamond)',
+      'NO Big Cartel transaction fees on any plan',
+      'Stripe: 2.9% + $0.30 per transaction',
+      'PayPal: 2.99% + $0.49 per transaction',
+      'Example $1,000 in sales (20 orders): ~$35 total fees',
+      'Payouts through Stripe/PayPal (1-3 days)'
+    ],
+    taskTypes: [
+      'Art prints and original artwork',
+      'Handmade goods and crafts',
+      'Clothing and apparel',
+      'Jewelry and accessories',
+      'Band merchandise',
+      'Limited edition drops',
+      'Stickers and small goods',
+      'In-person sales at markets/events'
+    ],
+    finalTake: '<strong>Best free/cheap option for artists who want simple.</strong> Big Cartel won\'t scale to a massive business, but that\'s not the point. It\'s for creators who want to sell a few things without complexity or high fees. The free plan is genuinely usable (rare!). Platinum at $9.99/mo is the sweet spot — unlocks everything most small sellers need. No transaction fees means you keep more than on Etsy. You\'ll eventually outgrow it, but it\'s the perfect starting point for artists testing the waters.',
+    idealFor: [
+      'Artists selling prints, originals, or merchandise',
+      'Makers with small product catalogs',
+      'Musicians selling band merch',
+      'Creators who want simple over powerful',
+      'Side hustlers testing product ideas',
+      'NOT for large catalogs (500+ products)',
+      'NOT for complex businesses needing integrations',
+      'NOT if you need built-in marketplace traffic'
+    ]
   },
   'folksy': {
     name: 'Folksy',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kkiMUUFxv2vhogMosyDK.png',
-    link: 'https://folksy.com/',
-    rate: '',
-    description: 'Focused on handmade goods, mostly for UK-based sellers.',
-    category: 'handmade',
-    intro: '**Folksy** is the UK’s marketplace for handmade crafts and art. Think of it like the British cousin of Etsy, but smaller and more community-focused.  \nIt’s designed for UK-based makers, designers, and crafters who want to sell their creations in a space dedicated to handmade (no mass-produced resellers allowed).',
-    whyAdhd: ['Smaller marketplace = less competition and overwhelm.', 'Focused only on handmade items (no clutter from dropshippers or mass sellers).', 'Clear, simple listing process with fewer distractions.', 'Community feel—more supportive and less corporate.', 'Great for novelty-seeking ADHD minds who enjoy making unique, creative products.'],
-    standOut: [],
-    importantNotes: [],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '',
-    idealFor: ['UK-based artists and crafters.', 'ADHD folks who get overwhelmed by big marketplaces.', 'Makers who want to test selling handmade products online.', 'Creators who value community over scale.']
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
+    link: 'https://folksy.com/selling',
+    rate: 'You set prices (keep ~90%)',
+    description: 'UK\'s largest handmade marketplace — British-made crafts only, no vintage or reselling allowed.',
+    category: 'creative',
+    tldr: 'UK-only handmade marketplace with 200K+ monthly visitors. Free to join, 3 free listings, then £0.18/listing + 7.2% commission (inc. VAT). Folksy Plus: £7.50/mo for unlimited listings. PayPal or Stripe payments. Supportive community, no mass-produced competition. Best for UK-based artisans and makers.',
+    intro: '<strong>Folksy</strong> is the UK\'s largest online marketplace dedicated exclusively to handmade and original craft. Founded in 2008 in Sheffield, it hosts over 13,000 independent designers and makers.\n\nUnlike Etsy, Folksy doesn\'t allow vintage items or reselling — everything must be handmade or designed by UK-based sellers. This keeps the marketplace focused and free from mass-produced competition.',
+    whyAdhd: [
+      'Simple shop setup — get started quickly',
+      'Supportive community with forums and Facebook groups',
+      'No overwhelming competition from mass-produced items',
+      'Set your own prices and schedule',
+      'Instant payments to your PayPal/Stripe',
+      'Listings last 4 months (longer than Etsy)'
+    ],
+    standOut: [
+      'UK-only sellers — no international competition',
+      'Handmade only — no vintage or reselling',
+      '200,000+ monthly visitors',
+      '50K+ newsletter subscribers',
+      '440K+ social media followers',
+      'Free seller handbook and "Make It Sell" course',
+      'Trusted Suppliers Directory for materials',
+      'Local Teams and community support',
+      'Payments go directly to your account'
+    ],
+    importantNotes: [
+      'UK-based sellers only',
+      'First 3 listings free, then £0.18 + VAT per listing',
+      '6% + VAT commission (7.2% total) on all sales',
+      'Folksy Plus: £7.50/mo or £75/year for unlimited listings',
+      'Commission still applies on Plus plan',
+      'PayPal processing: 2.9% + 30p per transaction',
+      'Stripe processing: 1.4-2.9% + 20p per transaction',
+      'Less traffic than Etsy — more marketing effort needed',
+      'Listings expire after 120 days (4 months)',
+      'No promoted listings or advertising options'
+    ],
+    payoutInfo: [
+      'Listing fee: £0.18 + VAT (per item quantity)',
+      'Commission: 6% + VAT (7.2% total) on sale price',
+      'Folksy Plus: £7.50/mo (unlimited listings)',
+      'Annual Plus: £75/year (2 months free)',
+      'PayPal fee: 2.9% + 30p per transaction',
+      'Stripe fee: 1.4-2.9% + 20p per transaction',
+      'Total fees ~10-13% per sale (keep ~87-90%)',
+      'Monthly billing on 1st of each month',
+      'Bills under £2 roll over to next month'
+    ],
+    taskTypes: [
+      'Handmade goods — jewellery, ceramics, textiles',
+      'Original art — paintings, prints, illustrations',
+      'Craft supplies — materials for other makers',
+      'Custom/personalized items',
+      'Designed products (UK-designed)',
+      'NO vintage, NO reselling, NO digital products'
+    ],
+    finalTake: '<strong>Folksy is the UK\'s answer to Etsy — smaller but more focused.</strong> The handmade-only policy means no competing with mass-produced imports. Fees are competitive (~10-13% total), and the community is genuinely supportive. The catch: less traffic means you\'ll need to drive your own customers. Best as a complement to Etsy or your own website, not your only sales channel.',
+    idealFor: [
+      'UK-based makers and artisans',
+      'Crafters wanting a supportive community',
+      'Sellers tired of competing with mass-produced items',
+      'Anyone wanting to "shop local" positioning',
+      'NOT for non-UK sellers or vintage/resale'
+    ]
+  },
+  'carecom': {
+    name: 'Care.com',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
+    link: 'https://www.care.com/enroll-care-provider',
+    rate: '$15–$25/hr',
+    description: 'The largest caregiving marketplace — babysitting, senior care, pet sitting, housekeeping, and tutoring.',
+    category: 'services',
+    tldr: 'Largest caregiving marketplace with 11M+ caregiver profiles. Caregivers: Free to join but $24.99/year background check required. Premium membership ($8.99/mo) waives check and boosts visibility. Average rates: $15-25/hr. Up to 10% service fee on direct bookings. Mixed reviews but massive client base.',
+    intro: '<strong>Care.com</strong> is the industry leader in caregiving services, connecting families with caregivers for childcare, senior care, pet care, housekeeping, and tutoring. Founded in 2006, they\'ve facilitated millions of care connections.\n\nAs a caregiver, you set your own rates and hours. Care.com provides the platform, background checks, and safety tools. They also offer HomePay for tax and payroll management.',
+    whyAdhd: [
+      'Set your own hours and rates',
+      'Choose which clients to work with',
+      'Variety of care types — switch it up',
+      'Local work — minimal commute options',
+      'Build ongoing relationships with families',
+      'Mobile app for easy management'
+    ],
+    standOut: [
+      '11M+ caregiver profiles nationwide',
+      'Largest care marketplace in the US',
+      'Multiple care categories (child, senior, pet, house)',
+      'Background check builds trust with families',
+      'Set your own rates',
+      'Direct family relationships',
+      'Mobile app available',
+      'Optional payroll services (HomePay)'
+    ],
+    importantNotes: [
+      'Required: CareCheck background check (~$24.99/year)',
+      'Premium membership: $8.99/mo (waives check fee)',
+      'Up to 10% service fee on direct bookings',
+      'FTC fined Care.com $8.5M in 2024 for deceptive practices',
+      'Auto-renewal complaints are common',
+      'Not all job listings are active/current',
+      'Families pay $12.95-$38.95/mo for Premium access',
+      'You\'re an independent contractor — handle your own taxes',
+      'Care.com does NOT verify caregiver credentials themselves',
+      'Competition can be fierce in some areas'
+    ],
+    payoutInfo: [
+      'Average caregiver rate: $15–$25/hr',
+      'Babysitters: $18–$25/hr average',
+      'Senior caregivers: $16–$24/hr average',
+      'Pet sitters: $15–$20/hr average',
+      'You set your own rates',
+      'Direct bookings: up to 10% service fee',
+      'Background check: ~$24.99/year',
+      'Premium: $8.99/mo (waives check, boosts profile)',
+      'Payment handled between you and family',
+      'Optional: HomePay for payroll management'
+    ],
+    taskTypes: [
+      'Babysitting — full-time, part-time, date nights',
+      'Nannying — ongoing childcare',
+      'Senior care — companionship, assistance, medical',
+      'Pet sitting — dog walking, overnight care',
+      'Housekeeping — cleaning, organizing',
+      'Tutoring — academic subjects',
+      'Special needs care',
+      'Newborn care and postpartum support'
+    ],
+    finalTake: '<strong>Care.com is the 800-pound gorilla of caregiving.</strong> The platform is huge — 11M+ caregivers — which means lots of competition but also lots of families looking for help. The background check requirement builds trust but adds cost. Mixed reviews due to FTC issues and aggressive billing practices. Worth joining for the client base, but read the fine print on auto-renewals.',
+    idealFor: [
+      'Experienced caregivers wanting consistent work',
+      'Anyone offering child, senior, pet, or house care',
+      'People who want to set their own rates and hours',
+      'Those comfortable with background checks',
+      'NOT for those avoiding subscription fees'
+    ]
   },
   'etsy': {
     name: 'Etsy',
@@ -2526,19 +3153,75 @@ const gigData = {
   },
   'printify': {
     name: 'Printify',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/EqIVRaEWxVI0Zx1EETTB.png',
-    link: 'printify.com/',
-    rate: '',
-    description: 'Printify: Design, sell, and ship custom products—no inventory needed.',
-    category: 'handmade',
-    intro: '**Printify** is a print-on-demand (POD) platform that lets you design and sell custom products—like t-shirts, mugs, phone cases, home decor, and more—without holding any inventory or handling fulfillment. Think of it like creating your own online merchandise line, while Printify takes care of printing, packing, and shipping.',
-    whyAdhd: ['No upfront costs or inventory — you only pay when an order is placed, cutting financial risk and setup stress.', 'Fast, structured workflow — select a product, design it, publish, and profit—clear steps help reduce overwhelm.', 'Creative fun — use the user-friendly Product Creator, Mockup Generator, or AI Image Generator to unleash quick design dopamine.', 'Automated fulfillment — once your design is live, Printify and its global network handle the rest—ordering, printing, shipping—asynchronously.'],
-    standOut: [],
-    importantNotes: [],
-    payoutInfo: [],
-    taskTypes: [],
-    finalTake: '**Printify** is a stellar option for ADHD-friendly side hustlers seeking a low-risk, creative, and automated income stream.  \nIts structured workflow, big catalog, and marketplace integrations reduce overwhelm—letting you focus on design and marketing rather than logistics.  \n\nThis isn\'t passive yet effortless income—it still needs promotion and iteration—but in the right hands, it can scale from casual side hustle to serious income, as many real users have shown.',
-    idealFor: ['ADHD creators who want a clear, low-stress path to monetize creativity.', 'New entrepreneurs seeking no-inventory, low-risk business models.', 'Designers or Canva users exploring print-on-demand entrepreneurship.', 'Anyone interested in scalable, flexible side hustles with creative freedom.']
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
+    link: 'https://printify.com/',
+    rate: 'You set prices (aim for 40%+ margin)',
+    description: 'Print-on-demand platform — create custom products, they handle printing and shipping. Free plan available. No inventory, no upfront costs. Pay only when you sell.',
+    category: 'creative',
+    tldr: 'Design custom products (t-shirts, mugs, hoodies, etc.) and sell them — Printify handles printing, packing, and shipping. FREE plan with all features. Premium ($29/mo) gives 20% off all products. No inventory, no upfront costs. You pay base product cost + shipping only AFTER a sale. Aim for 40-50% profit margins. Integrates with Etsy, Shopify, Amazon, eBay, etc.',
+    intro: '<strong>Printify</strong> lets you create and sell custom products without inventory, equipment, or shipping headaches. You design it, they make it and ship it directly to your customer.\n\nIt\'s truly zero upfront cost — you only pay when someone orders. Product costs range from ~$7-27 for t-shirts depending on quality/provider. The key to profitability is pricing correctly: aim for 40%+ profit margins after all costs.',
+    whyAdhd: [
+      'ZERO inventory to manage — nothing to store or ship',
+      'No upfront costs — pay only when you make a sale',
+      'Quick to start — design and list products in minutes',
+      'Multiple print providers = flexibility if one is slow',
+      'Integrates with stores you already use (Etsy, Shopify)',
+      'Mockup generator makes products look professional instantly',
+      'Can test ideas without financial risk',
+      'Automates the boring stuff (fulfillment, shipping)'
+    ],
+    standOut: [
+      'FREE plan with full features',
+      '900+ customizable products',
+      'Multiple print providers per product (compare prices/quality)',
+      'Up to 20% product discounts with Premium ($29/mo)',
+      'Integrates with Etsy, Shopify, Amazon, eBay, WooCommerce',
+      'Global print network = faster shipping worldwide',
+      'AI design tools and mockup generator',
+      'Automatic order routing',
+      'Express shipping options'
+    ],
+    importantNotes: [
+      'You pay: Base product cost + shipping per order',
+      'T-shirts typically $7-27 depending on brand/provider',
+      'Shipping costs vary by location and speed',
+      'Sales platform fees are separate (Etsy, Shopify, etc.)',
+      'Quality varies by print provider — order samples first',
+      'Aim for 40-50% profit margin minimum',
+      'Premium plan ($29/mo) = 20% off all products',
+      'You handle customer service and marketing',
+      'Printify doesn\'t print directly — uses partner network'
+    ],
+    payoutInfo: [
+      'Free plan: $0/month, all features included',
+      'Premium plan: $29/month (or $24.99/mo annual)',
+      'Premium benefit: Up to 20% off all products',
+      'Enterprise: Custom pricing for high volume',
+      'Product costs: ~$7-27 for t-shirts',
+      'You set retail price and keep the difference',
+      'Example: $10 shirt cost + $5 shipping = $15 cost',
+      'Sell at $30 = $15 profit (50% margin)',
+      'Payments: Through your sales channel (Etsy, Shopify, etc.)'
+    ],
+    taskTypes: [
+      'Custom t-shirts and apparel',
+      'Mugs and drinkware',
+      'Phone cases',
+      'Home décor (pillows, blankets, posters)',
+      'Bags and accessories',
+      'Stickers and labels',
+      'All-over print products',
+      'Embroidered items'
+    ],
+    finalTake: '<strong>Best free way to start selling custom products with zero inventory risk.</strong> You design, they print and ship. The free plan has everything you need to start. Premium ($29/mo) is worth it once you\'re making consistent sales — 20% off products adds up fast. Key to success: order samples to check quality, price for 40%+ margins, and remember you\'re also paying your sales platform (Etsy, Shopify, etc.) fees on top. Great for testing product ideas without financial commitment.',
+    idealFor: [
+      'Designers who want to sell physical products',
+      'Content creators monetizing their brand/audience',
+      'Anyone wanting passive income from custom merch',
+      'Side hustlers testing product ideas',
+      'NOT for those wanting instant high profits (margins are modest)',
+      'NOT ideal if you need ultra-fast shipping (POD takes time)'
+    ]
   },
   'pressplay': {
     name: 'PressPlay',
@@ -4779,9 +5462,17 @@ const gigData = {
     // Favorites
     let favorites = JSON.parse(localStorage.getItem('925adhd_favorites') || '[]');
 
+    function updateFavButtons(isFav) {
+      const heart = isFav ? '❤️' : '🤍';
+      const _fav = document.getElementById('favBtn');
+      const _pageFav = document.getElementById('pageFavBtn');
+      if (_fav) _fav.textContent = heart;
+      if (_pageFav) _pageFav.textContent = heart;
+    }
+
     // Local image files (help match IDs to existing filenames)
     const imageFiles = [
-      "99designs.png","acx.jpg","amazonhandmade.png","appen.jpg","artfire.png","behance.png","belay.png","benjamin.jpg","benjamn.jpg","best play.jpg","bestmark.jpg","bigcartel.png","blob-bacb09e.webp","brain.jpeg","bytlixir.png","caht gpt.png","cambly.png","castingwords.png","channels4_profile.jpg","Chewy-logo-web.png","claude.jpg","claude.png","clearvoice.png","clickworker.png","contently.jpg","crowdtap.jpg","designcrowd.png","discord logo.png","doordash.png","download.jpeg","download.png","dribble.png","dscout.png","etsy.jpg","facebook.png","fancy hand.jpg","fetch.png","fieldagent.png","fiverr.png","flex.png","folksy.png","freelanmcer.png","gigspot.jpg","gigspot.png","gotranscript.png","honeygain.png","ibotta.png","influenster.png","instacart.png","instagram.jpg","isecretshop.jpg","italki.png","ivueit.png","just play.jpg","kofi.png","lifepoints.png","linkedin.png","marketforce.png","methinks.png","minsk-belarus-03272023-openai-chatgpt-600nw-2281899103.webp","mistplay.jpg","mode earn app.jpg","neevo.png","neighbor.png","outlier.png","paidviewpoint.png","papa.jpg","patreon.png","pawns.png","pinecone.png","pogo.jpg","posting_checklist.png","preply.png","pressplay.png","presto.jpg","printify.png","prolific.png","proxypics.png","quicktate.png","rakuten.jpg","respondent.png","rev.png","rover.png","rs=w_600,cg_true.webp","rs=w_600,h_300,cg_true (1).webp","rs=w_600,h_300,cg_true.webp","rs=w_600,h_800,cg_true.webp","rs=w_984,h_984.webp","scribie.jpg","scribie.png","scripted.png","shopify.png","slicethepie.jpg","snapchat.png","spark.png","speechpad.jpg","streetbees.png","surveyjunkie.jpg","swagbucks.png","sweatcoin.jpg","syllaby.png","tastrabbit.jpg","tigerfish.jpg","tiktok.png","timeect.png","toluna.png","toptal.png","transcribeme.jpg","trust.png","trustedhousesitters.png","twitch.png","ubereats.png","upwork.png","usertesting.png","voice123.png","voices.png","wag.png","writeraccess.png","wyzant.jpg","x.png","youtube.png"
+      "99designs.png","acx.jpg","amazonhandmade.png","appen.jpg","behance.png","belay.png","benjamin.jpg","benjamn.jpg","best play.jpg","bestmark.jpg","bigcartel.png","blob-bacb09e.webp","brain.jpeg","bytlixir.png","caht gpt.png","cambly.png","castingwords.png","channels4_profile.jpg","Chewy-logo-web.png","claude.jpg","claude.png","clearvoice.png","clickworker.png","contently.jpg","crowdtap.jpg","designcrowd.png","discord logo.png","doordash.png","download.jpeg","download.png","dribble.png","dscout.png","etsy.jpg","facebook.png","fancy hand.jpg","fetch.png","fieldagent.png","fiverr.png","flex.png","folksy.png","freelanmcer.png","gigspot.jpg","gigspot.png","gotranscript.png","honeygain.png","ibotta.png","influenster.png","instacart.png","instagram.jpg","isecretshop.jpg","italki.png","ivueit.png","just play.jpg","kofi.png","lifepoints.png","linkedin.png","marketforce.png","methinks.png","minsk-belarus-03272023-openai-chatgpt-600nw-2281899103.webp","mistplay.jpg","mode earn app.jpg","neevo.png","neighbor.png","outlier.png","paidviewpoint.png","papa.jpg","patreon.png","pawns.png","pinecone.png","pogo.jpg","posting_checklist.png","preply.png","pressplay.png","presto.jpg","printify.png","prolific.png","proxypics.png","quicktate.png","rakuten.jpg","respondent.png","rev.png","rover.png","rs=w_600,cg_true.webp","rs=w_600,h_300,cg_true (1).webp","rs=w_600,h_300,cg_true.webp","rs=w_600,h_800,cg_true.webp","rs=w_984,h_984.webp","scribie.jpg","scribie.png","scripted.png","shopify.png","slicethepie.jpg","snapchat.png","spark.png","speechpad.jpg","streetbees.png","surveyjunkie.jpg","swagbucks.png","sweatcoin.jpg","syllaby.png","tastrabbit.jpg","tigerfish.jpg","tiktok.png","timeect.png","toluna.png","toptal.png","transcribeme.jpg","trust.png","trustedhousesitters.png","twitch.png","ubereats.png","upwork.png","usertesting.png","voice123.png","voices.png","wag.png","writeraccess.png","wyzant.jpg","x.png","youtube.png"
     ];
     const imageMap = {
       'respondentio': 'respondent.png',
@@ -4829,8 +5520,7 @@ const gigData = {
     
     function renderGig(gig) {
       const isFav = favorites.includes(gigId);
-      const _favBtn = document.getElementById('favBtn');
-      if (_favBtn) _favBtn.textContent = isFav ? '❤️' : '🤍';
+      updateFavButtons(isFav);
       
       let html = `
         <div class="hero">
@@ -4986,20 +5676,22 @@ const gigData = {
       `;
     }
     
-    // Favorite toggle
-    const _favBtnEl = document.getElementById('favBtn');
-    if (_favBtnEl) {
-      _favBtnEl.addEventListener('click', () => {
-        if (favorites.includes(gigId)) {
-          favorites = favorites.filter(f => f !== gigId);
-          _favBtnEl.textContent = '🤍';
-        } else {
-          favorites.push(gigId);
-          _favBtnEl.textContent = '❤️';
-        }
-        localStorage.setItem('925adhd_favorites', JSON.stringify(favorites));
-      });
+    // Favorite toggle (sync both header and site header buttons)
+    function toggleFavorite() {
+      if (!gigId) return;
+      if (favorites.includes(gigId)) {
+        favorites = favorites.filter(f => f !== gigId);
+      } else {
+        favorites.push(gigId);
+      }
+      localStorage.setItem('925adhd_favorites', JSON.stringify(favorites));
+      updateFavButtons(favorites.includes(gigId));
     }
+
+    const _favBtnEl = document.getElementById('favBtn');
+    const _pageFavBtnEl = document.getElementById('pageFavBtn');
+    if (_favBtnEl) _favBtnEl.addEventListener('click', toggleFavorite);
+    if (_pageFavBtnEl) _pageFavBtnEl.addEventListener('click', toggleFavorite);
     
     // Initialize immediately (no waiting)
     if (gigId && gigData[gigId]) {
