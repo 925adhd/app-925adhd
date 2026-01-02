@@ -32,19 +32,79 @@
       --text-muted: rgba(255,255,255,.55);
       --brand: #56C3AE;
       --brand-glow: rgba(86, 195, 174, 0.25);
+      --teal: #56C3AE;
+      --teal-light: #7DD3C0;
+      --purple: #A855F7;
+      --pink: #EC4899;
+      --blue: #3B82F6;
     }
     
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      background: var(--bg);
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(86, 195, 174, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 60% at 50% 100%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+        var(--bg);
+      background-attachment: fixed;
+      background-size: 100% 100%;
+      animation: bgPulse 8s ease-in-out infinite;
       color: var(--text);
       line-height: 1.5;
       padding-bottom: 70px;
+      position: relative;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    @keyframes bgPulse {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    /* Floating particles */
+    .particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 15s infinite;
+    }
+
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; background: var(--teal); }
+    .particle:nth-child(2) { left: 20%; animation-delay: 2s; background: var(--purple); }
+    .particle:nth-child(3) { left: 30%; animation-delay: 4s; background: var(--pink); }
+    .particle:nth-child(4) { left: 40%; animation-delay: 1s; background: var(--teal-light); }
+    .particle:nth-child(5) { left: 50%; animation-delay: 3s; background: var(--blue); }
+    .particle:nth-child(6) { left: 60%; animation-delay: 5s; background: var(--teal); }
+    .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; background: var(--purple); }
+    .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; background: var(--pink); }
+    .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; background: var(--teal); }
+    .particle:nth-child(10) { left: 15%; animation-delay: 3.5s; background: var(--blue); }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+      }
     }
     
     /* Top Header */
@@ -123,12 +183,29 @@
       width: 56px;
       height: 56px;
       flex-shrink: 0;
+      position: relative;
     }
-    
+
+    .hero-logo::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle, rgba(86, 195, 174, 0.4) 0%, transparent 70%);
+      z-index: -1;
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
     .hero-logo img {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      position: relative;
+      z-index: 1;
     }
     
     .hero-text {
@@ -139,6 +216,17 @@
       font-size: 20px;
       font-weight: 800;
       margin-bottom: 2px;
+      background: linear-gradient(135deg, #fff 0%, var(--teal-light) 50%, var(--purple) 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleShine 4s ease infinite;
+    }
+
+    @keyframes titleShine {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     
     .hero-subtitle {
@@ -166,68 +254,156 @@
     .quick-actions {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
+      gap: 12px;
       margin-bottom: 20px;
     }
     
     .action-card {
-      background: var(--card);
+      background:
+        linear-gradient(135deg, rgba(86, 195, 174, 0.03) 0%, transparent 50%),
+        var(--card);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 12px 8px;
+      padding: 20px 12px 16px;
       text-align: center;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      overflow: hidden;
+      overflow: visible;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 0 0 1px rgba(86, 195, 174, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 140px;
     }
     
-    /* Subtle shine effect on hover */
+    /* Ambient glow - always visible */
     .action-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(86, 195, 174, 0.1), transparent);
-      transition: left 0.5s;
+      inset: -2px;
+      background: linear-gradient(
+        45deg,
+        rgba(86, 195, 174, 0.3),
+        rgba(168, 85, 247, 0.2),
+        rgba(236, 72, 153, 0.2),
+        rgba(86, 195, 174, 0.3)
+      );
+      background-size: 300% 300%;
+      border-radius: 14px;
+      z-index: -1;
+      opacity: 0.4;
+      filter: blur(8px);
+      animation: gradientShift 6s ease infinite;
     }
-    
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
     .action-card:hover::before {
-      left: 100%;
+      opacity: 0.7;
+      filter: blur(12px);
     }
     
     .action-card:hover {
       background: var(--card-hover);
       border-color: rgba(86, 195, 174, 0.4);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 0 20px rgba(86, 195, 174, 0.1);
+      transform: translateY(-4px);
+      box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(86, 195, 174, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .action-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(86, 195, 174, 0.5), rgba(168, 85, 247, 0.3));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .action-card:hover::after {
+      opacity: 1;
+      animation: borderShimmer 2s linear infinite;
+    }
+
+    @keyframes borderShimmer {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    /* Mobile tap feedback */
+    @media (hover: none) and (pointer: coarse) {
+      .action-card:active,
+      .featured-card:active,
+      .discord-card:active {
+        transform: scale(0.97);
+        transition: transform 0.1s;
+      }
     }
     
     .action-card .icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-      display: block;
+      font-size: 48px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
       transition: transform 0.3s;
+      animation: iconFloat 3s ease-in-out infinite;
+      flex-shrink: 0;
     }
-    
+
+    .action-card .icon img.icon-img {
+      width: 64px;
+      height: 64px;
+      display: block;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
+    }
+
     .action-card:hover .icon {
       transform: scale(1.1);
+      animation: none;
     }
     
     .action-card h3 {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
+      line-height: 1.2;
     }
-    
+
     .action-card p {
       font-size: 11px;
       color: var(--text-muted);
+      line-height: 1.4;
+      margin: 0;
     }
     
     /* Featured Card */
@@ -237,15 +413,51 @@
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(86, 195, 174, 0.3);
       border-radius: 14px;
-      padding: 12px;
+      padding: 16px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       position: relative;
       overflow: hidden;
+      box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(86, 195, 174, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: cardPulse 4s ease-in-out infinite;
+    }
+
+    .featured-card .icon {
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .featured-card .icon img.icon-img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    @keyframes cardPulse {
+      0%, 100% {
+        box-shadow:
+          0 4px 16px rgba(0, 0, 0, 0.3),
+          0 0 20px rgba(86, 195, 174, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+      50% {
+        box-shadow:
+          0 4px 16px rgba(0, 0, 0, 0.3),
+          0 0 30px rgba(86, 195, 174, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
     }
     
     .featured-card::after {
@@ -274,14 +486,17 @@
     }
     
     .featured-card h3 {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
+      line-height: 1.2;
     }
-    
+
     .featured-card p {
       font-size: 12px;
       color: var(--text-muted);
+      line-height: 1.4;
+      margin: 0;
     }
     
     /* Discord CTA */
@@ -291,12 +506,93 @@
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(88, 101, 242, 0.3);
       border-radius: 14px;
-      padding: 12px;
+      padding: 16px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(88, 101, 242, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
+
+    .discord-card .icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .discord-card .icon img.icon-img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    /* AI Playground - larger icon */
+    a.action-card[href="ai-playground.html"] .icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    a.action-card[href="ai-playground.html"] .icon img.icon-img {
+      width: 80px;
+      height: 80px;
+    }
+
+    @media (min-width: 600px) {
+      .action-card {
+        padding: 24px 16px 20px;
+        min-height: 160px;
+      }
+
+      .action-card .icon {
+        width: 72px;
+        height: 72px;
+        font-size: 56px;
+      }
+
+      .action-card .icon img.icon-img {
+        width: 72px;
+        height: 72px;
+      }
+
+      /* AI Playground - larger on tablet */
+      a.action-card[href="ai-playground.html"] .icon {
+        width: 96px;
+        height: 96px;
+      }
+
+      a.action-card[href="ai-playground.html"] .icon img.icon-img {
+        width: 96px;
+        height: 96px;
+      }
+
+      .featured-card .icon {
+        width: 72px;
+        height: 72px;
+      }
+
+      .featured-card .icon img.icon-img {
+        width: 72px;
+        height: 72px;
+      }
+
+      .discord-card .icon {
+        width: 56px;
+        height: 56px;
+      }
+
+      .discord-card .icon img.icon-img {
+        width: 56px;
+        height: 56px;
+      }
+    }
+
     
     .discord-card:hover {
       transform: translateY(-2px);
@@ -315,14 +611,17 @@
     }
     
     .discord-card h3 {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
+      line-height: 1.2;
     }
-    
+
     .discord-card p {
       font-size: 12px;
       color: var(--text-muted);
+      line-height: 1.4;
+      margin: 0;
     }
     
     .discord-btn {
@@ -365,14 +664,17 @@
     }
     
     .discord-card h3 {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
+      line-height: 1.2;
     }
-    
+
     .discord-card p {
       font-size: 12px;
       color: var(--text-muted);
+      line-height: 1.4;
+      margin: 0;
     }
     
     .discord-btn {
@@ -420,89 +722,109 @@
       .top-header {
         padding: 16px 24px;
       }
-      
+
       .hero {
         padding: 32px 24px 28px;
       }
-      
+
       .hero-row {
         gap: 20px;
       }
-      
+
       .hero-logo {
         width: 70px;
         height: 70px;
       }
-      
+
       .hero-title {
         font-size: 24px;
       }
-      
+
       .hero-subtitle {
         font-size: 15px;
       }
-      
+
       .main-content {
         padding: 28px 24px;
-        max-width: 540px;
+        max-width: 580px;
       }
-      
+
       .quick-actions {
         grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-      }
-      
-      .action-card {
-        padding: 20px 14px;
-      }
-      
-      .action-card .icon {
-        font-size: 32px;
-      }
-      
-      .action-card h3 {
-        font-size: 14px;
-      }
-      
-      .nav-items {
-        max-width: 500px;
-      }
-      
-      .nav-item {
-        font-size: 11px;
-        padding: 8px 14px;
-      }
-      
-      .nav-item .icon {
-        font-size: 22px;
+        gap: 14px;
       }
     }
     
     /* Large Desktop - Keep it centered and cozy */
     @media (min-width: 1024px) {
       .main-content {
-        max-width: 580px;
+        max-width: 620px;
       }
-      
+
       .quick-actions {
-        gap: 14px;
+        gap: 16px;
       }
-      
+
       .action-card {
-        padding: 24px 16px;
+        padding: 28px 18px 24px;
+        min-height: 180px;
       }
-      
+
       .action-card .icon {
-        font-size: 36px;
-        margin-bottom: 10px;
+        width: 80px;
+        height: 80px;
+        font-size: 64px;
+        margin-bottom: 14px;
       }
-      
+
+      .action-card .icon img.icon-img {
+        width: 80px;
+        height: 80px;
+      }
+
+      /* AI Playground - larger on desktop */
+      a.action-card[href="ai-playground.html"] .icon {
+        width: 110px;
+        height: 110px;
+      }
+
+      a.action-card[href="ai-playground.html"] .icon img.icon-img {
+        width: 110px;
+        height: 110px;
+      }
+
       .action-card h3 {
         font-size: 15px;
       }
-      
+
       .action-card p {
         font-size: 12px;
+      }
+
+      .featured-card,
+      .discord-card {
+        padding: 20px;
+        gap: 20px;
+      }
+
+      .featured-card .icon {
+        width: 80px;
+        height: 80px;
+      }
+
+      .featured-card .icon img.icon-img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .discord-card .icon {
+        width: 64px;
+        height: 64px;
+      }
+
+      .discord-card .icon img.icon-img {
+        width: 64px;
+        height: 64px;
       }
     }
   </style>
@@ -513,6 +835,18 @@
     <div class="spinner"></div>
     <p style="color: var(--text-muted); font-size: 14px;">Loading...</p>
   </div>
+
+  <!-- Floating Particles -->
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
 
   <!-- Main App -->
   <div id="app" style="display: none;">
@@ -562,22 +896,22 @@
       <p class="section-label">Quick Actions</p>
       <div class="quick-actions">
         <a href="earn.html" class="action-card">
-          <span class="icon">💰</span>
+          <span class="icon"><img src="images/earnicon.png" alt="Earn" class="icon-img"></span>
           <h3>Earn</h3>
           <p>50+ ways to earn</p>
         </a>
         <a href="guides.html" class="action-card">
-          <span class="icon">📖</span>
+          <span class="icon"><img src="images/guidesicon.png" alt="Guides" class="icon-img"></span>
           <h3>Guides</h3>
           <p>Step-by-step help</p>
         </a>
         <a href="adhdhacks.html" class="action-card">
-          <span class="icon">⚔️</span>
+          <span class="icon"><img src="images/hacksicon.png" alt="Hacks" class="icon-img"></span>
           <h3>ADHD Hacks</h3>
           <p>Strategies that work</p>
         </a>
         <a href="ai-playground.html" class="action-card">
-          <span class="icon">🤖</span>
+          <span class="icon"><img src="images/playgroundicon.png" alt="AI Playground" class="icon-img"></span>
           <h3>AI Playground</h3>
           <p>Practice prompts & templates</p>
         </a>
@@ -587,7 +921,7 @@
           <p>Your saved items</p>
         </a>
         <a href="tools.html" class="action-card">
-          <span class="icon">🛠️</span>
+          <span class="icon"><img src="images/toolsicon.png" alt="Tools" class="icon-img"></span>
           <h3>Tools</h3>
           <p>Focus & productivity</p>
         </a>
@@ -595,7 +929,7 @@
       
       <!-- Featured -->
       <a href="motivation.html" class="featured-card">
-        <span class="icon">🧠</span>
+        <span class="icon"><img src="images/brainholographic.png" alt="Motivation" class="icon-img"></span>
         <div>
           <h3>Need a boost?</h3>
           <p>When focus fades, remember your why →</p>
@@ -604,7 +938,7 @@
       
       <!-- Discord -->
       <a href="https://discord.gg/Nn5XGMZFAC" target="_blank" class="discord-card">
-        <span class="icon">💬</span>
+        <span class="icon"><img src="images/discord logo.png" alt="Discord" class="icon-img"></span>
         <div class="content">
           <h3>Join the Community</h3>
           <p>Connect with ADHD brains who get it</p>
@@ -701,6 +1035,36 @@
       overlay.addEventListener('click', (e) => { if (e.target === overlay) closeMenu(); });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
     })();
+  </script>
+  <script>
+    // 3D Tilt Effect on Cards
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.action-card, .featured-card, .discord-card');
+
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const rotateX = ((y - centerY) / centerY) * -5;
+          const rotateY = ((x - centerX) / centerX) * 5;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+
+          // Update mouse position for glow effect
+          card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+          card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+        });
+      });
+    });
   </script>
 </body>
 </html>
