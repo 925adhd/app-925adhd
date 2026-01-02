@@ -51,7 +51,7 @@
     .hero-banner {
       width: 100%;
       height: 160px;
-      background: url('images/rocket.png') center center / cover no-repeat;
+      background: url('images/rocket.webp') center center / cover no-repeat;
       position: relative;
     }
     
@@ -261,9 +261,51 @@
         max-width: 800px;
       }
     }
+
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 9999;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Hide page content initially */
+    body:not(.loaded) .hero-banner,
+    body:not(.loaded) main {
+      display: none;
+    }
   </style>
 </head>
 <body data-page-title="Guides">
+
+  <!-- Loading screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="spinner"></div>
+    <p style="color: var(--text-muted); font-size: 14px;">Loading...</p>
+  </div>
+
   <!-- Hero Banner -->
   <div class="hero-banner">
   </div>
@@ -278,32 +320,32 @@
     
     <div class="guides-grid">
       <a href="start.html" class="guide-card">
-        <img src="images/start.png" alt="How to Start Working Online" loading="lazy" decoding="async">
+        <img src="images/start.webp" alt="How to Start Working Online" loading="lazy" decoding="async">
         <h3>Start From Zero</h3>
       </a>
       
       <a href="surveysguide.html" class="guide-card">
-        <img src="images/surveys.png" alt="Surveys & Market Research" loading="lazy" decoding="async">
+        <img src="images/surveys.webp" alt="Surveys & Market Research" loading="lazy" decoding="async">
         <h3>Fast, Low-Effort Cash</h3>
       </a>
 
       <a href="transcriptionguide.html" class="guide-card">
-        <img src="images/transcription.png" alt="Transcription" loading="lazy" decoding="async">
+        <img src="images/transcription.webp" alt="Transcription" loading="lazy" decoding="async">
         <h3>Quiet, Independent Work</h3>
       </a>
 
       <a href="dataannotationguide.html" class="guide-card">
-        <img src="images/dataanotation.png" alt="Data Annotation" loading="lazy" decoding="async">
+        <img src="images/dataanotation.webp" alt="Data Annotation" loading="lazy" decoding="async">
         <h3>Focus-Driven, Higher Pay</h3>
       </a>
       
       <a href="mysteryshoppingguide.html" class="guide-card">
-        <img src="images/mysteryshopping.png" alt="Mystery Shopping" loading="lazy" decoding="async">
+        <img src="images/mysteryshopping.webp" alt="Mystery Shopping" loading="lazy" decoding="async">
         <h3>Paid Local Tasks</h3>
       </a>
 
       <a href="socialmediaguide.html" class="guide-card">
-        <img src="images/socialmedia.png" alt="Social Media" loading="lazy" decoding="async">
+        <img src="images/socialmedia.webp" alt="Social Media" loading="lazy" decoding="async">
         <h3>Create And Earn</h3>
       </a>
     </div>
@@ -312,6 +354,16 @@
   <div id="site-nav"></div>
 
   <script src="assets/layout.js" defer></script>
+  <script>
+    // Hide loading screen after layout.js has finished
+    window.addEventListener('load', () => {
+      const loadingScreen = document.getElementById('loadingScreen');
+      if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+      }
+      document.body.classList.add('loaded');
+    });
+  </script>
 
 </body>
 </html>

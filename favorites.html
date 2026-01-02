@@ -341,9 +341,52 @@
         font-size: 22px;
       }
     }
+
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 9999;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Hide page content initially */
+    body:not(.loaded) .header,
+    body:not(.loaded) main,
+    body:not(.loaded) .bottom-nav {
+      display: none;
+    }
   </style>
 </head>
 <body data-page-title="Favorites">
+
+  <!-- Loading screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="spinner"></div>
+    <p style="color: var(--text-muted); font-size: 14px;">Loading...</p>
+  </div>
+
   <!-- Header -->
   <header class="header">
     <a href="dashboard.html" class="back-btn">←</a>
@@ -559,5 +602,15 @@
     renderFavorites();
   </script>
   <script src="assets/layout.js"></script>
+  <script>
+    // Hide loading screen after layout.js has finished
+    window.addEventListener('load', () => {
+      const loadingScreen = document.getElementById('loadingScreen');
+      if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+      }
+      document.body.classList.add('loaded');
+    });
+  </script>
 </body>
 </html>

@@ -720,10 +720,51 @@
       .key-box { justify-content: center; text-align: center; }
       .key-item { justify-content: center; }
     }
+
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 9999;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Hide page content initially */
+    body:not(.loaded) .header,
+    body:not(.loaded) main {
+      display: none;
+    }
   </style>
 </head>
 <body data-page-title="Earn">
-  
+
+  <!-- Loading screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="spinner"></div>
+    <p style="color: var(--text-muted); font-size: 14px;">Loading...</p>
+  </div>
+
   <!-- Header -->
   <header class="header">
     <div class="header-top">
@@ -825,18 +866,7 @@
     </div>
 
     <script>
-      // Ensure a single authoritative initial filter state on load
-      document.addEventListener('DOMContentLoaded', function () {
-          if (typeof setFilter === 'function') {
-                setFilter('all');
-                if (typeof renderCategoryTabs === 'function') renderCategoryTabs();
-                if (typeof setupCategoryScroller === 'function') setupCategoryScroller();
-                if (typeof setupTagPanel === 'function') setupTagPanel();
-              } else {
-                // If setFilter is defined later, try again shortly
-                setTimeout(function () { if (typeof setFilter === 'function') setFilter('all'); if (typeof renderCategoryTabs === 'function') renderCategoryTabs(); if (typeof setupCategoryScroller === 'function') setupCategoryScroller(); if (typeof setupTagPanel === 'function') setupTagPanel(); }, 250);
-              }
-        });
+      // Initialization will happen at the end of the main script
     </script>
     
     <!-- Gig List -->
@@ -1465,7 +1495,7 @@
       { strong: "💡 Decision Fatigue Fix:", text: "Use the energy filter above. Low? Stick to surveys. Hyperfocus mode? Try Etsy or freelancing!" },
       { strong: "❤️ Dopamine Hack:", text: "Save your favorites (tap the heart) so you can come back without decision paralysis." },
       { strong: "📈 Stacking Strategy:", text: "Sign up for 2-3 survey sites now. More options = more available tasks when you need them." },
-      { strong: "⚡ Quick Win:", text: "Prolific + Survey Junkie + Clickworker = solid survey stack you can set up in 15 minutes." }
+      { strong: "⚡ Quick Win:", text: "Prolific + Survey Junkie + PaidViewpoint = solid survey stack you can set up in 15 minutes." }
     ];
     
     let tipIndex = 0;
@@ -1729,7 +1759,22 @@
       // Always attempt to restore (covers both normal load and bfcache)
       restoreScrollPosition();
     });
+
+    // Initialize the page - render category tabs and setup UI
+    renderCategoryTabs();
+    setupCategoryScroller();
+    setupTagPanel();
   </script>
   <script src="assets/layout.js"></script>
+  <script>
+    // Hide loading screen after layout.js has finished
+    window.addEventListener('load', () => {
+      const loadingScreen = document.getElementById('loadingScreen');
+      if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+      }
+      document.body.classList.add('loaded');
+    });
+  </script>
 </body>
 </html>
