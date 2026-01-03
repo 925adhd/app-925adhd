@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>MindShift - 925 ADHD</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#56C3AE">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --text: #fff;
+      --muted: #999;
+      --brand: #56C3AE;
+      --brand-dim: rgba(86, 195, 174, 0.15);
+      --green: #4ADE80;
+      --yellow: #FBBF24;
+      --blue: #818CF8;
+      --red: #F87171;
+      --purple: #A78BFA;
+      --border: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px 16px 100px;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, var(--brand), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .intro-text {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Category Grid */
+    .category-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .category-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .category-card[data-cat="executive"]::before { background: linear-gradient(90deg, #818CF8, #6366F1); }
+    .category-card[data-cat="emotional"]::before { background: linear-gradient(90deg, var(--brand), #22D3EE); }
+    .category-card[data-cat="focus"]::before { background: linear-gradient(90deg, #A78BFA, #8B5CF6); }
+    .category-card[data-cat="energy"]::before { background: linear-gradient(90deg, #4ADE80, #22C55E); }
+    .category-card[data-cat="anxiety"]::before { background: linear-gradient(90deg, #FBBF24, #F59E0B); }
+    .category-card[data-cat="reward"]::before { background: linear-gradient(90deg, #F87171, #EF4444); }
+
+    .category-card:active {
+      transform: scale(0.98);
+    }
+
+    .category-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .category-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .category-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .category-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .category-arrow {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .disclaimer p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .disclaimer strong {
+      color: var(--yellow);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--brand), var(--blue));
+      padding: 50px 20px 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      background: rgba(0, 0, 0, 0.3);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:active {
+      transform: scale(0.95);
+    }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #000;
+      margin-bottom: 6px;
+    }
+
+    .modal-subtitle {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-body {
+      padding: 20px 16px;
+    }
+
+    /* Strategy Card */
+    .strategy-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .strategy-header {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .strategy-number {
+      width: 40px;
+      height: 40px;
+      background: var(--brand);
+      color: #000;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .strategy-info h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .strategy-info p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Steps */
+    .steps-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .steps-title::before {
+      content: '✓';
+      background: var(--green);
+      color: #000;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .steps-list {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+
+    .steps-list li {
+      position: relative;
+      padding-left: 36px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    .steps-list li::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      background: var(--brand-dim);
+      color: var(--brand);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Evidence */
+    .evidence-box {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      border-left: 3px solid var(--yellow);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .evidence-box strong {
+      color: var(--yellow);
+      font-size: 12px;
+    }
+
+    .evidence-box p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* Action Bar */
+    .action-bar {
+      position: sticky;
+      bottom: 0;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .next-btn {
+      background: var(--brand);
+      color: #000;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .next-btn:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body data-page-title="MindShift">
+
+  <!-- Main Content -->
+  <div class="container">
+    <header class="page-header">
+      <h1>MindShift</h1>
+      <p>Brain tricks that really work - backed by science</p>
+    </header>
+
+    <p class="intro-text">
+      Pick what's bugging you right now. Get quick tools that work with your brain, not against it.
+    </p>
+
+    <div class="category-grid" id="categoryGrid"></div>
+
+    <div class="disclaimer">
+      <p><strong>💡 Note:</strong> These are helpful tools, not medical advice. If you need more help, talk to a doctor or therapist.</p>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <p class="modal-subtitle" id="modalSubtitle"></p>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="action-bar">
+      <button class="next-btn" onclick="nextStrategy()">
+        🔄 Try Something Else
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Categories
+    const categories = [
+      { id: 'executive', icon: '🧠', title: "Can't Get Organized", desc: "Brain fog, can't plan, forget everything" },
+      { id: 'emotional', icon: '🌊', title: "Feelings Are Huge", desc: "Mad, sad, or scared feelings take over" },
+      { id: 'focus', icon: '🎯', title: "Can't Focus", desc: "Mind jumps around, can't stick with tasks" },
+      { id: 'energy', icon: '⚡', title: "No Energy", desc: "Can't start things, feel tired or stuck" },
+      { id: 'anxiety', icon: '🌪️', title: "Everything's Too Much", desc: "Sounds, lights, people are overwhelming" },
+      { id: 'reward', icon: '🎪', title: "Super Bored", desc: "Nothing feels fun or interesting" }
+    ];
+
+    // Strategies
+    const strategies = {
+      executive: {
+        title: "🧠 Getting Organized",
+        subtitle: "Help your planning brain work better",
+        items: [
+          {
+            title: "📝 Write Everything Down",
+            desc: "Your brain can't hold all the things. Put them somewhere safe.",
+            steps: ["Get one notebook or phone app", "Write down every task right when you think of it", "Set phone alarms for important stuff", "Check your list 3 times a day"],
+            evidence: "ADHD brains have weak working memory. Writing things down is like giving your brain a helper."
+          },
+          {
+            title: "✂️ Break Big Jobs Into Tiny Pieces",
+            desc: "Big tasks feel scary. Small ones feel doable.",
+            steps: ["Pick one big task", "Write down 3-5 tiny steps", "Do just the first tiny step", "Take a 5-minute break", "Do the next tiny step"],
+            evidence: "ADHD brains get overwhelmed easily. Small steps don't trigger the panic response."
+          },
+          {
+            title: "🔄 Make Switching Tasks Easier",
+            desc: "Give your brain time to change gears.",
+            steps: ["Set a timer for 5 minutes before you need to switch", "When timer goes off, write where you left off", "Take 3 deep breaths", "Stand up and stretch", "Say out loud what you're switching to"],
+            evidence: "ADHD brains struggle with task switching. Rituals help the brain change modes."
+          }
+        ]
+      },
+      emotional: {
+        title: "🌊 Managing Big Feelings",
+        subtitle: "Cool down your emotion brain",
+        items: [
+          {
+            title: "🛑 STOP Method",
+            desc: "Emergency brake for when feelings take over.",
+            steps: ["Stop what you're doing right now", "Take one big deep breath", "Look around and notice where you are", "Pick one small thing to do next"],
+            evidence: "Big feelings shut down your thinking brain. This method turns it back on."
+          },
+          {
+            title: "🏷️ Name the Feeling",
+            desc: "Put words to emotions to make them smaller.",
+            steps: ["When upset, ask 'What feeling is this?'", "Use specific words (frustrated, disappointed, worried)", "Rate how big it feels from 1-10", "Ask 'What does this feeling need?'"],
+            evidence: "Naming emotions calms the emotion center in your brain. It's like magic but real."
+          },
+          {
+            title: "💔 Handle Rejection Feelings",
+            desc: "ADHD brains feel rejection super strongly. Here's help.",
+            steps: ["Notice the hurt feeling in your chest or stomach", "Remember: 'This is my ADHD brain, not the truth'", "Ask: 'What proof do I have this person rejects me?'", "Think of 2 other reasons they might have acted that way", "Wait 24 hours before doing anything big"],
+            evidence: "99% of ADHD adults have rejection sensitivity. Your brain reads rejection where there isn't any."
+          }
+        ]
+      },
+      focus: {
+        title: "🎯 Focusing Better",
+        subtitle: "Train your attention brain",
+        items: [
+          {
+            title: "⏰ Focus Timer Method",
+            desc: "Work in short bursts with breaks.",
+            steps: ["Pick ONE thing to work on", "Set timer for 15-25 minutes", "Work on only that thing", "When distracted, write the thought down and keep going", "When timer rings, take a 5-minute moving break"],
+            evidence: "ADHD attention comes in waves. Short bursts work with your brain's natural rhythm."
+          },
+          {
+            title: "⚓ Focus Anchor",
+            desc: "Use something you can touch to bring attention back.",
+            steps: ["Pick a small object to hold or wear", "When your mind wanders, touch your anchor", "Take one breath", "Gently bring attention back to your task", "Don't be mean to yourself - this is normal"],
+            evidence: "Touch signals help the brain stay connected to the present moment."
+          },
+          {
+            title: "🎨 Make Boring Stuff Interesting",
+            desc: "Work with your brain's need for fun.",
+            steps: ["Find the most interesting part of the task", "Start with that part first", "Add music, different colors, or change locations", "Connect boring tasks to things you care about", "Reward yourself after finishing"],
+            evidence: "ADHD brains focus best on interesting things. Adding interest makes tasks easier."
+          }
+        ]
+      },
+      energy: {
+        title: "⚡ Getting Energy Back",
+        subtitle: "Feed your motivation brain",
+        items: [
+          {
+            title: "🎁 Stack Good Feelings",
+            desc: "Add rewards to boring tasks.",
+            steps: ["Pick a boring task you need to do", "Add something nice (good music, favorite drink, comfy clothes)", "Plan a small reward for when you finish", "Make finishing feel good (check it off dramatically)", "Do something fun right after"],
+            evidence: "ADHD brains have low motivation chemicals. Adding rewards helps make up for this."
+          },
+          {
+            title: "🌊 Work With Your Energy",
+            desc: "Do hard things when you feel good, easy things when you don't.",
+            steps: ["Notice when you feel most awake for one week", "Save hard tasks for high-energy times", "Do easy or fun tasks when energy is low", "Don't fight your natural rhythm", "Plan rest time between hard tasks"],
+            evidence: "ADHD energy goes up and down more than other people's. Fighting this wastes energy."
+          },
+          {
+            title: "🏆 Make Tiny Wins",
+            desc: "Get lots of small victories to keep going.",
+            steps: ["Break any task into 2-5 minute pieces", "Celebrate each tiny completion", "Use a checklist or app to track progress", "Focus on getting better, not being perfect", "Start with the easiest piece first"],
+            evidence: "Your brain releases happy chemicals when you complete things. More completions = more fuel."
+          }
+        ]
+      },
+      anxiety: {
+        title: "🌪️ Calming Down",
+        subtitle: "Turn off your alarm brain",
+        items: [
+          {
+            title: "🔢 5-4-3-2-1 Grounding",
+            desc: "Quick way to feel safe and present.",
+            steps: ["Name 5 things you can see", "Name 4 things you can touch", "Name 3 things you can hear", "Name 2 things you can smell", "Name 1 thing you can taste"],
+            evidence: "Focusing on your senses turns off the panic response and brings you to the present."
+          },
+          {
+            title: "🛡️ Protect Your Senses",
+            desc: "Too much input makes everything harder.",
+            steps: ["Notice what bothers you (loud sounds, bright lights, crowds)", "Carry helpers (headphones, sunglasses, fidget toy)", "Take sensory breaks before you get overwhelmed", "Use heavy pressure (weighted blanket, tight hug) to calm down", "Plan quiet time every day"],
+            evidence: "ADHD brains often take in too much sensory information. Protecting your senses prevents overload."
+          },
+          {
+            title: "🎯 Reduce Decisions",
+            desc: "Too many choices drain your brain.",
+            steps: ["Pick 3 daily decisions to make automatic (clothes, breakfast, route)", "Make similar decisions all at once", "Create templates for things you do often", "Remove choices from your space when possible", "Say 'let me think about it' instead of deciding right away"],
+            evidence: "Decision fatigue is real. ADHD brains get tired from choices faster than others."
+          }
+        ]
+      },
+      reward: {
+        title: "🎪 Fighting Boredom",
+        subtitle: "Feed your reward brain",
+        items: [
+          {
+            title: "✨ Add Newness to Routine",
+            desc: "Your brain craves new experiences.",
+            steps: ["Pick one boring daily task", "Change one thing: where you do it, when, or how", "Try being a 'tourist in your own life' - notice new things", "Switch up your routine weekly", "Keep track of what kinds of newness work best for you"],
+            evidence: "ADHD brains need more stimulation than others. Controlled newness gives you this without chaos."
+          },
+          {
+            title: "🎮 Build a Fun Menu",
+            desc: "Have healthy ways to get excitement ready to go.",
+            steps: ["Make a list of 10 quick, positive activities that feel exciting", "When you want stimulation, pick from your list instead of acting impulsively", "Use exciting activities as rewards after boring tasks", "Find the fun parts inside necessary activities", "Connect with people who share your interests"],
+            evidence: "ADHD brains seek stimulation automatically. Having good options ready prevents poor choices."
+          },
+          {
+            title: "🚨 Stop Boredom Before It Starts",
+            desc: "Prevent the restless feeling that leads to problems.",
+            steps: ["Learn your early warning signs of boredom", "Keep a 'boredom emergency kit' of quick engaging activities", "Schedule 15-minute 'interest breaks' throughout your day", "Use just enough stimulation - not too much", "Plan smooth transitions between activities"],
+            evidence: "Boredom in ADHD often leads to impulsive behavior. Preventing it stops problems before they start."
+          }
+        ]
+      }
+    };
+
+    let currentCategory = null;
+    let currentIndex = 0;
+
+    function renderCategories() {
+      const grid = document.getElementById('categoryGrid');
+      grid.innerHTML = categories.map(cat => `
+        <div class="category-card" data-cat="${cat.id}" onclick="openCategory('${cat.id}')">
+          <div class="category-icon">${cat.icon}</div>
+          <div class="category-info">
+            <div class="category-title">${cat.title}</div>
+            <div class="category-desc">${cat.desc}</div>
+          </div>
+          <div class="category-arrow">›</div>
+        </div>
+      `).join('');
+    }
+
+    function openCategory(catId) {
+      currentCategory = catId;
+      currentIndex = 0;
+      renderStrategy();
+      document.getElementById('modal').classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+
+    function renderStrategy() {
+      const cat = strategies[currentCategory];
+      const item = cat.items[currentIndex];
+
+      document.getElementById('modalTitle').textContent = cat.title;
+      document.getElementById('modalSubtitle').textContent = cat.subtitle;
+
+      document.getElementById('modalBody').innerHTML = `
+        <div class="strategy-card">
+          <div class="strategy-header">
+            <div class="strategy-number">${currentIndex + 1}</div>
+            <div class="strategy-info">
+              <h3>${item.title}</h3>
+              <p>${item.desc}</p>
+            </div>
+          </div>
+
+          <div class="steps-title">How to do it:</div>
+          <ol class="steps-list">
+            ${item.steps.map((step, i) => `<li data-step="${i + 1}">${step}</li>`).join('')}
+          </ol>
+
+          <div class="evidence-box">
+            <strong>💡 Science bit:</strong>
+            <p>${item.evidence}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function nextStrategy() {
+      const cat = strategies[currentCategory];
+      currentIndex = (currentIndex + 1) % cat.items.length;
+      renderStrategy();
+    }
+
+    // Initialize
+    renderCategories();
+  </script>
+
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

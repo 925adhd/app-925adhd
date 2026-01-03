@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gig Essentials - 925 ADHD</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#56C3AE">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --text: #fff;
+      --muted: #999;
+      --brand: #56C3AE;
+      --brand-dim: rgba(86, 195, 174, 0.15);
+      --green: #4ADE80;
+      --yellow: #FBBF24;
+      --blue: #818CF8;
+      --border: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 16px 100px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Tool Cards */
+    .tools-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tool-card:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tool-header {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .tool-icon.browser { background: linear-gradient(135deg, #FF6B6B, #FF8E53); }
+    .tool-icon.extensions { background: linear-gradient(135deg, #818CF8, #6366F1); }
+    .tool-icon.mobile { background: linear-gradient(135deg, #4ADE80, #22C55E); }
+    .tool-icon.security { background: linear-gradient(135deg, #F87171, #EF4444); }
+    .tool-icon.organize { background: linear-gradient(135deg, #60A5FA, #3B82F6); }
+    .tool-icon.hardware { background: linear-gradient(135deg, #A78BFA, #8B5CF6); }
+
+    .tool-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .tool-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .tool-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .tool-toggle {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+      transition: transform 0.2s;
+    }
+
+    .tool-card.open .tool-toggle {
+      transform: rotate(180deg);
+    }
+
+    /* Expandable Content */
+    .tool-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .tool-card.open .tool-content {
+      max-height: 800px;
+    }
+
+    .tool-body {
+      padding: 0 16px 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .tool-body p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 14px 0;
+      line-height: 1.6;
+    }
+
+    /* Feature List */
+    .feature-list {
+      list-style: none;
+      margin: 14px 0;
+    }
+
+    .feature-list li {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .feature-list strong {
+      color: var(--brand);
+    }
+
+    /* Pro Tip */
+    .pro-tip {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      border-left: 3px solid var(--yellow);
+      border-radius: 8px;
+      padding: 12px;
+      margin: 14px 0;
+    }
+
+    .pro-tip-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--yellow);
+      margin-bottom: 6px;
+    }
+
+    .pro-tip p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Link Button */
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--brand);
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 10px;
+      transition: all 0.2s;
+    }
+
+    .link-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Category Badge */
+    .category-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body data-page-title="Gig Essentials">
+  <div class="container">
+    
+    <!-- Header -->
+    <header class="page-header">
+      <h1>🛠️ Gig Work Essentials</h1>
+      <p>Tools and strategies to maximize your online earnings</p>
+    </header>
+
+    <!-- Tools List -->
+    <div class="tools-list" id="toolsList"></div>
+
+  </div>
+
+  <script>
+    const tools = [
+      {
+        id: 'browser',
+        icon: '🌐',
+        iconClass: 'browser',
+        title: 'Opera Browser',
+        subtitle: 'Your secret productivity weapon',
+        category: 'Browser',
+        description: 'Opera gives you a competitive edge with built-in tools that directly impact your earnings.',
+        features: [
+          '<strong>Free Built-in VPN:</strong> Access higher-paying international surveys (2-3x more)',
+          '<strong>Native Ad Blocker:</strong> Pages load 40% faster = more tasks per hour',
+          '<strong>Workspaces:</strong> Keep different gig platforms completely separate',
+          '<strong>Sidebar Messengers:</strong> Stay responsive without losing your flow',
+          '<strong>Tab Islands:</strong> Organize related tasks for faster switching'
+        ],
+        tip: 'Create workspaces: "High-Pay Surveys" (Prolific, Swagbucks), "Client Work" (Upwork, Fiverr). Use VPN for Canadian/UK survey sites that pay $15-25/hr vs $8-12 domestic.',
+        link: { url: 'https://opera.com', text: '📥 Download Opera Free' }
+      },
+      {
+        id: 'extensions',
+        icon: '🧩',
+        iconClass: 'extensions',
+        title: 'Power Extensions',
+        subtitle: 'Automate everything',
+        category: 'Extensions',
+        description: 'These browser extensions are proven income multipliers used by successful gig workers.',
+        features: [
+          '<strong>Bitwarden (Free):</strong> Auto-fill forms instantly - saves 2-3 minutes per survey',
+          '<strong>Honey:</strong> Automatic coupon codes for any purchases',
+          '<strong>Grammarly:</strong> Perfect writing for higher approval rates',
+          '<strong>RescueTime:</strong> Track exactly how much time on each platform',
+          '<strong>Text Blaze:</strong> Create text shortcuts for common responses'
+        ],
+        tip: 'Use Bitwarden to store pre-filled forms with your demographics. Create Text Blaze shortcuts for your address and standard responses. This combo saves 5+ minutes per task.',
+        link: { url: 'https://chrome.google.com/webstore', text: '🛍️ Browse Extensions' }
+      },
+      {
+        id: 'mobile',
+        icon: '📱',
+        iconClass: 'mobile',
+        title: 'Mobile Arsenal',
+        subtitle: 'Earn anywhere, anytime',
+        category: 'Mobile',
+        description: 'Your phone can generate $10-30/day in "dead time" - commutes, waiting in lines, TV breaks.',
+        features: [
+          '<strong>Top Earners:</strong> Swagbucks, InboxDollars, Branded Surveys',
+          '<strong>Receipt Scanning:</strong> Ibotta, Fetch Rewards - passive income from shopping',
+          '<strong>Location-Based:</strong> Field Agent, Gigwalk for $3-15 local tasks',
+          '<strong>Quick Surveys:</strong> Google Opinion Rewards for 30-second tasks',
+          '<strong>Cashback:</strong> Rakuten, Dosh for automatic earnings'
+        ],
+        tip: 'Keep 3-4 survey apps logged in. Check during peak hours (lunch 12-1pm, evening 6-8pm). Set up all receipt apps and scan every purchase - it\'s literally free money.'
+      },
+      {
+        id: 'security',
+        icon: '🛡️',
+        iconClass: 'security',
+        title: 'Security Fortress',
+        subtitle: 'Protect your digital assets',
+        category: 'Security',
+        description: 'Gig workers are prime targets for scams. A single breach can lock you out for weeks.',
+        features: [
+          '<strong>2FA on Everything:</strong> Use Google Authenticator - especially PayPal, banking',
+          '<strong>Separate Work Email:</strong> Create one just for gig work to contain breaches',
+          '<strong>VPN for Public WiFi:</strong> Never do gig work on coffee shop WiFi unprotected',
+          '<strong>Password Manager:</strong> Unique passwords for every platform',
+          '<strong>Backup Payment Methods:</strong> Have 2-3 ways to get paid'
+        ],
+        tip: 'Watch for fake "training fee" requests, checks that need "processing," and jobs requiring upfront purchases. Legitimate platforms never ask for money via email.',
+        link: { url: 'https://bitwarden.com', text: '🔒 Get Bitwarden' }
+      },
+      {
+        id: 'organize',
+        icon: '📊',
+        iconClass: 'organize',
+        title: 'Command Center',
+        subtitle: 'Data-driven success',
+        category: 'Organization',
+        description: 'Most gig workers fail because they don\'t track what actually makes money.',
+        features: [
+          '<strong>Earnings Tracker:</strong> Date, Platform, Time Spent, Earnings, Hourly Rate',
+          '<strong>Tax Organization:</strong> Separate folder for 1099s, expenses, mileage',
+          '<strong>Platform Bookmarks:</strong> Organize by highest hourly rate first',
+          '<strong>Weekly Review:</strong> 15 minutes every Sunday to analyze what worked',
+          '<strong>Goal Tracking:</strong> Daily dollar targets, not "hours worked"'
+        ],
+        tip: 'Track everything for 2 weeks, then find which 20% of activities generate 80% of income. Drop low-performers and scale what works. This can double your hourly rate.',
+        link: { url: 'https://docs.google.com/spreadsheets', text: '📊 Start Google Sheets' }
+      },
+      {
+        id: 'hardware',
+        icon: '💻',
+        iconClass: 'hardware',
+        title: 'Hardware Investment',
+        subtitle: 'Speed equals money',
+        category: 'Hardware',
+        description: 'Your hardware directly impacts earnings. Slow equipment = fewer completed tasks.',
+        features: [
+          '<strong>Reliable Internet:</strong> 25+ Mbps for video tasks ($10+ per test)',
+          '<strong>Decent Headphones:</strong> $50 pair for transcription work ($15-22/hr)',
+          '<strong>External Monitor:</strong> Even a cheap 22" doubles multitasking efficiency',
+          '<strong>Comfortable Chair:</strong> Back pain kills productivity',
+          '<strong>Backup Internet:</strong> Mobile hotspot for when main connection fails'
+        ],
+        tip: 'Start with internet speed and a second monitor - you can find good used monitors for $50-80. The productivity boost pays for itself in the first week.'
+      }
+    ];
+
+    function renderTools() {
+      const container = document.getElementById('toolsList');
+      
+      container.innerHTML = tools.map(tool => `
+        <div class="tool-card" id="tool-${tool.id}" onclick="toggleTool('${tool.id}')">
+          <div class="tool-header">
+            <div class="tool-icon ${tool.iconClass}">${tool.icon}</div>
+            <div class="tool-info">
+              <div class="tool-title">${tool.title}</div>
+              <div class="tool-subtitle">${tool.subtitle}</div>
+            </div>
+            <div class="tool-toggle">▼</div>
+          </div>
+          <div class="tool-content">
+            <div class="tool-body">
+              <span class="category-badge">${tool.category}</span>
+              <p>${tool.description}</p>
+              
+              <ul class="feature-list">
+                ${tool.features.map(f => `<li>${f}</li>`).join('')}
+              </ul>
+              
+              <div class="pro-tip">
+                <div class="pro-tip-title">💡 Pro Tip</div>
+                <p>${tool.tip}</p>
+              </div>
+              
+              ${tool.link ? `<a href="${tool.link.url}" target="_blank" class="link-btn">${tool.link.text}</a>` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleTool(id) {
+      const card = document.getElementById(`tool-${id}`);
+      const wasOpen = card.classList.contains('open');
+      
+      // Close all cards
+      document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('open'));
+      
+      // Toggle clicked card
+      if (!wasOpen) {
+        card.classList.add('open');
+        setTimeout(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    }
+
+    // Initialize
+    renderTools();
+  </script>
+
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>
