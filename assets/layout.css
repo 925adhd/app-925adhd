@@ -21,9 +21,16 @@ body{
   /* Reserve space so content never changes layout or overlaps */
   padding-top:var(--header-h);
   padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
+  padding-left:16px;
+  padding-right:16px;
   box-sizing:border-box;
 }
 *, *::before, *::after { box-sizing:border-box; }
+
+/* Ensure main content respects body padding */
+main {
+  max-width: 100%;
+}
 
 /* Header: fixed height, consistent everywhere */
 .site-header{
@@ -74,6 +81,32 @@ body{
 
 /* Remove back buttons site-wide */
 .back-btn{ display: none !important; }
+
+/* Back arrow button (mobile only) */
+.back-arrow-btn{
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  display: none; /* hidden on desktop */
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  color: #0F0F0F;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+@media (max-width: 899px) {
+  .back-arrow-btn {
+    display: flex !important;
+  }
+}
 
 /* Brand logo + name in the left corner */
 .site-header .brand{

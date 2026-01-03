@@ -22,8 +22,8 @@
       body:not(.has-site-layout) .page-nav,
       body:not(.has-site-layout) header:not(.site-header),
       body:not(.has-site-layout) nav:not(.site-nav),
-      /* legacy back/menu buttons and stray glyphs */
-      .back-btn, .back-button, button.back, a.back, .btn-back, .back, .back-arrow, .back-arrow-btn, .page-back, button[aria-label="Back"], .menu-btn { display: none !important; }
+      /* legacy back/menu buttons and stray glyphs (but keep .back-arrow-btn for our new back button) */
+      .back-btn, .back-button, button.back, a.back, .btn-back, .back, .back-arrow, .page-back, button[aria-label="Back"], .menu-btn { display: none !important; }
     `;
     try {
       const style = document.createElement('style');
@@ -46,9 +46,27 @@
     const header = document.createElement("header");
     header.className = "site-header";
 
-    // Header brand only; mobile menu button is added dynamically by
-    // `injectLayout` when the viewport is small (we avoid placing a
-    // duplicate control on desktop where 'More' lives in the nav).
+    // Pages where back button should NOT appear
+    const noBackPages = ['dashboard.html', 'home.html', 'guides.html', 'earn.html', 'apps.html', 'saved.html', 'tools.html'];
+    const page = currentPage();
+    const showBackBtn = !noBackPages.includes(page);
+
+    // Back button (right side, mobile only) - only on certain pages
+    if (showBackBtn) {
+      const backBtn = document.createElement('button');
+      backBtn.className = 'back-arrow-btn';
+      backBtn.setAttribute('aria-label', 'Go back');
+      backBtn.type = 'button';
+      backBtn.textContent = '←';
+      backBtn.addEventListener('click', () => {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          location.href = 'dashboard.html';
+        }
+      });
+      header.appendChild(backBtn);
+    }
 
     // Brand (logo + name). It will be shown/hidden via CSS media queries.
     let brand = document.createElement('a');
