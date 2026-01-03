@@ -136,12 +136,13 @@
 
     // Build a focused menu with only the requested items
     const menuItems = [
-      { href: 'beginnerlist.html', text: 'Beginner List' },
-      { href: 'ai-playground.html', text: 'AI Playground' },
-      { href: 'aimadesimple.html', text: 'AI Made Simple' },
-      { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
-      { href: 'playlist.html', text: 'Motivation Playlist' },
-      { href: 'feedback.html', text: 'Feedback' }
+      { href: 'beginnerlist.html', text: '🚀 Beginner List' },
+      { href: 'adhdhacks.html', text: '🧠 ADHD Hacks' },
+      { href: 'ai-playground.html', text: '🤖 AI Playground' },
+      { href: 'aimadesimple.html', text: '✨ AI Made Simple' },
+      { href: 'crypto-made-simple.html', text: '🪙 Crypto Made Simple' },
+      { href: 'playlist.html', text: '🎵 Motivation Playlist' },
+      { href: 'feedback.html', text: '💬 Feedback' }
     ];
 
     menuItems.forEach((mi) => {
@@ -468,12 +469,13 @@
 
               // Menu items (same curated list as overlay)
               const items = [
-                { href: 'beginnerlist.html', text: 'Beginner List' },
-                { href: 'ai-playground.html', text: 'AI Playground' },
-                { href: 'aimadesimple.html', text: 'AI Made Simple' },
-                { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
-                { href: 'playlist.html', text: 'Motivation Playlist' },
-                { href: 'feedback.html', text: 'Feedback' }
+                { href: 'beginnerlist.html', text: '🚀 Beginner List' },
+                { href: 'adhdhacks.html', text: '🧠 ADHD Hacks' },
+                { href: 'ai-playground.html', text: '🤖 AI Playground' },
+                { href: 'aimadesimple.html', text: '✨ AI Made Simple' },
+                { href: 'crypto-made-simple.html', text: '🪙 Crypto Made Simple' },
+                { href: 'playlist.html', text: '🎵 Motivation Playlist' },
+                { href: 'feedback.html', text: '💬 Feedback' }
               ];
               items.forEach(mi => {
                 const a = document.createElement('a');
@@ -612,11 +614,12 @@
               dd.style.zIndex = 99999;
 
               const items = [
-                  { href: 'beginnerlist.html', text: 'Beginner List' },
-                  { href: 'aimadesimple.html', text: 'AI Made Simple' },
-                  { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
-                  { href: 'playlist.html', text: 'Motivation Playlist' },
-                  { href: 'feedback.html', text: 'Feedback' }
+                  { href: 'beginnerlist.html', text: '🚀 Beginner List' },
+                  { href: 'adhdhacks.html', text: '🧠 ADHD Hacks' },
+                  { href: 'aimadesimple.html', text: '✨ AI Made Simple' },
+                  { href: 'crypto-made-simple.html', text: '🪙 Crypto Made Simple' },
+                  { href: 'playlist.html', text: '🎵 Motivation Playlist' },
+                  { href: 'feedback.html', text: '💬 Feedback' }
                 ];
               items.forEach(mi => {
                 const a = document.createElement('a');
@@ -736,11 +739,12 @@
             dd.style.zIndex = 99999;
 
             const items = [
-              { href: 'beginnerlist.html', text: 'Beginner List' },
-              { href: 'aimadesimple.html', text: 'AI Made Simple' },
-              { href: 'crypto-made-simple.html', text: 'Crypto Made Simple' },
-              { href: 'playlist.html', text: 'Motivation Playlist' },
-              { href: 'feedback.html', text: 'Feedback' }
+              { href: 'beginnerlist.html', text: '🚀 Beginner List' },
+              { href: 'adhdhacks.html', text: '🧠 ADHD Hacks' },
+              { href: 'aimadesimple.html', text: '✨ AI Made Simple' },
+              { href: 'crypto-made-simple.html', text: '🪙 Crypto Made Simple' },
+              { href: 'playlist.html', text: '🎵 Motivation Playlist' },
+              { href: 'feedback.html', text: '💬 Feedback' }
             ];
             items.forEach(mi => {
               const a = document.createElement('a');
