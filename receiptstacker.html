@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt Stacker - 925 ADHD</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#56C3AE">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --text: #fff;
+      --muted: #999;
+      --brand: #56C3AE;
+      --brand-dim: rgba(86, 195, 174, 0.15);
+      --green: #4ADE80;
+      --yellow: #FBBF24;
+      --border: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 16px 100px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .page-header .emoji {
+      font-size: 40px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Progress Bar */
+    .progress-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .progress-header span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .progress-count {
+      font-weight: 700;
+      color: var(--brand);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--brand);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .progress-fill.complete {
+      background: var(--green);
+    }
+
+    /* Apps Grid */
+    .apps-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .app-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .app-card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .app-card.completed {
+      opacity: 0.5;
+      border-color: var(--green);
+    }
+
+    .app-card.completed .app-checkbox {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    /* Checkbox */
+    .app-checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-size: 14px;
+      color: #000;
+    }
+
+    /* App Content */
+    .app-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .app-name {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .app-name a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+
+    .app-name a:hover {
+      text-decoration: underline;
+    }
+
+    .app-earnings {
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .app-action {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .app-tip {
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 10px;
+      border-radius: 6px;
+      line-height: 1.4;
+    }
+
+    /* Celebration */
+    .celebration {
+      background: linear-gradient(135deg, var(--brand), var(--green));
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .celebration.show {
+      display: block;
+      animation: pop 0.3s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .celebration .emoji {
+      font-size: 32px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .celebration h3 {
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .celebration p {
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 12px;
+    }
+
+    /* Reset Button */
+    .reset-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    /* Footer Tip */
+    .footer-tip {
+      text-align: center;
+      padding: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body data-page-title="Receipt Stacker">
+  <div class="container">
+    
+    <!-- Header -->
+    <header class="page-header">
+      <span class="emoji">🧾</span>
+      <h1>Receipt Stacker</h1>
+      <p>Upload each receipt to ALL apps for max cashback</p>
+    </header>
+
+    <!-- Progress -->
+    <div class="progress-card">
+      <div class="progress-header">
+        <span>Progress</span>
+        <span class="progress-count"><span id="completedCount">0</span> / <span id="totalCount">9</span> apps</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Celebration -->
+    <div class="celebration" id="celebration">
+      <span class="emoji">🎉</span>
+      <h3>Receipt fully stacked!</h3>
+      <p>You've maximized your cashback on this receipt</p>
+    </div>
+
+    <!-- Apps Grid -->
+    <div class="apps-grid" id="appsGrid"></div>
+
+    <!-- Reset -->
+    <button class="reset-btn" onclick="resetAll()">🔄 Reset for Next Receipt</button>
+
+    <!-- Footer -->
+    <div class="footer-tip">
+      💡 Stack that receipt gold ✨ One scan at a time
+    </div>
+
+  </div>
+
+  <script>
+    const apps = [
+      {
+        name: 'Ibotta',
+        url: 'https://ibotta.com/get-the-app',
+        earnings: '$0.10–$5.00',
+        action: 'Activate offers + upload receipt',
+        tip: 'Tap offers, activate matching ones, then upload receipt'
+      },
+      {
+        name: 'Fetch Rewards',
+        url: 'https://fetch.com',
+        earnings: '$0.01–$0.50',
+        action: 'Upload receipt',
+        tip: 'Scan barcode or upload image to earn points'
+      },
+      {
+        name: 'Benjamin',
+        url: 'https://www.benjaminone.com',
+        earnings: '$0.05–$16.00',
+        action: 'Upload receipt + link card',
+        tip: 'Also earn from games, surveys, and linked cards'
+      },
+      {
+        name: 'CoinOut',
+        url: 'https://coinout.com',
+        earnings: '$0.01–$0.10',
+        action: 'Upload receipt',
+        tip: 'Snap a photo for instant cash back'
+      },
+      {
+        name: 'Receipt Hog',
+        url: 'https://receipthog.com',
+        earnings: '$0.01–$0.05',
+        action: 'Upload receipt',
+        tip: 'Earn coins, sweepstakes entries, and rewards'
+      },
+      {
+        name: 'Amazon Panel',
+        url: 'https://panel.amazon.com',
+        earnings: '~$1 / 10 receipts',
+        action: 'Upload (invite only)',
+        tip: 'Amazon invites you to upload for extra rewards'
+      },
+      {
+        name: 'Swagbucks',
+        url: 'https://www.swagbucks.com',
+        earnings: '$0.10–$0.50',
+        action: 'Activate + upload',
+        tip: 'Activate offers first, then upload receipts for points'
+      },
+      {
+        name: 'InboxDollars',
+        url: 'https://www.inboxdollars.com',
+        earnings: '$0.10–$0.50',
+        action: 'Activate + upload',
+        tip: 'Activate offers and upload for cash rewards'
+      },
+      {
+        name: 'Shopkick',
+        url: 'https://www.shopkick.com',
+        earnings: '$0.01–$0.10',
+        action: 'Scan receipt (if listed)',
+        tip: 'Scan barcode if eligible to earn points'
+      }
+    ];
+
+    let completed = [];
+
+    function loadState() {
+      const saved = localStorage.getItem('925_receipts');
+      if (saved) {
+        completed = JSON.parse(saved);
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem('925_receipts', JSON.stringify(completed));
+    }
+
+    function renderApps() {
+      const grid = document.getElementById('appsGrid');
+      grid.innerHTML = apps.map((app, i) => {
+        const isComplete = completed.includes(i);
+        return `
+          <div class="app-card ${isComplete ? 'completed' : ''}" onclick="toggleApp(${i})">
+            <div class="app-checkbox">${isComplete ? '✓' : ''}</div>
+            <div class="app-content">
+              <div class="app-header">
+                <div class="app-name">
+                  <a href="${app.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${app.name}</a>
+                </div>
+                <div class="app-earnings">💰 ${app.earnings}</div>
+              </div>
+              <div class="app-action">${app.action}</div>
+              <div class="app-tip">💡 ${app.tip}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateProgress();
+    }
+
+    function toggleApp(index) {
+      if (completed.includes(index)) {
+        completed = completed.filter(i => i !== index);
+      } else {
+        completed.push(index);
+      }
+      saveState();
+      renderApps();
+
+      // Haptic
+      if (navigator.vibrate) navigator.vibrate(30);
+    }
+
+    function updateProgress() {
+      const total = apps.length;
+      const done = completed.length;
+      const percent = (done / total) * 100;
+
+      document.getElementById('completedCount').textContent = done;
+      document.getElementById('totalCount').textContent = total;
+
+      const fill = document.getElementById('progressFill');
+      fill.style.width = percent + '%';
+      fill.classList.toggle('complete', done === total);
+
+      // Celebration
+      const celebration = document.getElementById('celebration');
+      celebration.classList.toggle('show', done === total);
+    }
+
+    function resetAll() {
+      completed = [];
+      saveState();
+      renderApps();
+    }
+
+    // Init
+    loadState();
+    renderApps();
+  </script>
+
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelance Calculator - 925 ADHD</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#56C3AE">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --text: #fff;
+      --muted: #999;
+      --brand: #56C3AE;
+      --brand-dim: rgba(86, 195, 174, 0.15);
+      --green: #4ADE80;
+      --yellow: #FBBF24;
+      --red: #F87171;
+      --blue: #818CF8;
+      --border: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 16px 100px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Progress Bar */
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: var(--border);
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 1;
+    }
+
+    .step-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+
+    .step.active .step-dot {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #000;
+    }
+
+    .step.complete .step-dot {
+      background: var(--green);
+      border-color: var(--green);
+      color: #000;
+    }
+
+    .step-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .step.active .step-label {
+      color: var(--brand);
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Form Groups */
+    .form-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-left: 3px solid var(--brand);
+    }
+
+    .form-group:focus-within {
+      border-left-color: var(--green);
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--brand);
+    }
+
+    .form-group input::placeholder {
+      color: var(--muted);
+    }
+
+    .form-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* Tip Box */
+    .tip-box {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      border-left: 3px solid var(--yellow);
+      border-radius: 10px;
+      padding: 12px;
+      margin: 16px 0;
+    }
+
+    .tip-box strong {
+      color: var(--yellow);
+      font-size: 12px;
+    }
+
+    .tip-box p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* Buttons */
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(86, 195, 174, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* Results */
+    .results-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      border-left: 4px solid var(--green);
+    }
+
+    .results-title {
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--green);
+    }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .result-item:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .result-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .result-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .result-item.highlight {
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+    }
+
+    .result-item.highlight .result-label {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .result-item.highlight .result-value {
+      font-size: 18px;
+    }
+
+    /* Pro tip in results */
+    .results-tip {
+      background: rgba(86, 195, 174, 0.1);
+      border: 1px solid rgba(86, 195, 174, 0.2);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 16px;
+    }
+
+    .results-tip strong {
+      color: var(--brand);
+      font-size: 12px;
+    }
+
+    .results-tip p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body data-page-title="Freelance Calculator">
+  <div class="container">
+    
+    <!-- Header -->
+    <header class="page-header">
+      <h1>💰 Freelance Calculator</h1>
+      <p>Figure out your rates & take-home pay</p>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="progress-steps">
+      <div class="step active" id="step1">
+        <div class="step-dot">1</div>
+        <span class="step-label">Income</span>
+      </div>
+      <div class="step" id="step2">
+        <div class="step-dot">2</div>
+        <span class="step-label">Expenses</span>
+      </div>
+      <div class="step" id="step3">
+        <div class="step-dot">3</div>
+        <span class="step-label">Results</span>
+      </div>
+    </div>
+
+    <!-- Tab 1: Income -->
+    <div class="tab-content active" id="incomeTab">
+      <div class="form-group">
+        <label for="hourlyRate">💵 Your Hourly Rate ($)</label>
+        <input type="number" id="hourlyRate" placeholder="e.g., 50" min="0" step="0.01">
+        <div class="form-hint">What you charge clients per hour</div>
+      </div>
+
+      <div class="form-group">
+        <label for="hoursPerWeek">⏰ Hours Per Week</label>
+        <input type="number" id="hoursPerWeek" placeholder="e.g., 30" min="0" max="168" step="0.5">
+        <div class="form-hint">Be realistic about your ADHD capacity</div>
+      </div>
+
+      <div class="form-group">
+        <label for="weeksPerYear">📅 Weeks Per Year</label>
+        <input type="number" id="weeksPerYear" placeholder="e.g., 48" min="0" max="52" value="48">
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 ADHD Tip</strong>
+        <p>Factor in recovery time and unexpected down days. Most people overestimate how much they can work.</p>
+      </div>
+
+      <button class="btn btn-primary" onclick="nextTab('expenses')">Next: Expenses →</button>
+    </div>
+
+    <!-- Tab 2: Expenses -->
+    <div class="tab-content" id="expensesTab">
+      <div class="form-group">
+        <label for="monthlyExpenses">💸 Monthly Expenses ($)</label>
+        <input type="number" id="monthlyExpenses" placeholder="e.g., 500" min="0" step="0.01">
+        <div class="form-hint">Software, subscriptions, office space, etc.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="taxRate">🏛️ Estimated Tax Rate (%)</label>
+        <input type="number" id="taxRate" placeholder="e.g., 30" min="0" max="100" value="30">
+      </div>
+
+      <div class="form-group">
+        <label for="desiredSavings">🐷 Monthly Savings Goal ($)</label>
+        <input type="number" id="desiredSavings" placeholder="e.g., 500" min="0" step="0.01">
+        <div class="form-hint">Buffer for unpredictable income months</div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 ADHD Tip</strong>
+        <p>Setting aside tax money in advance prevents last-minute panic!</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="prevTab('income')">← Back</button>
+        <button class="btn btn-primary" onclick="calculate()">Calculate 🎯</button>
+      </div>
+    </div>
+
+    <!-- Tab 3: Results -->
+    <div class="tab-content" id="resultsTab">
+      <div class="results-card">
+        <div class="results-title">📈 Your Freelance Breakdown</div>
+
+        <div class="result-item">
+          <span class="result-label">Annual Income (Gross)</span>
+          <span class="result-value" id="annualIncome">$0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Monthly Income (Gross)</span>
+          <span class="result-value" id="monthlyIncome">$0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Monthly Tax (~)</span>
+          <span class="result-value" id="monthlyTax">$0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Business Expenses</span>
+          <span class="result-value" id="expensesResult">$0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Savings</span>
+          <span class="result-value" id="savingsResult">$0</span>
+        </div>
+
+        <div class="result-item highlight">
+          <span class="result-label">Monthly Take-Home</span>
+          <span class="result-value" id="takeHome">$0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Projects Needed/Month</span>
+          <span class="result-value" id="projectsNeeded">0</span>
+        </div>
+
+        <div class="results-tip">
+          <strong>💡 Pro Tip</strong>
+          <p>Charge 20-30% more than you think you need to account for energy fluctuations and unexpected downtime.</p>
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top: 16px;">
+        <button class="btn btn-secondary" onclick="prevTab('expenses')">← Back</button>
+        <button class="btn btn-primary" onclick="resetCalc()">🔄 Start Over</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const tabs = ['income', 'expenses', 'results'];
+    let currentTab = 'income';
+
+    function updateSteps() {
+      const currentIndex = tabs.indexOf(currentTab);
+      
+      document.querySelectorAll('.step').forEach((step, i) => {
+        step.classList.remove('active', 'complete');
+        if (i < currentIndex) step.classList.add('complete');
+        if (i === currentIndex) step.classList.add('active');
+      });
+    }
+
+    function showTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById(tab + 'Tab').classList.add('active');
+      currentTab = tab;
+      updateSteps();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextTab(tab) {
+      showTab(tab);
+    }
+
+    function prevTab(tab) {
+      showTab(tab);
+    }
+
+    function calculate() {
+      const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+      const hoursPerWeek = parseFloat(document.getElementById('hoursPerWeek').value) || 0;
+      const weeksPerYear = parseFloat(document.getElementById('weeksPerYear').value) || 48;
+      const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value) || 0;
+      const taxRate = parseFloat(document.getElementById('taxRate').value) || 30;
+      const desiredSavings = parseFloat(document.getElementById('desiredSavings').value) || 0;
+
+      if (hourlyRate <= 0 || hoursPerWeek <= 0) {
+        alert('Please enter valid hourly rate and hours per week.');
+        return;
+      }
+
+      const annualIncome = hourlyRate * hoursPerWeek * weeksPerYear;
+      const monthlyIncome = annualIncome / 12;
+      const monthlyTax = monthlyIncome * (taxRate / 100);
+      const takeHome = monthlyIncome - monthlyTax - monthlyExpenses - desiredSavings;
+      const projectsNeeded = Math.ceil((monthlyExpenses + desiredSavings + monthlyTax) / (hourlyRate * 10));
+
+      document.getElementById('annualIncome').textContent = formatCurrency(annualIncome);
+      document.getElementById('monthlyIncome').textContent = formatCurrency(monthlyIncome);
+      document.getElementById('monthlyTax').textContent = formatCurrency(monthlyTax);
+      document.getElementById('expensesResult').textContent = formatCurrency(monthlyExpenses);
+      document.getElementById('savingsResult').textContent = formatCurrency(desiredSavings);
+      document.getElementById('takeHome').textContent = formatCurrency(takeHome);
+      document.getElementById('projectsNeeded').textContent = projectsNeeded;
+
+      showTab('results');
+    }
+
+    function formatCurrency(amount) {
+      return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function resetCalc() {
+      document.getElementById('hourlyRate').value = '';
+      document.getElementById('hoursPerWeek').value = '';
+      document.getElementById('weeksPerYear').value = '48';
+      document.getElementById('monthlyExpenses').value = '';
+      document.getElementById('taxRate').value = '30';
+      document.getElementById('desiredSavings').value = '';
+      showTab('income');
+    }
+
+    // Auto-save form data
+    const formFields = ['hourlyRate', 'hoursPerWeek', 'weeksPerYear', 'monthlyExpenses', 'taxRate', 'desiredSavings'];
+    
+    formFields.forEach(id => {
+      const el = document.getElementById(id);
+      const saved = localStorage.getItem('925_calc_' + id);
+      if (saved) el.value = saved;
+      
+      el.addEventListener('input', () => {
+        localStorage.setItem('925_calc_' + id, el.value);
+      });
+    });
+
+    // Enter key navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+        if (currentTab === 'income') nextTab('expenses');
+        else if (currentTab === 'expenses') calculate();
+      }
+    });
+  </script>
+
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

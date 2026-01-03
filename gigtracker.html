@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gig Tracker - 925 ADHD</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#56C3AE">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --text: #fff;
+      --muted: #999;
+      --brand: #56C3AE;
+      --brand-dim: rgba(86, 195, 174, 0.15);
+      --green: #4ADE80;
+      --yellow: #FBBF24;
+      --red: #F87171;
+      --blue: #818CF8;
+      --border: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 16px 100px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 2px;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    /* Total Display */
+    .total-display {
+      background: linear-gradient(135deg, var(--brand), var(--green));
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .total-display.goal-reached {
+      background: linear-gradient(135deg, var(--green), #22D3EE);
+    }
+
+    .total-amount {
+      font-size: 36px;
+      font-weight: 900;
+      color: #000;
+      line-height: 1.1;
+    }
+
+    .total-info {
+      font-size: 13px;
+      color: rgba(0, 0, 0, 0.7);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* Progress */
+    .progress-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .goal-display {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .goal-display input {
+      width: 70px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .goal-display input:focus {
+      outline: none;
+      border-color: var(--brand);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--brand);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .progress-fill.complete {
+      background: var(--green);
+    }
+
+    /* Timer Section */
+    .timer-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .timer-display {
+      font-family: monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--brand);
+    }
+
+    .timer-btn {
+      background: var(--green);
+      color: #000;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .timer-btn.running {
+      background: var(--red);
+    }
+
+    /* Platform Grid */
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--muted);
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .platform-btn {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .platform-btn:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .platform-btn.active {
+      border-color: var(--brand);
+      background: var(--brand-dim);
+    }
+
+    .platform-btn .emoji {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .platform-btn .name {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .platform-btn.active .name {
+      color: var(--brand);
+    }
+
+    /* Quick Add */
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .quick-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 8px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .quick-btn:active {
+      transform: scale(0.95);
+    }
+
+    .quick-btn.platform-active {
+      background: var(--brand);
+      color: #000;
+      border-color: var(--brand);
+    }
+
+    /* Manual Entry */
+    .manual-section {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .manual-input {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .manual-input:focus {
+      outline: none;
+      border-color: var(--brand);
+    }
+
+    .manual-input::placeholder {
+      color: var(--muted);
+    }
+
+    .manual-btn {
+      background: var(--brand);
+      color: #000;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .manual-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* History */
+    .history-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .history-list {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-platform {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .history-time {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .history-amount {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Actions */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .action-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 12px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .action-btn.undo { border-color: rgba(251, 191, 36, 0.3); color: var(--yellow); }
+    .action-btn.export { border-color: rgba(129, 140, 248, 0.3); color: var(--blue); }
+    .action-btn.reset { border-color: rgba(248, 113, 113, 0.3); color: var(--red); }
+
+    .action-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast.success {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
+    }
+
+    .toast.milestone {
+      background: linear-gradient(135deg, var(--brand), var(--green));
+      color: #000;
+      border-color: var(--brand);
+    }
+
+    .toast.error {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 320px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .modal h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .modal p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .modal-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .modal-btn {
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .modal-btn.cancel {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    .modal-btn.confirm {
+      background: var(--red);
+      color: #fff;
+    }
+  </style>
+</head>
+<body data-page-title="Gig Tracker">
+  <div class="container">
+    
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Reset Modal -->
+    <div class="modal-overlay" id="resetModal">
+      <div class="modal">
+        <h3>🗑️ Reset All Data?</h3>
+        <p>This will clear all earnings and history. Your goal setting will be preserved.</p>
+        <div class="modal-btns">
+          <button class="modal-btn cancel" onclick="hideModal()">Cancel</button>
+          <button class="modal-btn confirm" onclick="confirmReset()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="page-header">
+      <h1>💰 Gig Tracker</h1>
+      <p>Track earnings from surveys, freelancing & gigs</p>
+    </header>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="todayTotal">$0</div>
+        <div class="stat-label">Earned</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="taskCount">0</div>
+        <div class="stat-label">Tasks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="avgPerTask">$0</div>
+        <div class="stat-label">Avg</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="hourlyRate">$0</div>
+        <div class="stat-label">/Hour</div>
+      </div>
+    </div>
+
+    <!-- Total Display -->
+    <div class="total-display" id="totalDisplay">
+      <div class="total-amount">$<span id="totalAmount">0.00</span></div>
+      <div class="total-info" id="totalInfo">Ready to start earning! 🚀</div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-section">
+      <div class="progress-header">
+        <div class="goal-display">
+          <span>Goal: $</span>
+          <input type="number" id="goalInput" value="25" min="1" step="1">
+        </div>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Timer -->
+    <div class="timer-section">
+      <div>
+        <div style="font-size: 12px; color: var(--muted); margin-bottom: 2px;">⏱️ Work Session</div>
+        <div class="timer-display" id="timerDisplay">00:00:00</div>
+      </div>
+      <button class="timer-btn" id="timerBtn" onclick="toggleTimer()">Start</button>
+    </div>
+
+    <!-- Platform Selection -->
+    <div class="section-title">💼 Select Platform</div>
+    <div class="platform-grid" id="platformGrid"></div>
+
+    <!-- Quick Add -->
+    <div class="section-title">⚡ Quick Add</div>
+    <div class="quick-grid" id="quickGrid"></div>
+
+    <!-- Manual Entry -->
+    <div class="manual-section">
+      <input type="number" class="manual-input" id="manualInput" placeholder="Custom amount" step="0.01" min="0">
+      <button class="manual-btn" id="manualBtn" onclick="addManual()" disabled>Add</button>
+    </div>
+
+    <!-- History -->
+    <div class="history-section">
+      <div class="section-title" style="margin-bottom: 10px;">📜 Today's Earnings</div>
+      <div class="history-list" id="historyList">
+        <div class="empty-state">Start adding earnings to see your progress! 🎯</div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="action-grid">
+      <button class="action-btn undo" id="undoBtn" onclick="undoLast()" disabled>↩ Undo</button>
+      <button class="action-btn export" onclick="exportData()">📊 Export</button>
+      <button class="action-btn reset" onclick="showModal()">🗑️ Reset</button>
+    </div>
+
+  </div>
+
+  <script>
+    // State
+    let state = {
+      total: 0,
+      tasks: 0,
+      history: [],
+      goal: 25,
+      workTime: 0,
+      timerStart: null,
+      timerRunning: false,
+      currentPlatform: ''
+    };
+
+    // Platforms
+    const platforms = {
+      'Surveys': { emoji: '📋', amounts: [0.50, 1.00, 2.00, 5.00] },
+      'Fiverr': { emoji: '💻', amounts: [5.00, 15.00, 25.00, 50.00] },
+      'Upwork': { emoji: '📝', amounts: [10.00, 25.00, 50.00, 100.00] },
+      'Testing': { emoji: '🔬', amounts: [4.00, 10.00, 20.00, 60.00] },
+      'Prolific': { emoji: '🎯', amounts: [1.50, 3.00, 5.00, 8.00] },
+      'Writing': { emoji: '✍️', amounts: [5.00, 20.00, 40.00, 75.00] },
+      'Interviews': { emoji: '🎤', amounts: [20.00, 50.00, 100.00, 200.00] },
+      'Other': { emoji: '✨', amounts: [1.00, 5.00, 10.00, 25.00] }
+    };
+
+    const defaultAmounts = [0.50, 2.00, 5.00, 15.00];
+    let timerInterval = null;
+
+    // Initialize
+    function init() {
+      loadData();
+      renderPlatforms();
+      renderQuickButtons(defaultAmounts);
+      updateUI();
+      setupListeners();
+    }
+
+    // Load/Save
+    function loadData() {
+      try {
+        const saved = localStorage.getItem('925_gigtracker');
+        if (saved) {
+          const data = JSON.parse(saved);
+          const today = new Date().toDateString();
+          
+          if (data.lastSave === today) {
+            state = { ...state, ...data };
+          } else {
+            state.goal = data.goal || 25;
+            showToast('New day! Fresh start 🌅', 'milestone');
+          }
+        }
+      } catch (e) {
+        console.log('Load error', e);
+      }
+    }
+
+    function saveData() {
+      state.lastSave = new Date().toDateString();
+      localStorage.setItem('925_gigtracker', JSON.stringify(state));
+    }
+
+    // Render
+    function renderPlatforms() {
+      const grid = document.getElementById('platformGrid');
+      grid.innerHTML = Object.entries(platforms).map(([name, data]) => `
+        <button class="platform-btn" onclick="selectPlatform('${name}')">
+          <span class="emoji">${data.emoji}</span>
+          <span class="name">${name}</span>
+        </button>
+      `).join('');
+    }
+
+    function renderQuickButtons(amounts) {
+      const grid = document.getElementById('quickGrid');
+      const isActive = state.currentPlatform !== '';
+      grid.innerHTML = amounts.map(amt => `
+        <button class="quick-btn ${isActive ? 'platform-active' : ''}" onclick="addEarning(${amt})">
+          $${amt.toFixed(2)}
+        </button>
+      `).join('');
+    }
+
+    function updateUI() {
+      // Stats
+      document.getElementById('todayTotal').textContent = '$' + state.total.toFixed(0);
+      document.getElementById('taskCount').textContent = state.tasks;
+      document.getElementById('avgPerTask').textContent = '$' + (state.tasks > 0 ? (state.total / state.tasks).toFixed(0) : '0');
+      
+      const hourly = state.workTime > 0 ? (state.total / (state.workTime / 60)) : 0;
+      document.getElementById('hourlyRate').textContent = '$' + hourly.toFixed(0);
+
+      // Total
+      document.getElementById('totalAmount').textContent = state.total.toFixed(2);
+      const display = document.getElementById('totalDisplay');
+      const info = document.getElementById('totalInfo');
+      
+      if (state.total >= state.goal) {
+        display.classList.add('goal-reached');
+        info.textContent = '🏆 GOAL REACHED! Outstanding!';
+      } else {
+        display.classList.remove('goal-reached');
+        const remaining = state.goal - state.total;
+        info.textContent = `$${remaining.toFixed(2)} to goal • Keep going! 💪`;
+      }
+
+      // Progress
+      const progress = Math.min((state.total / state.goal) * 100, 100);
+      const fill = document.getElementById('progressFill');
+      fill.style.width = progress + '%';
+      fill.classList.toggle('complete', state.total >= state.goal);
+      document.getElementById('progressPercent').textContent = Math.round(progress) + '%';
+
+      // Goal input
+      document.getElementById('goalInput').value = state.goal;
+
+      // History
+      const list = document.getElementById('historyList');
+      if (state.history.length === 0) {
+        list.innerHTML = '<div class="empty-state">Start adding earnings to see your progress! 🎯</div>';
+      } else {
+        list.innerHTML = state.history.map(h => `
+          <div class="history-item">
+            <div>
+              <div class="history-platform">${h.platform}</div>
+              <div class="history-time">${h.time}</div>
+            </div>
+            <div class="history-amount">+$${h.amount.toFixed(2)}</div>
+          </div>
+        `).join('');
+      }
+
+      // Undo button
+      document.getElementById('undoBtn').disabled = state.history.length === 0;
+
+      // Timer
+      updateTimerDisplay();
+    }
+
+    // Platform selection
+    function selectPlatform(name) {
+      state.currentPlatform = name;
+      
+      // Update button states
+      document.querySelectorAll('.platform-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.includes(name));
+      });
+
+      renderQuickButtons(platforms[name].amounts);
+      showToast(`${name} selected! 🎯`, 'success');
+
+      // Reset after 30s
+      setTimeout(() => {
+        if (state.currentPlatform === name) {
+          state.currentPlatform = '';
+          document.querySelectorAll('.platform-btn').forEach(btn => btn.classList.remove('active'));
+          renderQuickButtons(defaultAmounts);
+        }
+      }, 30000);
+    }
+
+    // Add earning
+    function addEarning(amount) {
+      const platform = state.currentPlatform || 'Quick Add';
+      
+      state.total += amount;
+      state.tasks++;
+      state.history.unshift({
+        amount,
+        platform,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+
+      if (state.history.length > 20) state.history = state.history.slice(0, 20);
+
+      saveData();
+      checkMilestones(amount);
+      updateUI();
+      showToast(`+$${amount.toFixed(2)} from ${platform}! 💰`, 'success');
+
+      if (navigator.vibrate) navigator.vibrate(50);
+    }
+
+    function addManual() {
+      const input = document.getElementById('manualInput');
+      const amount = parseFloat(input.value);
+      if (amount && amount > 0) {
+        addEarning(amount);
+        input.value = '';
+        document.getElementById('manualBtn').disabled = true;
+      }
+    }
+
+    // Milestones
+    function checkMilestones(lastAmount) {
+      const milestones = [1, 5, 10, 25, 50, 100];
+      const hit = milestones.find(m => state.total >= m && state.total - lastAmount < m);
+      
+      if (hit) {
+        setTimeout(() => showToast(`🎉 $${hit} milestone! 🎉`, 'milestone'), 500);
+      }
+
+      if (state.total >= state.goal && state.total - lastAmount < state.goal) {
+        setTimeout(() => showToast('🏆 DAILY GOAL SMASHED! 🏆', 'milestone'), 1000);
+      }
+    }
+
+    // Undo
+    function undoLast() {
+      if (state.history.length > 0) {
+        const last = state.history.shift();
+        state.total -= last.amount;
+        state.tasks = Math.max(0, state.tasks - 1);
+        saveData();
+        updateUI();
+        showToast(`Undid $${last.amount.toFixed(2)}`, 'error');
+      }
+    }
+
+    // Timer
+    function toggleTimer() {
+      if (state.timerRunning) {
+        // Stop
+        const elapsed = Math.round((Date.now() - state.timerStart) / 60000);
+        state.workTime += elapsed;
+        state.timerRunning = false;
+        state.timerStart = null;
+        clearInterval(timerInterval);
+        
+        document.getElementById('timerBtn').textContent = 'Start';
+        document.getElementById('timerBtn').classList.remove('running');
+        
+        saveData();
+        updateUI();
+        showToast(`Session ended! +${elapsed} min`, 'success');
+      } else {
+        // Start
+        state.timerStart = Date.now();
+        state.timerRunning = true;
+        
+        timerInterval = setInterval(updateTimerDisplay, 1000);
+        
+        document.getElementById('timerBtn').textContent = 'Stop';
+        document.getElementById('timerBtn').classList.add('running');
+        
+        showToast('Timer started! ⏱️', 'success');
+      }
+    }
+
+    function updateTimerDisplay() {
+      let totalSeconds;
+      if (state.timerRunning && state.timerStart) {
+        const elapsed = Math.floor((Date.now() - state.timerStart) / 1000);
+        totalSeconds = (state.workTime * 60) + elapsed;
+      } else {
+        totalSeconds = state.workTime * 60;
+      }
+
+      const h = Math.floor(totalSeconds / 3600);
+      const m = Math.floor((totalSeconds % 3600) / 60);
+      const s = totalSeconds % 60;
+
+      document.getElementById('timerDisplay').textContent = 
+        `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    // Export
+    function exportData() {
+      const today = new Date().toLocaleDateString();
+      const hourly = state.workTime > 0 ? (state.total / (state.workTime / 60)).toFixed(2) : '0.00';
+      
+      const text = `💰 Gig Tracker Report - ${today}
+
+SUMMARY:
+• Total Earned: $${state.total.toFixed(2)}
+• Tasks Completed: ${state.tasks}
+• Work Time: ${state.workTime} minutes
+• Hourly Rate: $${hourly}/hour
+• Goal Progress: ${Math.round((state.total / state.goal) * 100)}%
+
+HISTORY:
+${state.history.map(h => `• ${h.time} - ${h.platform}: $${h.amount.toFixed(2)}`).join('\n') || '• No entries'}
+
+---
+Generated by 925 ADHD Gig Tracker 🎯`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Copied to clipboard! 📋', 'success');
+      }).catch(() => {
+        showToast('Copy failed', 'error');
+      });
+    }
+
+    // Reset
+    function showModal() {
+      document.getElementById('resetModal').classList.add('show');
+    }
+
+    function hideModal() {
+      document.getElementById('resetModal').classList.remove('show');
+    }
+
+    function confirmReset() {
+      if (state.timerRunning) toggleTimer();
+      
+      const preservedGoal = state.goal;
+      state = {
+        total: 0,
+        tasks: 0,
+        history: [],
+        goal: preservedGoal,
+        workTime: 0,
+        timerStart: null,
+        timerRunning: false,
+        currentPlatform: ''
+      };
+
+      document.querySelectorAll('.platform-btn').forEach(btn => btn.classList.remove('active'));
+      renderQuickButtons(defaultAmounts);
+      saveData();
+      updateUI();
+      hideModal();
+      showToast('All data reset! 🚀', 'milestone');
+    }
+
+    // Toast
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'toast show ' + type;
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    // Listeners
+    function setupListeners() {
+      // Manual input
+      const manualInput = document.getElementById('manualInput');
+      const manualBtn = document.getElementById('manualBtn');
+      
+      manualInput.addEventListener('input', () => {
+        manualBtn.disabled = !parseFloat(manualInput.value);
+      });
+
+      manualInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !manualBtn.disabled) {
+          addManual();
+        }
+      });
+
+      // Goal input
+      document.getElementById('goalInput').addEventListener('change', (e) => {
+        const newGoal = parseFloat(e.target.value);
+        if (newGoal && newGoal > 0) {
+          state.goal = newGoal;
+          saveData();
+          updateUI();
+          showToast(`Goal set to $${newGoal}! 🎯`, 'success');
+        }
+      });
+    }
+
+    // Start
+    init();
+  </script>
+
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

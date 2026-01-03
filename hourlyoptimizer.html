@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hourly Optimizer - 925 ADHD</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#56C3AE">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --text: #fff;
+      --muted: #999;
+      --brand: #56C3AE;
+      --brand-dim: rgba(86, 195, 174, 0.15);
+      --high: #F87171;
+      --medium: #FBBF24;
+      --low: #4ADE80;
+      --break: #818CF8;
+      --border: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 16px 100px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .current-time {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 4px;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+    .legend-dot.high { background: var(--high); }
+    .legend-dot.medium { background: var(--medium); }
+    .legend-dot.low { background: var(--low); }
+    .legend-dot.break { background: var(--break); }
+
+    /* Time Blocks */
+    .schedule {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .time-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      border-left: 4px solid var(--muted);
+      transition: all 0.2s;
+      opacity: 0.6;
+    }
+
+    .time-block.high-value { border-left-color: var(--high); }
+    .time-block.medium-value { border-left-color: var(--medium); }
+    .time-block.low-value { border-left-color: var(--low); }
+    .time-block.break-time { border-left-color: var(--break); }
+
+    .time-block.current {
+      opacity: 1;
+      border-color: var(--brand);
+      background: linear-gradient(135deg, rgba(86, 195, 174, 0.1), rgba(86, 195, 174, 0.05));
+      box-shadow: 0 0 20px rgba(86, 195, 174, 0.15);
+    }
+
+    .time-block.future {
+      opacity: 1;
+    }
+
+    .block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      gap: 12px;
+    }
+
+    .block-time {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .block-earnings {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: rgba(74, 222, 128, 0.15);
+      color: var(--low);
+      white-space: nowrap;
+    }
+
+    .block-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .block-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    /* Platforms */
+    .platforms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .platform-link {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+    }
+
+    .platform-link:hover {
+      background: var(--brand-dim);
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    /* Boost Tip */
+    .boost-tip {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      border-left: 2px solid var(--brand);
+    }
+
+    .boost-tip strong {
+      color: var(--brand);
+    }
+
+    /* Current indicator */
+    .current-badge {
+      display: inline-block;
+      background: var(--brand);
+      color: #000;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+      margin-left: 8px;
+      text-transform: uppercase;
+    }
+
+    /* Off-hours popup */
+    .off-hours-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .off-hours-card .emoji {
+      font-size: 48px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .off-hours-card h2 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .off-hours-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .anytime-tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .anytime-task {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .anytime-task h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .anytime-task .earnings {
+      font-size: 11px;
+      color: var(--low);
+      font-weight: 600;
+    }
+
+    .anytime-task p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .anytime-task .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .anytime-task .links a {
+      background: var(--brand);
+      color: #000;
+      padding: 6px 12px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Scroll to current */
+    .scroll-btn {
+      position: fixed;
+      bottom: 80px;
+      right: 16px;
+      background: var(--brand);
+      color: #000;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(86, 195, 174, 0.3);
+      display: none;
+      z-index: 50;
+    }
+
+    .scroll-btn.visible {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body data-page-title="Hourly Optimizer">
+  <div class="container">
+    
+    <!-- Header -->
+    <header class="page-header">
+      <h1>💰 Hourly Optimizer</h1>
+      <div class="current-time" id="currentTime">--:--</div>
+      <p>Maximize earnings based on time of day</p>
+    </header>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item">
+        <span class="legend-dot high"></span> High Value
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot medium"></span> Medium
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot low"></span> Easy
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot break"></span> Break
+      </div>
+    </div>
+
+    <!-- Off-hours card (shown when outside schedule) -->
+    <div class="off-hours-card" id="offHoursCard" style="display: none;">
+      <span class="emoji">🌙</span>
+      <h2>Anytime Tasks Available!</h2>
+      <p>Outside peak hours? Perfect for these flexible earners:</p>
+      
+      <div class="anytime-tasks">
+        <div class="anytime-task">
+          <h4>🎮 Mobile Gaming <span class="earnings">$2-5/day</span></h4>
+          <p>Play while watching TV or relaxing</p>
+          <div class="links">
+            <a href="https://mistplay.com" target="_blank">Mistplay</a>
+            <a href="https://play.google.com/store/apps/details?id=com.justplay.app" target="_blank">JustPlay</a>
+          </div>
+        </div>
+        <div class="anytime-task">
+          <h4>📱 Quick Surveys <span class="earnings">$3-8/hr</span></h4>
+          <p>Short surveys perfect for odd hours</p>
+          <div class="links">
+            <a href="https://qmee.com" target="_blank">Qmee</a>
+            <a href="https://attapoll.app" target="_blank">AttaPoll</a>
+          </div>
+        </div>
+        <div class="anytime-task">
+          <h4>💸 Cashback <span class="earnings">$1-10/purchase</span></h4>
+          <p>Earn while doing regular shopping</p>
+          <div class="links">
+            <a href="https://rakuten.com" target="_blank">Rakuten</a>
+            <a href="https://ibotta.com" target="_blank">Ibotta</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Schedule -->
+    <div class="schedule" id="schedule"></div>
+
+  </div>
+
+  <button class="scroll-btn" id="scrollBtn" title="Jump to current">📍</button>
+
+  <script>
+    const schedule = [
+      {
+        time: "7:00 AM - 8:00 AM",
+        title: "🌅 Morning Quick Wins",
+        desc: "Start with easy tasks for immediate dopamine. Set up passive apps, complete 2-3 quick surveys.",
+        earnings: "$8-15",
+        category: "medium-value",
+        platforms: [
+          { name: "Swagbucks", url: "https://swagbucks.com" },
+          { name: "InboxDollars", url: "https://inboxdollars.com" }
+        ],
+        boost: "Complete 3 micro-tasks first for instant reward feeling"
+      },
+      {
+        time: "8:00 AM - 10:00 AM",
+        title: "💎 Peak Focus Time",
+        desc: "Your best hours! Apply to high-value studies and tackle demanding tasks.",
+        earnings: "$15-30",
+        category: "high-value",
+        platforms: [
+          { name: "Prolific", url: "https://prolific.co" },
+          { name: "UserTesting", url: "https://usertesting.com" },
+          { name: "Respondent", url: "https://respondent.io" }
+        ],
+        boost: "Apply to 5+ studies, expect 1-2 acceptances"
+      },
+      {
+        time: "10:00 AM - 10:30 AM",
+        title: "🔄 Energy Reset",
+        desc: "Essential break! Move your body, hydrate, reset focus.",
+        earnings: "Recharge",
+        category: "break-time",
+        platforms: [],
+        boost: "5-minute walk or jumping jacks to reset dopamine"
+      },
+      {
+        time: "10:30 AM - 12:30 PM",
+        title: "💼 Freelance Block",
+        desc: "Use remaining morning focus for skill-based work.",
+        earnings: "$15-30",
+        category: "high-value",
+        platforms: [
+          { name: "Fiverr", url: "https://fiverr.com" },
+          { name: "Upwork", url: "https://upwork.com" }
+        ],
+        boost: "Start with lower rates to build reviews quickly"
+      },
+      {
+        time: "12:30 PM - 1:30 PM",
+        title: "🍽️ Lunch Break",
+        desc: "Proper nutrition for afternoon energy. Include protein!",
+        earnings: "Fuel Up",
+        category: "break-time",
+        platforms: [],
+        boost: "Protein + complex carbs = steady afternoon energy"
+      },
+      {
+        time: "1:30 PM - 3:00 PM",
+        title: "📱 Mobile & Passive",
+        desc: "Post-lunch dip is perfect for easier mobile tasks.",
+        earnings: "$8-15",
+        category: "medium-value",
+        platforms: [
+          { name: "Mistplay", url: "https://mistplay.com" },
+          { name: "Streetbees", url: "https://streetbees.com" }
+        ],
+        boost: "Passive apps earn $1-3/day - focus on active tasks"
+      },
+      {
+        time: "3:00 PM - 3:30 PM",
+        title: "⚡ Power Break",
+        desc: "Mid-afternoon reset. Review earnings, plan remaining tasks.",
+        earnings: "Strategy",
+        category: "break-time",
+        platforms: [],
+        boost: "Make a quick wins list for when motivation drops"
+      },
+      {
+        time: "3:30 PM - 5:30 PM",
+        title: "🛒 Research & Deals",
+        desc: "Afternoon energy for research-heavy tasks. Hunt for opportunities.",
+        earnings: "$10-25",
+        category: "medium-value",
+        platforms: [
+          { name: "Amazon Panel", url: "https://panel.amazon.com" },
+          { name: "BrickSeek", url: "https://brickseek.com" }
+        ],
+        boost: "Success varies - don't expect consistent high earnings"
+      },
+      {
+        time: "5:30 PM - 7:00 PM",
+        title: "🎯 Local Tasks",
+        desc: "Evening energy for location-based tasks and mystery shopping.",
+        earnings: "$10-25",
+        category: "medium-value",
+        platforms: [
+          { name: "Field Agent", url: "https://fieldagent.net" },
+          { name: "Premise", url: "https://premise.com" }
+        ],
+        boost: "Task availability varies by location"
+      },
+      {
+        time: "7:00 PM - 8:00 PM",
+        title: "🍽️ Dinner & Recharge",
+        desc: "Transition time. Eat well, connect with family, prepare for evening.",
+        earnings: "Balance",
+        category: "break-time",
+        platforms: [],
+        boost: "15 minutes of focused family/rest time"
+      },
+      {
+        time: "8:00 PM - 9:30 PM",
+        title: "🔬 Evening Focus",
+        desc: "Second wind! Perfect for detailed surveys and research studies.",
+        earnings: "$12-25",
+        category: "high-value",
+        platforms: [
+          { name: "YouGov", url: "https://yougov.com" },
+          { name: "Surveytime", url: "https://surveytime.app" }
+        ],
+        boost: "Expect some disqualifications - plan for $8-15/hr realistic"
+      },
+      {
+        time: "9:30 PM - 10:30 PM",
+        title: "🌙 Wind-Down Tasks",
+        desc: "Low-effort tasks perfect for tired brains before bed.",
+        earnings: "$8-15",
+        category: "low-value",
+        platforms: [
+          { name: "AttaPoll", url: "https://attapoll.app" },
+          { name: "Qmee", url: "https://qmee.com" }
+        ],
+        boost: "Use blue light filters for better sleep"
+      }
+    ];
+
+    function parseTime(timeStr) {
+      const [time, period] = timeStr.trim().split(' ');
+      let [hours, minutes] = time.split(':').map(Number);
+      if (period === 'PM' && hours !== 12) hours += 12;
+      if (period === 'AM' && hours === 12) hours = 0;
+      return hours * 60 + minutes;
+    }
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+
+    function renderSchedule() {
+      const container = document.getElementById('schedule');
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      
+      const scheduleStart = parseTime('7:00 AM');
+      const scheduleEnd = parseTime('10:30 PM');
+
+      // Show off-hours card if outside schedule
+      const offHoursCard = document.getElementById('offHoursCard');
+      if (currentMinutes < scheduleStart || currentMinutes > scheduleEnd) {
+        offHoursCard.style.display = 'block';
+      } else {
+        offHoursCard.style.display = 'none';
+      }
+
+      container.innerHTML = schedule.map((block, i) => {
+        const [start, end] = block.time.split(' - ');
+        const startMin = parseTime(start);
+        const endMin = parseTime(end);
+
+        let status = 'past';
+        if (currentMinutes >= startMin && currentMinutes < endMin) {
+          status = 'current';
+        } else if (currentMinutes < startMin) {
+          status = 'future';
+        }
+
+        const platformsHtml = block.platforms.length > 0 ? `
+          <div class="platforms">
+            ${block.platforms.map(p => `<a href="${p.url}" target="_blank" class="platform-link">${p.name}</a>`).join('')}
+          </div>
+        ` : '';
+
+        return `
+          <div class="time-block ${block.category} ${status}" data-index="${i}">
+            <div class="block-header">
+              <div>
+                <span class="block-time">${block.time}</span>
+                ${status === 'current' ? '<span class="current-badge">Now</span>' : ''}
+              </div>
+              <span class="block-earnings">💰 ${block.earnings}</span>
+            </div>
+            <div class="block-title">${block.title}</div>
+            <p class="block-desc">${block.desc}</p>
+            ${platformsHtml}
+            <div class="boost-tip"><strong>💡 Tip:</strong> ${block.boost}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Scroll to current block
+      setTimeout(() => {
+        const currentBlock = document.querySelector('.time-block.current');
+        if (currentBlock) {
+          currentBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
+    }
+
+    // Scroll button
+    const scrollBtn = document.getElementById('scrollBtn');
+    
+    window.addEventListener('scroll', () => {
+      const currentBlock = document.querySelector('.time-block.current');
+      if (currentBlock) {
+        const rect = currentBlock.getBoundingClientRect();
+        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+        scrollBtn.classList.toggle('visible', !isVisible);
+      }
+    });
+
+    scrollBtn.addEventListener('click', () => {
+      const currentBlock = document.querySelector('.time-block.current');
+      if (currentBlock) {
+        currentBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    // Initialize
+    updateClock();
+    renderSchedule();
+    setInterval(updateClock, 1000);
+    setInterval(renderSchedule, 60000);
+  </script>
+
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>
