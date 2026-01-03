@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sleep Calculator - 925 ADHD</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#56C3AE">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --text: #fff;
+      --muted: #999;
+      --brand: #56C3AE;
+      --brand-dim: rgba(86, 195, 174, 0.15);
+      --green: #4ADE80;
+      --yellow: #FBBF24;
+      --blue: #818CF8;
+      --border: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 16px 100px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .page-header .emoji {
+      font-size: 40px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Mode Toggle */
+    .mode-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: var(--card);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .mode-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 12px 8px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: var(--brand);
+      color: #000;
+    }
+
+    /* Input Card */
+    .input-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .time-input {
+      width: 100%;
+      padding: 14px;
+      font-size: 24px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .time-input:focus {
+      outline: none;
+      border-color: var(--brand);
+    }
+
+    /* Calculate Button */
+    .calc-btn {
+      width: 100%;
+      background: var(--brand);
+      color: #000;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: all 0.2s;
+    }
+
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(86, 195, 174, 0.3);
+    }
+
+    /* Results */
+    .results {
+      display: none;
+    }
+
+    .results.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .results-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--brand);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .results-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    /* Time Options */
+    .time-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .time-option {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .time-option:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateX(4px);
+    }
+
+    .time-option.best {
+      border-color: var(--green);
+      background: rgba(74, 222, 128, 0.1);
+    }
+
+    .time-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .time-option.best .time-value {
+      color: var(--green);
+    }
+
+    .time-info {
+      text-align: left;
+    }
+
+    .time-cycles {
+      font-size: 11px;
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .time-hours {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .badge {
+      background: var(--green);
+      color: #000;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-left: 10px;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .quick-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+    }
+
+    /* Settings */
+    .settings-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .setting-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .setting-input {
+      width: 70px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .setting-input:focus {
+      outline: none;
+      border-color: var(--brand);
+    }
+
+    /* Info Box */
+    .info-box {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      border-left: 3px solid var(--yellow);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .info-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--yellow);
+      margin-bottom: 6px;
+    }
+
+    .info-text {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: var(--green);
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13px;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    /* Mobile compact adjustments to fit on one screen */
+    @media (max-width: 420px) {
+      body { padding: 12px 10px 80px; }
+      .container { max-width: 100%; }
+      .page-header .emoji { font-size: 32px; margin-bottom: 6px; }
+      .page-header h1 { font-size: 18px; }
+      .page-header p { font-size: 12px; }
+
+      .mode-toggle { padding: 4px; gap: 6px; margin-bottom: 12px; }
+      .mode-btn { padding: 8px 6px; font-size: 12px; }
+
+      .input-card { padding: 12px; margin-bottom: 10px; }
+      .input-label { margin-bottom: 6px; font-size: 13px; }
+      .time-input { padding: 10px; font-size: 20px; }
+
+      .calc-btn { padding: 10px; font-size: 13px; margin-bottom: 10px; }
+
+      .results-title { font-size: 14px; }
+      .results-subtitle { font-size: 12px; margin-bottom: 10px; }
+
+      .time-options { gap: 8px; }
+      .time-option { padding: 10px 12px; }
+      .time-value { font-size: 18px; }
+
+      .quick-actions { gap: 8px; }
+      .quick-btn { padding: 10px; font-size: 11px; }
+
+      .settings-card { padding: 10px; }
+      .setting-input { width: 56px; padding: 6px; font-size: 12px; }
+
+      .toast { top: 12px; font-size: 12px; padding: 8px 16px; }
+    }
+  </style>
+</head>
+<body data-page-title="Sleep Calculator">
+  <div class="container">
+    
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Header -->
+    <header class="page-header">
+      <span class="emoji">😴</span>
+      <h1>Sleep Calculator</h1>
+      <p>Wake up refreshed by timing your sleep cycles</p>
+    </header>
+
+    <!-- Mode Toggle -->
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="sleepModeBtn" onclick="switchMode('sleep')">
+        😴 I need to wake at...
+      </button>
+      <button class="mode-btn" id="wakeModeBtn" onclick="switchMode('wake')">
+        🛏️ Going to bed now
+      </button>
+    </div>
+
+    <!-- Sleep Mode -->
+    <div id="sleepMode">
+      <div class="input-card">
+        <label class="input-label" for="wakeTime">What time do you need to wake up?</label>
+        <input type="time" id="wakeTime" class="time-input" value="07:00">
+      </div>
+      <button class="calc-btn" onclick="calculateBedtimes()">Calculate Sleep Times ✨</button>
+      
+      <div class="results" id="sleepResults">
+        <div class="results-title">🌙 You should go to bed at:</div>
+        <div class="results-subtitle">Based on 90-min sleep cycles + time to fall asleep</div>
+        <div class="time-options" id="bedtimeOptions"></div>
+      </div>
+    </div>
+
+    <!-- Wake Mode -->
+    <div id="wakeMode" style="display: none;">
+      <div class="input-card">
+        <label class="input-label" for="sleepTime">What time are you going to bed?</label>
+        <input type="time" id="sleepTime" class="time-input" value="23:00">
+      </div>
+      <button class="calc-btn" onclick="calculateWakeTimes()">Calculate Wake Times ✨</button>
+      
+      <div class="results" id="wakeResults">
+        <div class="results-title">☀️ You should wake up at:</div>
+        <div class="results-subtitle">Based on 90-min sleep cycles + time to fall asleep</div>
+        <div class="time-options" id="waketimeOptions"></div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="quick-btn" onclick="setCurrentTime()">🕐 Use Current Time</button>
+      <button class="quick-btn" onclick="copyBestTime()">📋 Copy Best Time</button>
+    </div>
+
+    <!-- Settings -->
+    <div class="settings-card">
+      <div class="setting-row">
+        <span class="setting-label">Time to fall asleep (minutes):</span>
+        <input type="number" class="setting-input" id="fallAsleepTime" value="14" min="0" max="60">
+      </div>
+    </div>
+
+    <!-- Info Box -->
+    <div class="info-box">
+      <div class="info-title">💡 Sleep Cycle Info</div>
+      <div class="info-text">
+        Sleep happens in 90-minute cycles. Waking up at the end of a cycle (not in the middle) helps you feel more refreshed. Most adults need 5-6 cycles (7.5-9 hours) per night.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentMode = 'sleep';
+    let fallAsleepMinutes = 14;
+    let bestTime = '';
+
+    // Listeners
+    document.getElementById('fallAsleepTime').addEventListener('change', (e) => {
+      fallAsleepMinutes = parseInt(e.target.value) || 14;
+      if (currentMode === 'sleep') calculateBedtimes();
+      else calculateWakeTimes();
+    });
+
+    function switchMode(mode) {
+      currentMode = mode;
+      
+      document.getElementById('sleepMode').style.display = mode === 'sleep' ? 'block' : 'none';
+      document.getElementById('wakeMode').style.display = mode === 'wake' ? 'block' : 'none';
+      
+      document.getElementById('sleepModeBtn').classList.toggle('active', mode === 'sleep');
+      document.getElementById('wakeModeBtn').classList.toggle('active', mode === 'wake');
+    }
+
+    function calculateBedtimes() {
+      const wakeTimeInput = document.getElementById('wakeTime').value;
+      if (!wakeTimeInput) return;
+
+      const [hours, minutes] = wakeTimeInput.split(':').map(Number);
+      const wakeTime = new Date();
+      wakeTime.setHours(hours, minutes, 0, 0);
+
+      const results = [];
+      
+      for (let cycles = 4; cycles <= 8; cycles++) {
+        const totalMinutes = (cycles * 90) + fallAsleepMinutes;
+        const bedtime = new Date(wakeTime.getTime() - totalMinutes * 60000);
+        
+        results.push({
+          time: formatTime(bedtime),
+          cycles: cycles,
+          hours: (totalMinutes / 60).toFixed(1),
+          isBest: cycles === 5 || cycles === 6
+        });
+      }
+
+      displayResults(results, 'bedtimeOptions', 'sleepResults');
+      bestTime = results.find(r => r.isBest)?.time || '';
+    }
+
+    function calculateWakeTimes() {
+      const sleepTimeInput = document.getElementById('sleepTime').value;
+      if (!sleepTimeInput) return;
+
+      const [hours, minutes] = sleepTimeInput.split(':').map(Number);
+      const sleepTime = new Date();
+      sleepTime.setHours(hours, minutes, 0, 0);
+
+      const results = [];
+      
+      for (let cycles = 4; cycles <= 8; cycles++) {
+        const totalMinutes = (cycles * 90) + fallAsleepMinutes;
+        const wakeTime = new Date(sleepTime.getTime() + totalMinutes * 60000);
+        
+        results.push({
+          time: formatTime(wakeTime),
+          cycles: cycles,
+          hours: (totalMinutes / 60).toFixed(1),
+          isBest: cycles === 5 || cycles === 6
+        });
+      }
+
+      displayResults(results, 'waketimeOptions', 'wakeResults');
+      bestTime = results.find(r => r.isBest)?.time || '';
+    }
+
+    function displayResults(results, containerId, resultsId) {
+      const container = document.getElementById(containerId);
+      
+      container.innerHTML = results.map(result => `
+        <div class="time-option ${result.isBest ? 'best' : ''}" onclick="selectTime('${result.time}')">
+          <div class="time-info">
+            <div>
+              <span class="time-value">${result.time}</span>
+              ${result.isBest ? '<span class="badge">Best</span>' : ''}
+            </div>
+            <span class="time-cycles">${result.cycles} sleep cycles</span>
+          </div>
+          <span class="time-hours">${result.hours}h</span>
+        </div>
+      `).join('');
+      
+      document.getElementById(resultsId).classList.add('show');
+    }
+
+    function formatTime(date) {
+      let hours = date.getHours();
+      const minutes = date.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+      return `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+    }
+
+    function setCurrentTime() {
+      const now = new Date();
+      const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+      
+      if (currentMode === 'sleep') {
+        document.getElementById('wakeTime').value = timeStr;
+        calculateBedtimes();
+      } else {
+        document.getElementById('sleepTime').value = timeStr;
+        calculateWakeTimes();
+      }
+    }
+
+    function selectTime(time) {
+      bestTime = time;
+      showToast(`Selected: ${time}`);
+    }
+
+    function copyBestTime() {
+      if (!bestTime) {
+        showToast('Calculate times first!');
+        return;
+      }
+      
+      navigator.clipboard.writeText(bestTime).then(() => {
+        showToast(`Copied: ${bestTime} ✅`);
+      }).catch(() => {
+        showToast('Copy failed');
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    // Initialize
+    calculateBedtimes();
+  </script>
+
+  <div id="site-nav"></div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>
