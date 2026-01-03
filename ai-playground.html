@@ -251,8 +251,8 @@
         display: none; /* hide icons/emojis on very small screens to keep pills single-line */
       }
     }
-    .prompt-btn { padding: 10px 12px; background: #1f2225; border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius); color: #e8e8ea; font-family: var(--font); font-size: 13px; text-align: left; cursor: pointer; transition: all 0.12s ease; display: flex; align-items: center; gap: 8px; }
-    .prompt-btn:hover { border-color: rgba(255,255,255,0.08); background: #2a2d30; transform: translateY(-2px); }
+    .prompt-btn { padding: 10px 14px; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: var(--text-muted); font-family: var(--font); font-size: 13px; font-weight: 400; text-align: left; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
+    .prompt-btn:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.03); color: var(--text); }
     .prompt-btn .icon { font-size: 18px; flex-shrink: 0; }
     .prompt-btn span { line-height: 1.4; }
     .templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
@@ -305,23 +305,33 @@
     .toast.success { border-color: rgba(52,211,153,0.3); }
     .toast.success::before { content: '✓'; width: 20px; height: 20px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--bg); }
     @media (max-width: 768px) {
-      body { padding-top: 70px; }
-      .hero { padding: 30px 0 20px; }
-      .tabs { padding: 4px; }
-      .tab { padding: 10px 14px; font-size: 13px; }
+      body { padding-top: 8px; }
+      .container { padding: 0 10px; }
+      .hero { padding: 12px 0 8px; }
+      .hero-badge { margin-bottom: 6px; padding: 4px 10px; font-size: 11px; }
+      .hero h1 { font-size: 20px; margin-bottom: 6px; }
+      .tabs-container { margin-bottom: 8px; }
+      .tabs { padding: 4px; gap: 4px; }
+      .tab { padding: 8px 12px; font-size: 12px; gap: 6px; }
+      .tab svg { width: 14px; height: 14px; }
       /* Show tab text on mobile so icons are labeled */
       .tab span.tab-text { display: inline; }
-      .chat-messages { min-height: 250px; max-height: 400px; }
-      .chat-input { min-height: 56px; }
+      .tips-banner { padding: 6px 10px; margin-bottom: 10px; }
+      .tips-icon { width: 24px; height: 24px; font-size: 12px; }
+      .tips-text { font-size: 12px; }
+      .ready-banner { padding: 0; margin-bottom: 8px; }
+      .chat-container { margin-bottom: 8px; }
+      .chat-header { padding: 8px 10px; }
+      .chat-messages { min-height: 160px; max-height: 280px; padding: 10px; }
+      .chat-input { min-height: 48px; padding: 10px 12px; font-size: 14px; }
+      .send-btn { width: 42px; height: 42px; }
+      .chat-input-area { padding: 6px 8px; }
       .prompts-grid { grid-template-columns: 1fr; }
       .templates-grid { grid-template-columns: 1fr; }
       /* Show full template previews on mobile to make them readable */
       .template-preview { display: block !important; -webkit-line-clamp: unset !important; -webkit-box-orient: unset !important; overflow: visible !important; }
       .learn-grid { grid-template-columns: 1fr; }
-      .ready-banner { padding: 16px; }
       .progress-section { padding: 16px; }
-      /* keep tabs in normal flow on mobile */
-      .tabs { padding: 4px; }
     }
 
     /* Visual hint that prompt pills are swipeable on narrow screens */

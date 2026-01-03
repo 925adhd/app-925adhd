@@ -307,6 +307,10 @@
     .pill-x{ width:34px; height:34px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color:#fff; cursor:pointer; display:grid; place-items:center; line-height:1; font-size:18px; }
     .pill-x.hidden{ display:none !important; }
     .filter-menu{ position:absolute; right:0; top: calc(100% + 10px); width: 260px; padding: 12px; border-radius: 16px; border:1px solid rgba(255,255,255,.10); background: rgba(20,20,20,.92); backdrop-filter: blur(12px); box-shadow: 0 18px 50px rgba(0,0,0,.55); z-index: 50; display:flex; flex-wrap:wrap; gap:10px; align-items:flex-start; }
+
+    /* Align tags dropdown inline with the section header */
+    .section-header .header-right .filter { margin-bottom: 0; }
+    .section-header .header-right .filter-menu { top: 50%; transform: translateY(-50%); }
     .tag-chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius: 999px; white-space: nowrap; line-height: 1; font-size: 12px; font-weight: 800; cursor: pointer; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); color:var(--text); }
     .tag-chip.active{ background: var(--brand); color:#0F0F0F; border-color: var(--brand); }
     
@@ -382,16 +386,7 @@
       <input type="text" id="mainSearch" placeholder="Search all apps...">
     </div>
     
-    <!-- Category Tabs -->
-    <div class="category-tabs">
-      <button class="tab-btn active" data-category="all">All</button>
-      <button class="tab-btn" data-category="microgigs">📍 Microgigs</button>
-      <button class="tab-btn" data-category="delivery">🚗 Delivery</button>
-      <button class="tab-btn" data-category="rewards">🎮 Rewards</button>
-      <button class="tab-btn" data-category="cashback">🧾 Cashback</button>
-      <button class="tab-btn" data-category="passive">📡 Passive</button>
-      <button class="tab-btn" data-category="opinion">💬 Opinion</button>
-    </div>
+    <!-- Category tabs removed per request -->
     
     <!-- No Results Message -->
     <div class="no-results hidden" id="noResults">
