@@ -2,1137 +2,769 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>925 ADHD Hacks</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADHD Hacks - 925 ADHD</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#56C3AE">
   <style>
     :root {
-      --primary-bg: #0a0e1a;
-      --secondary-bg: #1a1f2e;
-      --card-bg: rgba(255, 255, 255, 0.04);
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --text-primary: #ffffff;
-      --text-secondary: #c1c9d6;
-      --text-muted: #8892a6;
-      --accent-blue: #4f46e5;
-      --accent-teal: #06b6d4;
-      --accent-emerald: #10b981;
-      --accent-amber: #f59e0b;
-      --accent-rose: #f43f5e;
-      --accent-purple: #8b5cf6;
-      --border-subtle: rgba(255, 255, 255, 0.12);
-      --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.15);
-      --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.25);
-      --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.4);
-      --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #06b6d4 50%, #10b981 100%);
-      --gradient-bg: radial-gradient(ellipse at top left, rgba(79, 70, 229, 0.12) 0%, transparent 50%),
-                     radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
-                     radial-gradient(ellipse at center, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --card-hover: #222;
+      --text: #fff;
+      --muted: #999;
+      --brand: #56C3AE;
+      --brand-dim: rgba(86, 195, 174, 0.15);
+      --productivity: #818CF8;
+      --focus: #22D3EE;
+      --energy: #4ADE80;
+      --border: rgba(255, 255, 255, 0.06);
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
-      background: var(--primary-bg);
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    /* Enhanced Background Effects */
-    .bg-gradient {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--gradient-bg);
-      z-index: -2;
-      animation: bgShift 25s ease-in-out infinite;
-    }
-
-    @keyframes bgShift {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.8; transform: scale(1.1); }
-    }
-
-    .floating-orbs {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.12;
-      animation: float 20s ease-in-out infinite;
-    }
-
-    .orb:nth-child(1) {
-      width: 300px;
-      height: 300px;
-      background: linear-gradient(45deg, var(--accent-blue), var(--accent-teal));
-      top: 5%;
-      left: 5%;
-      animation-delay: 0s;
-    }
-
-    .orb:nth-child(2) {
-      width: 200px;
-      height: 200px;
-      background: linear-gradient(45deg, var(--accent-teal), var(--accent-emerald));
-      top: 70%;
-      right: 10%;
-      animation-delay: 7s;
-    }
-
-    .orb:nth-child(3) {
-      width: 250px;
-      height: 250px;
-      background: linear-gradient(45deg, var(--accent-emerald), var(--accent-blue));
-      bottom: 10%;
-      left: 20%;
-      animation-delay: 14s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-      33% { transform: translateY(-40px) rotate(120deg) scale(1.1); }
-      66% { transform: translateY(20px) rotate(240deg) scale(0.9); }
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 16px 100px;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 700px;
       margin: 0 auto;
-      padding: 1rem;
-      position: relative;
-      z-index: 1;
     }
 
-    /* Enhanced Header */
-    .header {
+    /* Header */
+    .page-header {
       text-align: center;
-      margin-bottom: 3rem;
-      padding: 3rem 0 2rem;
-      position: relative;
+      margin-bottom: 20px;
     }
 
-    .main-title {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 900;
-      margin-bottom: 1rem;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+    .page-header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Progress */
+    .progress-bar {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+      gap: 12px;
+      background: var(--card);
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
     }
 
-    .title-icon {
-      color: var(--text-primary);
-      filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.5));
+    .progress-bar .icon {
+      font-size: 20px;
     }
 
-    .title-text {
-      background: var(--gradient-primary);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: titleGlow 4s ease-in-out infinite;
+    .progress-info {
+      flex: 1;
     }
 
-    @keyframes titleGlow {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
+    .progress-info .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
     }
 
-    .subtitle {
-      font-size: 1.3rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeInUp 1s ease-out 0.5s forwards;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Enhanced Controls */
-    .controls {
-      background: var(--glass-bg);
-      backdrop-filter: blur(25px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 24px;
-      padding: 2rem;
-      margin-bottom: 3rem;
-      box-shadow: var(--shadow-soft);
-      transition: all 0.4s ease;
-      position: relative;
+    .progress-track {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
       overflow: hidden;
     }
 
-    .controls::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--gradient-primary);
-      opacity: 0.02;
-      transition: opacity 0.3s ease;
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand), var(--energy));
+      border-radius: 3px;
+      transition: width 0.4s ease;
+      width: 0%;
     }
 
-    .controls:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-medium);
-      border-color: rgba(79, 70, 229, 0.3);
-    }
-
-    .controls:hover::before {
-      opacity: 0.05;
-    }
-
-    .filter-section {
-      margin-bottom: 0;
-    }
-
-    .filter-label {
-      color: var(--text-primary);
-      font-size: 0.9rem;
+    .progress-count {
+      font-size: 13px;
       font-weight: 700;
-      margin-bottom: 1rem;
-      display: block;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      color: var(--brand);
     }
 
-    .filter-buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
+    /* Filters */
+    .filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filters::-webkit-scrollbar {
+      display: none;
     }
 
     .filter-btn {
-      background: var(--card-bg);
-      border: 2px solid var(--border-subtle);
-      color: var(--text-secondary);
-      padding: 1rem 1.5rem;
-      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      font-weight: 700;
-      backdrop-filter: blur(15px);
-      position: relative;
-      overflow: hidden;
-      font-size: 0.95rem;
-      min-height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .filter-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--gradient-primary);
-      opacity: 0;
-      transition: all 0.4s ease;
-      z-index: 1;
-    }
-
-    .filter-btn span {
-      position: relative;
-      z-index: 2;
-      transition: all 0.3s ease;
+      white-space: nowrap;
+      transition: all 0.2s;
     }
 
     .filter-btn:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: var(--shadow-medium);
-    }
-
-    .filter-btn:hover::before,
-    .filter-btn.active::before {
-      opacity: 1;
-    }
-
-    .filter-btn:hover span,
-    .filter-btn.active span {
-      color: white;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      background: var(--card-hover);
+      color: var(--text);
     }
 
     .filter-btn.active {
-      border-color: transparent;
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-medium);
+      background: var(--brand);
+      color: #000;
+      border-color: var(--brand);
     }
 
-    /* Enhanced Hack Grid */
-    .hack-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 2.5rem;
-      animation: fadeIn 0.8s ease-out;
+    /* Hack Cards */
+    .hack-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     .hack-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(25px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 24px;
-      padding: 2.5rem;
-      box-shadow: var(--shadow-soft);
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
       overflow: hidden;
-      animation: slideInUp 0.8s ease-out both;
-      animation-delay: calc(var(--i) * 0.1s);
-      cursor: pointer;
-    }
-
-    .hack-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--gradient-primary);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: 1;
-    }
-
-    .hack-card:hover::before {
-      opacity: 0.08;
+      transition: border-color 0.2s;
     }
 
     .hack-card:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: var(--shadow-strong);
-      border-color: rgba(79, 70, 229, 0.4);
+      border-color: rgba(86, 195, 174, 0.3);
     }
 
-    .hack-card.productivity { 
-      border-left: 4px solid var(--accent-blue);
-    }
-    .hack-card.focus { 
-      border-left: 4px solid var(--accent-teal);
-    }
-    .hack-card.energy { 
-      border-left: 4px solid var(--accent-emerald);
+    .hack-card.tried {
+      opacity: 0.7;
     }
 
-    .hack-content {
+    .hack-card.tried .hack-header::after {
+      content: '✓ Tried';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--energy);
+      color: #000;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    .hack-header {
+      display: flex;
+      gap: 14px;
+      padding: 16px;
+      cursor: pointer;
       position: relative;
-      z-index: 2;
+    }
+
+    .hack-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #222;
+      flex-shrink: 0;
+    }
+
+    .hack-info {
+      flex: 1;
+      min-width: 0;
     }
 
     .hack-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--text-primary);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
       line-height: 1.3;
-      margin-bottom: 1.2rem;
-      transition: all 0.3s ease;
-    }
-
-    .hack-card:hover .hack-title {
-      background: var(--gradient-primary);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      padding-right: 60px;
     }
 
     .hack-meta {
       display: flex;
-      gap: 1rem;
-      align-items: center;
-      margin-bottom: 1.5rem;
       flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
     }
 
-    .hack-category {
-      background: var(--card-bg);
-      color: var(--text-secondary);
-      padding: 0.5rem 1rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      border: 1px solid var(--border-subtle);
-      backdrop-filter: blur(10px);
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .tag.category {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+    }
+
+    .tag.category.productivity {
+      background: rgba(129, 140, 248, 0.15);
+      color: var(--productivity);
+    }
+
+    .tag.category.focus {
+      background: rgba(34, 211, 238, 0.15);
+      color: var(--focus);
+    }
+
+    .tag.category.energy {
+      background: rgba(74, 222, 128, 0.15);
+      color: var(--energy);
+    }
+
+    .tag.time {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .hack-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .expand-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--brand);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .expand-indicator:hover {
+      background: rgba(86, 195, 174, 0.08);
+    }
+
+    .expand-indicator .arrow {
+      transition: transform 0.3s;
+    }
+
+    .hack-card.expanded .expand-indicator .arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Expandable Steps */
+    .hack-steps {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .hack-card.expanded .hack-steps {
+      max-height: 500px;
+    }
+
+    .steps-content {
+      padding: 16px;
+    }
+
+    .steps-content h4 {
+      font-size: 12px;
+      color: var(--brand);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-    }
-
-    .hack-category.productivity { 
-      background: rgba(79, 70, 229, 0.15);
-      color: var(--accent-blue);
-      border-color: rgba(79, 70, 229, 0.3);
-    }
-
-    .hack-category.focus { 
-      background: rgba(6, 182, 212, 0.15);
-      color: var(--accent-teal);
-      border-color: rgba(6, 182, 212, 0.3);
-    }
-
-    .hack-category.energy { 
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--accent-emerald);
-      border-color: rgba(16, 185, 129, 0.3);
-    }
-
-    .hack-description {
-      color: var(--text-secondary);
-      font-size: 1.05rem;
-      margin-bottom: 2rem;
-      line-height: 1.7;
-      font-weight: 500;
-    }
-
-    .featured-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      object-position: center;
-      border-radius: 18px;
-      margin-bottom: 1.5rem;
-      transition: all 0.4s ease;
-      border: 1px solid var(--border-subtle);
-      background: var(--card-bg);
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
-      image-rendering: optimize-quality;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-
-    /* High DPI display support */
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-      .featured-image {
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: optimize-quality;
-      }
-    }
-
-    .hack-card:hover .featured-image {
-      transform: scale(1.03);
-      border-color: rgba(6, 182, 212, 0.4);
-      box-shadow: var(--shadow-medium);
-    }
-
-    .try-hack {
-      background: var(--gradient-primary);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 16px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: var(--shadow-soft);
-      border: none;
-      cursor: pointer;
-      min-height: 52px;
-      background-size: 200% 200%;
-      animation: gradientShift 4s ease-in-out infinite;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-      width: 100%;
-    }
-
-    @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    .try-hack:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: var(--shadow-strong);
-      filter: brightness(1.15);
-    }
-
-    /* Enhanced Modal - Fixed Centering */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(20px);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      animation: fadeIn 0.4s ease;
-    }
-
-    .modal-content {
-      background: var(--glass-bg);
-      backdrop-filter: blur(30px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 28px;
-      padding: 3rem;
-      max-width: 600px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: var(--shadow-strong);
-      position: relative;
-      animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      margin: auto;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(60px) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-primary);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 1;
-      font-weight: 400;
-      backdrop-filter: blur(10px);
-    }
-
-    .modal-close:hover {
-      background: var(--accent-teal);
-      color: white;
-      transform: scale(1.1) rotate(90deg);
-      box-shadow: var(--shadow-medium);
-    }
-
-    .modal-title {
-      color: var(--text-primary);
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      background: var(--gradient-primary);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 900;
-      padding-right: 4rem;
-      line-height: 1.2;
-      animation: titleGlow 4s ease-in-out infinite;
-    }
-
-    .modal-steps {
-      background: var(--card-bg);
-      border: 1px solid var(--border-subtle);
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2rem;
-      backdrop-filter: blur(15px);
-      transition: all 0.3s ease;
-    }
-
-    .modal-steps:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .modal-steps h3 {
-      color: var(--accent-teal);
-      margin-bottom: 1.5rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      margin-bottom: 12px;
     }
 
     .step-list {
-      color: var(--text-secondary);
-      line-height: 1.8;
-      padding-left: 1.5rem;
-      font-size: 1rem;
+      list-style: none;
+      margin-bottom: 16px;
     }
 
     .step-list li {
-      margin-bottom: 0.8rem;
-      font-weight: 500;
-    }
-
-    .step-list strong {
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .modal-button {
-      background: var(--gradient-primary);
-      color: white;
-      padding: 1.2rem 2.5rem;
-      border: none;
-      border-radius: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      width: 100%;
-      font-size: 1.1rem;
-      min-height: 60px;
-      background-size: 200% 200%;
-      animation: gradientShift 4s ease-in-out infinite;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .modal-button:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: var(--shadow-strong);
-      filter: brightness(1.15);
-    }
-
-    /* Large screen optimizations */
-    @media (min-width: 1200px) {
-      .featured-image {
-        height: 220px;
-      }
-      
-      .hack-grid {
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      }
-    }
-
-    /* Mobile Optimizations */
-    @media (max-width: 768px) {
-      .container { 
-        padding: 1rem; 
-      }
-
-      .header {
-        margin-bottom: 2rem;
-        padding: 2rem 0 1rem;
-      }
-
-      .main-title {
-        font-size: clamp(2rem, 8vw, 3rem);
-        margin-bottom: 1rem;
-      }
-
-      .subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .controls {
-        padding: 1.5rem;
-        border-radius: 20px;
-      }
-
-      .hack-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      .hack-card { 
-        padding: 2rem;
-        border-radius: 20px;
-      }
-      
-      .hack-title { 
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-      }
-
-      .featured-image { 
-        height: 180px;
-        border-radius: 16px;
-        margin-bottom: 1.2rem;
-      }
-
-      .modal-overlay {
-        padding: 1rem;
-        align-items: center;
-      }
-
-      .modal-content {
-        padding: 2rem;
-        border-radius: 24px;
-        max-height: 85vh;
-        margin: 0;
-      }
-
-      .modal-close {
-        top: 1.5rem;
-        right: 1.5rem;
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-      }
-
-      .modal-title {
-        font-size: 1.6rem;
-        padding-right: 3rem;
-      }
-
-      .filter-buttons {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 0.75rem;
-      }
-
-      .controls {
-        padding: 1.2rem;
-      }
-
-      .filter-buttons {
-        grid-template-columns: 1fr;
-        gap: 0.8rem;
-      }
-
-      .hack-card {
-        padding: 1.5rem;
-      }
-
-      .featured-image {
-        height: 160px;
-        border-radius: 14px;
-      }
-
-      .modal-content {
-        padding: 1.5rem;
-        max-height: 90vh;
-      }
-
-      .modal-steps {
-        padding: 1.5rem;
-      }
-    }
-
-    /* Loading Animation */
-    .loading {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 200px;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
     }
 
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 3px solid var(--border-subtle);
-      border-top: 3px solid var(--accent-blue);
+    .step-num {
+      width: 22px;
+      height: 22px;
+      background: var(--brand-dim);
+      color: var(--brand);
       border-radius: 50%;
-      animation: spin 1s linear infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .tried-btn {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .tried-btn:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+      background: var(--brand-dim);
     }
 
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
+    .hack-card.tried .tried-btn {
+      background: rgba(74, 222, 128, 0.1);
+      border-color: var(--energy);
+      color: var(--energy);
+      border-style: solid;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--muted);
+    }
+
+    .empty-state .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    /* Quick Tips Banner */
+    .quick-tip {
+      background: linear-gradient(135deg, rgba(86, 195, 174, 0.1), rgba(129, 140, 248, 0.08));
+      border: 1px solid rgba(86, 195, 174, 0.2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .quick-tip strong {
+      color: var(--brand);
+    }
+
+    /* Responsive */
+    @media (min-width: 600px) {
+      .hack-header {
+        padding: 20px;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      .hack-img {
+        width: 90px;
+        height: 90px;
+      }
+
+      .hack-title {
+        font-size: 17px;
+      }
+
+      .hack-desc {
+        font-size: 14px;
+        -webkit-line-clamp: 3;
+      }
+
+      .steps-content {
+        padding: 20px;
       }
     }
   </style>
 </head>
-<body>
-  <div id="site-header"></div>
-  <div class="bg-gradient"></div>
-  <div class="floating-orbs">
-    <div class="orb"></div>
-    <div class="orb"></div>
-    <div class="orb"></div>
-  </div>
-
+<body data-page-title="ADHD Hacks">
   <div class="container">
-    <header class="header">
-      <h1 class="main-title">⚔️ ADHD Hacks</h1>
-      <p class="subtitle">Community-tested strategies that actually work</p>
+    
+    <!-- Header -->
+    <header class="page-header">
+      <h1>⚔️ ADHD Hacks</h1>
+      <p>Community-tested strategies that actually work</p>
     </header>
 
-    <div class="controls">
-      <div class="filter-section">
-        <label class="filter-label">Filter by Category</label>
-        <div class="filter-buttons">
-          <button class="filter-btn active" data-filter="all"><span>All Hacks</span></button>
-          <button class="filter-btn" data-filter="productivity"><span>Productivity</span></button>
-          <button class="filter-btn" data-filter="focus"><span>Focus</span></button>
-          <button class="filter-btn" data-filter="energy"><span>Energy</span></button>
+    <!-- Progress -->
+    <div class="progress-bar">
+      <span class="icon">🧪</span>
+      <div class="progress-info">
+        <div class="label">Hacks you've tried</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
         </div>
       </div>
+      <span class="progress-count"><span id="triedCount">0</span> / <span id="totalCount">12</span></span>
     </div>
-    
-    <div class="hack-grid" id="hackGrid">
-      <!-- Hacks will be populated by JavaScript -->
+
+    <!-- Quick Tip -->
+    <div class="quick-tip">
+      💡 <strong>Pro tip:</strong> Don't try everything at once. Pick ONE hack that sounds fun, try it for a week, then come back.
     </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="productivity">🎯 Productivity</button>
+      <button class="filter-btn" data-filter="focus">🔍 Focus</button>
+      <button class="filter-btn" data-filter="energy">⚡ Energy</button>
+    </div>
+
+    <!-- Hack List -->
+    <div class="hack-list" id="hackList">
+      <!-- Populated by JS -->
+    </div>
+
   </div>
 
   <script>
-    // ADHD Hacks data based on research from Reddit communities
-    const adhdHacks = [
+    const hacks = [
       {
+        id: "task-bracelet",
         title: "Task Bracelet System",
-        description: "Turn abstract tasks into tangible accomplishments. Make a bracelet for each task and put it around your wrist. When finished, place it in a bowl for instant visual satisfaction and motivation boost.",
-        category: "Productivity",
+        description: "Turn abstract tasks into tangible wins. Put on a bracelet for each task, move it to a bowl when done.",
+        category: "productivity",
+        time: "5 min setup",
+        type: "Daily habit",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/tb.png",
         steps: [
           "Get colorful elastic bands or simple bracelets",
-          "Put one bracelet on your wrist for each task you want to complete",
-          "When you finish a task, remove its bracelet and place it in a bowl",
-          "Watch your accomplishment bowl fill up throughout the day for instant dopamine hits"
+          "Put one bracelet on your wrist for each task",
+          "When you finish a task, move it to a bowl",
+          "Watch your accomplishment bowl fill up for instant dopamine"
         ]
       },
       {
-        title: "Analog Shower Clock for Time Blindness",
-        description: "A cheap analog clock in your shower helps you grasp time better throughout the entire day. This anchors time perception in a sensory-rich environment where your brain can actually track it.",
-        category: "Focus",
+        id: "shower-clock",
+        title: "Analog Shower Clock",
+        description: "A cheap analog clock in your shower helps anchor time perception for your whole day.",
+        category: "focus",
+        time: "2 min setup",
+        type: "One-time",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/Untitled%20design-af0aebe.png",
         steps: [
-          "Buy a waterproof analog clock from any store",
-          "Mount it in your shower where you can easily see it",
-          "Use it to track your shower time daily",
-          "Notice how this improves your time awareness throughout the entire day"
+          "Buy a waterproof analog clock (dollar store works)",
+          "Mount it in your shower where you can see it",
+          "Glance at it while showering to build time awareness",
+          "Notice improved time perception throughout your day"
         ]
       },
       {
-        title: "Finch Virtual Pet Productivity",
-        description: "Use the Finch app to gamify your self-care routine. Take care of a virtual pet by completing your real-life tasks. Users report 50+ day streaks with this emotional accountability system.",
-        category: "Energy",
+        id: "finch-pet",
+        title: "Finch Virtual Pet",
+        description: "Gamify self-care with a virtual pet that grows when you complete real tasks.",
+        category: "energy",
+        time: "10 min setup",
+        type: "Daily habit",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/finch.png",
         steps: [
-          "Download the Finch app on your phone",
+          "Download the Finch app (free)",
           "Set up your virtual pet and customize it",
-          "Add your daily self-care tasks and habits",
-          "Complete real tasks to keep your virtual pet happy and healthy"
+          "Add your daily self-care tasks",
+          "Complete real tasks to keep your pet happy"
         ]
       },
       {
-        title: "Inner Influencer Cleaning Hack",
-        description: "Make cleaning engaging by pretending to be an influencer creating content. Look up cleaning aesthetics on social media, use the Pomodoro Technique, and narrate your cleaning like you're filming.",
-        category: "Energy",
+        id: "influencer-cleaning",
+        title: "Inner Influencer Cleaning",
+        description: "Pretend you're filming a cleaning video. Narrate what you're doing for instant engagement.",
+        category: "energy",
+        time: "No setup",
+        type: "As needed",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/infuencer%20clean.png",
         steps: [
-          "Browse cleaning aesthetics on TikTok or Pinterest for inspiration",
-          "Set a 25-minute Pomodoro timer",
-          "Talk to yourself like you're filming an influencer cleaning video",
-          "Focus on making everything look aesthetically pleasing"
+          "Browse cleaning TikToks for 2 mins (inspiration, not procrastination)",
+          "Set a 25-min timer",
+          "Narrate your cleaning like you're filming content",
+          "Focus on making it look aesthetic"
         ]
       },
       {
-        title: "Shoes Indoors for Productivity",
-        description: "Wearing real shoes indoors signals your brain to switch into 'get things done' mode. This environmental cue helps with task initiation and maintains productive momentum.",
-        category: "Productivity",
+        id: "shoes-indoors",
+        title: "Shoes Indoors = Work Mode",
+        description: "Wearing real shoes signals your brain it's time to get stuff done.",
+        category: "productivity",
+        time: "No setup",
+        type: "Daily habit",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/shoes.png",
         steps: [
-          "Put on comfortable but real shoes (not slippers) when you start working",
-          "Keep them on during your entire productive session",
-          "Notice the psychological shift into 'work mode'",
-          "Take them off when you're done to signal rest time"
+          "Put on real shoes (not slippers) when you start work",
+          "Keep them on during your productive hours",
+          "Take them off to signal rest time",
+          "Notice the psychological shift into 'work mode'"
         ]
       },
       {
+        id: "dopamine-anchoring",
         title: "Dopamine Anchoring",
-        description: "Pair something enjoyable like music or snacks with dreaded tasks repeatedly. Over time, your brain starts to anticipate pleasure from the task itself, making it easier to start.",
-        category: "Focus",
+        description: "Pair dreaded tasks with something enjoyable. Over time, your brain starts liking the task.",
+        category: "focus",
+        time: "No setup",
+        type: "Ongoing",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/music.png",
         steps: [
-          "Choose a dreaded task you need to do regularly",
-          "Pick something enjoyable: favorite music, special snacks, or good coffee",
-          "Only allow yourself the enjoyable thing while doing the task",
-          "Repeat this pairing consistently until your brain connects pleasure with the task"
+          "Pick a task you always avoid",
+          "Choose something enjoyable: music, snacks, fancy coffee",
+          "ONLY allow that treat while doing the dreaded task",
+          "Repeat consistently until your brain connects pleasure with the task"
         ]
       },
       {
+        id: "dry-erase-everywhere",
         title: "Dry-Erase Markers Everywhere",
-        description: "Keep dry-erase markers in every room to quickly scribble reminders on mirrors, windows, or whiteboards. This eliminates the friction of finding your phone while providing immediate visual cues.",
-        category: "Productivity",
+        description: "Keep markers in every room. Scribble reminders on mirrors and windows instantly.",
+        category: "productivity",
+        time: "5 min setup",
+        type: "One-time",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/dry%20eraser%20markers.png",
         steps: [
           "Buy several packs of dry-erase markers",
-          "Place them in every room of your house",
-          "Write quick reminders on mirrors, windows, or any smooth surface",
-          "Erase and update as needed throughout the day"
+          "Place them in every room",
+          "Write reminders on mirrors, windows, any smooth surface",
+          "Erase and update as you go"
         ]
       },
       {
-        title: "Multiple Laundry Hampers System",
-        description: "Use separate hampers for lights, darks, and towels. When a hamper is full, just dump it directly into the wash. This cuts down on decision fatigue and sorting paralysis.",
-        category: "Productivity",
+        id: "laundry-hampers",
+        title: "Pre-Sorted Laundry Hampers",
+        description: "Three hampers: lights, darks, towels. When full, dump and wash. No sorting needed.",
+        category: "productivity",
+        time: "10 min setup",
+        type: "One-time",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/laundry.png",
         steps: [
-          "Get three labeled hampers: Lights, Darks, Towels",
-          "Sort clothes as you take them off",
+          "Get three hampers and label them: Lights, Darks, Towels",
+          "Sort clothes as you take them off (takes 1 second)",
           "When any hamper is full, wash that load immediately",
-          "No more sorting or decision-making at laundry time"
+          "No more decision fatigue at laundry time"
         ]
       },
       {
-        title: "Morning Cardio for Executive Function",
-        description: "Just 30 minutes of morning cardio drastically improves focus, emotional regulation, and ability to start tasks. Exercise acts as a natural stimulant for the ADHD brain.",
-        category: "Energy",
+        id: "morning-cardio",
+        title: "Morning Cardio Boost",
+        description: "30 minutes of morning movement improves focus and emotional regulation all day.",
+        category: "energy",
+        time: "30 min daily",
+        type: "Daily habit",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/run.png",
         steps: [
-          "Set your alarm 30 minutes earlier",
-          "Do any cardio: walking, dancing, jumping jacks, or yoga",
-          "Start with just 10-15 minutes if 30 feels overwhelming",
-          "Notice improved focus and emotional regulation throughout the day"
+          "Set alarm 30 mins earlier (or start with 10 mins)",
+          "Do any cardio: walk, dance, jumping jacks, yoga",
+          "Don't overthink it - movement is movement",
+          "Notice improved focus and mood throughout the day"
         ]
       },
       {
-        title: "Eat That Frog Easy Wins",
-        description: "Start with quick, satisfying tasks to build momentum before tackling bigger challenges. Feed your brain the dopamine hit it needs to keep going with harder tasks.",
-        category: "Productivity",
+        id: "easy-wins-first",
+        title: "Easy Wins First",
+        description: "Start with quick satisfying tasks to build momentum before tackling hard stuff.",
+        category: "productivity",
+        time: "No setup",
+        type: "Daily habit",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/frog.png",
         steps: [
-          "List 2-3 easy tasks you can complete in under 10 minutes",
-          "Do these first thing when you start working",
-          "Celebrate each completion with a small reward",
-          "Use this momentum to tackle your bigger, harder tasks"
+          "List 2-3 tasks you can finish in under 10 minutes",
+          "Do these FIRST when you start working",
+          "Celebrate each one (even just a mental high-five)",
+          "Ride that momentum into bigger tasks"
         ]
       },
       {
-        title: "Morning Anchor Rituals",
-        description: "Use short, engaging activities like Wordle or singing in the shower to wake up your mind and create consistent daily anchors. These rituals provide structure and mental activation.",
-        category: "Focus",
+        id: "morning-anchor",
+        title: "Morning Anchor Ritual",
+        description: "A short engaging activity (Wordle, stretching) that wakes up your brain consistently.",
+        category: "focus",
+        time: "5-10 min daily",
+        type: "Daily habit",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/morning.png",
         steps: [
-          "Choose a 5-10 minute engaging activity you enjoy",
-          "Do it at the same time every morning",
-          "Keep it simple: Wordle, singing, stretching, or journaling",
-          "Use this as your daily 'brain warm-up' before other tasks"
+          "Pick a 5-10 minute activity you actually enjoy",
+          "Do it at the exact same time every morning",
+          "Keep it simple: Wordle, stretching, journaling, singing",
+          "This becomes your daily 'brain warm-up'"
         ]
       },
       {
+        id: "beauty-dopamine",
         title: "Beauty as Dopamine Fuel",
-        description: "Create beautiful, inspiring environments to turn mundane routines into dopamine-boosting rituals. Work in a lovely park, decorate your desk, or find inspiring surroundings.",
-        category: "Energy",
+        description: "Create beautiful environments. Aesthetic spaces boost motivation naturally.",
+        category: "energy",
+        time: "Varies",
+        type: "Ongoing",
         image: "https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/desk.png",
         steps: [
-          "Identify one space where you spend a lot of time",
-          "Add elements of beauty: plants, good lighting, nice colors",
-          "Work in beautiful locations when possible: parks, cafes, nice libraries",
-          "Notice how aesthetic environments boost your mood and motivation"
+          "Pick one space where you spend a lot of time",
+          "Add beauty: plants, good lighting, nice colors",
+          "Work in pretty places when possible: parks, cafes",
+          "Notice how aesthetics boost your mood and motivation"
         ]
       }
     ];
 
-    let filteredHacks = [...adhdHacks];
-    let currentFilter = 'all';
+    const STORAGE_KEY = '925adhd_tried_hacks';
 
-    function getCategoryClass(category) {
-      if (category === 'Productivity') return 'productivity';
-      if (category === 'Focus') return 'focus';
-      if (category === 'Energy') return 'energy';
-      return 'productivity';
+    function getTriedHacks() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
     }
 
-    function filterHacks(category) {
-      if (category === 'all') {
-        filteredHacks = [...adhdHacks];
-      } else if (category === 'productivity') {
-        filteredHacks = adhdHacks.filter(hack => hack.category === 'Productivity');
-      } else if (category === 'focus') {
-        filteredHacks = adhdHacks.filter(hack => hack.category === 'Focus');
-      } else if (category === 'energy') {
-        filteredHacks = adhdHacks.filter(hack => hack.category === 'Energy');
+    function toggleTried(hackId) {
+      const tried = getTriedHacks();
+      const index = tried.indexOf(hackId);
+      
+      if (index > -1) {
+        tried.splice(index, 1);
+      } else {
+        tried.push(hackId);
       }
       
-      renderHacks();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tried));
+      renderHacks(currentFilter);
+      updateProgress();
     }
 
-    function renderHacks() {
-      const grid = document.getElementById('hackGrid');
+    function updateProgress() {
+      const tried = getTriedHacks();
+      const total = hacks.length;
+      const count = tried.length;
+      const percent = (count / total) * 100;
       
-      if (filteredHacks.length === 0) {
-        grid.innerHTML = `
-          <div style="text-align: center; grid-column: 1 / -1; padding: 4rem;">
-            <h3 style="color: var(--text-secondary); font-size: 1.3rem; margin-bottom: 1rem;">No hacks found</h3>
-            <p style="color: var(--text-muted);">Try adjusting your filters to see more results</p>
+      document.getElementById('triedCount').textContent = count;
+      document.getElementById('totalCount').textContent = total;
+      document.getElementById('progressFill').style.width = percent + '%';
+    }
+
+    function toggleExpand(hackId) {
+      const card = document.querySelector(`[data-hack-id="${hackId}"]`);
+      if (card) {
+        card.classList.toggle('expanded');
+      }
+    }
+
+    let currentFilter = 'all';
+
+    function renderHacks(filter = 'all') {
+      currentFilter = filter;
+      const tried = getTriedHacks();
+      const list = document.getElementById('hackList');
+      
+      const filtered = filter === 'all' 
+        ? hacks 
+        : hacks.filter(h => h.category === filter);
+      
+      if (filtered.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">🔍</div>
+            <p>No hacks found in this category</p>
           </div>
         `;
         return;
       }
       
-      const hacksHtml = filteredHacks.map((hack, index) => {
-        const categoryClass = getCategoryClass(hack.category);
+      list.innerHTML = filtered.map(hack => {
+        const isTried = tried.includes(hack.id);
         
         return `
-          <div class="hack-card ${categoryClass}" style="--i: ${index}">
-            <div class="hack-content">
-              <img src="${hack.image}" alt="${hack.title}" class="featured-image" onerror="this.style.display='none'" loading="lazy" decoding="async">
-              <h3 class="hack-title">${hack.title}</h3>
-              <div class="hack-meta">
-                <span class="hack-category ${categoryClass}">${hack.category}</span>
+          <div class="hack-card ${isTried ? 'tried' : ''}" data-hack-id="${hack.id}">
+            <div class="hack-header" onclick="toggleExpand('${hack.id}')">
+              <img class="hack-img" src="${hack.image}" alt="${hack.title}" loading="lazy">
+              <div class="hack-info">
+                <h3 class="hack-title">${hack.title}</h3>
+                <div class="hack-meta">
+                  <span class="tag category ${hack.category}">${hack.category}</span>
+                  <span class="tag time">⏱️ ${hack.time}</span>
+                  <span class="tag time">🔁 ${hack.type}</span>
+                </div>
+                <p class="hack-desc">${hack.description}</p>
               </div>
-              <div class="hack-description">${hack.description}</div>
-              <button class="try-hack" onclick="openHackModal(${index})">
-                Try This Hack
-              </button>
+            </div>
+            
+            <div class="expand-indicator" onclick="toggleExpand('${hack.id}')">
+              <span>How to do it</span>
+              <span class="arrow">▼</span>
+            </div>
+            
+            <div class="hack-steps">
+              <div class="steps-content">
+                <h4>Steps</h4>
+                <ol class="step-list">
+                  ${hack.steps.map((step, i) => `
+                    <li>
+                      <span class="step-num">${i + 1}</span>
+                      <span>${step}</span>
+                    </li>
+                  `).join('')}
+                </ol>
+                <button class="tried-btn" onclick="event.stopPropagation(); toggleTried('${hack.id}')">
+                  ${isTried ? '✓ Tried this!' : 'Mark as tried'}
+                </button>
+              </div>
             </div>
           </div>
         `;
       }).join('');
-
-      grid.innerHTML = hacksHtml;
     }
 
-    function openHackModal(hackIndex) {
-      const hack = filteredHacks[hackIndex];
-      if (!hack) return;
-
-      const modalOverlay = document.createElement('div');
-      modalOverlay.className = 'modal-overlay';
-      
-      modalOverlay.innerHTML = `
-        <div class="modal-content">
-          <button class="modal-close" onclick="closeModal()">&times;</button>
-          
-          <h2 class="modal-title">${hack.title}</h2>
-          
-          <div class="modal-steps">
-            <h3>How to do it:</h3>
-            <ol class="step-list">
-              ${hack.steps.map(step => `<li><strong>${step}</strong></li>`).join('')}
-            </ol>
-          </div>
-          
-          <button class="modal-button" onclick="closeModal()">
-            Got It! Let's Do This
-          </button>
-        </div>
-      `;
-      
-      document.body.appendChild(modalOverlay);
-      document.body.style.overflow = 'hidden';
-      
-      // Close on background click
-      modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-          closeModal();
-        }
-      });
-
-      // Close on escape key
-      const handleEscape = (e) => {
-        if (e.key === 'Escape') {
-          closeModal();
-          document.removeEventListener('keydown', handleEscape);
-        }
-      };
-      document.addEventListener('keydown', handleEscape);
-    }
-
-    function closeModal() {
-      const modal = document.querySelector('.modal-overlay');
-      if (modal) {
-        modal.remove();
-        document.body.style.overflow = '';
-      }
-    }
-
-    // Event listeners
-    document.addEventListener('DOMContentLoaded', () => {
-      renderHacks();
-
-      // Filter buttons
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentFilter = btn.dataset.filter;
-          filterHacks(currentFilter);
-        });
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderHacks(btn.dataset.filter);
       });
     });
 
-    // Enhanced mobile experience
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function (event) {
-      const now = (new Date()).getTime();
-      if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-      }
-      lastTouchEnd = now;
-    }, false);
-
-    // Keyboard navigation for accessibility
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && e.target.classList.contains('hack-card')) {
-        e.target.querySelector('.try-hack').click();
-      }
-    });
+    // Initialize
+    renderHacks();
+    updateProgress();
   </script>
+
   <div id="site-nav"></div>
   <script src="assets/layout.js"></script>
 </body>
