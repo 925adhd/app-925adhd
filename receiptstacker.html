@@ -271,6 +271,36 @@
       font-size: 12px;
       margin-top: 16px;
     }
+    
+    /* Mobile compact layout to fit on one screen */
+    @media (max-width: 480px) {
+      .container { max-width: 100%; padding: 10px; }
+      .page-header { margin-bottom: 8px; }
+      .page-header .emoji { display: none; }
+      .page-header h1 { font-size: 18px; margin-bottom: 2px; }
+      .page-header p { font-size: 12px; }
+
+      .progress-card { padding: 10px; margin-bottom: 8px; }
+      .progress-header span { font-size: 12px; }
+      .progress-bar { height: 6px; }
+
+      .apps-grid { gap: 6px; margin-bottom: 8px; }
+      .app-card { padding: 10px; gap: 8px; }
+      .app-checkbox { width: 20px; height: 20px; border-radius: 4px; font-size: 12px; }
+      .app-name { font-size: 14px; }
+      .app-earnings { font-size: 11px; }
+      .app-action { font-size: 11px; margin-bottom: 4px; }
+
+      /* Hide non-essential tips to save vertical space */
+      .app-tip { display: none; }
+      .footer-tip { display: none; }
+
+      .celebration { padding: 12px; margin-bottom: 8px; }
+      .celebration .emoji { font-size: 24px; }
+      .celebration h3 { font-size: 14px; }
+
+      .reset-btn { padding: 10px; font-size: 13px; border-radius: 8px; }
+    }
   </style>
 </head>
 <body data-page-title="Receipt Stacker">

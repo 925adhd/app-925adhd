@@ -321,6 +321,39 @@
       margin-top: 4px;
       line-height: 1.5;
     }
+
+    /* Mobile compact adjustments to fit on one screen */
+    @media (max-width: 480px) {
+      .container { max-width: 100%; padding: 10px 10px; }
+      .page-header h1 { font-size: 18px; }
+      .page-header p { font-size: 12px; }
+
+      /* Hide progress steps to save vertical space */
+      .progress-steps { display: none; }
+
+      .form-group { padding: 10px; margin-bottom: 8px; border-radius: 10px; }
+      .form-group label { font-size: 13px; margin-bottom: 6px; }
+      .form-group input { padding: 10px; font-size: 14px; }
+
+      .tip-box { padding: 10px; margin: 10px 0; }
+      .tip-box p { font-size: 12px; }
+
+      .btn { padding: 10px; font-size: 13px; border-radius: 8px; }
+      .btn-row { grid-template-columns: 1fr; gap: 8px; margin-top: 12px; }
+
+      .results-card { padding: 12px; border-radius: 12px; }
+      .results-title { font-size: 16px; margin-bottom: 12px; }
+      .result-item { padding: 8px; }
+      .result-label { font-size: 12px; }
+      .result-value { font-size: 14px; }
+
+      .results-tip { padding: 10px; margin-top: 10px; }
+
+      /* Reduce overall vertical gaps where possible */
+      header.page-header { margin-bottom: 12px; }
+      .form-group + .form-group { margin-top: 6px; }
+      .tip-box + button, .form-group + button { margin-top: 8px; }
+    }
   </style>
 </head>
 <body data-page-title="Freelance Calculator">
