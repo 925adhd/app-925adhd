@@ -340,32 +340,41 @@
       margin-bottom: 16px;
       font-size: 13px;
       line-height: 1.5;
-      /* Fixed height to prevent layout shifts when tips rotate. */
-      height: calc(1.5em * 3 + 24px);
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      /* Non-standard flag in some editors; provide progressive fallback */
-      line-clamp: 3;
-      max-height: calc(1.5em * 3);
-      text-overflow: ellipsis;
+      /* Fixed height to accommodate longest tip and prevent layout shifts */
+      min-height: 90px;
+      max-height: 90px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: block;
+      /* Hide scrollbar but keep functionality */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(168,85,247,0.3) transparent;
     }
-    
+
+    .pro-tip::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .pro-tip::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .pro-tip::-webkit-scrollbar-thumb {
+      background: rgba(168,85,247,0.3);
+      border-radius: 2px;
+    }
+
     .pro-tip strong {
       color: var(--purple);
     }
-    /* Make pro-tip expand on small screens so text isn't clipped */
+
+    /* Slightly smaller on very small screens */
     @media (max-width: 480px) {
       .pro-tip {
-        height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
-        display: block !important;
-        -webkit-line-clamp: unset !important;
-        line-clamp: unset !important;
         font-size: 12px;
         padding: 10px 12px;
+        min-height: 85px;
+        max-height: 85px;
       }
     }
     
