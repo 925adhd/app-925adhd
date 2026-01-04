@@ -781,6 +781,20 @@
         gap: 14px;
       }
     }
+    /* Tablet-specific swap (600px - 1023px): swap Guides and Beginner List positions */
+    @media (min-width: 600px) and (max-width: 1023px) {
+      .quick-actions { grid-template-columns: repeat(3, 1fr); }
+      /* Move Guides to the second-row first-column */
+      a.action-card[href="guides.html"] {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+      }
+      /* Move Beginner List to the first-row second-column */
+      a.action-card[href="beginnerlist.html"] {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+      }
+    }
     
     /* Large Desktop - Keep it centered and cozy */
     @media (min-width: 1024px) {
@@ -854,13 +868,56 @@
         max-height: 100%;
         object-fit: contain;
       }
+      /* Desktop-only swap: Guides <-> Beginner List
+         Place `guides.html` into the second-row first-column slot,
+         and `beginnerlist.html` into the first-row second-column slot. */
+      a.action-card[href="guides.html"] {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+      }
+      a.action-card[href="beginnerlist.html"] {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+      }
     }
-    /* Mobile-only reordering: swap AI Playground and Favorites */
+    /* Mobile-only placement: ensure AI Playground is bottom-left and Tools bottom-right
+       and swap Beginner List <-> Guides */
     @media (max-width: 600px) {
-      /* Ensure grid auto-placement respects order */
-      .quick-actions { display: grid; grid-template-columns: repeat(2, 1fr); }
-      a.action-card[href="favorites.html"] { order: 3; }
-      a.action-card[href="ai-playground.html"] { order: 5; }
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: auto;
+        grid-auto-flow: row;
+        gap: 6px;
+      }
+
+      /* Place AI Playground explicitly in the last row, left column */
+      a.action-card[href="ai-playground.html"] {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+      }
+
+      /* Place Tools explicitly in the last row, right column */
+      a.action-card[href="tools.html"] {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+      }
+
+      /* Swap Guides and Beginner List: Guides -> previous Beginner slot (row 2,col 2), Beginner -> previous Guides slot (row1,col2) */
+      a.action-card[href="guides.html"] {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+      }
+      a.action-card[href="beginnerlist.html"] {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+      }
+
+      /* Allow other cards to auto-flow into remaining slots */
+      a.action-card:not([href="ai-playground.html"]):not([href="tools.html"]):not([href="guides.html"]):not([href="beginnerlist.html"]) {
+        grid-row: auto;
+        grid-column: auto;
+      }
     }
   </style>
 </head>
