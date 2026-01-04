@@ -397,6 +397,23 @@ html, body {
   .site-header .back-btn {
     display: none !important;
   }
+/* Visual image-scale: enlarge images visually without changing layout/flow */
+/* Uses transform so text size and layout positions are preserved. Adjust scale as needed. */
+img {
+  transform-origin: center center;
+  transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  transition: none !important;
+  will-change: transform;
+}
+
+/* Exclude navigation icons and the small header brand logo from global scaling
+   to avoid changing reserved nav layout spacing. Remove these rules if you
+   want the nav icons to scale too. */
+.site-nav .nav-item .nav-icon,
+.site-header .brand .brand-logo {
+  transform: none !important;
+}
 
   .site-nav .nav-items{
     max-width: 1200px;

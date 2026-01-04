@@ -275,7 +275,7 @@
     const includeMore = (typeof window !== 'undefined' && window.innerWidth >= 900);
     nav.innerHTML = `
       <div class="nav-items">
-        <a href="dashboard.html" class="nav-item"><img src="images/homeicon.png" class="nav-icon" alt="Home"><span>Home</span></a>
+        <a href="dashboard.html" class="nav-item"><img src="images/home.png" class="nav-icon" alt="Home"><span>Home</span></a>
         <a href="guides.html" class="nav-item"><img src="images/guidesicon.png" class="nav-icon" alt="Guides"><span>Guides</span></a>
         <a href="earn.html" class="nav-item"><img src="images/earnicon.png" class="nav-icon" alt="Earn"><span>Earn</span></a>
         <a href="apps.html" class="nav-item"><img src="images/apps.png" class="nav-icon" alt="Apps"><span>Apps</span></a>
