@@ -154,7 +154,7 @@
 
     // Build a focused menu with only utility items
     const menuItems = [
-      { href: 'beginnerlist.html', text: '🎯 Beginner List' },
+      { href: 'adhdhacks.html', text: '🎯 ADHD Hacks' },
       { href: 'playlist.html', text: '🎵 Motivation Playlist' },
       { href: 'feedback.html', text: '💬 Feedback' }
     ];
@@ -482,7 +482,7 @@
 
               // Menu items (same curated list as overlay)
               const items = [
-                { href: 'beginnerlist.html', text: '🎯 Beginner List' },
+                { href: 'adhdhacks.html', text: '🎯 ADHD Hacks' },
                 { href: 'playlist.html', text: '🎵 Motivation Playlist' },
                 { href: 'feedback.html', text: '💬 Feedback' }
               ];
@@ -623,7 +623,7 @@
               dd.style.zIndex = 99999;
 
               const items = [
-                { href: 'beginnerlist.html', text: '🎯 Beginner List' },
+                { href: 'adhdhacks.html', text: '🎯 ADHD Hacks' },
                 { href: 'playlist.html', text: '🎵 Motivation Playlist' },
                 { href: 'feedback.html', text: '💬 Feedback' }
               ];
@@ -745,7 +745,7 @@
             dd.style.zIndex = 99999;
 
             const items = [
-              { href: 'beginnerlist.html', text: '🎯 Beginner List' },
+              { href: 'adhdhacks.html', text: '🎯 ADHD Hacks' },
               { href: 'playlist.html', text: '🎵 Motivation Playlist' },
               { href: 'feedback.html', text: '💬 Feedback' }
             ];
