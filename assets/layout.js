@@ -154,8 +154,8 @@
 
     // Build a focused menu with only utility items
     const menuItems = [
-      { href: 'adhdhacks.html', text: '🎯 ADHD Hacks' },
-      { href: 'playlist.html', text: '🎵 Motivation Playlist' },
+      { href: 'adhdhacks.html', text: 'ADHD Hacks' },
+      { href: 'playlist.html', text: 'Motivation Playlist' },
       { href: 'feedback.html', text: '💬 Feedback' }
     ];
 
@@ -482,8 +482,8 @@
 
               // Menu items (same curated list as overlay)
               const items = [
-                { href: 'adhdhacks.html', text: '🎯 ADHD Hacks' },
-                { href: 'playlist.html', text: '🎵 Motivation Playlist' },
+                { href: 'adhdhacks.html', text: 'ADHD Hacks' },
+                { href: 'playlist.html', text: 'Motivation Playlist' },
                 { href: 'feedback.html', text: '💬 Feedback' }
               ];
               items.forEach(mi => {
@@ -623,8 +623,8 @@
               dd.style.zIndex = 99999;
 
               const items = [
-                { href: 'adhdhacks.html', text: '🎯 ADHD Hacks' },
-                { href: 'playlist.html', text: '🎵 Motivation Playlist' },
+                { href: 'adhdhacks.html', text: 'ADHD Hacks' },
+                { href: 'playlist.html', text: 'Motivation Playlist' },
                 { href: 'feedback.html', text: '💬 Feedback' }
               ];
               items.forEach(mi => {
@@ -745,8 +745,8 @@
             dd.style.zIndex = 99999;
 
             const items = [
-              { href: 'adhdhacks.html', text: '🎯 ADHD Hacks' },
-              { href: 'playlist.html', text: '🎵 Motivation Playlist' },
+              { href: 'adhdhacks.html', text: 'ADHD Hacks' },
+              { href: 'playlist.html', text: 'Motivation Playlist' },
               { href: 'feedback.html', text: '💬 Feedback' }
             ];
             items.forEach(mi => {
