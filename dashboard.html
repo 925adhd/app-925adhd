@@ -545,34 +545,25 @@
       border-radius: 10px;
     }
 
-    /* Favorites: visually larger heart without affecting card size or text layout */
+    /* Favorites: use explicit sizes rather than large transforms */
     a.action-card[href="favorites.html"] .icon img.icon-img {
-      transform: scale(2.3) translateY(2px);
-      transform-origin: center;
-      will-change: transform;
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
       display: block;
-      z-index: 2;
     }
 
     @media (min-width: 600px) {
       a.action-card[href="favorites.html"] .icon img.icon-img {
-        transform: scale(2.7) translateY(4px);
+        width: 56px;
+        height: 56px;
       }
     }
 
-    /* Guides: slightly smaller visual scale */
+    /* Guides: use consistent sizing */
     a.action-card[href="guides.html"] .icon img.icon-img {
-      transform: scale(1.05);
-      transform-origin: center;
-      will-change: transform;
+      object-fit: contain;
       display: block;
-      z-index: 2;
-    }
-
-    @media (min-width: 600px) {
-      a.action-card[href="guides.html"] .icon img.icon-img {
-        transform: scale(1.2);
-      }
     }
 
     @media (min-width: 600px) {
@@ -605,18 +596,10 @@
       }
     }
 
-    /* Slightly larger ADHD Hacks icon (visual only) */
+    /* ADHD Hacks icon - use consistent sizing */
     a.action-card[href="adhdhacks.html"] .icon img.icon-img {
-      transform: scale(1.15);
-      transform-origin: center;
-      will-change: transform;
+      object-fit: contain;
       display: block;
-    }
-
-    @media (min-width: 600px) {
-      a.action-card[href="adhdhacks.html"] .icon img.icon-img {
-        transform: scale(1.25);
-      }
     }
 
     
@@ -814,6 +797,7 @@
         min-height: 180px;
       }
 
+      /* Desktop icon sizing: keep a single, consistent size */
       .action-card .icon {
         width: 80px;
         height: 80px;
@@ -824,19 +808,9 @@
       .action-card .icon img.icon-img {
         width: 80px;
         height: 80px;
-      }
-
-      /* Keep all action-card icons uniform on desktop */
-      .action-card .icon {
-        width: 100px;
-        height: 100px;
-        font-size: 58px;
-        margin-bottom: 14px;
-      }
-
-      .action-card .icon img.icon-img {
-        width: 100px;
-        height: 100px;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
       }
 
       .action-card h3 {
@@ -871,6 +845,14 @@
       .discord-card .icon img.icon-img {
         width: 64px;
         height: 64px;
+      }
+      /* Favorites desktop override to keep heart icon smaller */
+      a.action-card[href="favorites.html"] .icon img.icon-img {
+        width: 48px;
+        height: 48px;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
       }
     }
   </style>
