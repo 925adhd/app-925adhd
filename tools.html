@@ -68,11 +68,11 @@
     
     /* Main Content */
     .main-content {
-      padding: 20px 8px;
+      padding: 12px 12px 20px;
       max-width: 700px;
       margin: 0 auto;
     }
-    
+
     /* Updated Badge */
     .updated-badge {
       color: var(--brand);
@@ -80,29 +80,29 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
-    
+
     /* Brain.fm Hero */
     .hero-card {
       background: transparent;
       border: none;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 24px;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 16px;
     }
-    
+
     .hero-header {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
+      gap: 12px;
+      margin-bottom: 12px;
     }
-    
+
     .hero-logo {
-      width: 72px;
-      height: 72px;
-      border-radius: 16px;
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
       object-fit: cover;
       border: none;
     }
@@ -126,18 +126,18 @@
     }
     
     .hero-info h2 {
-      font-size: 20px;
+      font-size: 17px;
       font-weight: 800;
       margin-bottom: 2px;
     }
-    
+
     .hero-info p {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
     }
-    
+
     .audio-player {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     
     .audio-player audio {
@@ -147,22 +147,22 @@
     }
     
     .hero-text p {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
 
     /* Secondary hero copy: slightly smaller and muted to de-emphasize navigation */
     .hero-text .muted-note {
-      font-size: 11.5px; /* ~11-12% smaller than 13px */
-      opacity: 0.65;     /* 65% opacity */
+      font-size: 11px;
+      opacity: 0.65;
       color: var(--text);
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     /* Reduce spacing specifically under the final hero paragraph (Brain.fm link) */
     .hero-text p:last-of-type {
-      margin-bottom: 4px;
+      margin-bottom: 0px;
     }
     
     .hero-text .highlight {
@@ -179,29 +179,29 @@
     /* Category tabs removed */
     
     /* Section */
-    .section { margin-bottom: 28px; }
+    .section { margin-bottom: 20px; }
     .section-title {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: transparent; /* remove pill background */
+      gap: 6px;
+      background: transparent;
       color: var(--text);
-      padding: 0; /* remove pill padding */
+      padding: 0;
       border-radius: 0;
-      border: none; /* remove pill border */
+      border: none;
       backdrop-filter: none;
     }
 
-    .section-title .emoji { font-size: 18px; }
+    .section-title .emoji { font-size: 16px; }
     
     /* Tools Grid */
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
       align-items: start;
       justify-items: center;
     }
@@ -235,14 +235,14 @@
     }
     
     .tool-icon {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
+      font-size: 40px;
       overflow: hidden;
       background: transparent;
     }
@@ -257,55 +257,55 @@
 
     /* Sleep icon: match default tool icon sizing and spacing for consistent look */
     .tool-card.sleep-tool .tool-icon {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 11px;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 8px;
     }
     .tool-card.sleep-tool .tool-icon img { width: 100%; height: 100%; }
 
     .tool-icon img.small-logo {
-      width: 88px;
-      height: 88px;
+      width: 72px;
+      height: 72px;
       object-fit: cover;
       border-radius: 50%;
       display: block;
       margin: 0 auto;
     }
-    
+
     .tool-card h3 {
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 900;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       line-height: 1.1;
       letter-spacing: 0.2px;
     }
-    
+
     .tool-card p {
-      font-size: 10px;
+      font-size: 9px;
       color: rgba(255,255,255,0.55);
       line-height: 1.2;
       margin: 0;
-      margin-top: 4px;
-      max-width: 160px;
+      margin-top: 2px;
+      max-width: 140px;
     }
 
     /* Passion Finder Card Styling */
     .passion-finder-card {
       background: rgba(86, 195, 174, 0.08) !important;
       border: 1px solid rgba(86, 195, 174, 0.2) !important;
-      border-radius: 12px !important;
-      padding: 14px 16px !important;
+      border-radius: 10px !important;
+      padding: 10px 12px !important;
       flex-direction: row !important;
       align-items: center !important;
       text-align: left !important;
       justify-content: flex-start !important;
-      margin-bottom: 16px !important;
+      margin-bottom: 12px !important;
     }
 
     .passion-finder-content {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
       width: 100%;
       justify-content: flex-start;
     }
@@ -313,13 +313,13 @@
     .passion-icon {
       flex-shrink: 0;
       margin-bottom: 0 !important;
-      width: 64px !important;
-      height: 64px !important;
+      width: 52px !important;
+      height: 52px !important;
     }
 
     .passion-icon img {
-      width: 64px !important;
-      height: 64px !important;
+      width: 52px !important;
+      height: 52px !important;
     }
 
     .passion-text {
@@ -331,26 +331,26 @@
     }
 
     .passion-text h3 {
-      font-size: 14px !important;
+      font-size: 13px !important;
       font-weight: 700 !important;
-      margin-bottom: 2px !important;
+      margin-bottom: 1px !important;
       text-align: left !important;
     }
 
     .passion-text p {
-      font-size: 11px !important;
+      font-size: 10px !important;
       color: rgba(255, 255, 255, 0.4) !important;
       max-width: none !important;
       text-align: left !important;
       margin: 0 !important;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .passion-text p::after {
       content: '→';
-      font-size: 13px;
+      font-size: 12px;
       opacity: 0.6;
     }
 
@@ -395,18 +395,18 @@
     .info-card {
       background: rgba(86, 195, 174, 0.08);
       border: 1px solid rgba(86, 195, 174, 0.2);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
     }
-    
+
     .info-card p {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      margin-bottom: 8px;
-      line-height: 1.5;
+      margin-bottom: 0;
+      line-height: 1.4;
     }
-    
+
     .info-card p:last-child { margin-bottom: 0; }
     
     /* Bottom Navigation */
@@ -446,7 +446,59 @@
     .nav-item .icon { font-size: 20px; }
     
     .hidden { display: none !important; }
-    
+
+    /* Mobile-specific compact mode */
+    @media (max-width: 420px) {
+      .main-content {
+        padding: 8px 8px 16px;
+      }
+
+      .hero-card {
+        padding: 8px;
+        margin-bottom: 12px;
+      }
+
+      .hero-logo {
+        width: 48px;
+        height: 48px;
+      }
+
+      .hero-info h2 {
+        font-size: 15px;
+      }
+
+      .hero-info p {
+        font-size: 11px;
+      }
+
+      .tool-icon {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 6px;
+      }
+
+      .tool-card h3 {
+        font-size: 12px;
+      }
+
+      .tool-card p {
+        font-size: 8px;
+      }
+
+      .section {
+        margin-bottom: 16px;
+      }
+
+      .section-title {
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+
+      .tools-grid {
+        gap: 10px;
+      }
+    }
+
     @media (min-width: 600px) {
       .main-content { padding: 28px 24px; }
       .tools-grid { gap: 16px; }
