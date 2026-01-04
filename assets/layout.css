@@ -248,6 +248,20 @@ main {
   line-height:22px;     /* locks vertical spacing */
 }
 
+/* Image-based nav icons (local files) */
+.site-nav .nav-item .nav-icon {
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  display:block;
+}
+
+/* Larger heart for saved/favorites */
+.site-nav .nav-item.nav-favs .nav-icon {
+  width:22px;
+  height:22px;
+}
+
 .site-nav .nav-item span:not(.icon){
   display:block;
   line-height:12px;     /* locks label spacing */
