@@ -276,10 +276,10 @@
     nav.innerHTML = `
       <div class="nav-items">
         <a href="dashboard.html" class="nav-item"><img src="images/home.png" class="nav-icon" alt="Home"><span>Home</span></a>
-        <a href="guides.html" class="nav-item"><img src="images/guidesicon.png" class="nav-icon" alt="Guides"><span>Guides</span></a>
-        <a href="earn.html" class="nav-item"><img src="images/earnicon.png" class="nav-icon" alt="Earn"><span>Earn</span></a>
+        <a href="guides.html" class="nav-item"><img src="images/guide.png" class="nav-icon" alt="Guides"><span>Guides</span></a>
+        <a href="earn.html" class="nav-item"><img src="images/earn.png" class="nav-icon" alt="Earn"><span>Earn</span></a>
         <a href="apps.html" class="nav-item"><img src="images/apps.png" class="nav-icon" alt="Apps"><span>Apps</span></a>
-        <a href="favorites.html" class="nav-item nav-favs"><img src="images/hearticon.png" class="nav-icon" alt="Saved"><span>Saved</span></a>
+        <a href="favorites.html" class="nav-item nav-favs"><img src="images/heart.png" class="nav-icon" alt="Saved"><span>Saved</span></a>
         <a href="tools.html" class="nav-item"><img src="images/toolsicon.png" class="nav-icon" alt="Tools"><span>Tools</span></a>
         ${includeMore ? `<!-- 'More' opens a dropdown on desktop (falls back to side panel on mobile) -->
         <a href="#" class="nav-item nav-more"><span class="icon"><svg width="18" height="14" viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="0" y="1" width="18" height="2" rx="1" fill="#fff"></rect><rect x="0" y="6" width="18" height="2" rx="1" fill="#fff"></rect><rect x="0" y="11" width="18" height="2" rx="1" fill="#fff"></rect></svg></span><span>More ▾</span></a>` : ''}
