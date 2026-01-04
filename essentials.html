@@ -6,6 +6,7 @@
   <title>Gig Essentials - 925 ADHD</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#56C3AE">
+  <link rel="stylesheet" href="assets/layout.css">
   <style>
     :root {
       --bg: #0f0f0f;
@@ -31,18 +32,20 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
-      padding: 20px 8px 100px;
+      /* layout.css handles top/bottom padding for nav */
     }
 
     .container {
       max-width: 600px;
       margin: 0 auto;
+      padding: 20px 8px;
     }
 
     /* Header */
     .page-header {
       text-align: center;
       margin-bottom: 24px;
+      padding-top: 8px;
     }
 
     .page-header h1 {
