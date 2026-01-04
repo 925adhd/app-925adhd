@@ -411,23 +411,32 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 6px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .site-nav .nav-items::-webkit-scrollbar {
+    display: none;
   }
 
   .site-nav .nav-item{
     height: 36px;
-    padding: 6px 12px;
+    padding: 6px 10px;
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     border-radius: 999px;
     text-decoration: none;
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     background: transparent;
     border: none;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .site-nav .nav-item .icon{ display:inline-flex; font-size:20px; height:auto; line-height:1; }
@@ -444,6 +453,19 @@ html, body {
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.06);
     box-shadow: none;
+  }
+
+  /* On wider screens, give nav items more breathing room */
+  @media (min-width: 1200px) {
+    .site-nav .nav-items {
+      gap: 10px;
+    }
+
+    .site-nav .nav-item {
+      padding: 6px 14px;
+      gap: 8px;
+      font-size: 14px;
+    }
   }
 
   /* Show the header menu button on larger screens and position it
