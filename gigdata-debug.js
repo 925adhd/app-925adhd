@@ -1,486 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Opportunity Details</title>
-  
-  <!-- PWA Meta Tags -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#56C3AE">
-  <style id="layout-temp-style">
-    body:not(.has-site-layout) .top-header,
-    body:not(.has-site-layout) .header,
-    body:not(.has-site-layout) .bottom-nav,
-    body:not(.has-site-layout) .page-nav,
-    body:not(.has-site-layout) header:not(.site-header),
-    body:not(.has-site-layout) nav:not(.site-nav),
-    .back-btn, .back-button, button.back, a.back, .btn-back, .back, .back-arrow, .back-arrow-btn, .page-back, button[aria-label="Back"], .menu-btn { display: none !important; }
-  </style>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="925 ADHD">
-  <link rel="apple-touch-icon" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png">
-  <style>
-    :root {
-      --bg: #0f0f0f;
-      --card: #1a1a1a;
-      --card-hover: #222;
-      --text: #ffffff;
-      --text-muted: #888;
-      --brand: #56C3AE;
-      --green: #22c55e;
-      --yellow: #facc15;
-      --orange: #f97316;
-      --blue: #3b82f6;
-      --pink: #ec4899;
-      --cyan: #5ac3ae;
-      --red: #ef4444;
-    }
-    /* Page-specific: hide the inline brand on small screens so it doesn't sit behind the hamburger */
-    @media (max-width: 899px) {
-      .site-header .brand { display: none !important; }
-    }
-    
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      padding-bottom: 100px;
-      line-height: 1.6;
-    }
-    
-    /* Header */
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--brand);
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .back-btn {
-      position: absolute;
-      left: 16px;
-      background: none;
-      border: none;
-      color: #0F0F0F;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 4px 8px;
-    }
-    
-    .header-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #0F0F0F;
-    }
-    
-    .fav-btn-header {
-      position: absolute;
-      right: 16px;
-      background: none;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-    }
-    .site-fav-btn {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      font-size: 20px;
-      color: var(--text);
-      cursor: pointer;
-      z-index: 10001;
-    }
-
-    .page-fav-btn {
-      position: fixed;
-      right: 20px;
-      top: 84px; /* sits below the brand header */
-      background: rgba(0,0,0,0.0);
-      border: none;
-      font-size: 26px;
-      color: var(--text);
-      cursor: pointer;
-      z-index: 10002;
-      padding: 6px;
-      border-radius: 8px;
-      transition: transform 0.12s ease;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    }
-    .page-fav-btn:active { transform: scale(0.96); }
-
-    @media (max-width:520px) {
-      .page-fav-btn { right: 12px; top: 76px; font-size: 22px; }
-    }
-    
-    /* Main Content */
-    main {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 20px 8px;
-      /* ensure content can scroll past the fixed CTA + bottom nav (reduced) */
-      padding-bottom: calc(var(--nav-h, 72px) + 80px + env(safe-area-inset-bottom, 0px));
-    }
-    
-    /* Hero Section */
-    .hero {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    
-    .hero-logo {
-      width: 72px;
-      height: 72px;
-      border-radius: 16px;
-      object-fit: cover;
-      background: #2a2a2a;
-    }
-    
-    .hero-info h1 {
-      font-size: 24px;
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-    
-    .hero-rate {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--green);
-    }
-    
-    .hero-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-    
-    /* Quick Stats */
-    .quick-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    
-    .stat-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-    }
-    
-    .stat-icon { font-size: 20px; margin-bottom: 4px; }
-    .stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
-    .stat-value { font-size: 12px; font-weight: 700; margin-top: 2px; }
-    
-    /* Intro */
-    .intro-section {
-      background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(34,197,94,0.05));
-      border: 1px solid rgba(124,58,237,0.2);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-      font-size: 15px;
-      line-height: 1.7;
-    }
-    
-    /* Content Sections */
-    .section {
-      margin-bottom: 20px;
-    }
-    
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    
-    .section-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
-    
-    .section-icon.adhd { background: rgba(124,58,237,0.2); }
-    .section-icon.standout { background: rgba(34,197,94,0.2); }
-    .section-icon.warning { background: rgba(249,115,22,0.2); }
-    .section-icon.payout { background: rgba(90,195,174,0.2); }
-    .section-icon.tasks { background: rgba(59,130,246,0.2); }
-    .section-icon.verdict { background: rgba(236,72,153,0.2); }
-    .section-icon.ideal { background: rgba(250,204,21,0.2); }
-    
-    .section-title {
-      font-size: 16px;
-      font-weight: 700;
-    }
-    
-    .section-content {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 16px;
-    }
-    
-    .section-content ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .section-content li {
-      display: flex;
-      gap: 10px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    
-    .section-content li::before {
-      content: '•';
-      color: var(--brand);
-      font-weight: bold;
-      flex-shrink: 0;
-    }
-    
-    .section-content.warning li::before { color: var(--orange); }
-    
-    .section-content p {
-      font-size: 14px;
-      line-height: 1.7;
-    }
-    
-    /* Ideal For Tags */
-    .ideal-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    
-    .ideal-tag {
-      background: rgba(124,58,237,0.15);
-      border: 1px solid rgba(124,58,237,0.3);
-      color: #a78bfa;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    
-    /* Empty State */
-    .empty-section {
-      color: var(--text-muted);
-      font-style: italic;
-      font-size: 13px;
-    }
-    
-    /* CTA */
-    .cta-section {
-      position: fixed;
-      /* sit flush with the top of the bottom nav (no gap) */
-      bottom: calc(var(--nav-h, 72px));
-      left: 0;
-      right: 0;
-      background: rgba(15, 15, 15, 0.98);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding: 12px 16px max(12px, env(safe-area-inset-bottom));
-      z-index: 10001;
-    }
-    
-    .cta-container {
-      max-width: 700px;
-      margin: 0 auto;
-      display: flex;
-      gap: 10px;
-    }
-    
-    .cta-btn {
-      flex: 1;
-      padding: 14px 20px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-    
-    .cta-primary {
-      background: var(--brand);
-      color: white;
-    }
-    
-    .cta-primary:hover {
-      background: #6d28d9;
-      transform: translateY(-1px);
-    }
-    
-    .cta-secondary {
-      background: var(--card);
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    /* Loading State */
-    .loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-muted);
-    }
-    
-    .loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(255,255,255,0.1);
-      border-top-color: var(--brand);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 16px;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    /* Not Found */
-    .not-found {
-      text-align: center;
-      padding: 60px 20px;
-    }
-    
-    .not-found h2 {
-      font-size: 24px;
-      margin-bottom: 12px;
-    }
-    
-    .not-found p {
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
-    
-    .not-found a {
-      display: inline-block;
-      background: var(--brand);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* Responsive: reduce CTA button size on small screens while keeping them side-by-side */
-    @media (max-width: 520px) {
-      .cta-section {
-        padding: 8px 12px max(8px, env(safe-area-inset-bottom));
-      }
-
-      .cta-container {
-        gap: 8px;
-        padding: 0;
-        align-items: center;
-      }
-
-      .cta-btn {
-        padding: 10px 12px;
-        font-size: 14px;
-        border-radius: 12px;
-        min-height: 44px;
-      }
-
-      .cta-container .cta-btn:first-child,
-      .cta-container .cta-btn:last-child {
-        max-width: 49%;
-        box-sizing: border-box;
-      }
-
-      @media (max-width: 360px) {
-        .cta-btn { font-size: 13px; padding: 8px 10px; }
-      }
-    }
-  </style>
-  <style>
-    /* Critical TL;DR styles inlined to prevent flash-of-unstyled-content */
-    .tldr-box {
-      background: linear-gradient(135deg, rgba(90,195,174,0.15), rgba(124,58,237,0.08));
-      border: 1px solid rgba(90,195,174,0.3);
-      border-radius: 16px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    .tldr-label {
-      font-weight: 700;
-      color: var(--cyan);
-      margin-right: 8px;
-    }
-  </style>
-</head>
-<body>
-  <header class="site-header" style="position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:var(--brand);padding:0 16px;z-index:10000;">
-    <button class="menu-btn" aria-label="Open menu" type="button" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text);font-size:22px;border-radius:10px;cursor:pointer;">☰</button>
-    <a class="brand" href="dashboard.html" aria-label="Home" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);">
-      <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/SmartSelect_20241218_055052_Gallery.png" alt="logo" class="brand-logo" width="28" height="28" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">
-      <span class="brand-name" style="font-size:16px;font-weight:800;color:var(--text);display:inline-block;">925 ADHD</span>
-    </a>
-  </header>
-  </header>
-  <button class="page-fav-btn" id="pageFavBtn" aria-label="Save">🤍</button>
-  
-  <header class="header">
-    <button class="back-btn" onclick="history.back()">←</button>
-    <span class="header-title">Honest Review</span>
-    <button class="fav-btn-header" id="favBtn">🤍</button>
-  </header>
-  
-  <main id="mainContent" style="visibility: hidden;">
-    <div class="loading">
-      <div class="loading-spinner"></div>
-      <p>Loading opportunity details...</p>
-    </div>
-  </main>
-
-  <script>
-    // If the detail page was opened from the listing, set the last-gig marker
-    // so the list page can restore scroll reliably when the user hits Back.
-    (function(){
-      try {
-        const params = new URLSearchParams(location.search);
-        const fromGig = params.get('fromGig');
-        if (fromGig) sessionStorage.setItem('925adhd_last_gig', fromGig);
-      } catch (e) { /* ignore */ }
-    })();
-  </script>
-  
-  <div class="cta-section" id="ctaSection" style="display:none;">
-    <div class="cta-container">
-      <a href="#" class="cta-btn cta-secondary" onclick="history.back()" style="background: var(--card); color: var(--text); border: 1px solid rgba(255,255,255,0.1);">← Back</a>
-      <a href="#" class="cta-btn cta-primary" id="ctaLink" target="_blank" style="background: #56C3AE; color: #ffffff;">Try This Opportunity →</a>
-    </div>
-  </div>
-  
-  <script>
-const gigData = {
+{
   'prolific': {
     name: 'Prolific',
     logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/immy0sOGu8FJH0lgD7VN.png',
@@ -536,89 +54,164 @@ const gigData = {
       'Anyone tired of scammy survey sites that pay in "points"'
     ]
   },
-  
-  'clearvoice': {
-    name: 'ClearVoice',
+  'voice123': {
+    name: 'Voice123',
     logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.clearvoice.com/',
-    rate: '$0.10–$1.00+/word',
-    description: 'Premium content marketing platform connecting freelance writers with enterprise brands — owned by Fiverr, no race-to-the-bottom pricing.',
+    link: 'https://voice123.com/',
+    rate: '$50–$5,000+/project',
+    description: 'Major voice-over marketplace (since 2003) with no commission fees — you keep 100% of earnings.',
     category: 'freelance',
-    tldr: 'Premium freelance writing platform (now owned by Fiverr) connecting 4,000+ vetted writers with enterprise clients like Intuit, Carfax & Esurance. Set your own rates — top writers earn $0.20–$1.00/word. Escrow system means guaranteed payment via PayPal upon approval. No bidding wars. Opportunities matched to your profile — you can\'t browse open jobs. Better for experienced writers with strong portfolios.',
-    intro: '<strong>ClearVoice</strong> was founded in 2014 in Phoenix, Arizona and acquired by Fiverr in 2019 — but operates independently as their premium content brand. It connects freelance writers, editors, and content strategists with mid-market and enterprise clients.\n\nUnlike Fiverr\'s race-to-the-bottom marketplace, ClearVoice maintains quality standards and fair pay. They vet all writers, match you with appropriate clients, and use an escrow system so you\'re guaranteed payment. No competitive bidding — prices are set upfront.',
+    tldr: 'One of the largest voice-over marketplaces (since 2003), now owned by Backstage. Key advantage: NO commission — keep 100% of earnings. Membership tiers from $49–$4,950/year. Higher tiers get audition invites first. Secure Payment service has optional 6% fee. More "ethical" than Voices.com but fierce competition and popularity-based ranking system.',
+    intro: '<strong>Voice123</strong> was founded in 2003 by Alexander Torrenegra and Tania Zapata, making it one of the oldest voice-over marketplaces online. In 2021, it was acquired by Backstage (the entertainment industry\'s leading casting platform).\n\nThe platform connects voice actors with clients worldwide for commercials, audiobooks, video games, e-learning, and more. Unlike Voices.com, Voice123 doesn\'t take a commission on your earnings — you keep 100% of what clients pay you.',
     whyAdhd: [
-      'No bidding wars or client chasing',
-      'Opportunities pushed to you via email',
-      'Set your minimum rate — only see matching jobs',
-      'Escrow system = no chasing invoices',
-      'In-app messaging for all projects',
-      'Long-term client relationships possible',
-      'Work on topics that interest YOU'
+      'Algorithm matches you to relevant projects',
+      'Set your own rates and availability',
+      'Work from your home studio',
+      'Variety of project types',
+      'No commission on earnings',
+      'Direct client communication allowed'
     ],
     standOut: [
-      'Owned by Fiverr but operates independently',
-      '4,000+ vetted writers in Talent Network',
-      '200+ industry categories',
-      'Enterprise clients (Intuit, Carfax, Esurance)',
-      'Set your own per-word rates',
-      'Escrow system — funds secured before work starts',
-      'No race-to-the-bottom bidding',
-      'PayPal payment upon approval (often within 24 hrs)',
-      'Free CV Portfolio to showcase work',
-      'Built-in messaging system',
-      'Responsive support team',
-      'Long-term "house account" relationships possible'
+      'NO commission — keep 100% of your earnings',
+      'Founded 2003, acquired by Backstage 2021',
+      '125,000+ active voice actors',
+      'Global client base across 160+ countries',
+      'Direct communication with clients allowed',
+      'Secure Payment service available (optional)',
+      '30-day money-back guarantee for first-time paid members',
+      'SmartCast algorithm matches you to projects',
+      'Can work with clients off-platform',
+      'Rate calculator tool available',
+      'SoundCheck service for audio quality feedback',
+      'Can add AI voice to profile'
     ],
     importantNotes: [
-      'Can\'t browse open jobs — must wait for matches',
-      'Algorithm matches you based on profile strength',
-      'Only ~10% of applicants accepted to Talent Network',
-      'Strong portfolio required to get opportunities',
-      'May go weeks/months without receiving matches',
-      'Clients can also search profiles directly',
-      '4% payment processing fee (paid by client)',
-      'Work can be inconsistent — not a sole income source',
-      'House accounts are key to steady work',
-      'Profile laser-focus on niches gets more matches',
-      'PayPal required for payment'
+      'Paid membership required for meaningful access',
+      'Multiple tiers: $49, $99, $199, $395, $888, $2,200, $4,950/year',
+      'Higher tiers get audition invitations FIRST',
+      'Platinum/Elite ($4,950+) members have huge advantage',
+      'Popularity-based ranking — likes on proposals matter',
+      'Many auditions close before lower-tier members see them',
+      'Fierce competition — hundreds of auditions before first booking',
+      'Need quality home studio to compete',
+      'Mixed reviews — some love it, many frustrated',
+      'Secure Payment has optional 6% fee',
+      'Elite membership has waitlist + strict requirements',
+      'No refunds on discounted memberships'
     ],
     payoutInfo: [
-      'You set your own per-word minimum rate',
-      'Average: ~$0.10/word',
-      'Top writers: $0.20–$0.50+/word',
-      'Experts: up to $1.00+/word',
-      'Beginners: $0.05–$0.08/word',
-      'Example: $200–$400 for 700-word blog post',
-      'Realistic hourly: $50–$100/hr (depending on speed)',
-      'Payment: PayPal upon assignment approval',
-      'Typically paid within 24 hrs–10 days of approval',
-      '4% processing fee covered by client'
+      '0% commission — you keep 100% of earnings',
+      'Commercials: $400–$5,000+ (depending on market)',
+      'Audiobooks: $200–$300/hr narration',
+      'Video games: $200–$350/hr',
+      'E-learning: $100–$300/finished hour',
+      'Short projects (under 1 min): $50–$200',
+      'Secure Payment: Optional 6% fee',
+      'Can invoice clients directly (PayPal, wire, etc.)',
+      'Membership tiers: $49–$4,950/year',
+      'You set your own rates'
     ],
     taskTypes: [
-      'Blog posts and articles',
-      'SEO content',
-      'Website copy',
-      'eBooks and guides',
-      'Case studies',
-      'Email newsletters',
-      'Social media content',
-      'White papers',
-      'Product descriptions',
-      'Content strategy',
-      'Editing and proofreading',
-      'Graphic design (limited)'
+      'Commercials — TV, radio, online ads',
+      'Audiobooks — narration, characters',
+      'Video games — character voices',
+      'E-learning — corporate training, education',
+      'Explainer videos — product demos',
+      'IVR/phone systems — hold messages',
+      'Documentaries — narration',
+      'Animation — character acting',
+      'Podcasts — intros, narration',
+      'Dubbing and localization'
     ],
-    finalTake: '<strong>ClearVoice is the "anti-content-mill" content mill</strong> — fair pay, no bidding wars, and escrow protection. The catch? You can\'t actively hunt for work. You build a killer profile, set your rates, and wait for the algorithm to match you with clients. Some writers land steady house accounts paying $0.20+/word, others wait months for scraps. Best approach: Treat it as ONE channel in your freelance toolkit, not your only income source. Strong niche focus + published portfolio = more matches.',
+    finalTake: '<strong>Voice123 is more "ethical" than Voices.com — but still pay-to-play.</strong> The zero commission is genuinely attractive, and direct client communication is a plus. But the tiered system heavily favors those paying $2,200–$4,950/year who get audition invites first. Many frustrated users report hundreds of auditions with zero bookings. If you\'re serious about voice-over, it\'s worth trying with a mid-tier membership — but manage expectations and don\'t expect instant results.',
     idealFor: [
-      'Intermediate to expert freelance writers',
-      'Writers with established portfolios and bylines',
-      'Content specialists in specific industries',
-      'Freelancers who hate bidding wars and rate negotiations',
-      'Those seeking long-term client relationships',
-      'NOT for beginners with no published work'
+      'Voice actors who want to keep 100% of earnings',
+      'Those with professional home studio setups',
+      'People who value direct client communication',
+      'Voice actors willing to invest in mid-to-high tier membership',
+      'NOT for casual hobbyists or complete beginners'
     ]
   },
-
+  'acx': {
+    name: 'ACX',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
+    link: 'https://www.acx.com/',
+    rate: '$50–$400+/finished hr',
+    description: 'Amazon/Audible\'s audiobook creation platform connecting narrators with authors — free to join, distributed to Audible, Amazon & Apple Books.',
+    category: 'freelance',
+    tldr: 'Amazon/Audible\'s platform connecting audiobook narrators with authors. Free to join, 100% free to use. Three pay models: Per-Finished-Hour ($100–$400+ PFH), Royalty Share (50/50 split, 7-year contract), or Royalty Share Plus (hybrid). Distributed to Audible, Amazon & Apple Books. US/UK/Canada/Ireland only. High audio quality standards — takes 4–6 hours to produce 1 finished hour.',
+    intro: '<strong>ACX (Audiobook Creation Exchange)</strong> is owned by Audible/Amazon and launched in 2011. It\'s the primary marketplace connecting authors and publishers with audiobook narrators and producers.\n\nUnlike voice-over marketplaces with annual fees, ACX is 100% free to join and use. You audition for projects, negotiate rates directly with authors, and your finished audiobooks get distributed to Audible, Amazon, and Apple Books — the world\'s largest audiobook platforms.',
+    whyAdhd: [
+      'Long-form projects — deep focus, not short clips',
+      'Work from home studio on your schedule',
+      'Choose projects that interest YOU',
+      'Royalty share = passive income over time',
+      'No membership fees or commissions',
+      'Build portfolio with each completed book'
+    ],
+    standOut: [
+      '100% free to join and use',
+      'No platform fees or commissions',
+      'Owned by Audible/Amazon',
+      'Distribution to Audible, Amazon & Apple Books',
+      '1,800+ open projects at any time',
+      'Three payment models (PFH, Royalty Share, Hybrid)',
+      'Royalty share creates passive income stream',
+      'SAG-AFTRA partnership at $250+ PFH',
+      'Tons of free training resources and videos',
+      'Promo codes provided for marketing',
+      'New Voice Replica program (AI narration beta)',
+      'QA team reviews submissions'
+    ],
+    importantNotes: [
+      'Only available in US, UK, Canada, Ireland',
+      'Must have existing ebook/print book on Amazon',
+      'High audio quality standards — strict QA review',
+      'Takes 4–6 hours work to produce 1 finished hour',
+      'Beginners: could take 10+ hours per finished hour',
+      'Royalty Share = 7-year contract, no upfront pay',
+      'Many RS projects never sell well — narrator gets nothing',
+      'Fierce competition from experienced pros',
+      'Risk of fraudulent rights holders — narrator doesn\'t get paid',
+      'Exclusive distribution = 40% royalty, Non-exclusive = 25%',
+      'Listeners can return audiobooks within 7 days — no compensation',
+      'Need home studio with proper equipment'
+    ],
+    payoutInfo: [
+      'Beginners: $10–$100 per finished hour',
+      'Experienced: $100–$400+ per finished hour',
+      'Industry standard: ~$200 narration + $200 post-production',
+      'Top narrators: $500+ per finished hour',
+      'Average completed project: $2,000–$5,000',
+      'Royalty Share: 20% to narrator, 20% to author (of 40%)',
+      'Exclusive royalty: 40% of net sales',
+      'Non-exclusive royalty: 25% of net sales',
+      'SAG-AFTRA eligible at $250+ PFH',
+      'Payment: Direct deposit or PayPal',
+      'RS payments: Monthly for 7 years'
+    ],
+    taskTypes: [
+      'Fiction narration — novels, short stories',
+      'Non-fiction narration — self-help, business, memoir',
+      'Children\'s audiobooks',
+      'Romance narration',
+      'Mystery/thriller narration',
+      'Sci-fi/fantasy narration (character voices)',
+      'Self-help and motivational',
+      'Biography and memoir',
+      'Full production (narration + editing + mastering)',
+      'Voice Replica (AI voice licensing — beta)'
+    ],
+    finalTake: '<strong>ACX is the gold standard for audiobook narration — but it\'s not easy money.</strong> The math: 1 finished hour = 4–6 hours of actual work (prep, recording, editing, mastering). At $200 PFH, that\'s $33–$50/hr real time. Royalty Share sounds attractive but most books don\'t sell well — you could work 60+ hours for nothing. Best approach: Mix PFH projects (guaranteed pay) with selective RS projects (passive income potential). Free to join, legitimate platform, but expect fierce competition and high standards.',
+    idealFor: [
+      'Aspiring audiobook narrators willing to invest in home studio',
+      'Voice actors who enjoy long-form reading over short clips',
+      'People in US, UK, Canada, or Ireland only',
+      'Those who can commit 20–60+ hours per project',
+      'Narrators building passive income through royalty share',
+      'NOT for those wanting quick, easy money'
+    ]
+  },
   'dscout': {
     name: 'Dscout',
     logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ir5Usfji0u0VtJf8iXTn.png',
@@ -1023,19 +616,7 @@ const gigData = {
       'Users who don\'t mind applying and waiting for selection'
     ]
   },
-  'mturk': {
-    name: 'Amazon MTurk',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.mturk.com/worker',
-    rate: '$2–$6/hr avg',
-    description: 'Amazon\'s massive microtask marketplace with endless small jobs; median earnings ~$2/hr, experienced workers $6–15/hr.',
-    category: 'microtasks',
-    tldr: 'Microtasks galore — low pay, high volume; good for consistent small earnings.',
-    intro: 'Amazon Mechanical Turk (MTurk) is a crowdsourcing marketplace for microtasks (HITs). It offers high task volume but generally low pay; use extensions and qualifications to find better work.',
-    whyAdhd: [
-      'Flexible schedule — work anytime',
-      'Short tasks reduce burnout',
-      'Varied tasks help maintain interest'
+  
     ],
     standOut: [
       'Owned by Amazon — legitimate and reliable',
@@ -1159,82 +740,19 @@ const gigData = {
   },
   'justanswer': {
     name: 'JustAnswer',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.justanswer.com/info/how-to-become-an-expert',
-    rate: '$2–$50+/answer',
-    description: 'Get paid to answer questions in your professional field — law, medicine, tech, auto repair, veterinary, and 150+ more categories.',
-    category: 'freelance',
-    tldr: 'Expert Q&A platform (founded 2003, San Francisco by Andy Kurtzig). 12,000+ verified experts answer questions from paying members. You see pay before accepting ($2-$50+ per answer). Top earners make $7,000-$15,000/month. 150+ categories: lawyers, doctors, mechanics, vets, tech support, appraisers. Third-party credential verification (4-7 days US, 2-4 weeks international). Monthly payout via PayPal/Payoneer, $40 minimum.',
-    intro: '<strong>JustAnswer</strong> connects paying customers with verified professionals who answer questions on-demand. Founded in 2003 when Andy Kurtzig wanted his pregnant wife to have 24/7 doctor access, it now operates in 196 countries with 16+ million users.\n\nYou answer questions via text chat, and customers can pay extra for phone calls. You see exactly what each question pays before accepting it — skip the $3 questions, grab the $30 ones. No bidding, no proposals, no chasing clients.',
-    whyAdhd: [
-      'See pay upfront — no guessing or negotiating',
-      'Skip questions that do not interest you',
-      'Short bursts of focused work',
-      'Variety of topics within your specialty',
-      'No client management or invoicing',
-      'Answer from phone app anywhere',
-      'No minimum hours or schedules'
-    ],
-    standOut: [
-      '150+ expert categories available',
-      'See exact pay before accepting questions',
-      'Phone calls pay more than text answers',
-      'Tips allowed on top of base pay',
-      'Charles Schwab on the board (legit company)',
-      '$50.7M in funding, 700+ employees',
-      'Mobile app for answering on-the-go',
-      'Secret shoppers ensure quality (keeps platform credible)',
-      'Advisory boards review answers'
-    ],
-    importantNotes: [
-      'Must be verified expert with credentials/experience',
-      'Verification takes 4-7 days (US/Canada), 2-4 weeks (international)',
-      'Need degree, certification, or 2-5+ years experience',
-      'Quality algorithm monitors your performance',
-      'Poor ratings can get you removed',
-      'Other experts can flag your answers',
-      'Secret shoppers test you periodically',
-      'Competitive — first expert to answer often wins',
-      '$40 minimum balance to withdraw',
-      'Monthly payouts (end of month)'
-    ],
-    payoutInfo: [
-      'Per-answer pay: $2-$50+ (you see before accepting)',
-      'Phone calls: Pay more than text',
-      'Tips: Customers can add extra',
-      'Top categories (monthly averages):',
-      '— Appraisals: $8,457/month',
-      '— Tech support: $7,612/month',
-      '— Homework help: $6,200/month',
-      '— Legal: $2,000-$7,000/month',
-      'Lowest: Wellness $1,167, General $614',
-      'Top individual earners: $10,000-$15,000/month',
-      'Payout: Monthly, $40 minimum',
-      'Methods: PayPal, Payoneer, direct deposit'
-    ],
-    taskTypes: [
-      'Legal questions — contracts, disputes, rights',
-      'Medical questions — symptoms, medications, second opinions',
-      'Veterinary — pet health, behavior, emergencies',
-      'Auto mechanics — diagnostics, repairs, maintenance',
-      'Tech support — computers, phones, software',
-      'Appraisals — antiques, art, collectibles',
-      'Tax and accounting questions',
-      'Home improvement and repair',
-      'Appliance troubleshooting',
-      'Mental health and counseling',
-      'RV and boat mechanics',
-      'Homework and tutoring help'
-    ],
-    finalTake: '<strong>Legit platform with real earning potential for credentialed professionals.</strong> Top earners (appraisers, mechanics, tech support) make $7,000-$15,000/month. The catch: brutal quality control. Secret shoppers, algorithm monitoring, expert flagging, and customer ratings all determine if you stay. Best for professionals with niche expertise who can answer quickly and accurately. Not for beginners — you need real credentials to get verified.',
-    idealFor: [
-      'Licensed professionals (lawyers, doctors, vets)',
-      'Certified technicians (ASE mechanics, IT certs)',
-      'Experts with 2-5+ years verifiable experience',
-      'Those who want short Q&A bursts, not long projects',
-      'People who hate proposals and client hunting',
-      'NOT for beginners without credentials'
-    ]
+    logo: 'https://via.placeholder.com/150?text=JustAnswer',
+    link: 'https://www.justanswer.com/experts',
+    rate: '$10–$50/hr',
+    description: 'Answer questions as a verified expert and earn for consultations.',
+    category: 'expert',
+    intro: '**JustAnswer** connects users with professionals who answer questions on medical, legal, tech and other expert topics. Experts earn based on answers and consultations.',
+    whyAdhd: ['High-skill work that can pay well for focused expertise', 'Sessions are often discrete and task-oriented'],
+    standOut: [],
+    importantNotes: ['Requires verification as an expert in your field', 'Not suitable for casual microtask seekers'],
+    payoutInfo: [],
+    taskTypes: ['Q&A consultations', 'Follow-up messaging'],
+    finalTake: '',
+    idealFor: ['Professionals with verified expertise']
   },
   'pineconeresearch': {
     name: 'Pinecone Research',
@@ -1565,7 +1083,7 @@ const gigData = {
       'Quality matters — rejected work wastes your time',
       'UHRS can ban you from tasks for low accuracy',
       'Must provide SSN or EIN (US) to get paid',
-      'Earnings paid in EUR regardless of location',
+      'Earnings paid in platform currency regardless of location',
       'Survey partner sites often lead to disqualifications'
     ],
     payoutInfo: [
@@ -1574,7 +1092,7 @@ const gigData = {
       'In-store photo gigs: $44–$88',
       'Minimum payout: $10 (PayPal/ACH) or $20 (Payoneer)',
       'PayPal/Payoneer: Weekly, Wed–Fri',
-      'SEPA (Europe): Bi-weekly (1st–3rd and 15th–17th)',
+      'SEPA (bank transfer): Bi-weekly (1st–3rd and 15th–17th)',
       'UHRS earnings: 39-day delay before becoming payable',
       'ACH transfers: 5–7 business days after bill run'
     ],
@@ -1952,207 +1470,51 @@ const gigData = {
   },
   'rover': {
     name: 'Rover',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.rover.com/become-a-sitter/',
-    rate: '$15–$75+/service',
-    description: 'The largest pet care marketplace — dog walking, pet sitting, boarding, daycare, and drop-in visits.',
-    category: 'services',
-    tldr: 'Top pet care app with millions of pet owners. Set your own rates for walking ($15-30), sitting ($25-50/night), boarding ($35-75/night). Rover takes 20% of every booking. Free background check. $1M liability coverage. Weekly payouts via Stripe. Build repeat clients, keep 100% of tips.',
-    intro: '<strong>Rover</strong> is the nation\'s largest network of pet sitters and dog walkers. They connect pet owners with local caregivers for dog walking, pet sitting, boarding, daycare, and drop-in visits.\n\nAs a Rover sitter, you\'re an independent contractor who sets your own rates, schedule, and which pets you accept. Rover handles booking, payments, and provides $1M in liability coverage.',
-    whyAdhd: [
-      'Set your own schedule — work when you want',
-      'Choose which pets to care for',
-      'Work outside — walks are active, not desk-bound',
-      'Build relationships with regular clients',
-      'Variety of services keeps it interesting',
-      'Photos and updates make it engaging'
-    ],
-    standOut: [
-      'Largest pet care marketplace',
-      '5-star network of sitters',
-      'Set your own rates',
-      'Free background check',
-      '$1M liability coverage included',
-      'Rover Guarantee for vet emergencies',
-      '24/7 support available',
-      'Keep 100% of tips',
-      'Weekly Friday payouts',
-      'GPS-tracked walks via Rover Cards'
-    ],
-    importantNotes: [
-      'Rover takes 20% of every booking',
-      'California: Different fee structure (25% marketplace + 11% booking)',
-      'Background check required (free)',
-      'Must pass pet care safety quiz',
-      'Competition varies by location',
-      'Building reviews takes time',
-      'Pet owners can see your profile before booking',
-      'Technical glitches reported with app',
-      'Holiday seasons are busiest (and competitive)',
-      'You\'re responsible for your own taxes (1099)'
-    ],
-    payoutInfo: [
-      'Dog walking: $15–$30 per 30-min walk',
-      'Drop-in visits: $15–$25 per visit',
-      'Doggy daycare: $25–$45 per day',
-      'Overnight sitting: $25–$50 per night',
-      'Boarding: $35–$75 per night',
-      'Rover fee: 20% of every booking',
-      'Tips: Keep 100%',
-      'Payment: Weekly (Fridays) via Stripe',
-      'Instant Pay: 3% extra fee'
-    ],
-    taskTypes: [
-      'Dog walking — 20, 30, or 60-minute walks',
-      'Drop-in visits — feeding, playtime, potty breaks',
-      'Doggy daycare — daytime care at your home',
-      'Overnight boarding — pet stays at your home',
-      'House sitting — stay at pet owner\'s home',
-      'Cat care — visits and sitting',
-      'Multiple pet discounts'
-    ],
-    finalTake: '<strong>Rover is the go-to platform for pet care side hustles.</strong> The 20% fee is significant but you get a massive client base, insurance coverage, and payment protection. Best strategy: Start with competitive rates to build reviews, then raise prices. Many sitters earn $500-1,000+/month part-time. Full-time is possible but requires building a strong reputation and repeat clients.',
-    idealFor: [
-      'Animal lovers who want flexible work',
-      'People with homes suitable for boarding',
-      'Those who enjoy outdoor activity (walking)',
-      'Side hustlers wanting extra income',
-      'Anyone comfortable with the 20% platform fee'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/n8yzcHBxOVGYzZeYTAPc.png',
+    link: 'rover.com',
+    rate: '$20–$40/hr',
+    description: 'Dog walking, pet sitting, boarding, overnight stays, animal companionship.  ',
+    category: 'care',
+    intro: '**Rover.com** is a popular online marketplace connecting pet owners with trusted pet sitters and dog walkers. Think of it as the “Airbnb for pets”—you create a profile, set your own rates, and decide what services you want to offer (boarding, walking, daycare, house sitting, drop-ins).  \n\nIt’s one of the bigger platforms in the pet care gig economy, so if you love animals and want flexible income, Rover is a legit option.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Dog and cat lovers looking to earn extra income', 'Students, freelancers, or remote workers with flexible schedules', 'People with ADHD who thrive on variety and movement', 'Anyone wanting a low-stress, animal-centered gig']
   },
   'wag': {
-    name: 'Wag!',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://wagwalking.com/dog-walker',
-    rate: '$9–$33/service',
-    description: 'On-demand dog walking and pet care app — grab available walks nearby, but Wag takes 40% of your earnings.',
-    category: 'services',
-    tldr: 'On-demand dog walking app. 20-min walk: $9-12, 30-min: $13-17, 60-min: $20-25 (after Wag\'s 40% cut). $49.95 application fee. Background check required. Walks assigned via app — first to accept gets it. Weekly Friday payouts. Good for flexible work, but steep fees.',
-    intro: '<strong>Wag!</strong> is an on-demand dog walking app that works like Uber for pets. When dog owners request a walk, nearby walkers get notified and can accept the job. First to accept gets it.\n\nUnlike Rover where you build ongoing client relationships, Wag! is more transactional — you grab available walks when you want. Wag provides GPS tracking, lockbox access, and handles payments.',
-    whyAdhd: [
-      'Ultimate flexibility — walk when you want',
-      'No client management — just grab and go',
-      'Get outside and stay active',
-      'Quick tasks — 20-60 minute walks',
-      'App handles everything',
-      'Instant job notifications'
-    ],
-    standOut: [
-      'On-demand — walk available dogs nearby',
-      'GPS tracking for safety',
-      'Lockbox access (no owner needed)',
-      'Background check included',
-      '$1M insurance coverage',
-      'Keep 100% of tips',
-      'Weekly Friday payouts',
-      'App handles scheduling and payments',
-      'Wag Pro option for more features'
-    ],
-    importantNotes: [
-      '⚠️ Wag takes 40% of every walk (you keep 60%)',
-      'Application fee: $49.95 (covers background check)',
-      'Wag Pro: $149 one-time fee for extra perks',
-      'You don\'t set prices — Wag sets rates',
-      'Some cities: $15 for 20-min, $22 for 30-min, $33 for 60-min (before 40% cut)',
-      'After Wag\'s cut: ~$9 for 20-min, ~$13 for 30-min, ~$20 for 60-min',
-      'Jobs are first-come, first-served',
-      'Poor reviews from walkers on pay/support',
-      'Glassdoor: 2.5/5 rating',
-      'Coupons reduce walker pay further'
-    ],
-    payoutInfo: [
-      '20-min walk: ~$9 (after 40% fee)',
-      '30-min walk: ~$13 (after 40% fee)',
-      '60-min walk: ~$20 (after 40% fee)',
-      'Wag takes 40% of base rate',
-      'Tips: Keep 100%',
-      'Sitting/boarding rates vary',
-      'Payment: Weekly (Fridays) via Stripe',
-      'Instant Pay: 3% extra fee',
-      'Referral bonus: $50 per new client'
-    ],
-    taskTypes: [
-      'Express walks — 20 minutes',
-      'Standard walks — 30 minutes',
-      'Deluxe walks — 60 minutes',
-      'Drop-in visits — check on pets',
-      'Pet sitting — overnight care',
-      'Boarding — pet stays with you',
-      'Training — if qualified'
-    ],
-    finalTake: '<strong>Wag pays less than Rover but offers more flexibility.</strong> The 40% fee is brutal (vs Rover\'s 20%), but you don\'t need to manage clients or bookings — just grab walks when they\'re available. Best for: people who want truly on-demand work without commitment. Many walkers use both Rover AND Wag.',
-    idealFor: [
-      'People wanting ultimate flexibility',
-      'Those who prefer grab-and-go over client management',
-      'Dog lovers who want quick walks between activities',
-      'Side hustlers supplementing other income',
-      'NOT for those who want to maximize earnings'
-    ]
+    name: 'Wag',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Cw1AUklnSjvwc5cFkDgL.png',
+    link: 'wagwalking.com',
+    rate: '$13–$25/hr',
+    description: 'Quick dog walks, pet boarding, drop-ins, flexible part-time income.  ',
+    category: 'care',
+    intro: '**Wagwalking.com (Wag!)** is a gig platform focused on on-demand dog walking, pet sitting, and boarding. It’s often called the “Uber for dog walking,” since owners can book pet care through the app and nearby walkers get notified instantly.  \n\nUnlike Rover, which leans more toward longer-term pet sitting and boarding, Wag! is **built for quick, flexible dog-walking jobs**—great for people who want fast bookings and shorter commitments.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['City dwellers who want flexible, on-demand walking gigs', 'People with ADHD who thrive on short bursts of activity', 'Students or part-timers looking for quick side income', 'Dog lovers who don’t want to commit to boarding or house sitting']
   },
   'taskrabbit': {
     name: 'TaskRabbit',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.taskrabbit.com/become-a-tasker',
-    rate: '$25–$75+/hr',
-    description: 'On-demand local tasks and services — furniture assembly, moving, cleaning, handyman work, and more.',
-    category: 'services',
-    tldr: 'On-demand task marketplace (owned by IKEA). Set your own hourly rates ($25-100+). No platform fee on your earnings — you keep 100%. Clients pay 15% service fee. $25 registration fee. Background check required. Best for handyman skills, furniture assembly, moving help. Major metro areas only.',
-    intro: '<strong>TaskRabbit</strong> connects local "Taskers" with people who need help with everyday tasks — furniture assembly, moving, cleaning, delivery, and more. Founded in 2008 and acquired by IKEA in 2017.\n\nUnlike most gig platforms, TaskRabbit doesn\'t take a cut of your earnings. You set your hourly rate and keep 100%. Clients pay a separate 15% service fee to TaskRabbit. Available in 70+ cities across US, UK, Canada, Germany, and more.',
-    whyAdhd: [
-      'Variety of tasks keeps it interesting',
-      'Set your own rates and schedule',
-      'Short, defined tasks with clear endpoints',
-      'Physical work — not sitting at a desk',
-      'Immediate results (task done = satisfaction)',
-      'Choose tasks that match your skills'
-    ],
-    standOut: [
-      'No platform fee — keep 100% of your rate + tips',
-      'Set your own hourly rates',
-      'Choose which tasks to accept',
-      '700+ service categories',
-      'IKEA partnership (lots of furniture assembly)',
-      'Happiness Pledge for client satisfaction',
-      '$1M+ liability coverage',
-      'Repeat client relationships possible',
-      'Mobile app for job management'
-    ],
-    importantNotes: [
-      '$25 registration fee (covers background check)',
-      'Clients pay 15% Trust & Support fee (not from your pay)',
-      'Background check required',
-      'Major metro areas only — limited rural coverage',
-      'Can\'t contact clients before accepting task',
-      'Newer Taskers start with lower visibility',
-      'Reviews heavily impact getting jobs',
-      'Must provide your own tools for many tasks',
-      'Self-employed — handle your own taxes',
-      'Some categories have pre-set rates (Task-Based Earning)'
-    ],
-    payoutInfo: [
-      'Average Tasker rate: $25–$75/hr',
-      'Furniture assembly: $40–$60/hr typical',
-      'Moving help: $35–$50/hr typical',
-      'Cleaning: $25–$45/hr typical',
-      'Handyman work: $50–$100+/hr',
-      'You keep 100% of your rate + tips',
-      'Clients pay 15% service fee separately',
-      'Payment via direct deposit',
-      '1099 independent contractor'
-    ],
-    taskTypes: [
-      'Furniture assembly — IKEA and all brands',
-      'Moving help — loading, unloading, packing',
-      'Mounting — TVs, shelves, artwork',
-      'Cleaning — home, move-out, deep clean',
-      'Handyman — repairs, installations',
-      'Delivery and errands',
-      'Yard work and outdoor tasks',
-      'Personal assistant tasks',
-      'Event help — setup, serving'
-    ],
-    finalTake: '<strong>TaskRabbit is one of the best gig platforms for skilled workers.</strong> No platform fee means you keep everything you earn. The $25 registration is minimal, and IKEA partnership means steady furniture assembly work. Best earners: handymen, movers, and assemblers who can command $50-100+/hr. Build reviews quickly, raise rates, and you can earn serious money.',
-    idealFor: ['Handy people with practical skills', 'Those who enjoy physical, varied work', 'Anyone in major metro areas', 'People who want to set their own rates', 'Side hustlers or full-time giggers']
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Y0lwF8oCSOa0ygsFLxiQ.jpg',
+    link: 'taskrabbit.com',
+    rate: '$17.50–$50+/hr',
+    description: 'Cleaning, handyman tasks, moving help, furniture assembly, general errands.  ',
+    category: 'care',
+    intro: '**TaskRabbit.com** is an online gig platform where people hire “Taskers” for everyday jobs—everything from moving furniture to assembling IKEA shelves, cleaning, delivery, and even tech help. Think of it as a marketplace for **local freelance labor**, where you set your rates, choose the tasks you want, and work on your own schedule.  \n\nIt’s widely available in major cities and has become a go-to platform for flexible, practical work.',
+    whyAdhd: ['Wide variety of tasks — no two jobs are the same, keeps things fresh', 'Active work — many gigs involve movement (cleaning, moving, deliveries)', 'Flexible scheduling — choose only the jobs you want', 'Quick payoffs — many tasks are same-day opportunities for cash'],
+    standOut: [],
+    importantNotes: ['TaskRabbit charges a service fee (15% of your rate per task)', 'You must pay a one-time $25 registration fee to join (non-refundable)', 'Highly competitive in large cities—ratings and reviews matter a lot', 'No guaranteed work—you’re responsible for finding tasks', 'You’re treated as an independent contractor, not an employee'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**TaskRabbit** is a great platform if you’re handy, active, or enjoy variety in your work. The ability to set your own rates is a big plus, but competition and reviews can make it tough for beginners. The **15% fee + $25 sign-up cost** are downsides, but with consistent effort, TaskRabbit can turn into a **solid side hustle or even full-time income stream** in busy cities.',
+    idealFor: ['People in cities who want local, flexible gig work', 'ADHD workers who thrive on variety and physical activity', 'Anyone skilled in cleaning, moving, or furniture assembly', 'Those looking for a practical alternative to desk-based gig apps']
   },
   'papa': {
     name: 'Papa',
@@ -2319,909 +1681,197 @@ const gigData = {
     finalTake: 'Chewy is a reliable employer for people who want structured, mission-aligned work in the pet space. It offers roles that can support ADHD needs via routine, remote options, and clear responsibilities.',
     idealFor: ['People who want stable hourly or salaried roles with predictable schedules', 'Animal lovers who want meaningful company mission alignment', 'Workers who benefit from structure and standard HR support']
   },
-  
+  'clearvoice': {
+    name: 'Clear Voice',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kRJCNp4S56RIYwZjvhWN.png',
+    link: 'https://clearvoice.com/signup',
+    rate: '$100–$400+ per article',
+    description: '25% platform fee, vetted writers',
+    category: 'writing',
+    intro: '**ClearVoice** is a content marketing platform that connects freelance writers, editors, and creators with brands that need content. Think of it like a matchmaking service between companies and content creators.  \nIt’s designed for professional writers and marketers who want steady, higher-quality gigs without the chaos of traditional freelancing marketplaces.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: ['Rates are generally higher than low-end platforms (often $0.20–$1 per word or set project rates).'],
+    taskTypes: ['Blog posts & articles – thought leadership, SEO content, lifestyle writing.', 'Copywriting – website copy, product descriptions, brand messaging.', 'Editing & strategy – refining content and planning campaigns.', 'Ghostwriting – business or executive content under client’s name.'],
+    finalTake: '',
+    idealFor: ['Experienced freelance writers with strong portfolios.', 'ADHD creatives who thrive with clear deadlines and structured briefs.', 'Freelancers tired of low-paying content mills.', 'Professionals seeking recurring brand clients rather than one-off gigs.']
+  },
   'scripted': {
     name: 'Scripted',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.scripted.com/',
-    rate: '$0.05–$0.10/word',
-    description: 'Content marketplace connecting vetted freelance writers with business clients — strict application, tier-based pay system.',
-    category: 'freelance',
-    tldr: 'San Francisco-based content mill (founded 2011) connecting vetted writers with business clients. Only 2% of applicants accepted. Tier system: Bronze (lowest pay, 20% commission) → Platinum (best pay, no commission). Minimum ~$24.50 per 400-word article. Kill fee if client rejects but you met requirements. Ghostwriting only — no bylines. Pay via PayPal (international) or Bill.com (US). Work has reportedly dried up due to AI focus.',
-    intro: '<strong>Scripted</strong> is a content creation marketplace founded in 2011 and based in San Francisco. It connects businesses with freelance writers for blog posts, articles, white papers, and more.\n\nUnlike open platforms, Scripted is highly selective — only about 2% of applicants pass their English proficiency test and writing samples. Once accepted, you\'re placed in a tier system that determines your pay rates, commission fees, and job access. The platform handles client relationships and provides a kill fee if work is rejected unfairly.',
-    whyAdhd: [
-      'Jobs matched to your specialties via SmartMatch',
-      'Clear deadlines and requirements upfront',
-      'Message directly with editors and clients',
-      'Kill fee protects you from unfair rejections',
-      'Work on topics you\'re expert in',
-      'Weekly PayPal payments (Fridays)'
-    ],
-    standOut: [
-      'Only 2% acceptance rate — vetted writers only',
-      'Tier system rewards consistent work',
-      'Minimum $24.50 per 400-word article',
-      '50% kill fee if rejected unfairly',
-      'Direct messaging with editors/clients',
-      'Transparency — you see what client pays',
-      'Weekly payments (Fridays)',
-      'Scripted pays PayPal fees',
-      'Can pitch topics directly to clients',
-      '80,000+ writer pool',
-      'Enterprise clients available'
-    ],
-    importantNotes: [
-      'Highly selective — 2% acceptance rate',
-      'English proficiency test required (30 min)',
-      'Writing test with blog post + product description',
-      'Ghostwriting only — no bylines',
-      'Bronze tier: 20% commission + lowest pay',
-      'Gold/Platinum: No commission + weekly pay',
-      'Lower tiers paid twice monthly only',
-      'Work has significantly decreased (AI focus)',
-      'Rates have dropped, deadlines shortened',
-      'Editors may not be subject-matter experts',
-      'Can be removed without warning',
-      'US, Canada, and parts of Europe only'
-    ],
-    payoutInfo: [
-      'Minimum: ~$24.50 per 400-word article',
-      'Average: $0.05–$0.10/word',
-      'Standard blog post (500 words): $25–$50',
-      'White papers: Up to 25,000 words',
-      'Bronze/Silver tier: 20% commission fee',
-      'Gold/Platinum tier: 0% commission',
-      'Lower tiers: Paid twice monthly',
-      'Higher tiers: Paid weekly (Fridays)',
-      'US writers: Bill.com (check or direct deposit)',
-      'International: PayPal (Scripted covers fees)',
-      'Tips possible from impressed clients',
-      'Kill fee: 50% if unfairly rejected'
-    ],
-    taskTypes: [
-      'Blog posts (400–2,000+ words)',
-      'Articles and web content',
-      'White papers (up to 25,000 words)',
-      'Email newsletters',
-      'Social media posts',
-      'Product descriptions',
-      'Video scripts',
-      'eBooks',
-      'Press releases',
-      'Q&A content',
-      'Content tune-ups/editing',
-      'Ad copy'
-    ],
-    finalTake: '<strong>Scripted was once a solid option for vetted writers — but recent reports suggest the platform is struggling.</strong> Work availability has dropped significantly as they\'ve pivoted toward AI, rates have decreased, and deadlines have shortened. The 2% acceptance rate means you\'re competing with quality writers, but the reward isn\'t what it used to be. Best approach: Apply if you want portfolio-building experience, but don\'t rely on it as a primary income source. The tier system takes time to climb, and Bronze-level pay barely covers minimum wage.',
-    idealFor: [
-      'Writers who can pass a strict application process',
-      'Specialists with expertise in specific niches',
-      'Those who prefer assigned work over pitching',
-      'Writers comfortable with ghostwriting (no bylines)',
-      'People building portfolios for better-paying gigs',
-      'NOT for those seeking reliable full-time income'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/oHFDNcszl0MjisQF0KgJ.png',
+    link: 'https://www.scripted.com/become-a-scripted-writer',
+    rate: '$15–$50+/hr',
+    description: 'Custom content solutions',
+    category: 'writing',
+    intro: '**Scripted** is a freelance writing platform that connects businesses with professional writers for blogs, web content, and marketing copy. Think of it like a private club for writers where clients post projects, and you can pick the ones that fit your skills.  \nIt’s designed for experienced content writers who want higher-paying, pre-vetted gigs without competing in a race-to-the-bottom bidding system.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Application process can be selective—strong portfolio required.', 'Work availability depends on niches (more demand in marketing/business topics).', 'Membership fee required (around $29/month), which may be a barrier.', 'Competition with other approved writers still exists.', 'Best suited for professionals, not beginners.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Professional writers with strong portfolios.', 'ADHD freelancers who thrive on clear, structured briefs.', 'Writers who dislike constant pitching or bidding.', 'People looking for ongoing, high-quality client work.']
   },
   'writeraccess': {
-    name: 'WriterAccess',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.writeraccess.com/',
-    rate: '$0.02–$0.10+/word',
-    description: 'AI-powered content marketplace connecting vetted writers with 40,000+ brands — star rating system determines pay and job access.',
-    category: 'freelance',
-    tldr: 'Boston-based content marketplace (founded 2010, acquired by Rock Content 2022) connecting 15,000+ vetted writers with 40,000+ clients including Microsoft, AAA & DraftKings. Star rating system (2–6 stars) determines pay: 2-star = $0.028/word, 6-star = $0.10+/word. Writers keep 70%, platform takes 30%. Twice-monthly PayPal payments. Native English speakers only (US, UK, Canada, Australia, Ireland, NZ, South Africa). AI disruption has reduced job availability.',
-    intro: '<strong>WriterAccess</strong> was founded in 2010 in Boston and acquired by Rock Content in 2022. It\'s one of the largest content marketplaces, connecting 15,000+ freelance writers with over 40,000 brands and agencies.\n\nThe platform uses an AI-powered matching system and star ratings (2–6 stars) to connect writers with appropriate jobs. Your star level determines both your per-word rate and which jobs you can access. Higher-rated writers get priority access to better-paying gigs through the "MatchMeUp" system.',
-    whyAdhd: [
-      'AI matches you with relevant jobs',
-      'Star system shows clear progression path',
-      'Multiple job types: Crowd, MatchMeUp, Casting Calls',
-      'Direct messaging with clients',
-      'Forum community for support (limited now)',
-      'WriterAccess Academy for skill building',
-      'Variety of content types to keep it interesting'
-    ],
-    standOut: [
-      '15,000+ vetted writers, 40,000+ clients',
-      'Big-name clients: Microsoft, AAA, DraftKings, MGM',
-      'AI-powered writer matching system',
-      'Star rating system (2–6 stars)',
-      '"Elite" badge for industry specialists',
-      'Multiple job types: Crowd, MatchMeUp, Casting Calls',
-      'Copyscape plagiarism check on all content',
-      'Money-back guarantee for clients',
-      'WriterAccess Academy training resources',
-      'On-demand withdrawal available',
-      'ID verification for all writers',
-      'Content Marketing Conference (CMC) access'
-    ],
-    importantNotes: [
-      'Platform takes 30% commission',
-      'Writers keep 70% of per-word rate',
-      'Native English speakers only (US, UK, Canada, AU, NZ, Ireland, SA)',
-      'Star levels can go DOWN based on performance',
-      'Algorithm tracks approvals, reviews, editor ratings',
-      'One-time assessment — can\'t retake if you score low',
-      'AI has significantly reduced job availability since 2023',
-      'Fierce competition for limited jobs',
-      'Low-star writers may earn below minimum wage',
-      'AI content checker causing writer frustration',
-      'Video interview required during application',
-      'PayPal account required'
-    ],
-    payoutInfo: [
-      '2-star: $0.028/word (~$28 per 1,000 words)',
-      '3-star: $0.04/word',
-      '4-star: $0.06/word',
-      '5-star: $0.08/word',
-      '6-star: $0.10+/word (up to $2+)',
-      'Pro marketplace: Negotiate flat rates or hourly',
-      'Writers receive 70% of displayed rate',
-      'Payment: Twice monthly via PayPal',
-      'Deadline: Usually by 7th–10th of month',
-      'On-demand withdrawals available',
-      'Clients must pre-fund escrow before work starts'
-    ],
-    taskTypes: [
-      'Blog posts and articles',
-      'Website copy',
-      'Product descriptions',
-      'Press releases',
-      'Email newsletters',
-      'Social media content',
-      'White papers',
-      'eBooks',
-      'Case studies',
-      'SEO content',
-      'Editing and proofreading',
-      'Translation (21 languages)',
-      'Content strategy'
-    ],
-    finalTake: '<strong>WriterAccess is a legitimate platform with real enterprise clients — but the 30% commission and star-gated pay make it challenging.</strong> At 2-star level, you\'re earning ~$2.80/hour if you write 100 words per hour. The math only works at higher star levels, which require consistent performance and client approval. AI disruption hit this platform hard in 2023 — jobs have decreased significantly. Best approach: Apply, nail the assessment to start at a higher star level, and use it as one income stream alongside direct clients.',
-    idealFor: [
-      'Native English speakers in approved countries',
-      'Writers with strong portfolios who can pass assessment',
-      'Those with industry expertise (legal, medical, finance, tech)',
-      'Freelancers seeking variety in content types',
-      'Writers building experience with enterprise brands',
-      'NOT for those seeking high hourly rates immediately'
-    ]
+    name: 'Writer Access',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jrkeq8izQRqzi3czUPvx.png',
+    link: 'https://www.writeraccess.com/talent-overview/',
+    rate: '$0.10–$1+ per word',
+    description: '20K+ writers, AI matching',
+    category: 'writing',
+    intro: '**WriterAccess** is a content marketplace that connects freelance writers, editors, and content strategists with businesses that need blogs, web copy, and marketing content. Think of it like a “content matchmaking hub” where clients request work and freelancers are matched by skill level.  \nIt’s designed for writers of all levels (beginner to pro) who want steady assignments without the stress of cold pitching clients.',
+    whyAdhd: ['Tiered writer levels (2–6 stars) = structured growth path.', 'Clear briefs and topic outlines reduce guesswork.', 'Wide variety of industries = novelty and variety for ADHD minds.', 'Dashboard organizes assignments and deadlines to reduce overwhelm.', 'Ability to set your availability = control over workload.'],
+    standOut: [],
+    importantNotes: ['Application approval can take time (they assess writing quality).', 'Pay rates depend heavily on your star rating.', 'Competition with other freelancers for open assignments.', 'Platform is U.S.-based, so some restrictions may apply for international writers.', 'Work volume can fluctuate depending on client demand.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Beginner to mid-level writers who want experience and steady gigs.', 'ADHD freelancers who need clear instructions and deadlines.', 'Writers who enjoy variety across industries.', 'Professionals looking to grow into higher-paying content work.']
   },
   'fiverr': {
     name: 'Fiverr',
     logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Tji9gPHOWc8JX0Fr7lI6.png',
     link: 'https://fiverr.com/',
-    rate: '$5–$10,000+/gig',
-    description: 'Create fixed-price gigs and let clients come to you. No bidding required.',
+    rate: '$5–$500+ per project',
+    description: '20% platform fee, project-based',
     category: 'freelance',
-    tldr: 'Create "gigs" with fixed prices — clients buy directly, no bidding. You keep 80% (Fiverr takes 20%). 3.6M+ buyers, 700+ categories. 14-day payment clearance.',
-    intro: '<strong>Fiverr</strong> flipped freelancing. Create service listings with set prices, clients buy directly. No proposals, no negotiations.\\n\\n3.6M active buyers, 160+ countries. $5 quick tasks to $10K+ projects. Fiverr Pro tier for vetted premium freelancers.',
-    whyAdhd: [
-      'No bidding or proposals — clients buy directly',
-      'Set your own prices and packages',
-      'Work when orders come in',
-      'Create multiple gigs for different services',
-      'Clear scope prevents scope creep',
-      'Repeat buyers = passive income potential'
-    ],
-    standOut: [
-      'No proposal writing — gigs sell themselves',
-      'Fixed pricing = no negotiations',
-      '700+ service categories',
-      'Mobile app for management',
-      'Fiverr Pro tier for premium freelancers',
-      'Payment held in escrow until delivery',
-      'Level system unlocks more features'
-    ],
-    importantNotes: [
-      '⚠️ Fiverr takes 20% of every sale (including tips)',
-      '14-day clearing period before withdrawal',
-      'New sellers start with limited visibility',
-      'Rating system is make-or-break',
-      'Some categories extremely saturated',
-      'Race-to-bottom pricing in some niches',
-      'Withdraw via PayPal, bank transfer, Payoneer'
-    ],
-    payoutInfo: [
-      'You keep 80% of each sale',
-      'Fiverr takes 20% commission (flat)',
-      '14-day clearance before withdrawal',
-      'Withdraw via PayPal, bank, Payoneer',
-      'All earnings in USD'
-    ],
+    intro: '**Fiverr** is a global freelancing marketplace where people sell digital services (called "gigs") starting at $5. Think of it like a digital job fair where you set up a booth and buyers come to hire you.  \nIt’s designed for freelancers, side hustlers, and creatives who want to make money online offering skills like writing, design, voice work, coding, and more.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Fiverr takes a 20% commission from each order.', 'The platform can feel competitive—standing out takes effort.', 'Buyers sometimes expect fast delivery at low prices.', 'Reviews are critical—one bad review can hurt sales.', 'Can be stressful if you overcommit or accept too many urgent gigs.'],
+    payoutInfo: [],
     taskTypes: [],
-    finalTake: '<strong>Ideal if you hate writing proposals and want clients to come to you.</strong> 20% fee is steep but you are paying for traffic. New sellers struggle until they build reviews — niche down, price low at first, raise rates once established.',
-    idealFor: [
-      'Designers and creatives',
-      'Writers and translators',
-      'Video/audio creators',
-      'Developers (small projects)',
-      'Anyone who hates proposals',
-      'Side hustlers testing skills'
-    ]
+    finalTake: '',
+    idealFor: ['ADHD creatives who thrive on novelty and fast turnarounds.', 'People wanting to test a skill for side income.', 'Freelancers who don’t want to chase clients—clients come to you.', 'Sellers who enjoy variety and juggling multiple small projects.']
   },
   'toptal': {
     name: 'Toptal',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.toptal.com/',
-    rate: '$60–$200+/hr',
-    description: 'Elite freelance network that only accepts the top 3% of applicants — high pay, premium clients, but extremely difficult to get in.',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/z6xQQ7MZhH05Jephsdwo.png',
+    link: 'https://toptal.com/',
+    rate: '$60–$150+/hr',
+    description: 'Elite 3% acceptance, premium clients',
     category: 'freelance',
-    tldr: 'Premium freelance network (founded 2010, fully remote company). Only 3% of applicants accepted after brutal 4-step screening. Set your own rate ($60-200+/hr), keep 100% — no platform fees taken from freelancers. Toptal adds markup on client side. Best for experienced developers, designers, finance experts, and PMs. Not for beginners.',
-    intro: '<strong>Toptal</strong> is the Ivy League of freelance platforms. The name literally means "Top Talent" and they\'re serious about it — only ~3% of applicants make it through their multi-week screening process.\n\nFounded in 2010 by Taso Du Val and Breanden Beneschott. Fully remote company with no headquarters. $200M+ annual revenue. Clients include Microsoft, Airbnb, Pfizer, and Salesforce. If you get in, you get access to premium projects at premium rates.',
-    whyAdhd: [
-      'Set your own schedule and hours',
-      'No bidding wars — matched to projects',
-      'Toptal handles all client acquisition',
-      'Payment guaranteed and on time',
-      'Long-term engagements common',
-      'Work with interesting clients/projects'
-    ],
-    standOut: [
-      'Only accepts top 3% of applicants',
-      'No platform fees for freelancers',
-      'You set your own rate',
-      'Toptal handles invoicing and billing',
-      'Full-time, part-time, or hourly options',
-      'Trial period protects both sides',
-      '93% client satisfaction with first match',
-      'Global network — work from anywhere'
-    ],
-    importantNotes: [
-      '⚠️ Extremely difficult to get accepted',
-      '4-step screening takes 2-5 weeks',
-      'Step 1: English/communication interview (26.4% pass)',
-      'Step 2: Timed technical skills test (7.4% pass)',
-      'Step 3: Live coding/problem-solving screen (3.6% pass)',
-      'Step 4: Test project 1-3 weeks (3.2% pass)',
-      'Need 2-3+ years professional experience minimum',
-      'Limited fields: developers, designers, finance, PM only',
-      'No creatives like writers, photographers, video editors',
-      'Toptal reviews/approves your rate changes',
-      'Some reviews mention opaque markup (up to 50%)',
-      'Can reapply if rejected (waiting period required)'
-    ],
-    payoutInfo: [
-      'You set your own hourly rate',
-      'Typical rates: $60–$200+/hour',
-      'Top freelancers: $50K–$234K+/year',
-      'Toptal takes $0 from your rate',
-      'Clients pay Toptal rate (your rate + markup)',
-      'Payment via Hyperwallet',
-      'Automated billing — always paid on time',
-      'Full-time (40 hrs), part-time (20 hrs), or hourly'
-    ],
-    categories: [
-      'Software developers/engineers',
-      'UI/UX designers',
-      'Finance experts',
-      'Project managers',
-      'Product managers',
-      'Management consultants'
-    ],
-    finalTake: '<strong>Toptal is the gold standard for high-earning freelancers — if you can get in.</strong> The screening is brutal (only 3% make it), but once you\'re in, you get premium clients, set your own rate, keep 100% of earnings, and Toptal handles all the business headaches. Not for beginners or anyone outside tech/design/finance. If you have 3+ years of solid experience and can pass algorithm tests under pressure, it\'s absolutely worth applying.',
-    idealFor: [
-      'Experienced developers (2-3+ years)',
-      'Senior designers with strong portfolios',
-      'Finance professionals',
-      'Project/product managers',
-      'Anyone who wants premium rates without client hunting',
-      'NOT for beginners or career changers'
-    ]
+    intro: '**Toptal** is a high-end freelancing platform that connects top-tier talent with big companies for specialized projects. Think of it like the “Ivy League” of freelancing.  \nIt’s designed for experienced developers, designers, finance experts, and project managers who want to work with premium clients on long-term, high-paying contracts.',
+    whyAdhd: ['Structured projects with clear client expectations (less ambiguity).', 'Fewer but higher-quality clients (less juggling compared to Fiverr).', 'Longer-term contracts reduce the need to constantly chase new work.', 'Remote-first environment = flexibility in how and where you work.', 'Big, meaningful projects can keep ADHD hyperfocus engaged for weeks or months.'],
+    standOut: [],
+    importantNotes: ['The screening process is intense and not ADHD-friendly if you struggle with tests or long application steps.', 'Only suited for highly skilled professionals (coding, design, finance, etc.).', 'Competitive to get in—many talented people don’t make it past screening.', 'Less variety than gig-based platforms (work tends to be more structured and corporate).', 'If you thrive on quick novelty, the long contracts may feel monotonous.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Senior-level developers, designers, or finance experts.', 'ADHD professionals who do better with fewer, high-value clients.', 'Freelancers who want long-term stability but still enjoy remote work.', 'People tired of low-paying gigs and ready for premium clients.']
   },
   'freelancer': {
-    name: 'Freelancer.com',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.freelancer.com/',
-    rate: 'Varies by project',
-    description: 'Massive bidding marketplace — post proposals on projects and compete for work. High volume, but race-to-bottom pricing is common.',
+    name: 'Freelancer',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zp6u2DdwP3cg0mFJxlSy.png',
+    link: 'https://freelancer.com/',
+    rate: '$10–$80+/hr',
+    description: 'Competitive bidding platform',
     category: 'freelance',
-    tldr: 'World\'s largest freelance marketplace by users (84M+ registered). Bid on projects, compete on price. You keep 90% (10% fee) or less with membership. Free members get limited bids. Contest feature lets you submit work speculatively. High volume but brutal competition.',
-    intro: '<strong>Freelancer.com</strong> is pure bidding warfare. Clients post jobs, freelancers submit proposals with price quotes, lowest bidder often wins. 84M+ users across 247 countries, 2,000+ skill categories.\n\nAustralian company (founded 2009, Sydney HQ). Publicly traded on ASX. Owns Escrow.com for payment security. Top categories: IT/software (34%), design (31%), writing (13%).',
-    whyAdhd: [
-      'Huge variety of project types',
-      'Work when you want',
-      'Small and large projects available',
-      'Contest mode = submit work, maybe win',
-      'Mobile app for bidding on-the-go',
-      'Milestone payments protect you'
-    ],
-    standOut: [
-      '84M+ registered users worldwide',
-      '2,000+ skill categories',
-      'Contest feature for design work',
-      'Escrow payment protection',
-      'Preferred Freelancer program (top 3%)',
-      'Time tracker for hourly work',
-      'Enterprise plan for steady work'
-    ],
-    importantNotes: [
-      '⚠️ 10% commission on earnings (or $5 min)',
-      'Free account = limited bids per month',
-      'Paid memberships for more bids/features',
-      'Brutal price competition — race to bottom',
-      'Many low-quality/scam postings to wade through',
-      'Contest work is speculative (might not win)',
-      'Disputes cost $5 or 5% per side',
-      'Upgrades (Featured, Urgent, NDA) add up fast',
-      'Reviews cite fake profiles and ghosting'
-    ],
-    payoutInfo: [
-      'You keep 90% (10% fee or $5 min)',
-      'Clients pay 3% fee on their end',
-      'Contest winners: 10% fee or $5',
-      'Milestone payments via escrow',
-      'Withdraw via PayPal, bank, Skrill',
-      'Paid memberships reduce fees slightly',
-      'XP rewards system (paid members only)'
-    ],
-    membershipTiers: [
-      'Free: Limited bids, basic features',
-      'Basic ($4.95/mo): 50 bids, basic skills',
-      'Plus ($9.95/mo): 100 bids, more features',
-      'Professional ($29.95/mo): 300 bids, priority',
-      'Premier ($59.95/mo): 1500 bids, lowest fees'
-    ],
-    categories: [
-      'IT & Software Development',
-      'Design & Creative',
-      'Writing & Content',
-      'Data Entry & Admin',
-      'Sales & Marketing',
-      'Engineering & Science',
-      'Legal & Finance'
-    ],
-    finalTake: '<strong>High volume but exhausting.</strong> You\'ll spend significant time writing proposals and competing on price with freelancers from lower cost-of-living countries. Best for: building initial portfolio, finding small quick gigs, or if you\'re willing to grind through the noise. The Preferred Freelancer program (top 3%) is worth aiming for — reduces the bidding chaos significantly.',
-    idealFor: [
-      'Beginners building a portfolio',
-      'Those willing to compete on price',
-      'Freelancers in lower-cost regions',
-      'People who like variety',
-      'NOT for those wanting premium rates'
-    ]
+    intro: '**Freelancer** is a global freelancing platform where clients post jobs and freelancers bid on them. Think of it like an online job board mixed with an auction.  \nIt’s designed for people with digital skills (writing, design, coding, marketing, admin work, etc.) who want to find short-term or long-term projects from clients worldwide.',
+    whyAdhd: ['Huge variety of projects to keep novelty-seekers engaged.', 'Flexible—you choose when and how much to work.', 'Built-in client pool (no need to cold pitch).', 'Clear task-based jobs instead of vague long-term commitments.', 'Good for experimenting with different types of work.'],
+    standOut: [],
+    importantNotes: ['Platform takes a 10% fee (or $5 minimum) on projects.', 'Very competitive—lots of freelancers bid low to win jobs.', 'Can be overwhelming with so many listings (filtering helps).', 'Some clients post vague or low-paying jobs—sorting through takes patience.', 'Premium membership unlocks more bids, but costs extra.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Beginners testing freelancing without committing to one niche.', 'ADHD folks who love variety and short, focused tasks.', 'Freelancers comfortable competing on bids.', 'People who want global access to clients.']
   },
   'amazonhandmade': {
     name: 'Amazon Handmade',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://sell.amazon.com/programs/handmade',
-    rate: 'You set prices (keep 85%)',
-    description: 'Amazon\'s marketplace for artisans. 15% referral fee per sale, but NO listing fees and NO monthly fee for approved sellers. Access to 300M+ Amazon shoppers.',
-    category: 'creative',
-    tldr: 'Sell handcrafted products to Amazon\'s 300M+ customers. Flat 15% fee per sale — no listing fees, no monthly subscription (waived for approved sellers, saving $480/year). Stricter than Etsy: application required, handmade only (no vintage, no digital, no print-on-demand). Can use FBA for fulfillment. Higher fee than Etsy but simpler structure and massive audience.',
-    intro: '<strong>Amazon Handmade</strong> gives artisans access to Amazon\'s enormous customer base while keeping the marketplace exclusive to genuine handcrafted goods. Unlike regular Amazon, you must apply and be approved — this filters out mass-produced competition.\n\nThe 15% fee is higher than Etsy\'s ~10%, but there are no listing fees, no payment processing fees, and no monthly subscription. One simple fee structure. Best for artisans who can produce consistent inventory and want Prime-eligible exposure.',
-    whyAdhd: [
-      'ONE fee (15%) — no mental math juggling multiple charges',
-      'No listing fees = list as many items as you want',
-      'FBA option = Amazon handles shipping/returns',
-      'Huge built-in traffic — less marketing work',
-      'Customizable storefront to tell your story',
-      'Application process filters out competition',
-      'Prime badge attracts impulse buyers'
-    ],
-    standOut: [
-      '300+ million Amazon customers',
-      'Flat 15% fee — no listing or payment fees',
-      '$39.99/month subscription WAIVED for approved sellers',
-      'FBA (Fulfillment by Amazon) available',
-      'Prime eligibility for faster sales',
-      'Artisan-only marketplace (strict approval)',
-      'Customizable maker profile and storefront',
-      'Sponsored ads and marketing tools',
-      'Global expansion to other Amazon regions'
-    ],
-    importantNotes: [
-      'Application required — must prove items are handmade',
-      '15% referral fee on total sale (including shipping)',
-      'Minimum $1 fee per item',
-      'NO digital products allowed',
-      'NO vintage items allowed',
-      'NO print-on-demand allowed',
-      'Must be made by you or your small team',
-      'First month $39.99, then waived after approval',
-      'FBA adds additional fees if used',
-      'Higher margins needed (~40%+) to be profitable'
-    ],
-    payoutInfo: [
-      'Referral fee: 15% of total sale price',
-      'Minimum fee: $1 per item',
-      'NO listing fees (unlimited free listings)',
-      'NO payment processing fees',
-      'NO monthly fee (waived after approval)',
-      'Example $50 item + $8 shipping = $8.70 fee',
-      'You keep: ~85% of each sale',
-      'FBA fees: Additional if you use fulfillment',
-      'Payment: 3-5 days after shipment confirmation',
-      'Deposits to bank account'
-    ],
-    taskTypes: [
-      'Handcrafted jewelry',
-      'Handmade home décor',
-      'Artisan clothing and accessories',
-      'Custom/personalized items (via Amazon Custom)',
-      'Hand-altered or upcycled products',
-      'Handmade beauty and personal care',
-      'Artwork and sculptures',
-      'Handcrafted furniture'
-    ],
-    finalTake: '<strong>Best for artisans who want massive exposure and can handle 15% fees.</strong> The fee is higher than Etsy, but the structure is simpler (one fee, no listing costs) and you get access to 300M+ Amazon shoppers. The application process keeps out mass-produced junk. NOT for digital products, vintage, or print-on-demand — strictly handmade only. Works best for products priced $25-75+ with healthy margins. Consider using both Amazon Handmade AND Etsy for maximum reach.',
-    idealFor: [
-      'Artisans making genuine handcrafted products',
-      'Sellers who want Prime badge and FBA fulfillment',
-      'Those who can maintain 40%+ profit margins',
-      'Makers with consistent, repeatable product lines',
-      'NOT for digital products or downloads',
-      'NOT for vintage or craft supplies',
-      'NOT for print-on-demand sellers'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/vXq9tx9PrQnlM3UYpxcQ.png',
+    link: 'https://amzn.to/4iuPkoW',
+    rate: '',
+    description: 'Amazon\'s dedicated marketplace for artisans to sell their handmade products.',
+    category: 'handmade',
+    intro: '**Amazon Handmade** is Amazon’s marketplace for artisans who create handcrafted goods. Think of it like Etsy, but inside the Amazon ecosystem.  \nIt’s designed for makers, crafters, and small creative businesses who want to sell unique, handmade products while tapping into Amazon’s huge customer base.',
+    whyAdhd: ['Creative outlet – making things by hand can be stimulating and rewarding.', 'Built-in audience – no need to stress over building traffic from scratch.', 'Clear structure – Amazon handles the listing format, shipping labels, and checkout.', 'Hyperfocus-friendly – when you get in the zone making products, it pays off.', 'Less overwhelming than running a full independent store – Amazon provides the backbone.'],
+    standOut: [],
+    importantNotes: ['The application process can be strict and not all sellers are approved.', 'Amazon takes a 15% referral fee on each sale.', 'You need strong product photos and descriptions to stand out.', 'Competition is tough, especially with Etsy and other handmade sellers.', 'Managing inventory and shipping can become stressful if you scale quickly.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Artists and crafters who already sell locally and want to expand online.', 'People with ADHD who thrive on creative, hands-on work.', 'Sellers who want access to Amazon’s customer trust and traffic.', 'Makers who are okay with Amazon’s fee structure in exchange for exposure.']
   },
   'shopify': {
     name: 'Shopify',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/btCVM7WHtPjyDkOzTYM9.png',
     link: 'https://www.shopify.com/',
-    rate: 'You keep 97-100% (minus fees)',
-    description: 'Build your own online store. Monthly plans from $5-$399. Transaction fees 2.4-2.9% + 30¢ with Shopify Payments. Full control over branding and customer experience.',
-    category: 'creative',
-    tldr: 'Build and own your own ecommerce store. Plans: Starter $5/mo (social selling only), Basic $39/mo (full store), Grow $105/mo, Advanced $399/mo. Credit card fees: 2.4-2.9% + 30¢ depending on plan. NO transaction fees if using Shopify Payments. Extra fees if using third-party payment processors (0.6-2%). 3-day free trial, then $1/mo for first 3 months. You own your store, your brand, your customer list.',
-    intro: '<strong>Shopify</strong> lets you build your own branded online store instead of selling on someone else\'s marketplace (like Etsy or Amazon). You control everything: design, pricing, customer data, marketing.\n\nThe tradeoff: you have to drive your own traffic. No built-in audience like Etsy. But you keep more profit, own your customer relationships, and aren\'t subject to marketplace algorithm changes. Best for serious sellers ready to build a brand.',
-    whyAdhd: [
-      'Drag-and-drop store builder — no coding needed',
-      'Tons of templates to start with',
-      'Integrates with print-on-demand (Printify, Printful)',
-      'One dashboard for everything',
-      'Can automate a LOT with apps',
-      'Shopify handles hosting, security, payments',
-      '$1/month for first 3 months = low risk to try',
-      'Mobile app to manage store on the go'
-    ],
-    standOut: [
-      'Own your store and brand completely',
-      'Own your customer list and data',
-      'No marketplace fees eating into profits',
-      'Professional checkout (15% better conversion than competitors)',
-      'Sell everywhere: website, social, in-person (POS)',
-      'Massive app ecosystem (8,000+ apps)',
-      'Print-on-demand integrations built in',
-      'Dropshipping friendly',
-      'Scale from side hustle to enterprise'
-    ],
-    importantNotes: [
-      'Monthly fee required (starts $5, full store $39)',
-      'YOU drive traffic — no built-in marketplace audience',
-      'Credit card fees: 2.4-2.9% + 30¢ per transaction',
-      'Extra 0.6-2% fee if NOT using Shopify Payments',
-      'Shopify Payments not available in all countries',
-      'Apps can add up fast ($10-100+/mo each)',
-      'Premium themes cost $100-350 (free themes available)',
-      'Domain costs extra (~$14/year)',
-      'Learning curve for beginners'
-    ],
-    payoutInfo: [
-      'Starter: $5/mo (social selling only, 5% transaction fee)',
-      'Basic: $39/mo (2.9% + 30¢ online, 2% third-party fee)',
-      'Grow: $105/mo (2.6% + 30¢ online, 1% third-party fee)',
-      'Advanced: $399/mo (2.4% + 30¢ online, 0.6% third-party fee)',
-      'Plus: $2,300+/mo (enterprise)',
-      'NO transaction fees with Shopify Payments',
-      'Annual billing = 25% discount',
-      'First 3 months = $1/month promo',
-      'Payouts: 1-3 business days with Shopify Payments'
-    ],
-    taskTypes: [
-      'Physical products (handmade, wholesale, dropship)',
-      'Digital products and downloads',
-      'Print-on-demand merchandise',
-      'Dropshipping business',
-      'Subscription boxes',
-      'Services and bookings',
-      'In-person sales (Shopify POS)',
-      'B2B wholesale'
-    ],
-    finalTake: '<strong>Best for building a real brand you own — but requires marketing effort.</strong> Unlike Etsy/Amazon, you\'re not renting space in someone else\'s marketplace. You own everything: store, customers, data. The flip side: you must drive your own traffic through ads, social media, SEO, etc. Monthly fees + credit card fees are reasonable. Great for serious sellers who want control and are willing to learn marketing. Start with the $1/month promo to test it out.',
-    idealFor: [
-      'Sellers wanting to build their own brand',
-      'Print-on-demand and dropshipping businesses',
-      'Those already with an audience (social media, YouTube)',
-      'Serious sellers who will invest in marketing',
-      'NOT for those wanting instant traffic',
-      'NOT ideal if you hate marketing/advertising',
-      'NOT for testing ideas (use Etsy first)'
-    ]
+    rate: '',
+    description: 'Create your own online store and sell handmade products directly to customers.',
+    category: 'handmade',
+    intro: '**Shopify** is an all-in-one platform to build and run your own online store. Think of it like renting a digital storefront where you control everything.  \nIt’s designed for entrepreneurs, crafters, and small businesses who want to sell products online without relying only on marketplaces like Amazon or Etsy.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Monthly subscription fee (starting around $39/month after trial).', 'You’re responsible for marketing and driving traffic—Shopify doesn’t bring customers.', 'Can feel overwhelming at first with all the options and apps.', 'Add-on costs for apps and themes can add up quickly.', 'Requires consistent effort to maintain and grow.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Creatives who want to design a unique online store.', 'Entrepreneurs who want to build a long-term brand.', 'ADHD folks who thrive on novelty and flexibility.', 'Sellers tired of high marketplace fees and wanting more control.']
   },
   'bigcartel': {
     name: 'Big Cartel',
     logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ewYZW2h7UsgFBwovET4X.png',
     link: 'https://www.bigcartel.com/',
-    rate: 'Free up to 5 products; paid plans expand listings (small monthly fee)',
-    description: 'Tiny, artist-focused storefronts for creators who want a simple, low-cost site without the complexity of bigger platforms.',
+    rate: '',
+    description: 'Ideal for small-scale creators to showcase and sell handmade goods.',
     category: 'handmade',
-    tldr: 'Artist-friendly storefronts — minimal features, minimal fuss. Great for small catalogs and creators who want a lightweight shop.',
     intro: '**Big Cartel** is a simple e-commerce platform made for artists and small creators who want to sell their work online. Think of it like a tiny art gallery where you get your own wall to hang things up.  \nIt’s designed for makers, musicians, and indie brands who want an easy, low-cost way to sell without the complexity of bigger platforms like Shopify.',
-    whyAdhd: [
-      'Extremely simple setup — get selling quickly',
-      'Less to configure reduces overwhelm',
-      'Good for small catalogs and occasional sellers',
-      'Clean UI makes managing orders straightforward'
-    ],
-    standOut: [
-      'Free tier for tiny shops (up to 5 products)',
-      'Minimal UI and straightforward pricing',
-      'Designed specifically for artists and indie brands',
-      'No heavy app ecosystem to wade through'
-    ],
-    importantNotes: [
-      'Limited features compared to Shopify (no app marketplace)',
-      'Free plan restricts number of listings',
-      'You must drive your own traffic — no marketplace exposure',
-      'Not ideal if you plan to scale rapidly'
-    ],
-    payoutInfo: [
-      'Payments handled via Stripe or PayPal depending on setup',
-      'No marketplace commission — you pay payment processor fees only',
-      'Billing cadence depends on chosen payment gateway'
-    ],
-    taskTypes: [
-      'Listing a small number of handmade items',
-      'Order management and simple fulfillment',
-      'Occasional marketing via social or email'
-    ],
-    finalTake: 'Big Cartel is perfect as a tiny, low-maintenance shop for artists who don\'t want to manage lots of apps or complex settings. Use it when you have a small catalog and prefer simplicity over features.',
-    idealFor: ['Artists selling a handful of pieces', 'Makers who prioritize simplicity', 'Bands and creators selling limited-run merchandise']
-  },
-  'big-cartel': {
-    name: 'Big Cartel',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.bigcartel.com/',
-    rate: 'You keep 100% (minus payment fees)',
-    description: 'Simple, affordable store builder for artists and makers. FREE plan for up to 5 products. No transaction fees — only pay Stripe/PayPal processing. Paid plans $9.99-$19.99/mo.',
-    category: 'creative',
-    tldr: 'The simplest, cheapest way for artists to sell online. FREE forever plan (5 products). Paid plans: Platinum $9.99/mo (50 products), Diamond $19.99/mo (500 products). NO platform transaction fees — Big Cartel never takes a cut. You only pay payment processor fees (Stripe 2.9% + $0.30 or PayPal 2.99% + $0.49). 20 years old, $2.5B+ in sales processed. Built by artists, for artists.',
-    intro: '<strong>Big Cartel</strong> is the anti-Shopify — designed for artists, makers, and small sellers who want simple and cheap, not powerful and complex. No marketplace fees, no transaction fees, no hidden costs.\n\nThe free plan actually lets you sell (unlike most "free trials"). Perfect for testing an idea, selling merch, or running a small art shop without the overhead of bigger platforms. You will outgrow it eventually, but it\'s the best starting point for creators on a budget.',
-    whyAdhd: [
-      'Dead simple — minimal features means less overwhelm',
-      'FREE plan that actually works (not just a trial)',
-      'Set up a store in minutes, not hours',
-      'No complex dashboards or settings',
-      'Mobile app to manage orders on the go',
-      'Flat monthly fee = predictable costs',
-      'No inventory tracking stress on free plan (manual)',
-      'Built for artists, not tech people'
-    ],
-    standOut: [
-      'FREE forever plan (5 products)',
-      'NO platform transaction fees ever',
-      'Flat monthly pricing — no surprises',
-      'Built by artists for artists (20 years)',
-      '$2.5 billion+ in sales processed',
-      'All themes are free',
-      'Mobile POS for in-person sales (markets, events)',
-      'Supports Stripe, PayPal, Venmo, Afterpay',
-      'Abandoned cart recovery (paid plans)',
-      'Discounted shipping labels'
-    ],
-    importantNotes: [
-      'Gold (Free): 5 products, 1 image per product, no custom domain',
-      'Platinum ($9.99/mo): 50 products, 5 images, custom domain, inventory tracking',
-      'Diamond ($19.99/mo): 500 products, priority support',
-      'Payment processing: Stripe 2.9% + $0.30 or PayPal 2.99% + $0.49',
-      'YOU drive traffic — no built-in marketplace',
-      'Limited features compared to Shopify',
-      'No app store — what you see is what you get',
-      'Free plan lacks Google Analytics, discount codes, inventory tracking',
-      'Limited theme customization without coding'
-    ],
-    payoutInfo: [
-      'Gold (Free): $0/month, 5 products',
-      'Platinum: $9.99/month, 50 products',
-      'Diamond: $19.99/month, 500 products',
-      'Annual discount available (~$12/mo Platinum, ~$24/mo Diamond)',
-      'NO Big Cartel transaction fees on any plan',
-      'Stripe: 2.9% + $0.30 per transaction',
-      'PayPal: 2.99% + $0.49 per transaction',
-      'Example $1,000 in sales (20 orders): ~$35 total fees',
-      'Payouts through Stripe/PayPal (1-3 days)'
-    ],
-    taskTypes: [
-      'Art prints and original artwork',
-      'Handmade goods and crafts',
-      'Clothing and apparel',
-      'Jewelry and accessories',
-      'Band merchandise',
-      'Limited edition drops',
-      'Stickers and small goods',
-      'In-person sales at markets/events'
-    ],
-    finalTake: '<strong>Best free/cheap option for artists who want simple.</strong> Big Cartel won\'t scale to a massive business, but that\'s not the point. It\'s for creators who want to sell a few things without complexity or high fees. The free plan is genuinely usable (rare!). Platinum at $9.99/mo is the sweet spot — unlocks everything most small sellers need. No transaction fees means you keep more than on Etsy. You\'ll eventually outgrow it, but it\'s the perfect starting point for artists testing the waters.',
-    idealFor: [
-      'Artists selling prints, originals, or merchandise',
-      'Makers with small product catalogs',
-      'Musicians selling band merch',
-      'Creators who want simple over powerful',
-      'Side hustlers testing product ideas',
-      'NOT for large catalogs (500+ products)',
-      'NOT for complex businesses needing integrations',
-      'NOT if you need built-in marketplace traffic'
-    ]
+    whyAdhd: ['Minimal setup – fewer options = less decision fatigue.', 'Free plan available (great for testing ideas without pressure).', 'Clean, uncluttered dashboard makes it easy to focus.', 'Great for small catalogs (no need to manage hundreds of products).', 'Low-maintenance – no need for constant tinkering or expensive apps.'],
+    standOut: [],
+    importantNotes: ['The free plan only allows up to 5 products.', 'Limited features compared to Shopify (no app marketplace, fewer integrations).', 'You’ll still need to bring your own traffic (Big Cartel doesn’t market for you).', 'Not ideal if you want to scale into a big e-commerce business.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Artists selling a handful of pieces.', 'ADHD folks who want low-pressure, low-maintenance selling.', 'Musicians and bands needing a simple merch store.', 'Makers who value simplicity over endless customization.']
   },
   'folksy': {
     name: 'Folksy',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://folksy.com/selling',
-    rate: 'You set prices (keep ~90%)',
-    description: 'UK\'s largest handmade marketplace — British-made crafts only, no vintage or reselling allowed.',
-    category: 'creative',
-    tldr: 'UK-only handmade marketplace with 200K+ monthly visitors. Free to join, 3 free listings, then £0.18/listing + 7.2% commission (inc. VAT). Folksy Plus: £7.50/mo for unlimited listings. PayPal or Stripe payments. Supportive community, no mass-produced competition. Best for UK-based artisans and makers.',
-    intro: '<strong>Folksy</strong> is the UK\'s largest online marketplace dedicated exclusively to handmade and original craft. Founded in 2008 in Sheffield, it hosts over 13,000 independent designers and makers.\n\nUnlike Etsy, Folksy doesn\'t allow vintage items or reselling — everything must be handmade or designed by UK-based sellers. This keeps the marketplace focused and free from mass-produced competition.',
-    whyAdhd: [
-      'Simple shop setup — get started quickly',
-      'Supportive community with forums and Facebook groups',
-      'No overwhelming competition from mass-produced items',
-      'Set your own prices and schedule',
-      'Instant payments to your PayPal/Stripe',
-      'Listings last 4 months (longer than Etsy)'
-    ],
-    standOut: [
-      'UK-only sellers — no international competition',
-      'Handmade only — no vintage or reselling',
-      '200,000+ monthly visitors',
-      '50K+ newsletter subscribers',
-      '440K+ social media followers',
-      'Free seller handbook and "Make It Sell" course',
-      'Trusted Suppliers Directory for materials',
-      'Local Teams and community support',
-      'Payments go directly to your account'
-    ],
-    importantNotes: [
-      'UK-based sellers only',
-      'First 3 listings free, then £0.18 + VAT per listing',
-      '6% + VAT commission (7.2% total) on all sales',
-      'Folksy Plus: £7.50/mo or £75/year for unlimited listings',
-      'Commission still applies on Plus plan',
-      'PayPal processing: 2.9% + 30p per transaction',
-      'Stripe processing: 1.4-2.9% + 20p per transaction',
-      'Less traffic than Etsy — more marketing effort needed',
-      'Listings expire after 120 days (4 months)',
-      'No promoted listings or advertising options'
-    ],
-    payoutInfo: [
-      'Listing fee: £0.18 + VAT (per item quantity)',
-      'Commission: 6% + VAT (7.2% total) on sale price',
-      'Folksy Plus: £7.50/mo (unlimited listings)',
-      'Annual Plus: £75/year (2 months free)',
-      'PayPal fee: 2.9% + 30p per transaction',
-      'Stripe fee: 1.4-2.9% + 20p per transaction',
-      'Total fees ~10-13% per sale (keep ~87-90%)',
-      'Monthly billing on 1st of each month',
-      'Bills under £2 roll over to next month'
-    ],
-    taskTypes: [
-      'Handmade goods — jewellery, ceramics, textiles',
-      'Original art — paintings, prints, illustrations',
-      'Craft supplies — materials for other makers',
-      'Custom/personalized items',
-      'Designed products (UK-designed)',
-      'NO vintage, NO reselling, NO digital products'
-    ],
-    finalTake: '<strong>Folksy is the UK\'s answer to Etsy — smaller but more focused.</strong> The handmade-only policy means no competing with mass-produced imports. Fees are competitive (~10-13% total), and the community is genuinely supportive. The catch: less traffic means you\'ll need to drive your own customers. Best as a complement to Etsy or your own website, not your only sales channel.',
-    idealFor: [
-      'UK-based makers and artisans',
-      'Crafters wanting a supportive community',
-      'Sellers tired of competing with mass-produced items',
-      'Anyone wanting to "shop local" positioning',
-      'NOT for non-UK sellers or vintage/resale'
-    ]
-  },
-  'carecom': {
-    name: 'Care.com',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.care.com/enroll-care-provider',
-    rate: '$15–$25/hr',
-    description: 'The largest caregiving marketplace — babysitting, senior care, pet sitting, housekeeping, and tutoring.',
-    category: 'services',
-    tldr: 'Largest caregiving marketplace with 11M+ caregiver profiles. Caregivers: Free to join but $24.99/year background check required. Premium membership ($8.99/mo) waives check and boosts visibility. Average rates: $15-25/hr. Up to 10% service fee on direct bookings. Mixed reviews but massive client base.',
-    intro: '<strong>Care.com</strong> is the industry leader in caregiving services, connecting families with caregivers for childcare, senior care, pet care, housekeeping, and tutoring. Founded in 2006, they\'ve facilitated millions of care connections.\n\nAs a caregiver, you set your own rates and hours. Care.com provides the platform, background checks, and safety tools. They also offer HomePay for tax and payroll management.',
-    whyAdhd: [
-      'Set your own hours and rates',
-      'Choose which clients to work with',
-      'Variety of care types — switch it up',
-      'Local work — minimal commute options',
-      'Build ongoing relationships with families',
-      'Mobile app for easy management'
-    ],
-    standOut: [
-      '11M+ caregiver profiles nationwide',
-      'Largest care marketplace in the US',
-      'Multiple care categories (child, senior, pet, house)',
-      'Background check builds trust with families',
-      'Set your own rates',
-      'Direct family relationships',
-      'Mobile app available',
-      'Optional payroll services (HomePay)'
-    ],
-    importantNotes: [
-      'Required: CareCheck background check (~$24.99/year)',
-      'Premium membership: $8.99/mo (waives check fee)',
-      'Up to 10% service fee on direct bookings',
-      'FTC fined Care.com $8.5M in 2024 for deceptive practices',
-      'Auto-renewal complaints are common',
-      'Not all job listings are active/current',
-      'Families pay $12.95-$38.95/mo for Premium access',
-      'You\'re an independent contractor — handle your own taxes',
-      'Care.com does NOT verify caregiver credentials themselves',
-      'Competition can be fierce in some areas'
-    ],
-    payoutInfo: [
-      'Average caregiver rate: $15–$25/hr',
-      'Babysitters: $18–$25/hr average',
-      'Senior caregivers: $16–$24/hr average',
-      'Pet sitters: $15–$20/hr average',
-      'You set your own rates',
-      'Direct bookings: up to 10% service fee',
-      'Background check: ~$24.99/year',
-      'Premium: $8.99/mo (waives check, boosts profile)',
-      'Payment handled between you and family',
-      'Optional: HomePay for payroll management'
-    ],
-    taskTypes: [
-      'Babysitting — full-time, part-time, date nights',
-      'Nannying — ongoing childcare',
-      'Senior care — companionship, assistance, medical',
-      'Pet sitting — dog walking, overnight care',
-      'Housekeeping — cleaning, organizing',
-      'Tutoring — academic subjects',
-      'Special needs care',
-      'Newborn care and postpartum support'
-    ],
-    finalTake: '<strong>Care.com is the 800-pound gorilla of caregiving.</strong> The platform is huge — 11M+ caregivers — which means lots of competition but also lots of families looking for help. The background check requirement builds trust but adds cost. Mixed reviews due to FTC issues and aggressive billing practices. Worth joining for the client base, but read the fine print on auto-renewals.',
-    idealFor: [
-      'Experienced caregivers wanting consistent work',
-      'Anyone offering child, senior, pet, or house care',
-      'People who want to set their own rates and hours',
-      'Those comfortable with background checks',
-      'NOT for those avoiding subscription fees'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kkiMUUFxv2vhogMosyDK.png',
+    link: 'https://folksy.com/',
+    rate: '',
+    description: 'Focused on handmade goods, mostly for UK-based sellers.',
+    category: 'handmade',
+    intro: '**Folksy** is the UK’s marketplace for handmade crafts and art. Think of it like the British cousin of Etsy, but smaller and more community-focused.  \nIt’s designed for UK-based makers, designers, and crafters who want to sell their creations in a space dedicated to handmade (no mass-produced resellers allowed).',
+    whyAdhd: ['Smaller marketplace = less competition and overwhelm.', 'Focused only on handmade items (no clutter from dropshippers or mass sellers).', 'Clear, simple listing process with fewer distractions.', 'Community feel—more supportive and less corporate.', 'Great for novelty-seeking ADHD minds who enjoy making unique, creative products.'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['UK-based artists and crafters.', 'ADHD folks who get overwhelmed by big marketplaces.', 'Makers who want to test selling handmade products online.', 'Creators who value community over scale.']
   },
   'etsy': {
     name: 'Etsy',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.etsy.com/sell',
-    rate: 'You set prices (keep ~80-87%)',
-    description: 'Marketplace for handmade, vintage, and digital products. ~97M active buyers. Fees: $0.20 listing + 6.5% transaction + ~3.25% payment processing.',
-    category: 'creative',
-    tldr: 'Sell handmade goods, vintage items, digital downloads, and print-on-demand products to 97M+ buyers. Fees total ~10-13% per sale: $0.20 listing fee + 6.5% transaction fee + 3% + $0.25 payment processing. Offsite Ads fee (12-15%) kicks in if ads drive your sale. No monthly fee required. Listings last 4 months then auto-renew ($0.20). Digital products = near-zero cost, pure profit after fees.',
-    intro: '<strong>Etsy</strong> is the go-to marketplace for handmade, vintage, craft supplies, and digital downloads. Unlike creating your own store, you get instant access to 97 million active buyers already searching for unique products.\n\nFees are straightforward but add up: expect to keep ~80-87% of each sale after all fees. Digital products (printables, templates, fonts) have the highest margins since there\'s no shipping or material cost.',
-    whyAdhd: [
-      'Sell digital products = make once, sell forever',
-      'No need to build your own website',
-      'Buyers come to YOU (built-in traffic)',
-      'Can start with just one listing',
-      'Print-on-demand = no inventory to manage',
-      'Dopamine hit every time you make a sale',
-      'Creative outlet that pays',
-      'Work on your own schedule'
-    ],
-    standOut: [
-      '97 million active buyers',
-      'Built-in search traffic (no marketing required to start)',
-      'Digital products allowed (instant delivery)',
-      'Print-on-demand integrations (Printful, Printify)',
-      'No monthly fee to sell',
-      'Trusted platform = buyer confidence',
-      'Global marketplace',
-      'Low barrier to entry ($0.20 to list)'
-    ],
-    importantNotes: [
-      'Listing fee: $0.20 per listing (lasts 4 months)',
-      'Transaction fee: 6.5% of sale + shipping',
-      'Payment processing: 3% + $0.25 (US)',
-      'Offsite Ads: 12-15% if ad drives sale (mandatory if earning $10K+/year)',
-      'Fees apply to shipping charges too',
-      'Listings auto-renew at $0.20 every 4 months',
-      'Each sale from multi-quantity listing = another $0.20',
-      'High competition — SEO and photos matter',
-      'Etsy Plus optional: $10/mo for extra features'
-    ],
-    payoutInfo: [
-      'You keep: ~80-87% after all fees',
-      'Listing fee: $0.20 per item',
-      'Transaction fee: 6.5% of total order',
-      'Payment processing (US): 3% + $0.25',
-      'Example $100 sale: ~$9.95 in fees, you keep ~$90',
-      'Offsite Ads fee: 15% (under $10K/yr) or 12% (over $10K/yr)',
-      'Currency conversion: 2.5% if applicable',
-      'Deposits: Automatic to bank account',
-      'Average seller income: ~$1,236/year (2024)'
-    ],
-    taskTypes: [
-      'Handmade products (jewelry, art, crafts)',
-      'Digital downloads (printables, templates, fonts)',
-      'Vintage items (20+ years old)',
-      'Craft supplies',
-      'Print-on-demand products',
-      'Custom/personalized items',
-      'Patterns and tutorials',
-      'Digital art and graphics'
-    ],
-    finalTake: '<strong>Best marketplace for creative products with built-in buyers.</strong> You don\'t have to drive traffic — 97M buyers are already there. Fees (~10-13%) are reasonable for the exposure. Digital products have the best margins (no shipping, no materials). Competition is fierce, so good photos and SEO matter. Great for ADHD because you can start small, work your own schedule, and get instant feedback from sales.',
-    idealFor: [
-      'Artists and crafters selling handmade goods',
-      'Designers selling digital downloads',
-      'Anyone with print-on-demand products',
-      'Vintage collectors and resellers',
-      'Creators who want built-in traffic',
-      'NOT for those wanting passive income without effort',
-      'NOT ideal if you hate photography/listing optimization'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/pvvTqqHXOWCv5aaHVeWe.jpg',
+    link: 'https://etsy.com/',
+    rate: '',
+    description: 'Etsy is a global marketplace for handmade, vintage, and creative goods.',
+    category: 'handmade',
+    intro: '**Etsy** is a global online marketplace for handmade items, vintage goods, and craft supplies. Think of it like a giant virtual craft fair where shoppers browse creative, unique products.  \nIt’s designed for artists, makers, and small business owners who want to sell their products to a worldwide audience without building a full website.',
+    whyAdhd: ['Creative freedom—you can sell art, crafts, jewelry, digital downloads, and more.', 'Clear structure—Etsy provides listing templates, checkout, and shipping tools.', 'Built-in audience—millions of buyers already shop on Etsy.', 'Great for hyperfocus projects (making and perfecting products).', 'Low barrier to entry—easy to set up a shop in a day.'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Artists and crafters who want to sell globally.', 'ADHD creatives who love making and experimenting.', 'Sellers who prefer a ready-made marketplace over building a website.', 'People testing a side hustle before growing into a full business.']
   },
   'printify': {
     name: 'Printify',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://printify.com/',
-    rate: 'You set prices (aim for 40%+ margin)',
-    description: 'Print-on-demand platform — create custom products, they handle printing and shipping. Free plan available. No inventory, no upfront costs. Pay only when you sell.',
-    category: 'creative',
-    tldr: 'Design custom products (t-shirts, mugs, hoodies, etc.) and sell them — Printify handles printing, packing, and shipping. FREE plan with all features. Premium ($29/mo) gives 20% off all products. No inventory, no upfront costs. You pay base product cost + shipping only AFTER a sale. Aim for 40-50% profit margins. Integrates with Etsy, Shopify, Amazon, eBay, etc.',
-    intro: '<strong>Printify</strong> lets you create and sell custom products without inventory, equipment, or shipping headaches. You design it, they make it and ship it directly to your customer.\n\nIt\'s truly zero upfront cost — you only pay when someone orders. Product costs range from ~$7-27 for t-shirts depending on quality/provider. The key to profitability is pricing correctly: aim for 40%+ profit margins after all costs.',
-    whyAdhd: [
-      'ZERO inventory to manage — nothing to store or ship',
-      'No upfront costs — pay only when you make a sale',
-      'Quick to start — design and list products in minutes',
-      'Multiple print providers = flexibility if one is slow',
-      'Integrates with stores you already use (Etsy, Shopify)',
-      'Mockup generator makes products look professional instantly',
-      'Can test ideas without financial risk',
-      'Automates the boring stuff (fulfillment, shipping)'
-    ],
-    standOut: [
-      'FREE plan with full features',
-      '900+ customizable products',
-      'Multiple print providers per product (compare prices/quality)',
-      'Up to 20% product discounts with Premium ($29/mo)',
-      'Integrates with Etsy, Shopify, Amazon, eBay, WooCommerce',
-      'Global print network = faster shipping worldwide',
-      'AI design tools and mockup generator',
-      'Automatic order routing',
-      'Express shipping options'
-    ],
-    importantNotes: [
-      'You pay: Base product cost + shipping per order',
-      'T-shirts typically $7-27 depending on brand/provider',
-      'Shipping costs vary by location and speed',
-      'Sales platform fees are separate (Etsy, Shopify, etc.)',
-      'Quality varies by print provider — order samples first',
-      'Aim for 40-50% profit margin minimum',
-      'Premium plan ($29/mo) = 20% off all products',
-      'You handle customer service and marketing',
-      'Printify doesn\'t print directly — uses partner network'
-    ],
-    payoutInfo: [
-      'Free plan: $0/month, all features included',
-      'Premium plan: $29/month (or $24.99/mo annual)',
-      'Premium benefit: Up to 20% off all products',
-      'Enterprise: Custom pricing for high volume',
-      'Product costs: ~$7-27 for t-shirts',
-      'You set retail price and keep the difference',
-      'Example: $10 shirt cost + $5 shipping = $15 cost',
-      'Sell at $30 = $15 profit (50% margin)',
-      'Payments: Through your sales channel (Etsy, Shopify, etc.)'
-    ],
-    taskTypes: [
-      'Custom t-shirts and apparel',
-      'Mugs and drinkware',
-      'Phone cases',
-      'Home décor (pillows, blankets, posters)',
-      'Bags and accessories',
-      'Stickers and labels',
-      'All-over print products',
-      'Embroidered items'
-    ],
-    finalTake: '<strong>Best free way to start selling custom products with zero inventory risk.</strong> You design, they print and ship. The free plan has everything you need to start. Premium ($29/mo) is worth it once you\'re making consistent sales — 20% off products adds up fast. Key to success: order samples to check quality, price for 40%+ margins, and remember you\'re also paying your sales platform (Etsy, Shopify, etc.) fees on top. Great for testing product ideas without financial commitment.',
-    idealFor: [
-      'Designers who want to sell physical products',
-      'Content creators monetizing their brand/audience',
-      'Anyone wanting passive income from custom merch',
-      'Side hustlers testing product ideas',
-      'NOT for those wanting instant high profits (margins are modest)',
-      'NOT ideal if you need ultra-fast shipping (POD takes time)'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/EqIVRaEWxVI0Zx1EETTB.png',
+    link: 'printify.com/',
+    rate: '',
+    description: 'Printify: Design, sell, and ship custom products—no inventory needed.',
+    category: 'handmade',
+    intro: '**Printify** is a print-on-demand (POD) platform that lets you design and sell custom products—like t-shirts, mugs, phone cases, home decor, and more—without holding any inventory or handling fulfillment. Think of it like creating your own online merchandise line, while Printify takes care of printing, packing, and shipping.',
+    whyAdhd: ['No upfront costs or inventory — you only pay when an order is placed, cutting financial risk and setup stress.', 'Fast, structured workflow — select a product, design it, publish, and profit—clear steps help reduce overwhelm.', 'Creative fun — use the user-friendly Product Creator, Mockup Generator, or AI Image Generator to unleash quick design dopamine.', 'Automated fulfillment — once your design is live, Printify and its global network handle the rest—ordering, printing, shipping—asynchronously.'],
+    standOut: [],
+    importantNotes: [],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '**Printify** is a stellar option for ADHD-friendly side hustlers seeking a low-risk, creative, and automated income stream.  \nIts structured workflow, big catalog, and marketplace integrations reduce overwhelm—letting you focus on design and marketing rather than logistics.  \n\nThis isn\'t passive yet effortless income—it still needs promotion and iteration—but in the right hands, it can scale from casual side hustle to serious income, as many real users have shown.',
+    idealFor: ['ADHD creators who want a clear, low-stress path to monetize creativity.', 'New entrepreneurs seeking no-inventory, low-risk business models.', 'Designers or Canva users exploring print-on-demand entrepreneurship.', 'Anyone interested in scalable, flexible side hustles with creative freedom.']
   },
   'pressplay': {
     name: 'PressPlay',
@@ -3675,703 +2325,179 @@ const gigData = {
   },
   'preply': {
     name: 'Preply',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.preply.com/',
-    rate: '$5–$100+/hr',
-    description: 'Global language tutoring marketplace with 90,000+ tutors teaching 50+ languages to students in 175+ countries.',
-    category: 'freelance',
-    tldr: 'Ukrainian-founded language platform (2012, now HQ\'d in Massachusetts). 90,000+ tutors, 50+ languages, 175+ countries. Set your own rates. Brutal commission: 100% on trial lessons (you earn $0), then 33%→18% as you teach more hours. Withdraw via Wise, PayPal, Payoneer, or Skrill.',
-    intro: '<strong>Preply</strong> was founded in 2012 in Kyiv, Ukraine and is now headquartered in Brookline, Massachusetts. They\'ve raised $171M+ and employ 678+ people across offices in Barcelona, New York, London, and Kyiv.\n\nThe platform connects tutors with students globally via a subscription model — students buy lesson packages that auto-renew every 28 days. Preply provides the video classroom, handles payments, and offers AI-powered learning materials.',
-    whyAdhd: [
-      'Set your own schedule completely',
-      'Work from anywhere with internet',
-      'One-on-one lessons (not group classes)',
-      'Built-in video classroom — no extra software',
-      'Pre-made learning plans save prep time',
-      'Variety keeps things interesting'
-    ],
-    standOut: [
-      '90,000+ tutors, 50+ languages, 175+ countries',
-      'Preply Classroom: video, whiteboard, screen share, chat',
-      'Machine learning matches students to tutors',
-      'Students subscribe = recurring revenue potential',
-      'Free training webinars and Tutor Academy',
-      'Mobile app for iOS and Android',
-      '24/7 customer support'
-    ],
-    importantNotes: [
-      '⚠️ Trial lessons = 100% commission (you earn $0)',
-      'Commission: 33% (new) → 18% (after 400 hrs)',
-      'Tiers: 0-20 hrs (33%), 21-50 hrs (28%), 51-200 hrs (25%), 201-400 hrs (22%), 400+ hrs (18%)',
-      'Students must confirm lessons before you get paid',
-      'Must submit government ID for verification',
-      'Need webcam, mic, stable internet',
-      'High competition — thousands of tutors per language'
-    ],
-    payoutInfo: [
-      'Set your own hourly rate',
-      'New tutors: $8–$15/hr recommended to start',
-      'Top earners: Up to $550/week',
-      'At 33% commission: $10/hr rate = $6.70 actual',
-      'At 18% commission: $10/hr rate = $8.20 actual',
-      'Withdraw via: Wise, PayPal, Payoneer, Skrill',
-      'Payoneer minimum: $20'
-    ],
-    taskTypes: [
-      'Language tutoring (English, Spanish, French, etc.)',
-      'ESL & Business English',
-      'Test prep (TOEFL, IELTS)',
-      'Academic subjects (math, science)',
-      'Music and hobby subjects'
-    ],
-    finalTake: '<strong>Preply is legit and global, but the commission structure hurts early on.</strong> Working trial lessons for $0 is rough, and 33% commission means a $20/hr rate nets you $13.40. Good news: it drops to 18% after 400 hours, and the subscription model means recurring students. Set rates low to start, collect reviews fast, then raise prices.',
-    idealFor: [
-      'Language teachers (especially English, Spanish, French)',
-      'Native speakers of in-demand languages',
-      'Tutors wanting global student access',
-      'NOT for those needing immediate high earnings'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/v0v44KBbRCrOhwJeveYj.png',
+    link: 'https://preply.com/en/teach',
+    rate: '$10–$40/hr',
+    description: '120 subjects, global reach',
+    category: 'teaching',
+    intro: '**Preply** is an online tutoring marketplace where you can teach languages, school subjects, or skills to students worldwide. Think of it like Airbnb, but instead of renting a room, you’re renting out your teaching skills by the hour.  \nIt’s designed for teachers, language tutors, and skilled professionals who want flexible, remote income by sharing knowledge.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Preply takes a commission starting at 33%, decreasing with more lessons taught.', 'Competition is high—strong profile and reviews help you stand out.', 'Teaching requires patience and consistency (not great if you dislike routine).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD extroverts who enjoy one-on-one conversations.', 'Teachers or bilinguals who want side income.', 'Freelancers who want flexible scheduling.', 'Creatives who love sharing knowledge and skills.']
   },
   'italki': {
-    name: 'italki',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.italki.com/',
-    rate: '$5–$80+/hr',
-    description: 'Global language learning marketplace with 30,000+ teachers in 150+ languages — lower commission than Preply.',
-    category: 'freelance',
-    tldr: 'Language tutoring platform with 30,000+ teachers and 10M+ students. Flat 15% commission — and unlike Preply, you actually get paid for trial lessons. Set your own rates ($5+ for community tutors, $10+ for professionals). Withdraw via PayPal or Payoneer.',
-    intro: '<strong>italki</strong> is Preply\'s main competitor — but with a key difference: they only take 15% commission and don\'t steal your trial lesson earnings.\n\nYou set your rates, pick your schedule, and teach via their built-in video classroom. Two tutor types: "Professional Teachers" (need credentials) and "Community Tutors" (just need to be fluent). Over 150 languages available.',
-    whyAdhd: [
-      'Set your own schedule — no minimums',
-      'Work from anywhere with internet',
-      'One-on-one lessons (your style)',
-      'No mandatory lesson plans',
-      'Choose which students to accept',
-      'Instant lessons option for spontaneous work'
-    ],
-    standOut: [
-      '30,000+ teachers, 150+ languages, 10M+ learners',
-      'Lower commission than Preply (15% vs 33%)',
-      'No commission on trial lessons',
-      'Two tutor tiers: Professional & Community',
-      'italki Classroom: video, screen share, messaging',
-      'Package discounts to encourage repeat students',
-      'Mobile app for iOS and Android'
-    ],
-    importantNotes: [
-      'Flat 15% commission on all regular lessons',
-      'Trial lessons: full pay (no commission)',
-      'Community Tutors: min $5/hr, no credentials needed',
-      'Professional Teachers: min $10/hr, credentials required',
-      'Must pass ID verification and quizzes',
-      '$30 minimum withdrawal balance',
-      'High competition — building clientele takes time'
-    ],
-    payoutInfo: [
-      'Set your own hourly rate',
-      'Community Tutors: $5–$30/hr typical',
-      'Professional Teachers: $10–$80+/hr typical',
-      'Commission: Flat 15%',
-      'Trial lessons: 0% commission',
-      'Withdraw via: PayPal or Payoneer',
-      'Minimum withdrawal: $30'
-    ],
-    taskTypes: [
-      'Language tutoring (150+ languages)',
-      'Conversation practice',
-      'Test prep (IELTS, TOEFL, HSK, JLPT)',
-      'Business language skills',
-      'Group classes',
-      'Kids language lessons'
-    ],
-    finalTake: '<strong>italki\'s 15% commission and paid trial lessons make it friendlier than Preply.</strong> A $20/hr rate nets you $17 here vs $13.40 on Preply. Competition is fierce with 30,000+ teachers, so expect time building your student base. Start competitive, respond fast, convert trials to regulars.',
-    idealFor: [
-      'Language teachers and native speakers',
-      'Those who prefer lower, predictable commission',
-      'Tutors who don\'t want to work trials for free',
-      'NOT for teaching non-language subjects'
-    ]
+    name: 'iTalki',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/rZ25jNe1Ex4MYF20nh15.png',
+    link: 'https://teach.italki.com/application',
+    rate: '$5–$80/hr',
+    description: '15% commission, language focus',
+    category: 'teaching',
+    intro: 'It’s designed for language enthusiasts, teachers, and bilinguals who want to earn money by tutoring students worldwide.',
+    whyAdhd: ['Short, focused sessions (usually 30–60 minutes).', 'Flexible scheduling—you control your availability.', 'Built-in student base (no need to hunt for clients).', 'Variety of students from different cultures = novelty and engagement.', 'You get to teach a subject you love, which can boost hyperfocus motivation.'],
+    standOut: [],
+    importantNotes: ['iTalki takes a 15% commission on each lesson (lower than Preply).', 'Competition can be high, especially in popular languages like English or Spanish.', 'Building a steady student base takes time (reviews are key).', 'Lessons require patience, structure, and prep time outside of teaching hours.', 'Income stability depends on consistent bookings.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Bilingual ADHD freelancers who want to monetize their language skills.', 'Extroverts who thrive in one-on-one conversations.', 'Teachers who want flexible side income.', 'Language enthusiasts who love sharing culture and communication.']
   },
   'cambly': {
     name: 'Cambly',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.cambly.com/',
-    rate: '$10.20–$12/hr',
-    description: 'On-demand English conversation platform — students call you instantly, no scheduling required. Low pay but zero barriers to entry.',
-    category: 'freelance',
-    tldr: 'English-only conversation platform (founded 2012, San Francisco). Students video-call you on-demand — no scheduling needed. Flat rate: $0.17/min ($10.20/hr) for adults, $0.20/min ($12/hr) for Cambly Kids. No degree, no TEFL, no experience required. Paid weekly via PayPal. Great for beginners, but the pay is rough.',
-    intro: '<strong>Cambly</strong> is different from italki/Preply — it\'s on-demand conversation practice, not formal tutoring. Students open the app and instantly connect with whoever\'s online. You don\'t set your rates. You don\'t schedule lessons. You just... talk.\n\nZero barriers: no degree, no teaching certificate, no experience. Just be a native English speaker with a laptop and decent internet. The tradeoff? Lowest pay in the industry.',
-    whyAdhd: [
-      'Zero prep work — just conversation',
-      'No lesson plans required',
-      'Log on whenever you want',
-      'No minimum hours',
-      'Instant calls = no scheduling hassle',
-      'Variety of students keeps it interesting'
-    ],
-    standOut: [
-      'On-demand format — students call you live',
-      'No degree or TEFL required',
-      'No interview or demo class',
-      'Cambly Kids option ($12/hr)',
-      'Available 24/7 globally',
-      'Get paid for no-shows (10 min wait)',
-      'Priority hour bonuses available',
-      'Weekly PayPal payments'
-    ],
-    importantNotes: [
-      'Cambly: $0.17/min ($10.20/hr) — flat rate',
-      'Cambly Kids: $0.20/min ($12/hr) — flat rate',
-      'You cannot set your own rates',
-      'Must be native English speaker (US, UK, Canada, Australia)',
-      'Need laptop/desktop — no tablets or phones',
-      'Acceptance can take weeks or months',
-      'Effective hourly may be $5-8 with gaps between calls',
-      '$20 minimum to withdraw',
-      'No pay raises — ever'
-    ],
-    payoutInfo: [
-      'Cambly: $0.17/min ($10.20/hr)',
-      'Cambly Kids: $0.20/min ($12/hr)',
-      'Paid weekly via PayPal',
-      'Also: Wise, direct deposit, wire transfer',
-      '$20 minimum withdrawal',
-      'Priority hour bonuses: up to 25% extra',
-      'No-show pay: get paid for 10 min wait',
-      'Referral bonus: $20 per tutor (+ $30 for Kids)'
-    ],
-    taskTypes: [
-      'Casual English conversation',
-      'IELTS/TOEFL exam practice',
-      'Business English',
-      'Job interview prep',
-      'Travel English',
-      'Cambly Kids (ages 4-15)'
-    ],
-    finalTake: '<strong>Cambly is the easiest way to start teaching English online — but the pay reflects that.</strong> $10.20/hr with gaps between calls means you might actually earn $5-8/hr. No prep, no lesson plans, no stress — just chat. Perfect as a side gig or stepping stone to better-paying platforms. Don\'t expect to live on it.',
-    idealFor: [
-      'Native English speakers wanting easy entry',
-      'People who enjoy casual conversation',
-      'Those wanting zero-prep flexible work',
-      'Beginners building teaching experience',
-      'NOT for those needing real income'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/qghhXnqBdMEruH5bEWuL.png',
+    link: 'https://www.cambly.com/en/tutors?lang=en',
+    rate: '$10–$12/hr',
+    description: 'Native speakers, casual conversation',
+    category: 'teaching',
+    intro: '**Cambly** is an online tutoring platform where you teach English through casual video conversations. Think of it like being a friendly English-speaking buddy for learners around the world.  \nIt’s designed for native or fluent English speakers who want a super flexible, low-barrier way to earn money chatting with students.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Pay rate is low compared to other platforms ($0.17 per minute ≈ $10.20/hour on Cambly, higher for Cambly Kids).', 'Work is very casual—better for side income, not a full-time job.', 'Students’ English levels vary widely (patience required).', 'You need a reliable internet connection and a quiet environment.', 'No guaranteed hours—income depends on student demand when you’re online.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
   },
   'wyzant': {
     name: 'Wyzant',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.wyzant.com/',
-    rate: '$15–$485+/hr',
-    description: 'America\'s largest tutoring marketplace connecting 80,000+ tutors with students in 300+ subjects — set your own rates, online or in-person.',
-    category: 'freelance',
-    tldr: 'The largest tutoring marketplace in the US (founded 2005, owned by IXL Learning). 80,000+ tutors, 300+ subjects, 6 million monthly visitors. Set your own hourly rate ($15–$485+). Platform takes flat 25% fee. Students pay additional 9% service fee. Both online and in-person tutoring. No teaching certification required. Must pass subject proficiency quizzes. Referrals = 100% of your rate. US residents only. As of July 2025: Semimonthly payments only (1st & 15th).',
-    intro: '<strong>Wyzant</strong> was founded in 2005 in Chicago by Andrew Geant and Mike Weishuhn, making it the first digital marketplace connecting students with independent tutors. It was acquired by IXL Learning in 2021.\n\nWith over 80,000 tutors and 300+ subjects, Wyzant handles all marketing, payment processing, and provides a digital classroom platform (Learning Studio). You set your own rates, choose your schedule, and decide whether to tutor online, in-person, or both. The platform gets massive traffic — roughly 6 million visitors monthly.',
-    whyAdhd: [
-      'Set your own schedule completely',
-      'Choose subjects you\'re passionate about',
-      'Work online from home or in-person locally',
-      'One-on-one sessions (less overwhelming than groups)',
-      'Built-in Learning Studio with whiteboard',
-      'Direct messaging with students/parents',
-      'No lesson prep requirements from platform',
-      'Variety of subjects keeps it interesting'
-    ],
-    standOut: [
-      'Largest US tutoring marketplace (80,000+ tutors)',
-      '300+ subjects available',
-      '6 million monthly website visitors',
-      'Set your own hourly rate ($15–$485+)',
-      'Both online and in-person options',
-      'Learning Studio (video, whiteboard, code editor, file sharing)',
-      'Mobile app for iOS and Android',
-      'Referrals = 100% of rate (no commission)',
-      'No upfront costs to join',
-      'First-hour satisfaction guarantee for students',
-      'Background checks available ($15.99)',
-      'Integrations with IXL, Vocabulary.com, Rosetta Stone',
-      'Customer support 6 days/week',
-      'Partnership programs with schools/institutions'
-    ],
-    importantNotes: [
-      'Flat 25% platform fee on all lessons (since Jan 2019)',
-      'Students pay additional 9% service fee',
-      'US residents only (must have valid SSN)',
-      'Must be 18+ years old',
-      'Subject proficiency quizzes required (ONE attempt only)',
-      'Profile review takes 3–10 business days',
-      'Background check optional but highly recommended ($15.99)',
-      'Independent contractor — handle own taxes',
-      'Building clientele takes time (apply to 20+ jobs initially)',
-      '⚠️ July 2025: Express pay discontinued — semimonthly only now',
-      'Lessons must be submitted within 14 days',
-      'Cancellation fees still subject to 9% service fee'
-    ],
-    payoutInfo: [
-      'Set your own rate: $15–$485+/hour',
-      'Most tutors charge: $35–$65/hour',
-      'You keep 75% (platform takes flat 25%)',
-      'Referrals: Keep 100% (no platform fee)',
-      '⚠️ NEW July 2025: Semimonthly payments only',
-      'Payments issued: 1st & 15th of each month',
-      'Lessons must be submitted 5 days before payment date',
-      'Express Direct Deposit discontinued July 2025',
-      'Average Indeed salary: ~$27/hour',
-      'Glassdoor reports: $35–$65/hour typical'
-    ],
-    taskTypes: [
-      'Math tutoring (algebra, calculus, geometry, statistics)',
-      'Science (biology, chemistry, physics, engineering)',
-      'Languages (Spanish, French, Chinese, Arabic, 50+ more)',
-      'English (writing, grammar, literature, ESL)',
-      'Test prep (SAT, ACT, GRE, GMAT, MCAT, LSAT)',
-      'Business (accounting, finance, economics, marketing)',
-      'Computer science & programming',
-      'Music lessons',
-      'Elementary & K-12 subjects',
-      'College-level courses',
-      'Professional certifications',
-      'Homeschool support'
-    ],
-    finalTake: '<strong>Wyzant remains the gold standard for independent tutors in 2025 — massive traffic, flexible rates, and a legitimate platform.</strong> The flat 25% commission stings, but they handle all marketing, payments, and provide a solid digital classroom. The math: If you charge $50/hour, you keep $37.50. To hit $1,000/week, you need ~27 hours of tutoring. Note the July 2025 change: Express pay is gone, so plan for semimonthly payments only. Building clientele takes patience — expect to apply to dozens of jobs before landing steady students. Best approach: Start competitive, collect reviews fast, then raise prices. Referrals let you keep 100%.',
-    idealFor: [
-      'Subject matter experts who enjoy teaching',
-      'Teachers looking for supplemental income',
-      'College students tutoring their major',
-      'Professionals sharing specialized knowledge',
-      'Anyone in the US with expertise in 300+ subjects',
-      'NOT for those outside the United States'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4CdttfiOOk3ESSjWBGO7.jpg',
+    link: 'https://www.wyzant.com/tutorsignupstart',
+    rate: '$30–$100+/hr',
+    description: 'Academic subjects, premium rates',
+    category: 'teaching',
+    intro: '**Wyzant** is an online tutoring marketplace where students book one-on-one lessons with tutors for academic subjects, test prep, and skills. Think of it like a tutoring “dating app” where students pick you based on your profile.  \nIt’s designed for tutors in the U.S. who want to teach online or in-person across a wide range of subjects.',
+    whyAdhd: ['Flexible schedule—you set your own hours.', 'Variety of subjects to teach (great for novelty seekers).', 'Built-in student base (no cold outreach required).', 'Transparent pay structure—you set your hourly rate.', 'Structured lessons = clear goals, which can help ADHD focus.'],
+    standOut: [],
+    importantNotes: ['Commission is high—Wyzant takes 25% of your hourly rate.', 'Only available for U.S.-based tutors.', 'Building visibility takes time (reviews and quick responses matter).', 'Competition can be tough in popular subjects (math, test prep, English).', 'More structured than Cambly—requires actual subject expertise.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: []
   },
   'instagram': {
     name: 'Instagram',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://creators.instagram.com/',
-    rate: '$0.01–$0.05/1K views',
-    description: 'Create Reels, build a following, earn from bonuses, brand deals, subscriptions, and affiliate marketing. Visual-first platform owned by Meta.',
-    category: 'creative',
-    tldr: 'Visual platform with 2B+ users. Reels Play Bonus pays $0.01-$0.05 per 1,000 views (invite-only, mostly discontinued). Real money is brand deals and subscriptions. Need 10K followers for most monetization features. Subscriptions: $2.99-$99.99/month from fans. Brand deals pay $100-$1,000+ per post depending on following.',
-    intro: '<strong>Instagram</strong> does not pay you just for views like YouTube does. The Reels Play Bonus program is mostly discontinued (only Italy/Spain now). Real income comes from brand deals, subscriptions, and selling products.\n\nThink of Instagram as a portfolio and audience-builder, not a direct payout machine. 10K followers unlocks most monetization tools. Brand deals are where creators actually make money.',
-    whyAdhd: [
-      'Visual content — less writing, more creating',
-      'Reels are short and quick to make',
-      'Instant feedback via likes/comments',
-      'Stories disappear — less pressure for perfection',
-      'Can repurpose TikTok content easily',
-      'Variety of formats (Reels, Stories, Lives, Posts)',
-      'Strong for building personal brand'
-    ],
-    standOut: [
-      '2+ billion monthly active users',
-      'Subscriptions let fans pay you monthly',
-      'Creator Marketplace connects you with brands',
-      'Instagram Shop for selling products',
-      'Live Badges — fans tip during livestreams',
-      'Affiliate tagging built into posts',
-      'Strong for fashion, beauty, lifestyle, fitness niches'
-    ],
-    importantNotes: [
-      'Reels Play Bonus mostly discontinued (invite-only, limited regions)',
-      'Direct view payouts are tiny ($0.01-$0.05/1K views)',
-      'Need 10K followers for Subscriptions',
-      'Need 500+ followers for Gifts feature',
-      'Algorithm prioritizes Reels over static posts',
-      'Engagement rate matters more than follower count',
-      'Brand deals require negotiation skills',
-      'Owned by Meta — subject to their policy changes'
-    ],
-    payoutInfo: [
-      'Reels Bonus (where available): $0.01-$0.05 per 1K views',
-      'Some creators report $1-$8 per 1K views (rare)',
-      '4 million views = ~$100 (one creator example)',
-      'Subscriptions: $2.99-$99.99/month (you keep 70%)',
-      'Live Badges: Fans tip during streams',
-      'Gifts: Viewers send Stars ($0.01 each)',
-      'Brand deals: $100-$1,000+ per post (varies wildly)',
-      'Affiliate commissions: Varies by product',
-      'Payment: Monthly, $25 minimum threshold'
-    ],
-    taskTypes: [
-      'Reels (short-form video)',
-      'Stories (24-hour content)',
-      'Live streams with Badges',
-      'Static posts and carousels',
-      'Brand partnerships and sponsored content',
-      'Affiliate product promotion',
-      'Subscription-exclusive content',
-      'Instagram Shop product sales'
-    ],
-    finalTake: '<strong>Instagram pays almost nothing for views directly — brand deals and subscriptions are the real income.</strong> The Reels Bonus is mostly dead. Think of Instagram as a storefront and portfolio, not a paycheck. Best for visual creators building a brand to monetize through partnerships, products, or subscriptions. Not for those expecting passive view-based income.',
-    idealFor: [
-      'Visual creators (fashion, beauty, fitness, lifestyle)',
-      'Those building a brand to monetize elsewhere',
-      'Creators who want subscription income from fans',
-      'People comfortable pitching to brands',
-      'NOT for those expecting pay-per-view income'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/SHQ0QHgRlMhnXMFMaEhC.jpg',
+    link: 'https://www.instagram.com/',
+    rate: '',
+    description: 'One of the top platforms for influencers to monetize through sponsored posts, affiliate links, and ads.',
+    category: 'social',
+    intro: '**Instagram** is a social media platform where you share photos, videos, and stories to build an audience and potentially monetize through business or creator tools. Think of it like a digital storefront plus a personal TV channel rolled into one.  \nIt’s designed for creators, influencers, small businesses, and entrepreneurs who want visibility, engagement, and income opportunities through content.',
+    whyAdhd: ['Highly visual—dopamine boost from images, reels, and creative expression.', 'Variety of formats (posts, reels, stories, lives) keeps things fresh.', 'Built-in audience—millions of users browsing daily.', 'Flexible schedule—you post when you want.', 'Instant feedback (likes, comments, DMs) can fuel motivation.'],
+    standOut: [],
+    importantNotes: ['Growth can be slow without consistent posting and strategy.', 'Algorithm changes can impact reach (frustrating for ADHDers who thrive on stability).', 'Requires effort in marketing, captions, and engagement—not just posting.', 'Can be time-consuming and distracting (easy to get lost scrolling).', 'Monetization usually requires at least 1,000–10,000+ followers.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who thrive on novelty and visual expression.', 'Small business owners selling handmade or digital products.', 'Freelancers marketing services to a global audience.', 'Influencers/content creators aiming for brand deals.']
   },
   'youtube': {
     name: 'YouTube',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.youtube.com/creators/',
-    rate: '$3–$25/1K views',
-    description: 'Upload videos, build an audience, earn from ads, memberships, Super Chats, and brand deals. The OG creator economy platform.',
-    category: 'creative',
-    tldr: 'World\'s largest video platform (founded 2005, acquired by Google for $1.65B in 2006). 2.7 billion monthly users. Join Partner Program at 500 subs + 3,000 watch hours (fan funding only) or 1,000 subs + 4,000 watch hours (full ad revenue). Creators keep 55% of ad revenue. Pay averages $3-25 per 1,000 views depending on niche. Top creators earn $1M+/year. Payment monthly via AdSense, $100 minimum.',
-    intro: '<strong>YouTube</strong> is the original creator economy — upload videos, build an audience, get paid. Founded in 2005 by three PayPal employees (Chad Hurley, Steve Chen, Jawed Karim), Google bought it for $1.65 billion in 2006. Now generates $36+ billion/year in ad revenue.\n\n2.7 billion people watch YouTube monthly. 500 hours of video uploaded every minute. If you can make content people want to watch, YouTube will pay you for it.',
-    whyAdhd: [
-      'Create on your own schedule',
-      'Hyperfocus-friendly — dive deep into topics you love',
-      'Variety of content formats (Shorts, long-form, live)',
-      'Immediate feedback via views/comments',
-      'Build once, earn passively forever',
-      'No boss, no meetings, no deadlines',
-      'Turn special interests into income'
-    ],
-    standOut: [
-      '2.7 billion monthly active users',
-      'Second most-visited website globally',
-      'Multiple revenue streams (ads, memberships, Super Chat, merch)',
-      'Shorts competes with TikTok (10M views = monetization)',
-      'YouTube Premium revenue share (bonus income)',
-      'Brand deals pay 10-50x more than ads alone',
-      'Content lives forever — videos earn for years',
-      'Available in 100+ countries, 80 languages'
-    ],
-    importantNotes: [
-      'Full monetization: 1,000 subs + 4,000 watch hours (or 10M Shorts views)',
-      'Fan funding tier: 500 subs + 3,000 watch hours (no ad revenue)',
-      'Takes ~1 month for application review',
-      'Must follow Community Guidelines (strikes block monetization)',
-      'Inactivity penalty: 6 months no uploads = monetization suspended',
-      'Algorithm favors consistency — irregular posting hurts growth',
-      'Copyright claims can demonetize or delete videos',
-      'CPM varies wildly by niche ($2 gaming vs $30 finance)',
-      'Building audience takes months/years for most creators'
-    ],
-    payoutInfo: [
-      'Ad revenue split: You keep 55%, YouTube keeps 45%',
-      'Shorts revenue: 45% creator share (from ad pool)',
-      'Average CPM: $3-25 per 1,000 views',
-      'Top niches (finance, business, tech): $20-50 CPM',
-      'Low niches (gaming, entertainment): $2-5 CPM',
-      'Channel memberships: You keep 70%',
-      'Super Chat/Super Thanks: You keep 70%',
-      'YouTube Premium: Bonus based on watch time',
-      'Payment: Monthly via AdSense',
-      'Minimum payout: $100',
-      'Top earner MrBeast: $85M in 2024'
-    ],
-    taskTypes: [
-      'Long-form videos (8+ min for mid-roll ads)',
-      'YouTube Shorts (under 60 seconds)',
-      'Live streams with Super Chat',
-      'Educational/tutorial content',
-      'Entertainment and vlogs',
-      'Product reviews (affiliate potential)',
-      'Gaming and commentary',
-      'Music and creative arts',
-      'Podcasts and interviews'
-    ],
-    finalTake: '<strong>The ultimate long game.</strong> YouTube rewards consistency and patience — most creators spend 1-2 years building before meaningful income. But once you hit it, videos earn passively for years. Ad revenue alone is modest ($3-25/1K views), but brand deals multiply earnings 10-50x. Best for: people who genuinely enjoy creating video content and can commit to regular uploads. Not a quick money solution.',
-    idealFor: [
-      'Content creators who love being on camera (or voice-over)',
-      'People with expertise worth sharing',
-      'Those who can commit to consistent uploads',
-      'Creators willing to learn editing and SEO',
-      'Anyone building a personal brand long-term',
-      'NOT for quick money seekers'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/hIE0fwA9FyxSmGRkM0DU.png',
+    link: 'https://www.youtube.com/',
+    rate: '',
+    description: 'The go-to platform for video content, where you can earn through ads, sponsorships, and super chats.',
+    category: 'social',
+    intro: '**YouTube** is the world’s largest video-sharing platform where creators upload content, build an audience, and monetize through ads, sponsorships, and products. Think of it like having your own TV channel with global reach.  \nIt’s designed for anyone who wants to create videos—educational, entertaining, or inspirational—and earn money through views and community engagement.',
+    whyAdhd: ['Endless creative freedom—tutorials, vlogs, gaming, reviews, art, etc.', 'Multiple formats (shorts, livestreams, long-form videos) keep novelty high.', 'Dopamine boost from likes, comments, and subscriber growth.', 'Hyperfocus-friendly—editing, scripting, or creating can be immersive.', 'Potential for passive income once videos are uploaded and monetized.'],
+    standOut: [],
+    importantNotes: ['Monetization requires 1,000 subscribers + 4,000 watch hours (or 10M Shorts views).', 'Growth can be slow and requires consistency (hard for ADHD at times).', 'Editing and production can be time-consuming.', 'Algorithm-driven—views can spike or dip unpredictably.', 'Can feel overwhelming if you’re a perfectionist about content.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who love experimenting with different content styles.', 'Storytellers who want to build a community.', 'Freelancers using YouTube to market services.', 'Aspiring influencers or educators aiming for long-term income.']
   },
   'tiktok': {
     name: 'TikTok',
     logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/aUgg51uy2GH9tSe5bMN9.png',
     link: 'https://www.tiktok.com/',
-    rate: 'Varies — Creator Fund, tips, brand deals, and affiliates',
-    description: 'Short-form video platform focused on viral trends, creator monetization, and fast audience growth.',
-    tldr: 'Fast short-video reach — great for quick creative wins and rapid audience growth. Monetize via Creator Fund, tips, live gifts and brand deals; can be distracting and payouts per view are low.',
+    rate: '',
+    description: 'Short video platform with brand partnerships, TikTok Creator Fund, and affiliate marketing opportunities.',
     category: 'social',
-    intro: '**TikTok** is a short-video platform for 15s–10min clips that can reach huge audiences quickly. It rewards trend-aware, authentic content and offers multiple monetization paths like Creator Fund, tips, live gifts, and brand partnerships.\nCreators who enjoy quick experiments, remixing trends, and fast feedback often do well.',
-    whyAdhd: ['Quick content cycles make it easy to iterate and learn fast', 'Immediate feedback (views/likes/comments) supports short attention workflows', 'Low barrier to entry for experimenting with ideas', 'Trends and templates reduce planning overhead and spur creativity'],
-    standOut: ['Powerful discovery algorithm that can surface new creators fast', 'Built-in editing tools and sound library speed production', 'High potential reach without large follower counts'],
-    importantNotes: ['Creator Fund has eligibility thresholds and low per-view payouts', 'Platform can be highly distracting — set strict limits', 'Trends move fast; consistency helps but burnout is possible', 'Brand deals require audience fit and negotiation skills'],
-    payoutInfo: ['Creator Fund (eligibility varies by region)', 'Brand deals and sponsorships — rates depend on niche and engagement', 'Gifts and tips during lives', 'Affiliate and direct product sales'],
-    taskTypes: ['Short-form videos', 'Duets and stitches', 'Trend-driven content', 'Sponsored content'],
-    finalTake: 'Excellent for ADHD creators who like fast cycles, trend play, and quick creative wins — but watch out for distraction and consistency demands.',
-    idealFor: ['Creators who enjoy short, creative bursts', 'People building a personal brand quickly', 'Those who prefer iterative, low-polish content', 'Anyone who can commit to regular posting without overdoing it']
+    intro: '**TikTok** is a short-form video platform where creators share clips (15 seconds to 10 minutes) with a massive global audience. Think of it like YouTube’s hyperactive little sibling that thrives on quick hits of content.  \nIt’s designed for creators, influencers, and businesses who want rapid exposure, community engagement, and potential monetization through viral content.',
+    whyAdhd: ['Short-form content = easier to create and consume.', 'Fast feedback loop (likes, comments, shares) gives dopamine boosts.', 'Endless novelty with trends, sounds, and challenges.', 'Less perfection required—raw, authentic videos often perform better.', 'Great for impulsive creativity and quick bursts of energy.'],
+    standOut: [],
+    importantNotes: ['Monetization requires 10,000 followers + 100,000 video views in 30 days (for Creator Fund).', 'The algorithm is powerful but unpredictable—views can swing wildly.', 'Content lifespan is short; constant posting is needed to stay visible.', 'Can be highly addictive/disruptive (easy to get stuck scrolling).', 'Monetization via Creator Fund is low ($0.02–$0.04 per 1,000 views).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who thrive on short, fast-paced projects.', 'Beginners testing content creation with low pressure.', 'Small business owners wanting viral product exposure.', 'Influencers who prefer authentic, quick interactions over polished production.']
   },
   'facebook': {
     name: 'Facebook',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.facebook.com/creators',
-    rate: '$1–$5/1K views',
-    description: 'Monetize videos and Reels through in-stream ads, bonuses, Stars, and subscriptions. Massive older audience, decent CPM.',
-    category: 'creative',
-    tldr: 'Video monetization on the world\'s largest social network (3B+ users). In-stream ads pay $1-5 per 1,000 views. Reels bonus (ending Aug 2025) pays $0.04-$0.08/1K views. Need 10K followers + 600K watch minutes in 60 days. Stars = $0.01 each. New unified "Content Monetization" system coming. Payment monthly, $100 minimum.',
-    intro: '<strong>Facebook</strong> pays better per view than TikTok or Instagram, but requires bigger thresholds to qualify. In-stream ads on longer videos (3+ min) are the main earner. Reels have bonuses but the program is ending August 2025.\n\nThe audience skews older and has more spending power than TikTok. Good for repurposing YouTube/TikTok content to an additional platform. Not where you build from scratch — it is a distribution channel.',
-    whyAdhd: [
-      'Can repurpose content from other platforms',
-      'Older audience = less trend-chasing pressure',
-      'Multiple monetization options in one place',
-      'Longer videos (3+ min) mean less editing per minute',
-      'Stars give instant dopamine feedback',
-      'Less algorithm chaos than TikTok',
-      'Can schedule posts ahead of time'
-    ],
-    standOut: [
-      '3+ billion monthly active users',
-      'Higher CPM than TikTok ($1-5 vs $0.02-0.05)',
-      'In-stream ads on videos 3+ minutes',
-      'Stars system for fan tipping ($0.01 each)',
-      'Fan subscriptions for recurring income',
-      'Reels compete with TikTok/Instagram',
-      'Older, higher-income audience',
-      'Cross-posting from Instagram is easy'
-    ],
-    importantNotes: [
-      'Monetization requires: 10K followers + 600K watch minutes in 60 days',
-      'Reels Play Bonus ending August 31, 2025',
-      'New "Content Monetization" system replacing old programs',
-      'In-stream ads only on videos 3+ minutes',
-      'CPM varies wildly by audience location (US = 10x more)',
-      'Algorithm favors native uploads over cross-posts',
-      'Reels earnings are unpredictable',
-      '$100 minimum payout threshold',
-      'Payment around 21st of each month'
-    ],
-    payoutInfo: [
-      'In-stream ads: $1-5 per 1,000 views (avg $2-3)',
-      'Reels bonus: $0.04-$0.08 per 1,000 views',
-      'Reels bonus program ending Aug 2025',
-      '1 million views = $2,000-$5,000 (in-stream)',
-      '1 million Reels views = $40-$80',
-      'Stars: $0.01 per Star received',
-      'Subscriptions: You set price, keep majority',
-      'Revenue split: 55% creator / 45% Facebook',
-      'Payment: Monthly, around 21st, $100 minimum',
-      'US viewers pay ~10x more than developing countries'
-    ],
-    taskTypes: [
-      'Long-form videos (3+ min for in-stream ads)',
-      'Facebook Reels (short-form)',
-      'Live streams with Stars',
-      'Fan subscriptions with exclusive content',
-      'Branded content partnerships',
-      'Cross-posted content from YouTube/TikTok'
-    ],
-    finalTake: '<strong>Better CPM than TikTok but higher barriers to entry.</strong> Good as a secondary platform to repurpose content — not where most people build from scratch. The 10K follower + 600K watch minute requirement is steep. Reels bonus program ending Aug 2025, being replaced by new system. Best for creators who already have content elsewhere and want to tap Facebook\'s older, higher-spending audience.',
-    idealFor: [
-      'Creators repurposing YouTube/TikTok content',
-      'Those targeting older demographics (30+)',
-      'Video creators making 3+ minute content',
-      'People who already have a Facebook following',
-      'NOT for building from zero — high entry barrier'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/joOXU3pGdlKULwwTQ7K7.png',
+    link: 'https://www.facebook.com/',
+    rate: '',
+    description: 'Monetize via sponsored posts, brand partnerships, and Facebook’s Ad revenue program.',
+    category: 'social',
+    intro: '**Facebook** is a social media platform where you can connect with friends, join groups, and build business pages to sell products or services. Think of it like a giant online town square with shops, events, and conversations all in one place.  \nIt’s designed for individuals, creators, and small businesses who want to reach local and global audiences through posts, groups, ads, and the Facebook Marketplace.',
+    whyAdhd: ['Multiple ways to engage: groups, Marketplace, Reels, Lives.', 'Built-in community features make it social and interactive.', 'Instant feedback through likes, comments, and shares.', 'Marketplace allows quick, casual selling (low setup effort).', 'Flexible—you can use it casually or as a full business tool.'],
+    standOut: [],
+    importantNotes: ['Organic reach is limited—algorithms often favor paid ads.', 'Content visibility can fluctuate unpredictably.', 'Marketplace competition is high (lots of resellers and scammers).', 'Managing pages and groups can be time-consuming.', 'Not as trendy with younger audiences (more millennial/Gen X heavy).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD sellers who want quick wins via Marketplace.', 'Small business owners targeting local or niche audiences.', 'Creators who want to monetize content with ads and subscriptions.', 'Community builders who thrive in groups and interactive spaces.']
   },
   'twitch': {
     name: 'Twitch',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.twitch.tv/creatorcamp',
-    rate: '$2.50–$3.50/sub',
-    description: 'Livestream gaming, creative content, or just chatting. Earn from subscriptions, Bits, ads, and donations. The OG streaming platform.',
-    category: 'creative',
-    tldr: 'Livestreaming platform (owned by Amazon). Affiliate requires 50 followers + 3 avg viewers + 500 min streamed in 30 days. Standard 50/50 sub split = $2.50 per Tier 1 sub ($4.99). Bits = $0.01 each. Ads = ~$3.50 CPM. Plus Program: 60/40 split at 100 points, 70/30 at 300 points. Payment monthly, $100 minimum.',
-    intro: '<strong>Twitch</strong> is live-or-die streaming — no editing, no retakes, just you and chat in real-time. Dominated by gaming but expanding into Just Chatting, music, art, and IRL content.\n\nMoney comes from subs, Bits (tips), ads, and donations. You keep 50% of subs ($2.50 from a $4.99 sub). Building to full-time income takes months/years of consistent streaming. The grind is real.',
-    whyAdhd: [
-      'Live format — no editing required',
-      'Real-time chat interaction keeps you engaged',
-      'Immediate feedback and dopamine hits',
-      'Community building is social and rewarding',
-      'Can stream whatever interests you that day',
-      'Coworking/body doubling streams exist',
-      'Hyperfocus-friendly once you start'
-    ],
-    standOut: [
-      'All streamers now get access to monetization tools (2025 update)',
-      'Plus Program: Earn 60/40 or 70/30 splits based on performance',
-      'Bits let viewers tip in real-time',
-      'Prime Gaming subs = free sub for viewers (you still get paid)',
-      'Strong community culture',
-      'Raids help small streamers get discovered',
-      'Can multistream as Affiliate (not exclusive)'
-    ],
-    importantNotes: [
-      'Affiliate: 50 followers, 3 avg viewers, 500 min streamed, 7 days in 30',
-      'Partner: 75 avg viewers, much harder to achieve (<1% of streamers)',
-      'Standard sub split: 50/50 (you get $2.50 from $4.99 sub)',
-      'Plus Program: 100 points = 60/40 split, 300 points = 70/30 split',
-      'Must stream consistently — algorithm buries inactive channels',
-      'Oversaturated in gaming — standing out is hard',
-      'Ad revenue is tiny unless you have thousands of viewers',
-      '$100 minimum payout threshold'
-    ],
-    payoutInfo: [
-      'Tier 1 sub ($4.99): You get ~$2.50 (50/50 split)',
-      'Tier 2 sub ($9.99): You get ~$5.00',
-      'Tier 3 sub ($24.99): You get ~$12.50',
-      'Bits: $0.01 per Bit (100 Bits = $1)',
-      'Ads: ~$3.50 CPM (per 1,000 views)',
-      'Plus Program: 60/40 at 100 points, 70/30 at 300 points',
-      'Prime subs: Count same as paid subs',
-      'Donations: 100% yours (via PayPal/Streamlabs)',
-      'Payment: Monthly, $100 minimum',
-      'Small streamer example: 5 viewers = ~$65/month'
-    ],
-    taskTypes: [
-      'Gaming streams',
-      'Just Chatting streams',
-      'Creative/art streams',
-      'Music and DJ sets',
-      'IRL (in real life) streams',
-      'Coworking/study streams',
-      'Esports and competitive gaming',
-      'Watch parties'
-    ],
-    finalTake: '<strong>Twitch rewards consistency and community — not viral hits.</strong> Unlike YouTube/TikTok, you cannot just post and hope. You have to show up live, repeatedly, and build relationships with viewers. Small streamers (5 viewers) make ~$50-65/month. Mid-tier (1,000 subs) can hit $10K/month. Top streamers make $100K+/month. The path is long but the community aspect is rewarding if you enjoy live interaction.',
-    idealFor: [
-      'People who enjoy live interaction and chatting',
-      'Gamers who want to share their gameplay',
-      'Creators who hate editing',
-      'Those who can commit to a consistent schedule',
-      'Community builders who thrive on real-time engagement',
-      'NOT for those who want passive income or hate being on camera live'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/aIgY0lJtG2Y2UqbbaZ1h.png',
+    link: 'https://www.twitch.tv/',
+    rate: '',
+    description: 'A platform for gamers and live streamers to earn through subscriptions, donations, and sponsorships.',
+    category: 'social',
+    intro: '**Twitch** is a live-streaming platform where creators broadcast in real-time while viewers watch, chat, and support them. Think of it like having your own live talk show or gaming channel with an interactive audience.  \nIt’s designed for gamers, musicians, artists, educators, and entertainers who want to build communities and earn through streaming.',
+    whyAdhd: ['Real-time interaction keeps things engaging and fun.', 'Instant feedback via chat = dopamine boosts.', 'Flexible—you choose when and how long to stream.', 'Variety of content (gaming, music, art, just chatting).', 'Community-driven—viewers can become regulars, reducing the need to “chase” work.'],
+    standOut: [],
+    importantNotes: ['Monetization requires 50 followers + 3 average viewers (Affiliate).', 'Growth can be slow without consistency.', 'Streaming is time-intensive (3–6+ hours per session is common).', 'Burnout risk if you push too hard for daily streams.', 'Requires stable internet and some setup (camera, mic, streaming software).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD extroverts who love chatting and performing.', 'Gamers who want to stream and build community.', 'Creators who enjoy real-time audience feedback.', 'Side hustlers who want to experiment with live content.']
   },
   'x': {
-    name: 'X (Twitter)',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://help.x.com/en/using-x/creator-monetization',
-    rate: '$8–$85/1M views',
-    description: 'Ad revenue sharing from replies to your posts. Only impressions from verified (Premium) users count. Requires X Premium subscription.',
-    category: 'creative',
-    tldr: 'Monetize tweets through ad revenue sharing — but ONLY impressions from verified (Premium) users count. Need 500 followers + 5M impressions in 90 days + X Premium subscription. Pays ~$8-85 per 1M verified impressions. Subscriptions let you charge $2.99-$9.99/mo (keep 97% until $50K, then 80%). Tips available via Cash App/Venmo/Bitcoin — X takes 0%.',
-    intro: '<strong>X (formerly Twitter)</strong> now pays creators, but with a major catch: only engagement from Premium (verified) users counts toward your payout. If your audience is mostly free users, you earn almost nothing.\n\nThis makes X monetization unpredictable. A viral post with 10M impressions might pay $20 if most viewers are unverified. Best treated as bonus income, not a primary revenue stream.',
-    whyAdhd: [
-      'Short-form content — tweets are quick to create',
-      'No video editing required',
-      'Can build audience through text alone',
-      'Tips feature = instant gratification',
-      'Threads let you brain-dump ideas',
-      'Less production overhead than YouTube/TikTok',
-      'Can be very reactive/spontaneous'
-    ],
-    standOut: [
-      'Text-based monetization (rare among platforms)',
-      'Subscriptions: $2.99-$9.99/mo (keep up to 97%)',
-      'Tips via Cash App, Venmo, Bitcoin (0% X fee)',
-      'Ticketed Spaces for live audio events',
-      'Brand deals often pay more than ad share',
-      'Threads and text posts can monetize',
-      'Video content also supported now'
-    ],
-    importantNotes: [
-      'ONLY Premium user impressions count for ad revenue',
-      'Need X Premium subscription to monetize ($8-16/mo cost)',
-      'Requires 500 followers + 5M impressions in 90 days',
-      'Stripe account required for payouts',
-      'Ad revenue: ~$8-85 per 1M verified impressions',
-      'Non-verified engagement = $0 toward payout',
-      'Payouts are unpredictable and fluctuate',
-      'Brand-safe content only — controversial topics get suppressed',
-      'Can\'t track earnings in real-time'
-    ],
-    payoutInfo: [
-      'Ad revenue: ~$8-85 per 1M verified impressions',
-      'Typical: $2-10 per 1,000 Premium engagements',
-      'Subscriptions: Keep 97% until $50K lifetime, then 80%',
-      'Tips: 0% X fee (only payment processor fees)',
-      'Real example: 380K followers = ~$56/month',
-      'Minimum payout: ~$10-42.50',
-      'Payment: Bi-weekly via Stripe',
-      'US/UK audiences = highest CPM',
-      'Finance/tech niches pay best'
-    ],
-    taskTypes: [
-      'Tweets and threads',
-      'Video content',
-      'Live Spaces (audio rooms)',
-      'Ticketed Spaces (paid events)',
-      'Subscription-exclusive content',
-      'Brand partnerships',
-      'Affiliate marketing'
-    ],
-    finalTake: '<strong>Supplemental income at best — don\'t rely on it.</strong> The "only Premium users count" rule kills earnings for most creators. Someone with 380K followers reported earning ~$56/month. Best use: build audience via free content, monetize through subscriptions/tips/brand deals rather than ad share. Subscriptions (97% cut) are the real opportunity here — but you need loyal fans willing to pay.',
-    idealFor: [
-      'Writers and text-based creators',
-      'People who already have engaged X audiences',
-      'Those with audiences heavy in Premium users',
-      'Niche experts who can sell subscriptions',
-      'NOT for those expecting predictable income',
-      'NOT worth it if your audience is mostly free users'
-    ]
+    name: 'X',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bvwxaR2mEAAX605zQhsx.png',
+    link: 'https://www.x.com/',
+    rate: '',
+    description: 'Earn through sponsored tweets, affiliate marketing, and promoted posts.',
+    category: 'social',
+    intro: '**X** (formerly Twitter) is a microblogging and social media platform where users share short posts, videos, and links in real time. Think of it like a massive global chatroom with trending conversations happening every second.  \nIt’s designed for individuals, creators, and businesses who want fast-paced engagement, community building, and brand visibility.',
+    whyAdhd: ['Short-form content (280 characters) = quick, low-effort dopamine hits.', 'Constant novelty—news, memes, trends change by the minute.', 'Instant feedback (likes, reposts, comments) keeps engagement high.', 'Great for impulsive creativity and fast ideas.', 'Networking-friendly—easy to connect directly with influencers, brands, and communities.'],
+    standOut: [],
+    importantNotes: ['Visibility depends heavily on the algorithm (favoring paid subscribers).', 'Can be distracting/overwhelming with constant content streams.', 'Monetization requires X Premium subscription and eligibility (500+ followers, 5M+ impressions in 3 months for ad revenue sharing).', 'Platform has high competition and trolls/toxic behavior.', 'Income is inconsistent unless paired with outside business or services.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who enjoy quick expression and constant novelty.', 'Writers, comedians, or commentators who like snappy ideas.', 'Entrepreneurs using X to promote businesses.', 'Networkers who thrive in fast-paced online communities.']
   },
   'patreon': {
     name: 'Patreon',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ytr18NnJQrCOhaCW2MYY.png',
     link: 'https://www.patreon.com/',
-    rate: 'You set prices',
-    description: 'Subscription platform where fans pay monthly for exclusive content. You set your tiers, you keep 80-90% after fees.',
-    category: 'creative',
-    tldr: 'Membership platform for creators — fans pay monthly for exclusive content. New creators pay 10% platform fee + ~3% payment processing (total ~13-14%). You set your own tier prices ($1-$100+). 250,000+ creators earning $2B+ annually. Payout monthly via direct deposit, PayPal, or Payoneer. No follower requirements — anyone can start.',
-    intro: '<strong>Patreon</strong> lets you turn fans into paying subscribers. You create tiers ($3, $5, $10, whatever), offer exclusive perks, and collect recurring monthly income. Unlike ad-based platforms, you are not dependent on algorithms or views.\n\nNo follower count required to start. If you have even 10 dedicated fans willing to pay $5/month, that is $50/month. Scale from there. Best for creators with an existing audience somewhere else.',
-    whyAdhd: [
-      'Recurring income — predictable monthly payments',
-      'You set your own schedule for posting',
-      'No algorithm to fight',
-      'Direct relationship with supporters',
-      'Can batch-create content when motivated',
-      'Multiple tier options reduce decision paralysis for fans',
-      'Community features keep you engaged with supporters'
-    ],
-    standOut: [
-      'No follower requirements to start',
-      'You set your own prices and tiers',
-      'Recurring monthly income (not one-time)',
-      'Built-in video hosting (100 hrs/month free)',
-      'Community chat features',
-      'Discovery ecosystem drives $200M+ to creators yearly',
-      'Handles taxes, chargebacks, fraud for you',
-      'Works globally with multiple payment methods'
-    ],
-    importantNotes: [
-      'New creators (after Aug 2025): 10% platform fee',
-      'Legacy creators: 5-8% depending on plan',
-      'Payment processing: ~2.9% + $0.30 per transaction',
-      'Total fees: ~13-14% of earnings',
-      'iOS purchases: Apple takes 30% (outside US)',
-      'Currency conversion: 2.5% fee if different currency',
-      'Need existing audience — Patreon does not bring you fans',
-      'Requires consistent content delivery to retain subscribers',
-      'Churn is real — subscribers cancel if you stop posting'
-    ],
-    payoutInfo: [
-      'Platform fee: 10% (new creators) or 5-8% (legacy)',
-      'Payment processing: 2.9% + $0.30 (over $3)',
-      'Payment processing: 5% + $0.10 (under $3)',
-      'Total take-home: ~85-87% of gross',
-      'You set tier prices: $1, $3, $5, $10, $50+ — whatever you want',
-      'Payout methods: Direct deposit, PayPal, Payoneer',
-      'Payout timing: Monthly (around 1st-5th)',
-      'Minimum payout: $25 (varies by method)',
-      'Example: 100 patrons × $5 = $500 gross → ~$430 net'
-    ],
-    taskTypes: [
-      'Exclusive posts and updates',
-      'Behind-the-scenes content',
-      'Early access to videos/podcasts',
-      'Members-only Discord/community',
-      'Digital downloads (PDFs, art, music)',
-      'Livestreams for patrons',
-      'Polls letting patrons vote on content',
-      'One-time digital product sales (Shop feature)'
-    ],
-    finalTake: '<strong>Best for creators who already have an audience elsewhere and want predictable monthly income.</strong> Patreon does not bring you fans — you bring fans to Patreon. Fees (~13-14% total) are higher than some alternatives but the platform is trusted and handles all the payment complexity. Works great alongside YouTube, podcasts, or social media. Not a starting point — it is a monetization layer for existing audiences.',
-    idealFor: [
-      'Creators with existing audience on other platforms',
-      'Podcasters, YouTubers, artists, writers, musicians',
-      'Those who want recurring monthly income',
-      'People who can commit to regular exclusive content',
-      'NOT for those without an existing fanbase'
-    ]
+    rate: '',
+    description: 'Offer exclusive content to paying subscribers and build a community for your brand.',
+    category: 'social',
+    intro: '**Patreon** is a membership platform where fans pay creators monthly for exclusive content, perks, or community access. Think of it like a digital fan club that pays your bills.  \nIt’s designed for artists, writers, podcasters, YouTubers, and all kinds of creatives who want recurring income from their most loyal supporters.',
+    whyAdhd: ['Predictable, recurring income = less financial uncertainty.', 'You set the structure—tiers, perks, and posting schedule.', 'Creative freedom—you choose what content to share with patrons.', 'Smaller, supportive audience = less pressure than public platforms.', 'Great accountability—patrons motivate you to keep producing.'],
+    standOut: [],
+    importantNotes: ['Requires an existing audience—hard to grow only on Patreon.', 'Patrons expect consistent rewards (can be stressful with ADHD burnout).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['YouTubers, podcasters, and streamers with loyal audiences.', 'ADHD creatives who thrive on community and accountability.', 'Artists and writers who produce consistent creative work.', 'Side hustlers who want recurring monthly income.']
   },
   'snapchat': {
     name: 'Snapchat',
@@ -4391,145 +2517,35 @@ const gigData = {
   },
   'kofi': {
     name: 'Ko-fi',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/rV3EmPqdyk7oLMwji0FC.png',
     link: 'https://ko-fi.com/',
-    rate: 'You set prices',
-    description: 'Simple tip jar and shop for creators. 0% fee on donations (free plan), 5% on sales/memberships. No monthly cost to start.',
-    category: 'creative',
-    tldr: 'Tip jar + shop + memberships in one. Free plan: 0% fee on one-time tips, 5% on shop/memberships/commissions. Gold ($6-8/mo): 0% on everything. Payments go directly to your PayPal or Stripe — instant, no waiting. 1M+ creators, $150M+ paid out. No follower requirements.',
-    intro: '<strong>Ko-fi</strong> is the simpler, cheaper alternative to Patreon. Accept tips ("buy me a coffee"), sell digital products, offer memberships, take commissions — all from one page. Lowest fees in the creator economy.\n\nKey difference from Patreon: payments go directly to YOUR PayPal/Stripe instantly. No waiting for monthly payouts. No platform holding your money.',
-    whyAdhd: [
-      'Dead simple setup — under 5 minutes',
-      'No pressure to post on schedule',
-      'Instant payouts — money hits your account immediately',
-      'Multiple income types in one place',
-      'Low cognitive load — cleaner than Patreon',
-      '"Buy me a coffee" framing feels casual, low-pressure',
-      'Can be as active or passive as you want'
-    ],
-    standOut: [
-      '0% fee on tips (free plan) — unmatched',
-      'Instant payouts to PayPal/Stripe',
-      'Ko-fi never holds your money',
-      'Shop, memberships, commissions all in one',
-      'Gold plan ($6-8/mo) = 0% fees on everything',
-      'Stream alerts integration for Twitch',
-      'Discord role integration',
-      'No follower requirements to start',
-      'Way cheaper than Patreon'
-    ],
-    importantNotes: [
-      'Free plan: 0% on tips, 5% on shop/memberships/commissions',
-      'Contributor mode: 5% on everything (unlocks extra features)',
-      'Gold ($6-8/mo): 0% on everything',
-      'Payment processor fees still apply (~2.9% + $0.30)',
-      'You handle your own taxes — Ko-fi does not collect VAT/sales tax',
-      'Less discovery than Patreon — you bring your own audience',
-      'Simpler features than Patreon (less robust analytics)',
-      'Best for smaller creators or casual monetization'
-    ],
-    payoutInfo: [
-      'Free plan tips: 0% Ko-fi fee',
-      'Free plan shop/memberships: 5% Ko-fi fee',
-      'Gold plan: 0% Ko-fi fee on everything',
-      'Payment processing: ~2.9% + $0.30 (Stripe/PayPal)',
-      'Example: $10 tip on free plan = ~$9.41 after Stripe',
-      'Example: $10 sale on free plan = ~$8.91 after fees',
-      'Payouts: INSTANT to your PayPal or Stripe',
-      'No minimum threshold — get paid immediately',
-      'Gold pays for itself at ~$250/mo in sales'
-    ],
-    taskTypes: [
-      'One-time tips ("coffees")',
-      'Monthly memberships with tiers',
-      'Digital product sales (art, PDFs, music)',
-      'Physical product sales',
-      'Commissions (art, writing, services)',
-      'Crowdfunding goals',
-      'Exclusive supporter-only content',
-      'Stream alerts for Twitch/YouTube'
-    ],
-    finalTake: '<strong>Best low-fee option for creators who want simple tip jars and occasional sales.</strong> 0% on tips is unbeatable. Instant payouts mean no waiting. Less feature-rich than Patreon but way cheaper and simpler. Perfect for artists, streamers, writers who want a "support me" button without complexity. Gold ($6-8/mo) makes sense once you hit ~$250/mo in non-tip income.',
-    idealFor: [
-      'Creators who want simple tip-based support',
-      'Artists selling commissions or digital downloads',
-      'Streamers wanting donation/tip integration',
-      'Anyone who hates waiting for payouts',
-      'Small creators who find Patreon overkill',
-      'NOT for those needing robust analytics or discovery'
-    ]
+    rate: '',
+    description: 'A platform where followers can support creators directly by buying \'coffees\' or donating.',
+    category: 'social',
+    intro: '**Ko-fi** is a creator support platform where fans can donate money, buy digital products, or subscribe to monthly memberships. Think of it like a digital tip jar with a mini shop attached.  \nIt’s designed for artists, writers, streamers, and freelancers who want to earn directly from their audience without heavy fees or strict rules.',
+    whyAdhd: ['Super simple setup—start accepting tips in minutes.', 'No pressure for perfection; casual support works fine.', 'Flexible: one-time tips, product sales, or monthly memberships.', 'Great for passive income through digital downloads.', 'No algorithm stress—you share your Ko-fi link wherever you want.'],
+    standOut: [],
+    importantNotes: ['Works best if you already have an audience—Ko-fi doesn’t bring traffic.', 'Requires self-promotion (sharing links on socials, streams, etc.).', 'Membership perks require consistency (can be hard during ADHD burnout).', 'Not ideal as a full-time income unless paired with other platforms.', 'Digital product sales can take time to set up.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD creatives who want a simple tip jar without complex rules.', 'Artists and writers selling digital downloads.', 'Streamers looking for fan support beyond ads/donations.', 'Side hustlers who want recurring income without big platform fees.']
   },
   'linkedin': {
     name: 'LinkedIn',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.linkedin.com/help/linkedin/answer/a1342750',
-    rate: 'Indirect — you sell services',
-    description: 'No direct pay-per-view. Monetize through consulting, coaching, freelance clients, brand deals, courses, and newsletters. High-intent B2B audience.',
-    category: 'creative',
-    tldr: 'LinkedIn does NOT pay you for views like YouTube or TikTok. You monetize indirectly by converting your audience into clients, brand deals, or product sales. Top creators earn $7K+/month from services and sponsorships. Video monetization program exists (invite-only, ad revenue sharing). Brand deals start ~$200-250/post for beginners, $1,500+ for established creators. Best platform for B2B, consulting, coaching.',
-    intro: '<strong>LinkedIn</strong> is not a "get paid for views" platform — it\'s a lead generation machine. The 1 billion users are professionals actively looking for business solutions, career help, and expertise. This makes it ideal for selling services, not chasing ad revenue.\n\nThe real money comes from consulting clients, coaching packages, brand partnerships, digital products, and courses. Build authority through content → convert followers into paying clients.',
-    whyAdhd: [
-      'Text posts are quick to create — no video editing',
-      'Can repurpose existing expertise you already have',
-      'No pressure to be "entertaining" — value wins',
-      'Comments and engagement = instant feedback',
-      'Carousels let you break ideas into chunks',
-      'Newsletter feature for longer-form content',
-      'Less overwhelming than video-first platforms'
-    ],
-    standOut: [
-      '1 billion professional users',
-      'High-intent audience (people looking to hire/buy)',
-      '3x higher conversion rate than other platforms',
-      'Organic reach still strong (less saturated than IG/TikTok)',
-      'Newsletter feature with built-in subscribers',
-      'Video monetization program (invite-only)',
-      'Brand deals focus on professional/B2B products',
-      'Direct path: content → client inquiries'
-    ],
-    importantNotes: [
-      'NO direct pay-per-view (except invite-only video program)',
-      'Money comes from services, products, brand deals',
-      'External links get suppressed by algorithm',
-      'Takes time to build authority — not instant income',
-      'Brand deals: $200-250/post (beginner) to $1,500+ (established)',
-      'Video program requires: 100+ followers, good standing, invite',
-      'Best for B2B, professional services, coaching',
-      'Content with affiliate links gets downranked',
-      'Payments happen off-platform (Stripe, PayPal, etc.)'
-    ],
-    payoutInfo: [
-      'Services/Consulting: $100-$500+/hour',
-      'Brand deals (beginner): $200-250/post',
-      'Brand deals (established): $1,500+/post',
-      'Video program: Ad revenue share (invite-only, Stripe payout)',
-      'Courses: Sell on LinkedIn Learning or external platforms',
-      'Newsletters: Sponsorships, affiliate, lead gen',
-      'Top creators: $7,000+/month from deals + services',
-      'No minimum followers to start monetizing',
-      'All payments happen externally'
-    ],
-    taskTypes: [
-      'Consulting/coaching services',
-      'Freelance client acquisition',
-      'Brand partnerships and sponsored posts',
-      'Digital products (ebooks, templates, courses)',
-      'LinkedIn Learning courses',
-      'Newsletter monetization',
-      'Webinars and paid workshops',
-      'Affiliate marketing (carefully — links get suppressed)',
-      'Profile optimization services'
-    ],
-    finalTake: '<strong>Best platform for turning expertise into clients — not for passive income.</strong> If you have skills people pay for (consulting, coaching, freelancing), LinkedIn is unmatched for finding high-value clients. 1 billion professionals looking for solutions. But it requires building authority through consistent content. Not a "post and get paid" platform — it\'s a lead generation engine.',
-    idealFor: [
-      'Consultants and coaches',
-      'Freelancers seeking B2B clients',
-      'Experts who can package knowledge into services',
-      'People comfortable with text-based content',
-      'Those targeting business/professional audiences',
-      'NOT for those wanting passive pay-per-view income',
-      'NOT for entertainment/lifestyle content'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/DiQhmMBQMIupg107v1KD.png',
+    link: 'https://www.linkedin.com/',
+    rate: '',
+    description: 'Monetize your expertise through partnerships, speaking gigs, and courses.',
+    category: 'social',
+    intro: '**LinkedIn** is a professional networking platform where you can showcase your skills, connect with industry peers, and find freelance gigs or jobs. Think of it like Facebook, but for your career.  \nIt’s designed for professionals, freelancers, and businesses who want to network, market their services, and land clients or employers.',
+    whyAdhd: ['Structured environment—profiles feel like a digital resume.', 'Clear opportunities—jobs, contracts, and networking in one place.', 'Easy dopamine hits from profile views, messages, and engagement.', 'Built-in credibility (clients expect professionalism here).', 'Great for ADHD hyperfocus on personal branding and networking.'],
+    standOut: [],
+    importantNotes: ['Content is more formal—less casual than Instagram/TikTok.', 'Requires consistency to grow visibility (posting + networking).', 'Competitive—many freelancers/consultants market the same skills.', 'Can feel overwhelming if you’re not comfortable with self-promotion.', 'Best results come when paired with content creation (not just a static profile).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['ADHD freelancers who want high-paying, professional clients.', 'Consultants, writers, designers, and coaches.', 'Professionals who struggle with cold pitching but thrive on inbound leads.', 'People who like structured platforms and long-term career growth.']
   },
   'rev': {
     name: 'Rev',
@@ -5084,201 +3100,52 @@ const gigData = {
     ]
   },
   'belaysolutions': {
-    name: 'BELAY',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://belaysolutions.com/',
-    rate: '$18–$22/hr',
-    description: 'Premium U.S.-based virtual assistant company matching experienced professionals with executives and business owners.',
-    category: 'freelance',
-    tldr: 'U.S.-based virtual staffing company (founded 2010, Atlanta). They match you with 1-2 clients who need executive-level support. Pay: $18–$22/hr as a contractor. Highly selective — only 3.9% acceptance rate. Prefer bachelor\'s degree + 5 years executive assistant experience. Fully remote, flexible hours, but you\'re the middleman — clients pay $38-45/hr.',
-    intro: '<strong>BELAY</strong> is a premium virtual assistant company — not a gig platform. They match experienced U.S.-based professionals with executives, entrepreneurs, pastors, and business owners who need high-level remote support.\n\nYou work as a 1099 contractor, typically with 1-2 dedicated clients. BELAY handles client acquisition, contracts, and billing. You handle the actual work. The catch? Clients pay $38-45/hr while you earn $18-22/hr — BELAY takes the spread.',
-    whyAdhd: [
-      'Fully remote — work from home',
-      'Flexible hours within business hours',
-      'Dedicated clients (not random gigs)',
-      'Variety of tasks keeps it interesting',
-      'No cold-calling or client hunting',
-      'Ongoing support from Client Success team'
-    ],
-    standOut: [
-      '100% remote, U.S.-based only',
-      'Matched with dedicated clients (not random work)',
-      'BELAY handles all client acquisition and billing',
-      '93% first-match success rate claimed',
-      '2,000+ pre-vetted professionals',
-      'Named to Inc. 5000 multiple times',
-      'Serves 50+ industries',
-      'Client Success Consultant supports you ongoing'
-    ],
-    importantNotes: [
-      'Only 3.9% acceptance rate',
-      'Prefer bachelor\'s degree + 5 years experience',
-      'Pay range: $18–$22/hr (flat, regardless of client)',
-      'Clients pay $38–$45/hr — BELAY takes the difference',
-      '1099 contractor — you handle taxes',
-      'Must provide your own equipment',
-      'Business hours only (Mon-Fri, 9-5)',
-      'Time off can be complicated to arrange',
-      'No buyout option without fees',
-      'Some reviews cite low pay for experience required'
-    ],
-    payoutInfo: [
-      'Pay range: $18–$22/hr',
-      'Glassdoor average: ~$24/hr',
-      'Independent contractor (1099)',
-      'No benefits (though exploring options)',
-      'Can request annual pay reevaluation',
-      'Taxes not withheld — plan accordingly'
-    ],
-    taskTypes: [
-      'Calendar and email management',
-      'Travel arrangements',
-      'Project coordination',
-      'Document creation and formatting',
-      'CRM updates and data entry',
-      'Social media management',
-      'Bookkeeping (separate role)',
-      'Marketing assistance (separate role)'
-    ],
-    finalTake: '<strong>BELAY is legit and professional, but you\'re trading earning potential for stability.</strong> They find clients, handle contracts, and provide ongoing support — but take a ~50% cut. At $18-22/hr for work requiring 5+ years experience, many VAs feel underpaid. Best for: experienced admins who want consistent remote work without hustling for clients. Skip if: you can find your own clients and keep 100%.',
-    idealFor: [
-      'Experienced executive assistants',
-      'U.S.-based professionals wanting remote work',
-      'Those who prefer stability over maximizing income',
-      'People who don\'t want to find their own clients',
-      'NOT for beginners or those outside the U.S.'
-    ]
+    name: 'Belay Solutions',
+    logo: 'https://media.licdn.com/dms/image/v2/D4E10AQHq0VJgaQKacA/image-shrink_800/image-shrink_800/0/1729178105794?e=2147483647&v=beta&t=9ly-pcP9eBsjgqN-2HEIdRa6hp99y98oJxR1z_ZfGnc',
+    link: 'https://belaysolutions.com/work-with-us/?=undefined',
+    rate: '$15–$25/hr',
+    description: 'US-based VAs, vetted professionals',
+    category: 'va',
+    intro: '**BELAY** is a fully remote staffing company that connects skilled professionals—like Virtual Assistants, Bookkeepers, and Marketing Assistants—with clients who need reliable, flexible support. With over 10 years as a 100% remote organization, BELAY emphasizes work-life balance and meaningful careers from home.',
+    whyAdhd: ['Fully remote work means you control your environment and schedule', 'Roles are project- and client-focused, reducing task-switching chaos', 'Strong community and support network help with onboarding and troubleshooting', 'Clear hiring and onboarding process keeps things structured', 'Opportunities to work in roles that match your talents and preferred pace'],
+    standOut: ['Recognized by Inc., Entrepreneur, FlexJobs, and more as a top remote employer', 'Specialized roles with meaningful work — not just data entry or basic gigs', 'Focus on long-term client matches for stability and rapport', 'Competitive pay and benefits aligned with professional staffing', 'Transparent hiring—no scams or fake job postings, verified through official channels'],
+    importantNotes: ['Hiring is competitive and requires application + assessment', 'Not a quick gig — expect some onboarding and matching time', 'You won’t find hourly or task-based pay like typical freelancing gigs', 'Roles require a professional skill set and experience in your field', 'Limited to certain roles (Virtual Assistant, Bookkeeper, Marketing Assistant)'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Want a real remote job, not just freelance gigs', 'Thrive with clear expectations and ongoing client relationships', 'Need a supportive employer with a remote work culture', 'Have professional skills in virtual assistance, bookkeeping, or marketing', 'Are ready to commit to a long-term role with steady income and benefits']
   },
   'timeetc': {
-    name: 'Time Etc',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.timeetc.com/',
-    rate: '$17–$19+/hr',
-    description: 'UK-founded virtual assistant company matching experienced professionals with entrepreneurs and executives in the U.S. and UK.',
-    category: 'freelance',
-    tldr: 'UK-founded VA company (2007, now in US too). They match you with 3-6 dedicated clients. Starting pay: $17-19/hr, increases over time. Requires 5+ years experience. Clients pay $35-38/hr — Time Etc takes the spread. ~700 assistants, Great Place to Work certified. Paid monthly via PayPal.',
-    intro: '<strong>Time Etc</strong> was founded in 2007 by Barnaby Lashbrooke, with Penni Pike (Richard Branson\'s assistant for 32 years) as special advisor. Headquartered in Birmingham, UK with US operations.\n\nSimilar to BELAY — they match experienced VAs with entrepreneurs and executives. You work with 3-6 dedicated clients on an ongoing basis. Time Etc handles client acquisition, invoicing, and payments. They claim to have saved clients over 1 million hours.',
-    whyAdhd: [
-      'Fully remote — work from home',
-      'Flexible hours (some availability during business hours)',
-      'Dedicated clients (not random tasks)',
-      'Variety of work keeps it interesting',
-      'No client hunting — they bring clients to you',
-      'Payment guaranteed for all work'
-    ],
-    standOut: [
-      'U.S. and UK-based assistants only',
-      'Matched with 3-6 dedicated clients',
-      'Time Etc handles all invoicing and billing',
-      'Pay increases over time with tenure',
-      '~700 assistants in their network',
-      'Great Place to Work certified 2023-2024',
-      'Penni Pike (Branson\'s former EA) on team',
-      '10,000+ clients served since 2007'
-    ],
-    importantNotes: [
-      'Requires 5-8 years of experience minimum',
-      'Starting pay: $17-19/hr',
-      'Clients pay $35-38/hr — Time Etc takes ~50%',
-      'U.S. or UK residents only',
-      'Minimum 5 hours/week commitment',
-      '1-year commitment expected',
-      'Paid monthly via PayPal (fees apply)',
-      'Must provide your own equipment',
-      'Video interview required during application',
-      'Some reviews cite inconsistent client availability'
-    ],
-    payoutInfo: [
-      'Starting pay: $17–$19/hr',
-      'Pay increases with tenure and performance',
-      'Glassdoor average: ~$25/hr',
-      'Paid monthly via PayPal',
-      'Payment guaranteed for all completed work',
-      '1099 contractor — handle own taxes'
-    ],
-    taskTypes: [
-      'Email and inbox management',
-      'Calendar and scheduling',
-      'Travel arrangements',
-      'Research and data entry',
-      'Social media management',
-      'Content writing and blog posts',
-      'Personal tasks and life admin',
-      'Presentation design'
-    ],
-    finalTake: '<strong>Time Etc is BELAY\'s UK-born competitor — similar model, slightly better starting pay ($17-19 vs $18-22), but same ~50% cut.</strong> They bring you clients, guarantee payment, and handle admin. The tradeoff: you need 5+ years experience for rates that many VAs consider low. Best for: experienced admins wanting stable remote work. Their Great Place to Work certification suggests decent company culture.',
-    idealFor: [
-      'Experienced executive assistants (5+ years)',
-      'U.S. or UK-based professionals',
-      'Those wanting flexible remote work',
-      'People who prefer not to find own clients',
-      'NOT for beginners or those outside US/UK'
-    ]
+    name: 'Time etc',
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/l5f859tQVXgDlX2aIqTN.png',
+    link: 'https://www.timeetc.com/work-for-us',
+    rate: '$15–$30/hr',
+    description: 'Established client relationships',
+    category: 'va',
+    intro: '**Time etc** is a virtual assistant (VA) platform where freelancers help busy entrepreneurs and businesses with admin, writing, and organizational tasks. Think of it like being someone’s right-hand helper, but all online.  \nIt’s designed for people who are detail-oriented, good at multitasking, and want flexible part-time work from home.',
+    whyAdhd: [],
+    standOut: [],
+    importantNotes: ['Only available to U.S. and U.K. residents.', 'Requires prior professional experience (not beginner-friendly).', 'Starting pay is modest (around $13–$17 per hour).', 'Limited to part-time hours (great as a side hustle, not full-time).', 'Work can sometimes be repetitive (email sorting, scheduling, etc.).'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['U.S. or U.K. residents with admin/writing experience.', 'ADHD folks who need structure but not overwhelming workloads.', 'Parents, caregivers, or part-timers wanting flexible side income.', 'Organized multitaskers who like helping others stay on track.']
   },
   'fancyhands': {
     name: 'Fancy Hands',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/xxx/pub/xxx.png',
-    link: 'https://www.fancyhands.com/',
-    rate: '$3–$7/task',
-    description: 'Microtask-based virtual assistant platform — grab small tasks anytime, but expect very low pay for the time invested.',
-    category: 'freelance',
-    tldr: 'NYC-based microtask VA platform (founded 2010). You grab small tasks from a queue — $3-7 per "20-minute" task. Reality: tasks often take way longer, so effective pay is often $5-9/hr or less. US-only. Paid via Dwolla every 2 weeks. Extremely flexible but very low income potential. Side hustle at best.',
-    intro: '<strong>Fancy Hands</strong> is NOT like BELAY or Time Etc. Instead of dedicated clients, you grab individual tasks from a shared queue — scheduling calls, research, booking appointments, etc.\n\nFounded in 2010 by Ted Roden in NYC. The concept: each task is "20 minutes" and pays $3-7. The reality: tasks often take much longer, and you can\'t negotiate. Workers consistently report earning far below minimum wage.',
-    whyAdhd: [
-      'Ultimate flexibility — work anytime',
-      'No minimum hours or commitments',
-      'Grab tasks that interest you',
-      'No client relationships to manage',
-      'Quick tasks (in theory)',
-      'Work from phone or computer'
-    ],
-    standOut: [
-      'True on-demand — work whenever',
-      'No interview or onboarding process',
-      'Mobile app available',
-      'US-based assistants only',
-      'Tasks available 24/7',
-      'No minimum hours',
-      'Featured in NYT, Forbes, Time'
-    ],
-    importantNotes: [
-      '⚠️ Pay: $3-7 per "20-minute" task',
-      'Tasks often take much longer than 20 minutes',
-      'Effective hourly rate often $5–9/hr (often less)',
-      'US residents only',
-      '"Mentors" must approve client communication (delays)',
-      'Tasks can be unclaimed/reassigned if too slow',
-      'Paid every 2 weeks via Dwolla only',
-      'Glassdoor: 2.5/5 rating, 1.9/5 for compensation',
-      'Many reviews call it "digital sweatshop"',
-      'Clients pay $35/hr — you get ~$3/task'
-    ],
-    payoutInfo: [
-      'Per task: $3–$7 (occasionally up to $10-15)',
-      'Tasks assumed to be 20 minutes',
-      'Realistic hourly: $5–$9/hr (often less)',
-      'Paid every 2 weeks (Tuesdays)',
-      'Payment via Dwolla only',
-      'Independent contractor (1099)'
-    ],
-    taskTypes: [
-      'Phone calls on client\'s behalf',
-      'Scheduling and appointments',
-      'Research and data gathering',
-      'Travel booking',
-      'Price comparisons',
-      'Customer service calls',
-      'Basic data entry',
-      'Finding vendors/services'
-    ],
-    finalTake: '<strong>Fancy Hands is technically legitimate but widely considered exploitative.</strong> You\'ll work a "20-minute" task that takes an hour and get paid $3. Clients pay $35/hr while you earn $3/task. The flexibility is real — work anytime, no commitments — but the pay makes it barely worth your time. Only consider this for absolute emergencies or if you literally have no other options.',
-    idealFor: [
-      'People who need ultimate flexibility',
-      'Those wanting quick pocket money',
-      'Anyone testing if VA work is for them',
-      'NOT for anyone needing real income',
-      'NOT for anyone who values their time'
-    ]
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/asHamvyp91UGgroT69Si.jpg',
+    link: 'https://www.fancyhands.com/jobs',
+    rate: '$10–$15/hr',
+    description: 'Task-based assignments',
+    category: 'va',
+    intro: '**Fancy Hands** is a virtual assistant (VA) platform where freelancers complete small, on-demand tasks for clients. Think of it like Uber for virtual errands—you pick tasks when you’re available, finish them, and get paid.  \nIt’s designed for U.S.-based freelancers who want flexible, remote side income without committing to long projects.',
+    whyAdhd: ['Tasks are short and varied (research, scheduling, phone calls, emails).', 'Work is available on-demand—you grab tasks when you want.', 'No long-term commitments or huge projects.', 'Dopamine boost from finishing quick wins.', 'Flexible enough to fit into irregular ADHD work patterns.'],
+    standOut: [],
+    importantNotes: ['Only available to U.S. residents.', 'Pay is low (about $3–$7 per task).', 'Tasks can be inconsistent—sometimes lots available, sometimes few.', 'First-come system can feel competitive and stressful.', 'Not reliable for full-time income—better as a side hustle.'],
+    payoutInfo: [],
+    taskTypes: ['Scheduling – booking appointments, managing calendars.', 'Research – finding information, making comparisons.', 'Phone calls – calling businesses, setting up reservations.', 'Miscellaneous errands – online ordering, reminders, emails.'],
+    finalTake: '',
+    idealFor: ['U.S.-based freelancers looking for casual extra income.', 'ADHD folks who thrive on variety and quick wins.', 'People with unpredictable schedules who need flexibility.', 'Side hustlers who don’t want to commit to big projects.']
   },
   'voices': {
     name: 'Voices',
@@ -5375,372 +3242,17 @@ const gigData = {
   },
   'acx': {
     name: 'ACX',
-    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png',
-    link: 'https://www.acx.com/',
-    rate: '$50–$400+/finished hr',
-    description: 'Amazon/Audible\'s audiobook creation platform connecting narrators with authors — free to join, distributed to Audible, Amazon & Apple Books.',
-    category: 'freelance',
-    tldr: 'Amazon/Audible\'s platform connecting audiobook narrators with authors. Free to join, 100% free to use. Three pay models: Per-Finished-Hour ($100–$400+ PFH), Royalty Share (50/50 split, 7-year contract), or Royalty Share Plus (hybrid). Distributed to Audible, Amazon & Apple Books. US/UK/Canada/Ireland only. High audio quality standards — takes 4–6 hours to produce 1 finished hour.',
-    intro: '<strong>ACX (Audiobook Creation Exchange)</strong> is owned by Audible/Amazon and launched in 2011. It\'s the primary marketplace connecting authors and publishers with audiobook narrators and producers.\n\nUnlike voice-over marketplaces with annual fees, ACX is 100% free to join and use. You audition for projects, negotiate rates directly with authors, and your finished audiobooks get distributed to Audible, Amazon, and Apple Books — the world\'s largest audiobook platforms.',
-    whyAdhd: [
-      'Long-form projects — deep focus, not short clips',
-      'Work from home studio on your schedule',
-      'Choose projects that interest YOU',
-      'Royalty share = passive income over time',
-      'No membership fees or commissions',
-      'Build portfolio with each completed book'
-    ],
-    standOut: [
-      '100% free to join and use',
-      'No platform fees or commissions',
-      'Owned by Audible/Amazon',
-      'Distribution to Audible, Amazon & Apple Books',
-      '1,800+ open projects at any time',
-      'Three payment models (PFH, Royalty Share, Hybrid)',
-      'Royalty share creates passive income stream',
-      'SAG-AFTRA partnership at $250+ PFH',
-      'Tons of free training resources and videos',
-      'Promo codes provided for marketing',
-      'New Voice Replica program (AI narration beta)',
-      'QA team reviews submissions'
-    ],
-    importantNotes: [
-      'Only available in US, UK, Canada, Ireland',
-      'Must have existing ebook/print book on Amazon',
-      'High audio quality standards — strict QA review',
-      'Takes 4–6 hours work to produce 1 finished hour',
-      'Beginners: could take 10+ hours per finished hour',
-      'Royalty Share = 7-year contract, no upfront pay',
-      'Many RS projects never sell well — narrator gets nothing',
-      'Fierce competition from experienced pros',
-      'Risk of fraudulent rights holders — narrator doesn\'t get paid',
-      'Exclusive distribution = 40% royalty, Non-exclusive = 25%',
-      'Listeners can return audiobooks within 7 days — no compensation',
-      'Need home studio with proper equipment'
-    ],
-    payoutInfo: [
-      'Beginners: $10–$100 per finished hour',
-      'Experienced: $100–$400+ per finished hour',
-      'Industry standard: ~$200 narration + $200 post-production',
-      'Top narrators: $500+ per finished hour',
-      'Average completed project: $2,000–$5,000',
-      'Royalty Share: 20% to narrator, 20% to author (of 40%)',
-      'Exclusive royalty: 40% of net sales',
-      'Non-exclusive royalty: 25% of net sales',
-      'SAG-AFTRA eligible at $250+ PFH',
-      'Payment: Direct deposit or PayPal',
-      'RS payments: Monthly for 7 years'
-    ],
-    taskTypes: [
-      'Fiction narration — novels, short stories',
-      'Non-fiction narration — self-help, business, memoir',
-      'Children\'s audiobooks',
-      'Romance narration',
-      'Mystery/thriller narration',
-      'Sci-fi/fantasy narration (character voices)',
-      'Self-help and motivational',
-      'Biography and memoir',
-      'Full production (narration + editing + mastering)',
-      'Voice Replica (AI voice licensing — beta)'
-    ],
-    finalTake: '<strong>ACX is the gold standard for audiobook narration — but it\'s not easy money.</strong> The math: 1 finished hour = 4–6 hours of actual work (prep, recording, editing, mastering). At $200 PFH, that\'s $33–$50/hr real time. Royalty Share sounds attractive but most books don\'t sell well — you could work 60+ hours for nothing. Best approach: Mix PFH projects (guaranteed pay) with selective RS projects (passive income potential). Free to join, legitimate platform, but expect fierce competition and high standards.',
-    idealFor: [
-      'Aspiring audiobook narrators willing to invest in home studio',
-      'Voice actors who enjoy long-form reading over short clips',
-      'People in US, UK, Canada, or Ireland only',
-      'Those who can commit 20–60+ hours per project',
-      'Narrators building passive income through royalty share',
-      'NOT for those wanting quick, easy money'
-    ]
-  },
-};
-
-    // Get gig ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const gigId = urlParams.get('gig');
-    
-    // Favorites
-    let favorites = JSON.parse(localStorage.getItem('925adhd_favorites') || '[]');
-
-    function updateFavButtons(isFav) {
-      const heart = isFav ? '❤️' : '🤍';
-      const _fav = document.getElementById('favBtn');
-      const _pageFav = document.getElementById('pageFavBtn');
-      if (_fav) _fav.textContent = heart;
-      if (_pageFav) _pageFav.textContent = heart;
-    }
-
-    // Local image files (help match IDs to existing filenames)
-    const imageFiles = [
-      "99designs.png","acx.jpg","amazonhandmade.png","appen.jpg","behance.png","belay.png","benjamin.jpg","benjamn.jpg","best play.jpg","bestmark.jpg","bigcartel.png","blob-bacb09e.webp","brain.jpeg","bytlixir.png","caht gpt.png","cambly.png","castingwords.png","channels4_profile.jpg","Chewy-logo-web.png","claude.jpg","claude.png","clearvoice.png","clickworker.png","contently.jpg","crowdtap.jpg","designcrowd.png","discord logo.png","doordash.png","download.jpeg","download.png","dribble.png","dscout.png","etsy.jpg","facebook.png","fancy hand.jpg","fetch.png","fieldagent.png","fiverr.png","flex.png","folksy.png","freelanmcer.png","gigspot.jpg","gigspot.png","gotranscript.png","honeygain.png","ibotta.png","influenster.png","instacart.png","instagram.jpg","isecretshop.jpg","italki.png","ivueit.png","just play.jpg","kofi.png","lifepoints.png","linkedin.png","marketforce.png","methinks.png","minsk-belarus-03272023-openai-chatgpt-600nw-2281899103.webp","mistplay.jpg","mode earn app.jpg","neevo.png","neighbor.png","outlier.png","paidviewpoint.png","papa.jpg","patreon.png","pawns.png","pinecone.png","pogo.jpg","posting_checklist.png","preply.png","pressplay.png","presto.jpg","printify.png","prolific.png","proxypics.png","quicktate.png","rakuten.jpg","respondent.png","rev.png","rover.png","rs=w_600,cg_true.webp","rs=w_600,h_300,cg_true (1).webp","rs=w_600,h_300,cg_true.webp","rs=w_600,h_800,cg_true.webp","rs=w_984,h_984.webp","scribie.jpg","scribie.png","scripted.png","shopify.png","slicethepie.jpg","snapchat.png","spark.png","speechpad.jpg","streetbees.png","surveyjunkie.jpg","swagbucks.png","sweatcoin.jpg","syllaby.png","tastrabbit.jpg","tigerfish.jpg","tiktok.png","timeect.png","toluna.png","toptal.png","transcribeme.jpg","trust.png","trustedhousesitters.png","twitch.png","ubereats.png","upwork.png","usertesting.png","voice123.png","voices.png","wag.png","writeraccess.png","wyzant.jpg","x.png","youtube.png"
-    ];
-    const imageMap = {
-      'respondentio': 'respondent.png',
-      'pineconeresearch': 'pinecone.png',
-      'prestoshopper': 'presto.jpg',
-      'timeetc': 'timeect.png',
-      'fancyhands': 'fancy hand.jpg',
-      'belaysolutions': 'belay.png',
-      'freelancer': 'freelanmcer.png',
-      'carecom': 'care.jpg',
-      'chewy': 'chewy.png'
-    };
-
-    function attemptImageFallback(img, id, remote) {
-      try {
-        const norm = s => s.replace(/[^a-z0-9]/g,'').toLowerCase();
-        const idNorm = norm(id);
-
-        // If there's an explicit mapping for this id, use it first
-        if (imageMap && imageMap[id]) {
-          img.onerror = null;
-          img.src = 'images/' + imageMap[id];
-          return;
-        }
-
-        for (const f of imageFiles) {
-          if (norm(f).includes(idNorm) || idNorm.includes(norm(f))) {
-            img.onerror = null;
-            img.src = 'images/' + f;
-            return;
-          }
-        }
-
-        if (!img.dataset.attempt) { img.dataset.attempt = 'png'; img.src = `images/${id}.png`; return; }
-        if (img.dataset.attempt === 'png') { img.dataset.attempt = 'jpg'; img.src = `images/${id}.jpg`; return; }
-        if (img.dataset.attempt === 'jpg') { img.dataset.attempt = 'webp'; img.src = `images/${id}.webp`; return; }
-
-        img.onerror = null;
-        img.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%232a2a2a%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2240%22>💼</text></svg>';
-      } catch (e) {
-        img.onerror = null;
-        img.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%232a2a2a%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2240%22>💼</text></svg>';
-      }
-    }
-    
-    function renderGig(gig) {
-      const isFav = favorites.includes(gigId);
-      updateFavButtons(isFav);
-      
-      let html = `
-        <div class="hero">
-          <img src="images/${gigId}.png" class="hero-logo" alt="${gig.name}" onerror="attemptImageFallback(this,'${gigId}','${gig.logo}')">
-          <div class="hero-info">
-            <h1>${gig.name}</h1>
-            <div class="hero-rate">${gig.rate}</div>
-            <div class="hero-desc">${gig.description}</div>
-          </div>
-        </div>
-      `;
-      
-      // TL;DR first (if exists)
-      if (gig.tldr) {
-        let tldr = gig.tldr.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-        tldr = tldr.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
-        html += `
-          <div class="tldr-box"><span class="tldr-label">TL;DR:</span> ${tldr}</div>
-        `;
-      }
-
-      // Intro second (if exists)
-      if (gig.intro) {
-        // Clean up markdown bold for intro
-        let intro = gig.intro.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-        intro = intro.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
-        html += `<div class="intro-section"><p>${intro}</p></div>`;
-      }
-      
-      // Why ADHD-Friendly
-      if (gig.whyAdhd && gig.whyAdhd.length > 0) {
-        html += `
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon adhd">🧠</div>
-              <h2 class="section-title">Why It's ADHD-Friendly</h2>
-            </div>
-            <div class="section-content">
-              <ul>${gig.whyAdhd.map(item => `<li>${item}</li>`).join('')}</ul>
-            </div>
-          </div>
-        `;
-      }
-      
-      // What Makes It Stand Out
-      if (gig.standOut && gig.standOut.length > 0) {
-        html += `
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon standout">💡</div>
-              <h2 class="section-title">What Makes It Stand Out</h2>
-            </div>
-            <div class="section-content">
-              <ul>${gig.standOut.map(item => `<li>${item}</li>`).join('')}</ul>
-            </div>
-          </div>
-        `;
-      }
-      
-      // Important Notes
-      if (gig.importantNotes && gig.importantNotes.length > 0) {
-        html += `
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon warning">🚩</div>
-              <h2 class="section-title">Important Notes</h2>
-            </div>
-            <div class="section-content warning">
-              <ul>${gig.importantNotes.map(item => `<li>${item}</li>`).join('')}</ul>
-            </div>
-          </div>
-        `;
-      }
-      
-      // Payout Info
-      if (gig.payoutInfo && gig.payoutInfo.length > 0) {
-        html += `
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon payout">💸</div>
-              <h2 class="section-title">Payout Info</h2>
-            </div>
-            <div class="section-content">
-              <ul>${gig.payoutInfo.map(item => `<li>${item}</li>`).join('')}</ul>
-            </div>
-          </div>
-        `;
-      }
-      
-      // Types of Tasks
-      if (gig.taskTypes && gig.taskTypes.length > 0) {
-        html += `
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon tasks">🔍</div>
-              <h2 class="section-title">Types of Tasks</h2>
-            </div>
-            <div class="section-content">
-              <ul>${gig.taskTypes.map(item => `<li>${item}</li>`).join('')}</ul>
-            </div>
-          </div>
-        `;
-      }
-      
-      // Final Take (convert markdown bold and preserve paragraph markup without nesting <p>)
-      if (gig.finalTake) {
-        let take = gig.finalTake.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-        take = take.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
-        // take already contains paragraph separators (</p><p>), so avoid wrapping it in an extra <p>
-        html += `
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon verdict">🔥</div>
-              <h2 class="section-title">Final Take</h2>
-            </div>
-            <div class="section-content">
-              ${take}
-            </div>
-          </div>
-        `;
-      }
-      
-      // Ideal For
-      if (gig.idealFor && gig.idealFor.length > 0) {
-        html += `
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon ideal">✅</div>
-              <h2 class="section-title">Ideal For</h2>
-            </div>
-            <div class="section-content">
-              <div class="ideal-tags">
-                ${gig.idealFor.map(item => `<span class="ideal-tag">${item}</span>`).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-      }
-      
-      document.getElementById('mainContent').innerHTML = html;
-      document.getElementById('ctaSection').style.display = 'block';
-      document.getElementById('ctaLink').href = gig.link;
-      document.title = `${gig.name}`;
-    }
-    
-    function renderNotFound() {
-      document.getElementById('mainContent').innerHTML = `
-        <div class="not-found">
-          <h2>😕 Opportunity Not Found</h2>
-          <p>We couldn't find details for this opportunity yet.</p>
-          <a href="earn.html">← Browse All Opportunities</a>
-        </div>
-      `;
-    }
-    
-    // Favorite toggle (sync both header and site header buttons)
-    function toggleFavorite() {
-      if (!gigId) return;
-      if (favorites.includes(gigId)) {
-        favorites = favorites.filter(f => f !== gigId);
-      } else {
-        favorites.push(gigId);
-      }
-      localStorage.setItem('925adhd_favorites', JSON.stringify(favorites));
-      updateFavButtons(favorites.includes(gigId));
-    }
-
-    const _favBtnEl = document.getElementById('favBtn');
-    const _pageFavBtnEl = document.getElementById('pageFavBtn');
-    if (_favBtnEl) _favBtnEl.addEventListener('click', toggleFavorite);
-    if (_pageFavBtnEl) _pageFavBtnEl.addEventListener('click', toggleFavorite);
-    
-    // Initialize immediately (no waiting)
-    if (gigId && gigData[gigId]) {
-      renderGig(gigData[gigId]);
-    } else {
-      renderNotFound();
-    }
-    // Reveal content after render (prevents flash of loading state)
-    const _mainEl = document.getElementById('mainContent');
-    if (_mainEl) _mainEl.style.visibility = 'visible';
-  </script>
-    <nav class="site-nav">
-      <div class="nav-items">
-        <a href="dashboard.html" class="nav-item"><span class="icon">🏠</span><span>Home</span></a>
-        <a href="guides.html" class="nav-item"><span class="icon">📖</span><span>Guides</span></a>
-        <a href="earn.html" class="nav-item"><span class="icon">💰</span><span>Earn</span></a>
-        <a href="apps.html" class="nav-item"><span class="icon">📱</span><span>Apps</span></a>
-        <a href="favorites.html" class="nav-item"><span class="icon">❤️</span><span>Saved</span></a>
-        <a href="tools.html" class="nav-item"><span class="icon">🛠️</span><span>Tools</span></a>
-      </div>
-    </nav>
-    <script src="assets/layout.js"></script>
-    <script>
-      // Robust reveal: wait until layout populates header/nav, then show them.
-      (function(){
-        const h = document.getElementById('site-header');
-        const n = document.getElementById('site-nav');
-        const reveal = () => { if (h) h.style.visibility = 'visible'; if (n) n.style.visibility = 'visible'; };
-
-        // If already populated, reveal immediately
-        if ((h && h.children.length) || (n && n.children.length)) { reveal(); return; }
-
-        let revealed = false;
-        const tryReveal = () => {
-          if (revealed) return;
-          if ((h && h.children.length) || (n && n.children.length)) {
-            revealed = true;
-            reveal();
-            obs.disconnect();
-          }
-        };
-
-        const obs = new MutationObserver(() => tryReveal());
-        if (h) obs.observe(h, { childList: true, subtree: true, characterData: true });
-        if (n) obs.observe(n, { childList: true, subtree: true, characterData: true });
-
-        // Fallback: reveal after 800ms to avoid permanent hidden state
-        setTimeout(() => { if (!revealed) { revealed = true; reveal(); obs.disconnect(); } }, 800);
-      })();
-    </script>
-</body>
-</html>
+    logo: 'https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/3cyNkaHvJa798oxeZ7n0.jpg',
+    link: 'https://www.acx.com/mp/how-it-works/narrators-and-studios',
+    rate: '$200–$800+ per hour',
+    description: 'Audiobook narration',
+    category: 'voice',
+    intro: '**ACX** (Audiobook Creation Exchange) is Amazon’s marketplace for authors, publishers, and narrators to create and distribute audiobooks on **Audible, Amazon, and iTunes**. Think of it like Fiverr meets Audible—writers need narrators, and narrators audition for their projects.  \nIt’s designed for voice actors, narrators, and producers who want to earn money by creating audiobooks.',
+    whyAdhd: ['Long projects = deep focus hyperfixation (great if you love storytelling).', 'Clear audition scripts give you structure.', 'Big dopamine payoff when you complete an entire audiobook.', 'Passive income option if you choose royalty share deals.', 'Built-in marketplace—no need to hunt for clients outside the platform.'],
+    standOut: [],
+    importantNotes: ['Only available in select countries (not worldwide).', 'Audiobook narration is time-intensive (10+ hours of finished audio can take 40+ hours to produce).', 'Requires a quiet home studio and strong editing skills.'],
+    payoutInfo: [],
+    taskTypes: [],
+    finalTake: '',
+    idealFor: ['Voice actors or narrators with stamina for long projects.', 'ADHD creatives who hyperfocus on storytelling.', 'Freelancers wanting royalty-based passive income.', 'Professionals with home studios who enjoy polishing audio.']
+  }
