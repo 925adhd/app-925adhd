@@ -243,23 +243,23 @@ main {
   display:flex;
   align-items:center;
   justify-content:center;
-  height:22px;          /* fixed icon “box” */
-  font-size:20px;
-  line-height:22px;     /* locks vertical spacing */
+  height:28px;          /* fixed icon "box" */
+  font-size:24px;
+  line-height:28px;     /* locks vertical spacing */
 }
 
 /* Image-based nav icons (local files) */
 .site-nav .nav-item .nav-icon {
-  width:22px;
-  height:22px;
+  width:28px;
+  height:28px;
   object-fit:contain;
   display:block;
 }
 
 /* Larger heart for saved/favorites */
 .site-nav .nav-item.nav-favs .nav-icon {
-  width:22px;
-  height:22px;
+  width:28px;
+  height:28px;
 }
 
 .site-nav .nav-item span:not(.icon){
@@ -328,7 +328,12 @@ html, body {
     border: none;
   }
 
-  .site-nav .nav-item .icon{ display:inline-flex; font-size:18px; height:auto; line-height:1; }
+  .site-nav .nav-item .icon{ display:inline-flex; font-size:20px; height:auto; line-height:1; }
+
+  .site-nav .nav-item .nav-icon {
+    width:22px;
+    height:22px;
+  }
 
   .site-nav .nav-item:hover{ color: var(--text); }
 
@@ -397,23 +402,7 @@ html, body {
   .site-header .back-btn {
     display: none !important;
   }
-/* Visual image-scale: enlarge images visually without changing layout/flow */
-/* Uses transform so text size and layout positions are preserved. Adjust scale as needed. */
-img {
-  transform-origin: center center;
-  transform: scale(1.5);
-  -webkit-transform: scale(1.5);
-  transition: none !important;
-  will-change: transform;
-}
-
-/* Exclude navigation icons and the small header brand logo from global scaling
-   to avoid changing reserved nav layout spacing. Remove these rules if you
-   want the nav icons to scale too. */
-.site-nav .nav-item .nav-icon,
-.site-header .brand .brand-logo {
-  transform: none !important;
-}
+/* Removed global image scaling that was causing images to stretch out of containers on desktop */
 
   .site-nav .nav-items{
     max-width: 1200px;
@@ -441,7 +430,12 @@ img {
     border: none;
   }
 
-  .site-nav .nav-item .icon{ display:inline-flex; font-size:18px; height:auto; line-height:1; }
+  .site-nav .nav-item .icon{ display:inline-flex; font-size:20px; height:auto; line-height:1; }
+
+  .site-nav .nav-item .nav-icon {
+    width:22px;
+    height:22px;
+  }
 
   .site-nav .nav-item:hover{ color: var(--text); }
 
@@ -499,7 +493,7 @@ img {
 
 @media (min-width: 1100px) {
   main, .main-content, .gc {
-    max-width: 1400px; /* allow content to stretch wider */
+    max-width: 900px; /* keep content comfortable and centered on larger screens */
     width: calc(100% - 48px);
     margin: 0 auto;
     padding-left: 24px;
@@ -512,12 +506,12 @@ img {
 
 /* High-specificity override for pages that include their own .main-content rules
    (some pages define .main-content in inline <style> blocks). When the shared
-   layout is active, force wider widths so all pages match the unified layout. */
+   layout is active, keep content comfortable and centered on larger screens. */
 @media (min-width: 1100px) {
   body.has-site-layout main,
   body.has-site-layout .main-content,
   body.has-site-layout .gc {
-    max-width: 1400px !important;
+    max-width: 900px !important;
     width: calc(100% - 48px) !important;
     margin: 0 auto !important;
     padding-left: 24px !important;
@@ -525,13 +519,12 @@ img {
   }
 }
 
-/* Guides page: slightly narrower on very wide screens because the
-   large hero and full-width cards feel too wide at 1400px. */
+/* Guides page: keep at same comfortable width as other pages */
 @media (min-width: 1100px) {
   body.has-site-layout.page-guides main,
   body.has-site-layout.page-guides .main-content,
   body.has-site-layout.page-guides .gc {
-    max-width: 1100px !important;
+    max-width: 900px !important;
     width: calc(100% - 48px) !important;
     margin: 0 auto !important;
   }
