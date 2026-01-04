@@ -855,6 +855,13 @@
         object-fit: contain;
       }
     }
+    /* Mobile-only reordering: swap AI Playground and Favorites */
+    @media (max-width: 600px) {
+      /* Ensure grid auto-placement respects order */
+      .quick-actions { display: grid; grid-template-columns: repeat(2, 1fr); }
+      a.action-card[href="favorites.html"] { order: 3; }
+      a.action-card[href="ai-playground.html"] { order: 5; }
+    }
   </style>
 </head>
 <body>
