@@ -318,6 +318,22 @@ html, body {
 
   .site-nav .nav-item:hover{ color: var(--text); }
 
+/* Mobile: tighten gutters so content sits a bit closer to the edge */
+@media (max-width: 520px) {
+  body {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  /* ensure main content uses the available width inside body padding */
+  main, .main-content {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .site-header { padding: 0 8px; }
+  .site-nav .nav-items { padding: 0 6px; }
+}
+
   .site-nav .nav-item.active{
     color: var(--text);
     background: rgba(255,255,255,0.12);
