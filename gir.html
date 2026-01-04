@@ -2,217 +2,187 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>GIR's ADHD Adventures</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Comic Sans MS',cursive;background:linear-gradient(45deg,#0a0a0a,#1a4a1a,#2a1a4a,#4a1a2a);background-size:400% 400%;animation:bg 10s ease infinite;min-height:100vh;color:#0f0;touch-action:none;user-select:none;padding-bottom:50px}
+html,body{width:100%;height:100%;overflow:hidden;position:fixed;top:0;left:0}
+body{font-family:'Comic Sans MS',cursive;background:linear-gradient(45deg,#0a0a0a,#1a4a1a,#2a1a4a,#4a1a2a);background-size:400% 400%;animation:bg 10s ease infinite;color:#0f0;touch-action:none;user-select:none;display:flex;flex-direction:column;-webkit-overflow-scrolling:touch}
 @keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.gc{position:relative;width:100%;min-height:calc(100vh - 120px);height:620px;overflow:visible;margin-bottom:20px}
-.gir{position:absolute;width:60px;height:75px;cursor:pointer;transition:transform .1s;z-index:100;will-change:transform;animation:breathe 2s ease-in-out infinite;pointer-events:none}
-.gn,.gd{width:100%;height:100%;object-fit:contain;pointer-events:none}
-.gn{display:block}.gd{display:none}
-.gir.disguise .gn{display:none}.gir.disguise .gd{display:block}
+.gc{position:relative;width:100%;flex:1;overflow:hidden;min-height:0;touch-action:none}
+.gir{position:absolute;width:60px;height:75px;cursor:pointer;transition:none;z-index:100;will-change:transform;animation:breathe 2s ease-in-out infinite;pointer-events:auto;touch-action:manipulation}
+.gn,.gd,.gs{width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.gn{display:block}.gd{display:none}.gs{display:none}
+.gir.disguise .gn{display:none}.gir.disguise .gd{display:block}.gir.disguise .gs{display:none}
+.gir.resting .gn{display:none}.gir.resting .gd{display:none}.gir.resting .gs{display:block}
+.gir.disguise.resting .gn{display:none}.gir.disguise.resting .gd{display:none}.gir.disguise.resting .gs{display:block}
 @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
 .gir.resting{filter:brightness(.7);animation:rest 3s ease-in-out infinite}
 @keyframes rest{0%,100%{transform:scale(1)}50%{transform:scale(.95)}}
 .gir.game-over{filter:grayscale(50%) brightness(.5);animation:over 2s ease-in-out infinite}
 @keyframes over{0%,100%{opacity:1}50%{opacity:.3}}
-.dist{position:absolute;width:40px;height:40px;border-radius:50%;animation:pulse 2s infinite,float 3s ease-in-out infinite;transition:all .3s;will-change:transform;pointer-events:none}
+.dist{position:absolute;width:40px;height:40px;border-radius:50%;animation:pulse 2s infinite,float 3s ease-in-out infinite;transition:all .3s;will-change:transform;pointer-events:none;user-select:none}
 @keyframes pulse{0%,100%{opacity:.7;transform:scale(1);box-shadow:0 0 20px rgba(0,255,0,.8)}50%{opacity:1;transform:scale(1.05);box-shadow:0 0 30px rgba(0,255,0,1),0 0 40px rgba(0,255,0,.6)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.taco{background:#D2691E;border-radius:60% 40% 40% 60%;box-shadow:0 0 15px #FFD700;display:flex;align-items:center;justify-content:center;font-size:28px}
+.taco{background:#D2691E;border-radius:50% 50% 0 0;box-shadow:0 0 15px #FFD700;display:flex;align-items:center;justify-content:center;font-size:28px}
 .taco::before{content:"🌮"}
 .shiny{background:radial-gradient(circle,#FFD700,#FFA500);box-shadow:0 0 20px #FFD700;animation:sparkle 1s infinite;display:flex;align-items:center;justify-content:center;font-size:24px}
 .shiny::before{content:"✨"}
-.rubber{background:#FF1493;border-radius:50%;box-shadow:0 0 15px #DC143C;display:flex;align-items:center;justify-content:center;font-size:24px}
-.rubber::before{content:"🐖"}
+@keyframes sparkle{0%,100%{box-shadow:0 0 20px #FFD700}50%{box-shadow:0 0 40px #FFD700,0 0 60px #FFA500}}
+.rubber{background:#FF1493;border-radius:50%;box-shadow:0 0 15px #DC143C;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
+.rubber::before{content:"";background-image:url('https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/pig.png/:/rs=h:175,m');background-size:contain;background-repeat:no-repeat;background-position:center;width:100%;height:100%;display:block}
 .waffles{background:#DEB887;border-radius:20%;box-shadow:inset 0 0 10px #8B4513,0 0 10px #F5DEB3;display:flex;align-items:center;justify-content:center;font-size:24px}
 .waffles::before{content:"🧇"}
-.ui{position:absolute;top:10px;left:10px;z-index:200;background:rgba(0,20,0,.9);padding:12px;border-radius:8px;box-shadow:0 4px 15px rgba(0,255,0,.3);border:2px solid #0f0;color:#0f0;font-size:12px}
-.ui h3{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.gir-head{width:24px;height:24px;position:relative;display:inline-block}
-.gir-head::before{content:'';position:absolute;width:24px;height:20px;background:linear-gradient(135deg,#2dd,#1aa);border-radius:50% 50% 45% 45%;top:0;left:0;border:2px solid #0f0}
-.gir-head::after{content:'';position:absolute;width:6px;height:3px;background:#f84;border-radius:50%;top:14px;left:9px;box-shadow:0 0 3px #f84}
-.gir-eyes{position:absolute;top:4px;left:3px;width:18px;height:8px}
-.gir-eyes::before,.gir-eyes::after{content:'';position:absolute;width:6px;height:6px;background:radial-gradient(circle,#f48,#f06);border-radius:50%;animation:blink 3s infinite}
-.gir-eyes::before{left:0}
-.gir-eyes::after{right:0}
-@keyframes blink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-.meter{width:120px;height:15px;background:#011;border-radius:8px;margin:3px 0;overflow:hidden;border:1px solid #0f0}
-.mf{height:100%;transition:width .5s;border-radius:8px}
+.ui{position:absolute;top:5px;left:5px;z-index:200;background:rgba(0,20,0,.95);padding:8px;border-radius:6px;box-shadow:0 2px 10px rgba(0,255,0,.3);border:1px solid #0f0;color:#0f0;font-size:10px;max-width:150px;backdrop-filter:blur(5px)}
+.ui h3{display:flex;align-items:center;gap:6px;margin-bottom:6px;font-size:11px}
+.gir-head{width:18px;height:18px;position:relative;display:inline-block}
+.gir-head::before{content:'';position:absolute;width:18px;height:15px;background:linear-gradient(135deg,#2dd,#1aa);border-radius:50% 50% 45% 45%;top:0;left:0;border:1px solid #0f0}
+.gir-head::after{content:'';position:absolute;width:4px;height:2px;background:#f84;border-radius:50%;top:11px;left:7px;box-shadow:0 0 2px #f84}
+.meter{width:90px;height:12px;background:#011;border-radius:6px;margin:2px 0;overflow:hidden;border:1px solid #0f0}
+.mf{height:100%;transition:width .5s;border-radius:6px}
 .cf{background:linear-gradient(90deg,#f04,#f48,#f8c)}
 .ef{background:linear-gradient(90deg,#0f0,#4f4,#8f8)}
 .df{background:linear-gradient(90deg,#ff0,#ff4,#ff8)}
 .hs{color:#FFD700;font-weight:bold;animation:hsg 2s infinite}
 @keyframes hsg{0%,100%{text-shadow:0 0 5px #FFD700}50%{text-shadow:0 0 15px #FFD700,0 0 25px #FFD700}}
-.mc{position:static;z-index:300;display:block;margin:15px auto 10px auto;text-align:center;background:rgba(0,20,0,.8);padding:15px;border-radius:12px;border:2px solid #0f0;max-width:320px}
-.top-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;width:100%}
-.center-controls{display:flex;gap:6px;justify-content:center;align-items:center}
-.jc{position:relative;width:80px;height:80px;background:rgba(0,50,0,.8);border:3px solid #0f0;border-radius:50%;margin:0 auto;touch-action:none}
-.js{position:absolute;width:25px;height:25px;background:#0f0;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);transition:none;box-shadow:0 0 10px #0f0;touch-action:none}
-.mb{display:none}
-.btn{width:38px;height:38px;background:rgba(0,50,0,.8);border:2px solid #0f0;border-radius:50%;color:#0f0;font-size:16px;display:flex;align-items:center;justify-content:center;user-select:none;touch-action:manipulation;font-weight:bold}
+.mc{position:fixed;bottom:5px;left:50%;transform:translateX(-50%);z-index:300;background:rgba(0,20,0,.95);padding:8px;border-radius:8px;border:1px solid #0f0;max-width:280px;width:95%;backdrop-filter:blur(5px)}
+.top-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;width:100%}
+.center-controls{display:flex;gap:4px;justify-content:center;align-items:center}
+.jc{position:relative;width:60px;height:60px;background:rgba(0,50,0,.8);border:2px solid #0f0;border-radius:50%;margin:0 auto;touch-action:none;cursor:pointer}
+.js{position:absolute;width:18px;height:18px;background:#0f0;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);transition:none;box-shadow:0 0 8px #0f0;touch-action:none;pointer-events:none}
+.btn{width:28px;height:28px;background:rgba(0,50,0,.8);border:1px solid #0f0;border-radius:50%;color:#0f0;font-size:12px;display:flex;align-items:center;justify-content:center;user-select:none;touch-action:manipulation;font-weight:bold;cursor:pointer;transition:all .1s;overflow:hidden;position:relative}
 .btn:active{background:rgba(0,255,0,.3);transform:scale(.95)}
 .rb{background:rgba(100,100,100,.8);border-color:#888;color:#888}
 .rb.av{background:rgba(0,100,200,.8);border-color:#08f;color:#08f;animation:rp 2s infinite}
 @keyframes rp{0%,100%{box-shadow:0 0 5px #08f}50%{box-shadow:0 0 15px #08f,0 0 25px #08f}}
-.tl{position:absolute;top:10px;right:10px;background:rgba(0,20,0,.9);padding:12px;border-radius:8px;box-shadow:0 4px 15px rgba(0,255,0,.3);border:2px solid #0f0;max-width:200px;z-index:200;color:#0f0;font-size:11px}
-.task{padding:4px;margin:2px 0;border-radius:4px;transition:all .3s}
+/* Custom dog button styling */
+.btn#db{background-image:url('https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/d1me5u2-a9635d79-16f1-474e-8fd2-428380d93f53.png/:/rs=h:175,m');background-size:contain;background-repeat:no-repeat;background-position:center;color:transparent}
+.btn#db:active{background-image:url('https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/d1me5u2-a9635d79-16f1-474e-8fd2-428380d93f53.png/:/rs=h:175,m');background-size:contain;background-repeat:no-repeat;background-position:center}
+/* Custom dance button styling */
+.btn#ab{background-image:url('https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/dance.png/:/rs=h:175,m');background-size:contain;background-repeat:no-repeat;background-position:center;color:transparent}
+.btn#ab:active{background-image:url('https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/dance.png/:/rs=h:175,m');background-size:contain;background-repeat:no-repeat;background-position:center}
+.tl{position:absolute;top:5px;right:5px;background:rgba(0,20,0,.95);padding:8px;border-radius:6px;box-shadow:0 2px 10px rgba(0,255,0,.3);border:1px solid #0f0;max-width:140px;z-index:200;color:#0f0;font-size:9px;backdrop-filter:blur(5px)}
+.task{padding:3px;margin:2px 0;border-radius:3px;transition:all .3s;font-size:8px}
 .task.completed{background:rgba(0,255,0,.2);text-decoration:line-through}
 .task.current{background:rgba(255,255,0,.2);font-weight:bold;animation:tg 2s infinite}
-@keyframes tg{0%,100%{box-shadow:0 0 5px rgba(255,255,0,.5)}50%{box-shadow:0 0 15px rgba(255,255,0,1)}}
-
-/* FIXED GAME OVER SCREEN */
-.gos{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;z-index:500;color:#f04;text-align:center;padding:20px;box-sizing:border-box;overflow-y:auto;justify-content:center;align-items:center}
-.goc{background:rgba(20,0,0,.9);padding:30px;border-radius:15px;border:3px solid #f04;animation:gog 2s ease-in-out infinite;max-width:90%;width:100%;max-width:400px;min-height:fit-content}
-@keyframes gog{0%,100%{box-shadow:0 0 20px #f04}50%{box-shadow:0 0 40px #f04,0 0 60px #f04}}
-.got{font-size:28px;margin-bottom:15px;color:#f04}
-.fs{font-size:20px;margin:12px 0;color:#0f0}
+@keyframes tg{0%,100%{box-shadow:0 0 3px rgba(255,255,0,.5)}50%{box-shadow:0 0 8px rgba(255,255,0,1)}}
+.gos{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:none;z-index:500;color:#f04;text-align:center;padding:15px;box-sizing:border-box;overflow-y:auto;justify-content:center;align-items:center}
+.goc{background:rgba(20,0,0,.95);padding:20px;border-radius:10px;border:2px solid #f04;animation:gog 2s ease-in-out infinite;max-width:90%;width:100%;max-width:300px;backdrop-filter:blur(5px)}
+@keyframes gog{0%,100%{box-shadow:0 0 15px #f04}50%{box-shadow:0 0 30px #f04,0 0 45px #f04}}
+.got{font-size:20px;margin-bottom:12px;color:#f04}
+.fs{font-size:16px;margin:10px 0;color:#0f0}
 .nhs{color:#FFD700;animation:nhsg 1s infinite}
-@keyframes nhsg{0%,100%{text-shadow:0 0 10px #FFD700}50%{text-shadow:0 0 20px #FFD700,0 0 30px #FFD700}}
-.rstb{background:#0f0;color:#000;border:none;padding:12px 25px;font-size:16px;border-radius:8px;cursor:pointer;margin-top:15px;font-family:inherit;font-weight:bold}
+@keyframes nhsg{0%,100%{text-shadow:0 0 8px #FFD700}50%{text-shadow:0 0 16px #FFD700,0 0 24px #FFD700}}
+.rstb{background:#0f0;color:#000;border:none;padding:10px 20px;font-size:14px;border-radius:6px;cursor:pointer;margin-top:12px;font-family:inherit;font-weight:bold;touch-action:manipulation}
 .rstb:hover{background:#4f4;transform:scale(1.05)}
-.cm{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,0,64,.9);display:none;justify-content:center;align-items:center;z-index:400;animation:cf 1s infinite}
+.cm{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,0,64,.9);display:none;justify-content:center;align-items:center;z-index:400;animation:cf 1s infinite;touch-action:manipulation}
 @keyframes cf{0%{background:rgba(255,0,64,.9)}25%{background:rgba(0,255,0,.7)}50%{background:rgba(255,255,0,.8)}75%{background:rgba(0,255,255,.7)}100%{background:rgba(255,0,64,.9)}}
-.ca{background:#000;color:#f04;padding:30px;border-radius:15px;text-align:center;border:3px solid #0f0;animation:cg 1s ease-in-out infinite;max-width:90%}
-@keyframes cg{0%,100%{box-shadow:0 0 20px #f04;transform:scale(1)}50%{box-shadow:0 0 40px #0f0;transform:scale(1.05)}}
-.ct{font-size:36px;font-weight:bold;color:#0f0;margin:15px 0;text-shadow:0 0 10px #0f0}
-.ci{font-size:16px;margin:12px 0;color:#fff}
-.cpb{width:100%;height:18px;background:#333;border-radius:8px;margin:15px 0;overflow:hidden;border:2px solid #0f0}
+.ca{background:#000;color:#f04;padding:20px;border-radius:10px;text-align:center;border:2px solid #0f0;animation:cg 1s ease-in-out infinite;max-width:90%;cursor:pointer;touch-action:manipulation}
+@keyframes cg{0%,100%{box-shadow:0 0 15px #f04;transform:scale(1)}50%{box-shadow:0 0 30px #0f0;transform:scale(1.05)}}
+.ct{font-size:28px;font-weight:bold;color:#0f0;margin:12px 0;text-shadow:0 0 8px #0f0}
+.ci{font-size:12px;margin:8px 0;color:#fff}
+.cpb{width:100%;height:14px;background:#333;border-radius:6px;margin:10px 0;overflow:hidden;border:1px solid #0f0}
 .cpf{height:100%;background:linear-gradient(90deg,#f04,#f48,#0f0);transition:width .1s;animation:pg .5s infinite}
-@keyframes pg{0%,100%{box-shadow:inset 0 0 10px rgba(0,255,0,.5)}50%{box-shadow:inset 0 0 20px rgba(0,255,0,1)}}
-.mission-hint{position:absolute;top:15px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.95);color:#0f0;padding:12px 16px;border-radius:25px;font-size:32px;border:3px solid #0f0;z-index:400;display:block;animation:pulse 2s infinite;text-shadow:0 0 10px #0f0}
-.gs{position:absolute;top:100px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#0f0;padding:6px 12px;border-radius:15px;font-weight:bold;border:1px solid #0f0;animation:sb .3s ease;z-index:500;display:none;max-width:200px;text-align:center;font-size:11px}
-@keyframes sb{0%{transform:translateX(-50%) scale(0)}100%{transform:translateX(-50%) scale(1)}}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes pg{0%,100%{box-shadow:inset 0 0 8px rgba(0,255,0,.5)}50%{box-shadow:inset 0 0 16px rgba(0,255,0,1)}}
+.mission-hint{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.95);color:#0f0;padding:8px 12px;border-radius:20px;font-size:24px;border:2px solid #0f0;z-index:400;display:block;animation:pulse 2s infinite;text-shadow:0 0 8px #0f0;backdrop-filter:blur(5px);overflow:hidden}
+/* Custom mission hint styling for pig */
+.mission-hint.rubber-mission{background-image:url('https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/pig.png/:/rs=h:175,m');background-size:contain;background-repeat:no-repeat;background-position:center;color:transparent;width:40px;height:40px;border-radius:50%}
+/* Custom mission hint styling for dance */
+.mission-hint.dance-mission{background-image:url('https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/dance.png/:/rs=h:175,m');background-size:contain;background-repeat:no-repeat;background-position:center;color:transparent;width:40px;height:40px;border-radius:50%}
 .gir.hyperactive{animation:gb .3s infinite}
-@keyframes gb{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-15px) rotate(-5deg)}75%{transform:translateY(-15px) rotate(5deg)}}
+@keyframes gb{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-12px) rotate(-4deg)}75%{transform:translateY(-12px) rotate(4deg)}}
 .gir.distracted{filter:blur(1px);animation:gw .5s infinite}
-@keyframes gw{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
-.stars{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:tw 2s infinite}
+@keyframes gw{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+.stars{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:tw 2s infinite;pointer-events:none}
 @keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}
-.fp{position:fixed;top:20%;right:10px;background:rgba(0,0,0,.8);color:#0f0;padding:8px 12px;border-radius:8px;border:1px solid #0f0;font-size:14px;font-weight:bold;z-index:600;animation:pf 1.2s ease-in-out;pointer-events:none;max-width:150px;text-align:center}
-@keyframes pf{0%{opacity:0;transform:translateX(20px) scale(.8)}15%{opacity:1;transform:translateX(0) scale(1)}85%{opacity:1;transform:translateX(0) scale(1)}100%{opacity:0;transform:translateX(20px) scale(.8)}}
-
-.pause-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:none;justify-content:center;align-items:center;z-index:450;color:#0f0;text-align:center}
-.pause-content{background:rgba(0,20,0,.9);padding:30px;border-radius:15px;border:3px solid #0f0;max-width:90%;max-height:90%;overflow-y:auto;animation:pauseGlow 2s ease-in-out infinite}
-@keyframes pauseGlow{0%,100%{box-shadow:0 0 20px #0f0}50%{box-shadow:0 0 40px #0f0,0 0 60px #0f0}}
-.pause-title{font-size:28px;margin-bottom:20px;color:#0f0;text-shadow:0 0 10px #0f0}
-.pause-section{margin:15px 0;text-align:left}
-.pause-section h4{color:#ff0;font-size:16px;margin-bottom:8px;text-shadow:0 0 5px #ff0}
-.pause-section p, .pause-section div{font-size:12px;margin:5px 0;line-height:1.4}
-.pause-controls{text-align:center;margin-top:20px}
-.resume-btn{background:#0f0;color:#000;border:none;padding:12px 25px;font-size:16px;border-radius:8px;cursor:pointer;margin:5px;font-family:inherit;font-weight:bold}
+.fp{position:fixed;top:15%;right:8px;background:rgba(0,0,0,.9);color:#0f0;padding:6px 8px;border-radius:6px;border:1px solid #0f0;font-size:11px;font-weight:bold;z-index:600;animation:pf 1.2s ease-in-out;pointer-events:none;max-width:120px;text-align:center;backdrop-filter:blur(5px)}
+@keyframes pf{0%{opacity:0;transform:translateX(15px) scale(.8)}15%{opacity:1;transform:translateX(0) scale(1)}85%{opacity:1;transform:translateX(0) scale(1)}100%{opacity:0;transform:translateX(15px) scale(.8)}}
+.pause-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:none;justify-content:center;align-items:center;z-index:450;color:#0f0;text-align:center;overflow-y:auto}
+.pause-content{background:rgba(0,20,0,.95);padding:20px;border-radius:10px;border:2px solid #0f0;max-width:90%;max-height:90%;overflow-y:auto;animation:pauseGlow 2s ease-in-out infinite;backdrop-filter:blur(5px)}
+@keyframes pauseGlow{0%,100%{box-shadow:0 0 15px #0f0}50%{box-shadow:0 0 30px #0f0,0 0 45px #0f0}}
+.pause-title{font-size:20px;margin-bottom:15px;color:#0f0;text-shadow:0 0 8px #0f0}
+.pause-section{margin:10px 0;text-align:left}
+.pause-section h4{color:#ff0;font-size:12px;margin-bottom:6px;text-shadow:0 0 4px #ff0}
+.pause-section p, .pause-section div{font-size:9px;margin:3px 0;line-height:1.3}
+.pause-controls{text-align:center;margin-top:15px}
+.resume-btn{background:#0f0;color:#000;border:none;padding:8px 16px;font-size:12px;border-radius:6px;cursor:pointer;margin:3px;font-family:inherit;font-weight:bold;touch-action:manipulation}
 .resume-btn:hover{background:#4f4;transform:scale(1.05)}
-
-.win-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:550;color:#0f0;text-align:center}
-.win-content{background:rgba(0,20,0,.9);padding:30px;border-radius:15px;border:3px solid #0f0;max-width:90%;max-width:400px;animation:winGlow 2s ease-in-out infinite}
-@keyframes winGlow{0%,100%{box-shadow:0 0 20px #0f0}50%{box-shadow:0 0 40px #0f0,0 0 60px #0f0}}
-.win-title{font-size:28px;margin-bottom:15px;color:#0f0;text-shadow:0 0 15px #0f0}
-.win-score{font-size:20px;margin:12px 0;color:#ff0}
+.win-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:none;justify-content:center;align-items:center;z-index:550;color:#0f0;text-align:center}
+.win-content{background:rgba(0,20,0,.95);padding:20px;border-radius:10px;border:2px solid #0f0;max-width:90%;max-width:300px;animation:winGlow 2s ease-in-out infinite;backdrop-filter:blur(5px)}
+@keyframes winGlow{0%,100%{box-shadow:0 0 15px #0f0}50%{box-shadow:0 0 30px #0f0,0 0 45px #0f0}}
+.win-title{font-size:20px;margin-bottom:12px;color:#0f0;text-shadow:0 0 10px #0f0}
+.win-score{font-size:16px;margin:8px 0;color:#ff0}
 .win-high{color:#FFD700;animation:hsg 2s infinite}
-.win-btn{background:#0f0;color:#000;border:none;padding:12px 25px;font-size:16px;border-radius:8px;cursor:pointer;margin-top:15px;font-family:inherit;font-weight:bold}
+.win-btn{background:#0f0;color:#000;border:none;padding:8px 16px;font-size:12px;border-radius:6px;cursor:pointer;margin-top:10px;font-family:inherit;font-weight:bold;touch-action:manipulation}
 .win-btn:hover{background:#4f4;transform:scale(1.05)}
+.dist.mission-item{animation:pulse 1.5s infinite,float 2s ease-in-out infinite,mission-glow 2s infinite;border:2px solid #FFD700}
+@keyframes mission-glow{0%,100%{box-shadow:0 0 15px rgba(255,215,0,.8)}50%{box-shadow:0 0 30px rgba(255,215,0,1),0 0 45px rgba(255,215,0,.6)}}
 
-/* Mission item visual enhancement */
-.dist.mission-item{
-  animation: pulse 1.5s infinite, float 2s ease-in-out infinite, mission-glow 2s infinite;
-  border: 2px solid #FFD700;
-}
-@keyframes mission-glow{
-  0%,100%{box-shadow:0 0 20px rgba(255,215,0,.8)}
-  50%{box-shadow:0 0 40px rgba(255,215,0,1),0 0 60px rgba(255,215,0,.6)}
-}
-
-/* Task timer styling */
-.timer-critical{color:#f04 !important;animation:blink .5s infinite !important}
-.timer-warning{color:#fa0 !important}
-.timer-normal{color:#0f0 !important}
-
-/* Urgency visual effects */
-.urgency-high{animation:urgency-shake .3s infinite}
-@keyframes urgency-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
-
-/* Idle punishment effects */
-.idle-warning{filter:brightness(.8) saturate(.7)}
-.idle-critical{filter:brightness(.6) saturate(.5);animation:idle-pulse 1s infinite}
-@keyframes idle-pulse{0%,100%{opacity:1}50%{opacity:.7}}
-
-/* Mobile optimizations */
-@media (max-width:768px){
-body{padding-bottom:40px}
-.gc{height:520px;min-height:520px}
-.gir{width:50px;height:65px}
-.dist{width:35px;height:35px}
-.ui{top:5px;left:5px;padding:6px;font-size:9px;background:rgba(0,20,0,.7);max-width:140px}
-.ui h3{margin-bottom:4px}
-.gir-head{width:18px;height:18px}
-.gir-head::before{width:18px;height:15px}
-.gir-head::after{width:4px;height:2px;top:11px;left:7px}
-.gir-eyes{top:3px;left:2px;width:14px;height:6px}
-.gir-eyes::before,.gir-eyes::after{width:4px;height:4px}
-.meter{width:80px;height:10px}
-.tl{top:5px;right:5px;padding:6px;font-size:9px;max-width:120px;background:rgba(0,20,0,.7)}
-.mc{margin:3px auto 3px auto;padding:6px;max-width:280px}
-.top-controls{margin-bottom:10px}
-.center-controls{gap:4px}
-.jc{width:60px;height:60px}
-.js{width:18px;height:18px}
-.btn{width:28px;height:28px;font-size:12px}
-.gs{font-size:10px;padding:4px 8px;max-width:180px;top:55px}
-.fp{top:100px;right:5px;font-size:12px;padding:6px 8px;max-width:120px}
-.mission-hint{font-size:28px;padding:10px 14px;top:12px;max-width:260px}
-.task{padding:2px;margin:1px 0;font-size:8px}
-.win-content{padding:20px;max-width:280px}
-.win-title{font-size:24px}
-.win-score{font-size:18px}
-.win-btn{padding:10px 20px;font-size:14px}
-}
-
-@media (max-width:480px){
-body{padding-bottom:35px}
-.gc{height:470px;min-height:470px}
-.gir{width:45px;height:60px}
-.dist{width:32px;height:32px;font-size:20px}
-.ui{font-size:8px;padding:4px;max-width:120px;background:rgba(0,15,0,.6)}
-.gir-head{width:16px;height:16px}
-.gir-head::before{width:16px;height:13px}
-.gir-head::after{width:3px;height:2px;top:9px;left:6px}
-.gir-eyes{top:2px;left:2px;width:12px;height:5px}
-.gir-eyes::before,.gir-eyes::after{width:3px;height:3px}
-.meter{width:70px;height:8px}
-.tl{font-size:8px;padding:4px;max-width:110px;background:rgba(0,15,0,.6)}
-.mc{margin:2px auto 2px auto;padding:4px;max-width:260px}
-.top-controls{margin-bottom:8px}
-.center-controls{gap:3px}
-.jc{width:55px;height:55px}
+/* Mobile-specific optimizations */
+@media (max-width:480px), (max-height:600px){
+.gir{width:45px;height:55px}
+.dist{width:30px;height:30px;font-size:18px}
+.taco::before,.shiny::before,.waffles::before{font-size:18px}
+.ui{font-size:8px;padding:6px;max-width:120px}
+.ui h3{font-size:9px;margin-bottom:4px}
+.meter{width:70px;height:10px}
+.tl{font-size:8px;padding:6px;max-width:100px}
+.task{font-size:7px;padding:2px}
+.mc{bottom:3px;padding:6px;max-width:250px}
+.jc{width:50px;height:50px}
 .js{width:16px;height:16px}
-.btn{width:26px;height:26px;font-size:11px}
-.got{font-size:24px}
-.fs{font-size:18px}
-.ct{font-size:28px}
-.ci{font-size:14px}
-.gs{font-size:9px;padding:3px 6px;max-width:150px;top:50px}
-.fp{top:90px;right:3px;font-size:11px;padding:4px 6px;max-width:100px}
-.mission-hint{font-size:24px;padding:8px 12px;top:10px;max-width:240px}
-.task{font-size:7px;padding:1px}
-.win-content{padding:15px;max-width:240px}
-.win-title{font-size:20px}
-.win-score{font-size:16px}
-.win-btn{padding:8px 16px;font-size:12px}
+.btn{width:24px;height:24px;font-size:10px}
+.mission-hint{font-size:20px;padding:6px 8px;top:8px}
+.mission-hint.rubber-mission{width:28px;height:28px}
+.mission-hint.dance-mission{width:28px;height:28px}
+.fp{font-size:9px;padding:4px 6px;right:5px}
+.pause-content{padding:15px;font-size:8px}
+.pause-title{font-size:16px}
+.pause-section h4{font-size:10px}
+.pause-section p, .pause-section div{font-size:8px}
+.resume-btn{padding:6px 12px;font-size:10px}
+.win-content{padding:15px}
+.win-title{font-size:16px}
+.win-score{font-size:14px}
+.win-btn{padding:6px 12px;font-size:10px}
+.goc{padding:15px}
+.got{font-size:16px}
+.fs{font-size:14px}
+.rstb{padding:6px 12px;font-size:10px}
+.ca{padding:15px}
+.ct{font-size:22px}
+.ci{font-size:10px}
+}
+
+/* Ultra-small screens */
+@media (max-width:320px), (max-height:480px){
+.gir{width:40px;height:50px}
+.dist{width:25px;height:25px;font-size:16px}
+.ui{font-size:7px;padding:4px;max-width:100px}
+.meter{width:60px;height:8px}
+.tl{font-size:7px;padding:4px;max-width:80px}
+.mc{padding:4px;max-width:220px}
+.jc{width:45px;height:45px}
+.js{width:14px;height:14px}
+.btn{width:22px;height:22px;font-size:9px}
+.mission-hint{font-size:18px;padding:4px 6px}
+.mission-hint.rubber-mission{width:28px;height:28px}
+.fp{font-size:8px;padding:3px 4px}
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi){
+.gir,.dist{image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges}
 }
 </style>
-</style>
-<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 <div class="gc">
 <div class="gir" id="g">
 <img class="gn" src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/GIR_open_mouth.webp/:/rs=h:175,m" alt="Normal GIR">
 <img class="gd" src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/d1me5u2-a9635d79-16f1-474e-8fd2-428380d93f53.png/:/rs=h:175,m" alt="Disguise GIR">
+<img class="gs" src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/gir%20sleep.png/:/rs=h:175,m" alt="Sleeping GIR">
 </div>
-
 <div class="pause-screen" id="pauseScreen">
 <div class="pause-content">
 <div class="pause-title">⏸️ GAME PAUSED</div>
@@ -222,22 +192,15 @@ body{padding-bottom:35px}
 <div class="pause-section">
 <h4>🎮 Controls</h4>
 <div>Joystick: Move GIR around</div>
-<div>💃: Dance/Random Action</div>
-<div>🐕: Toggle Dog Disguise</div>
-<div>😴: Rest (Restore Energy)</div>
-<div>👁️: Toggle UI visibility</div>
-<div>⏸️: Pause/Resume game</div>
+<div>Dance Button: Dance/Random Action</div>
+<div>Disguise Button: Toggle Dog Disguise</div>
+<div>Rest Button: Rest (Restore Energy)</div>
+<div>Eye Button: Toggle UI visibility</div>
+<div>Pause Button: Pause/Resume game</div>
 </div>
 <div class="pause-section">
 <h4>🎯 Mission</h4>
-<p>Collect items matching your current mission! Mission items glow gold. Wrong items cause big energy penalties. Each task has a time limit!</p>
-</div>
-<div class="pause-section">
-<h4>⏰ Time Pressure</h4>
-<div>• Each task has a countdown timer</div>
-<div>• Failing to complete tasks in time causes major penalties</div>
-<div>• Being idle for too long drains energy faster</div>
-<div>• Items spawn faster as urgency increases</div>
+<p>Collect items matching your current mission! Mission items glow gold. Wrong items cause big energy penalties.</p>
 </div>
 <div class="pause-section">
 <h4>🌪️ Chaos System</h4>
@@ -262,13 +225,11 @@ body{padding-bottom:35px}
 <div>• Use dog mode when chaos gets too high</div>
 <div>• Watch your mission indicator - it shows what to collect!</div>
 <div>• Mission items have a golden glow and spawn more frequently!</div>
-<div>• Keep moving! Staying idle too long increases energy drain</div>
-<div>• Complete tasks quickly - time limits get shorter each level</div>
 </div>
 </div>
 </div>
 <div class="ui">
-<h3>🤖 GIR Status</h3>
+<h3><img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/gir_-_dog_suit_art.png/:/rs=h:175,m" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;"> GIR Status</h3>
 <div>Level: <span id="lv">1</span></div>
 <div>Chaos:<div class="meter"><div class="mf cf" id="cm"></div></div></div>
 <div>Energy:<div class="meter"><div class="mf ef" id="em"></div></div></div>
@@ -276,8 +237,7 @@ body{padding-bottom:35px}
 <div>Score: <span id="sc">0</span></div>
 <div class="hs">High: <span id="hs">0</span></div>
 <div>Time: <span id="tm">0</span>s</div>
-<div>Task: <span id="tt">45</span>s</div>
-<div style="font-size:9px;margin-top:3px">
+<div style="font-size:8px;margin-top:2px">
 <div>Tasks: <span id="tc">0</span> | Items: <span id="ic">0</span></div>
 <div id="gst">Active</div>
 </div>
@@ -287,9 +247,7 @@ body{padding-bottom:35px}
 <div id="tkc"></div>
 </div>
 <div class="mission-hint" id="mh">🌮</div>
-<div class="gs" id="gs"></div>
 </div>
-
 <div class="mc">
 <div class="top-controls">
 <div class="btn" id="pb" style="background:rgba(0,50,100,.8);border-color:#08f;color:#08f">⏸️</div>
@@ -302,35 +260,914 @@ body{padding-bottom:35px}
 </div>
 <div class="jc" id="jc"><div class="js" id="js"></div></div>
 </div>
-
 <div class="gos" id="gos">
 <div class="goc">
 <div class="got">GIR.EXE STOPPED</div>
-<div>💀 OVERLOAD 💀</div>
+<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0;">
+<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/Bloody_Gir.transparent.webp/:/rs=h:175,m" style="width:32px;height:32px;object-fit:contain;" alt="Dead GIR">
+OVERLOAD
+<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/Bloody_Gir.transparent.webp/:/rs=h:175,m" style="width:32px;height:32px;object-fit:contain;" alt="Dead GIR">
+</div>
 <div class="fs">Score: <span id="fs">0</span></div>
 <div id="hsm"></div>
-<div style="margin:15px 0;color:#888">GIR ran out of energy!<br>Remember to rest!</div>
+<div style="margin:12px 0;color:#888;font-size:9px">GIR ran out of energy!<br>Remember to rest!</div>
 <button class="rstb" onclick="restart()">REBOOT</button>
 </div>
 </div>
 <div class="cm" id="cm2">
 <div class="ca">
-<h2>🤖 CHAOS MODE! 🤖</h2>
+<h2><img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/gir_crazy.png/:/rs=h:175,m" style="width:24px;height:24px;object-fit:contain;vertical-align:middle;"> CHAOS MODE! <img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/gir_crazy.png/:/rs=h:175,m" style="width:24px;height:24px;object-fit:contain;vertical-align:middle;transform:scaleX(-1);"></h2>
 <div class="ci">DOOM SONG!</div>
 <div class="ct" id="ct2">10</div>
 <div class="ci">TAP TO CALM!<br><small>Each tap = -1 sec</small></div>
 <div class="cpb"><div class="cpf" id="cpf"></div></div>
-<div style="color:#0f0;font-size:12px" id="ds">"Doom..."</div>
+<div style="color:#0f0;font-size:10px" id="ds">"Doom..."</div>
 </div>
 </div>
-
 <div class="win-screen" id="winScreen">
 <div class="win-content">
 <div class="win-title">👑 YOU WIN! 👑</div>
 <div class="win-score">Score: <span id="ws">0</span></div>
 <div class="win-high">High Score: <span id="whs">0</span></div>
 <button class="win-btn" onclick="restart()">PLAY AGAIN</button>
+</div>
+</div>
+<script>
+class G{
+constructor(){
+this.g=document.getElementById('g');
+this.gc=document.querySelector('.gc');
+this.ui={
+sc:document.getElementById('sc'),
+tm:document.getElementById('tm'),
+tc:document.getElementById('tc'),
+ic:document.getElementById('ic'),
+cm:document.getElementById('cm'),
+em:document.getElementById('em'),
+dm:document.getElementById('dm'),
+tkc:document.getElementById('tkc'),
+cm2:document.getElementById('cm2'),
+ct2:document.getElementById('ct2'),
+cpf:document.getElementById('cpf'),
+ds:document.getElementById('ds'),
+gst:document.getElementById('gst'),
+hs:document.getElementById('hs'),
+gos:document.getElementById('gos'),
+fs:document.getElementById('fs'),
+hsm:document.getElementById('hsm'),
+rb:document.getElementById('rb'),
+me:document.getElementById('me'),
+mh:document.getElementById('mh'),
+lv:document.getElementById('lv'),
+ws:document.getElementById('ws'),
+whs:document.getElementById('whs')
+};
+this.score=0;this.time=0;this.tc=0;this.ic=0;this.hs=0;this.state='active';
+this.pos={x:0,y:0};this.size={w:0,h:0};this.bounds={w:0,h:0};
+this.stats={c:30,e:100,d:20};this.moving=false;this.speed=20;this.cost=.6;
+this.rc=0;this.rr=8;this.dists=[];this.max=5;this.ct=0;
+this.level=0;this.maxLevel=2;
+this.levelTasks=[
+[{t:'Find tacos! TACOS!',type:'taco',p:100},{t:'Chase shiny things',type:'shiny',p:80}],
+[{t:'Collect rubber piggies',type:'rubber',p:60},{t:'Eat waffles',type:'waffles',p:90}],
+[{t:'Dance with anything!',type:'any',p:50},{t:'Find tacos again!',type:'taco',p:70}]
+];
+this.tasks=this.levelTasks[this.level];
+this.cm=false;this.ctimer=0;this.mct=10;this.cch=[];this.disguised=false;this.lst=0;
+this.quotes={g:["DOOM SONG!",'What button?','WHEEE!'],t:['TACOS!','MORE TACOS!'],p:['PIGGY!','RUBBER!'],c:['CHAOS!','POTATOES!'],tired:['*yawn*','sleepy...'],rest:['*snoring*','tacos...']};
+this.lut=0;this.af=null;this.joystickActive=false;this.moveInterval=null;this.isMobile=('ontouchstart' in window);this.uiVisible=true;this.paused=false;
+this.missionItemBoost=0.65;
+this.isIframe=window.self!==window.top;
+this.init();
+}
+init(){
+this.loadHS();
+this.updateBounds();
+this.updateGirSize();
+setTimeout(()=>{this.posG()},this.isIframe?300:100);
+this.setupEvents();
+this.createStars();
+this.updateTasks();
+const db=document.getElementById('db');
+db.style.backgroundImage='url("https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/d1me5u2-a9635d79-16f1-474e-8fd2-428380d93f53.png/:/rs=h:175,m")';
+this.startLoop();
+this.startSpawn();
+this.startTimer();
+this.updateUI();
+if(this.isIframe){
+document.body.style.overflow='hidden';
+window.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+}
+}
+loadHS(){
+try{
+this.hs=parseInt(localStorage.getItem('girHS')||'0');
+}catch(e){
+this.hs=window.ghs||0;
+}
+this.ui.hs.textContent=this.hs;
+}
+saveHS(){
+if(this.score>this.hs){
+this.hs=this.score;
+try{
+localStorage.setItem('girHS',this.hs.toString());
+}catch(e){
+window.ghs=this.hs;
+}
+this.ui.hs.textContent=this.hs;
+this.ui.whs.textContent=this.hs;
+return true;
+}
+return false;
+}
+updateBounds(){
+const r=this.gc.getBoundingClientRect();
+this.bounds.w=Math.max(200,r.width);
+this.bounds.h=Math.max(200,r.height);
+}
+updateGirSize(){
+const cs=window.getComputedStyle(this.g);
+this.size.w=parseInt(cs.width)||45;
+this.size.h=parseInt(cs.height)||55;
+}
+posG(){
+if(this.pos.x===0&&this.pos.y===0){
+this.pos.x=Math.max(this.size.w,(this.bounds.w-this.size.w)/2);
+this.pos.y=Math.max(this.size.h,(this.bounds.h-this.size.h)/2);
+}
+this.pos.x=Math.max(0,Math.min(this.pos.x,this.bounds.w-this.size.w));
+this.pos.y=Math.max(0,Math.min(this.pos.y,this.bounds.h-this.size.h));
+this.g.style.left=this.pos.x+'px';
+this.g.style.top=this.pos.y+'px';
+}
+createStars(){
+for(let i=0;i<15;i++){
+const s=document.createElement('div');
+s.className='stars';
+s.style.left=Math.random()*100+'%';
+s.style.top=Math.random()*100+'%';
+s.style.animationDelay=Math.random()*2+'s';
+this.gc.appendChild(s);
+}
+}
+setupEvents(){
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('selectstart',e=>e.preventDefault());
+document.addEventListener('gesturestart',e=>e.preventDefault());
+document.addEventListener('gesturechange',e=>e.preventDefault());
+document.addEventListener('gestureend',e=>e.preventDefault());
 
-<script src="assets/layout.js"></script>
+if(!this.isMobile){
+this.g.addEventListener('click',e=>{e.preventDefault();this.dance()});
+document.addEventListener('keydown',e=>this.handleKey(e));
+}else{
+this.g.addEventListener('touchend',e=>{e.preventDefault();this.dance()},{passive:false});
+}
+this.setupMobile();
+const resizeHandler=()=>{
+this.updateBounds();
+this.updateGirSize();
+this.posG();
+};
+window.addEventListener('resize',resizeHandler);
+window.addEventListener('orientationchange',()=>{
+setTimeout(resizeHandler,100);
+});
+}
+handleKey(e){
+if(this.state==='game-over'||this.paused)return;
+// Block keyboard movement when resting
+if(this.state==='resting')return;
+let key=e.key.toLowerCase();
+if(this.stats.d>80&&Math.random()<0.15){
+const keys=['arrowup','arrowdown','arrowleft','arrowright'];
+key=keys[Math.floor(Math.random()*keys.length)];
+this.showFeedback('Distracted!','#fa0');
+}
+switch(key){
+case 'arrowup':e.preventDefault();this.moveG(0,-this.speed);break;
+case 'arrowdown':e.preventDefault();this.moveG(0,this.speed);break;
+case 'arrowleft':e.preventDefault();this.moveG(-this.speed,0);break;
+case 'arrowright':e.preventDefault();this.moveG(this.speed,0);break;
+case ' ':e.preventDefault();this.randAction();break;
+case 'd':e.preventDefault();this.toggleDisguise();break;
+case 'r':e.preventDefault();this.toggleRest();break;
+}
+}
+setupMobile(){
+const jc=document.getElementById('jc'),js=document.getElementById('js'),ab=document.getElementById('ab'),db=document.getElementById('db'),rb=document.getElementById('rb'),tb=document.getElementById('tb'),pb=document.getElementById('pb');
+const cx=30,cy=30,md=25;
+let startPos={x:0,y:0};
+
+const hs=e=>{
+if(this.state==='game-over'||this.paused)return;
+e.preventDefault();
+e.stopPropagation();
+this.joystickActive=true;
+const r=jc.getBoundingClientRect(),t=e.touches?e.touches[0]:e;
+startPos.x=t.clientX-r.left;
+startPos.y=t.clientY-r.top;
+jc.style.opacity='1';
+this.startJoystickMovement();
+};
+
+const hm=e=>{
+if(!this.joystickActive||this.state==='game-over'||this.paused)return;
+e.preventDefault();
+e.stopPropagation();
+const r=jc.getBoundingClientRect(),t=e.touches?e.touches[0]:e,x=t.clientX-r.left-cx,y=t.clientY-r.top-cy,d=Math.sqrt(x*x+y*y);
+let fx=x,fy=y;
+if(d>md){
+const a=Math.atan2(y,x);
+fx=Math.cos(a)*md;
+fy=Math.sin(a)*md;
+}
+js.style.transform=`translate(calc(-50% + ${fx}px), calc(-50% + ${fy}px))`;
+this.joystickVector={x:fx/md,y:fy/md};
+};
+
+const he=e=>{
+e.preventDefault();
+e.stopPropagation();
+this.joystickActive=false;
+js.style.transform='translate(-50%,-50%)';
+jc.style.opacity='.8';
+this.joystickVector={x:0,y:0};
+this.stopJoystickMovement();
+};
+
+jc.addEventListener('touchstart',hs,{passive:false});
+jc.addEventListener('touchmove',hm,{passive:false});
+jc.addEventListener('touchend',he,{passive:false});
+jc.addEventListener('mousedown',hs);
+document.addEventListener('mousemove',hm);
+document.addEventListener('mouseup',he);
+this.joystickVector={x:0,y:0};
+
+const bp=e=>{e.preventDefault();e.stopPropagation()};
+
+const toggleUI=()=>{
+this.uiVisible=!this.uiVisible;
+const ui=document.querySelector('.ui'),tl=document.querySelector('.tl'),btn=tb;
+if(this.uiVisible){
+ui.style.display='block';
+tl.style.display='block';
+btn.textContent='👁️';
+btn.style.background='rgba(50,50,0,.8)';
+btn.style.borderColor='#aa0';
+btn.style.color='#aa0';
+}else{
+ui.style.display='none';
+tl.style.display='none';
+btn.textContent='👀';
+btn.style.background='rgba(100,0,0,.8)';
+btn.style.borderColor='#a00';
+btn.style.color='#a00';
+}
+};
+
+// Create individual handlers to avoid timing issues
+const handleRestClick = (e) => {
+bp(e);
+console.log('Rest button handler called');
+this.toggleRest();
+};
+
+const handleDanceClick = (e) => {
+bp(e);
+this.dance();
+};
+
+const handleDisguiseClick = (e) => {
+bp(e);
+this.toggleDisguise();
+};
+
+const handleUIClick = (e) => {
+bp(e);
+toggleUI();
+};
+
+const handlePauseClick = (e) => {
+bp(e);
+togglePause();
+};
+
+// Attach events with individual handlers
+['click','touchend'].forEach(evt=>{
+tb.addEventListener(evt,handleUIClick,{passive:false});
+ab.addEventListener(evt,handleDanceClick,{passive:false});
+db.addEventListener(evt,handleDisguiseClick,{passive:false});
+rb.addEventListener(evt,handleRestClick,{passive:false});
+pb.addEventListener(evt,handlePauseClick,{passive:false});
+});
+
+// Also add direct click handlers as backup
+rb.onclick = handleRestClick;
+rb.ontouchend = handleRestClick;
+}
+startJoystickMovement(){
+if(this.moveInterval)clearInterval(this.moveInterval);
+this.moveInterval=setInterval(()=>{
+if(this.joystickActive&&this.joystickVector&&(Math.abs(this.joystickVector.x)>.1||Math.abs(this.joystickVector.y)>.1)){
+// Check if we can move (not resting)
+if(this.state!=='active'||this.paused)return;
+const baseSpeed=this.disguised?this.speed*0.6:this.speed;
+let mx=this.joystickVector.x*baseSpeed,my=this.joystickVector.y*baseSpeed;
+if(this.stats.d>80&&Math.random()<0.2){
+mx*=-1;
+my*=-1;
+}
+this.moveG(mx,my);
+}
+},50);
+}
+stopJoystickMovement(){
+if(this.moveInterval){
+clearInterval(this.moveInterval);
+this.moveInterval=null;
+}
+}
+moveG(dx,dy){
+if(this.state!=='active'||this.paused)return; // This should block movement when resting
+if(this.stats.e<=0){
+this.gameOver();
+return;
+}
+const moveSpeed=this.disguised?0.6:1;
+let nx=this.pos.x+(dx*moveSpeed),ny=this.pos.y+(dy*moveSpeed);
+if(this.stats.d>60){
+const inaccuracy=Math.random()*8-4;
+nx+=inaccuracy;
+ny+=inaccuracy;
+}
+if(this.stats.c>70&&Math.random()<0.3){
+const chaosX=(Math.random()-0.5)*12;
+const chaosY=(Math.random()-0.5)*12;
+nx+=chaosX;
+ny+=chaosY;
+}
+nx=Math.max(0,Math.min(nx,this.bounds.w-this.size.w));
+ny=Math.max(0,Math.min(ny,this.bounds.h-this.size.h));
+if(nx!==this.pos.x||ny!==this.pos.y){
+this.pos.x=nx;
+this.pos.y=ny;
+this.g.style.left=nx+'px';
+this.g.style.top=ny+'px';
+const energyCost=this.disguised?this.cost*0.6:this.cost;
+this.modStats({e:-energyCost});
+this.checkCol();
+}
+}
+toggleRest(){
+console.log('Rest button clicked! State:', this.state, 'Cooldown:', this.rc); // Debug log
+if(this.state==='game-over'||this.paused)return;
+if(this.state==='resting'){
+// Stop resting
+this.state='active';
+this.g.classList.remove('resting');
+this.showFeedback('Ready!','#0f0');
+this.rc=20; // Set cooldown
+console.log('Stopped resting, now active');
+}else if(this.rc<=0){
+// Start resting
+this.state='resting';
+this.g.classList.add('resting');
+this.sayQuote('rest');
+this.showFeedback('Resting...','#08f');
+console.log('Started resting');
+}else{
+// On cooldown
+this.showFeedback(`Cooldown: ${Math.ceil(this.rc)}s`,'#fa0');
+console.log('Rest on cooldown');
+}
+}
+dance(){
+if(this.state!=='active'||this.paused)return; // Block dance when resting
+if(this.stats.e<=0){
+this.gameOver();
+return;
+}
+this.g.style.animation='gb .5s ease-in-out 3';
+if(this.disguised){
+this.sayQuote('g');
+this.modStats({c:3,e:-4});
+this.score+=8;
+}else{
+this.sayQuote('g');
+this.modStats({c:8,e:-6});
+this.score+=5;
+}
+setTimeout(()=>{
+this.g.style.animation='';
+},1500);
+}
+randAction(){
+if(this.state!=='active'||this.paused)return; // Block random actions when resting
+if(this.stats.e<=0){
+this.gameOver();
+return;
+}
+const normalActs=[
+()=>{
+const rx=(Math.random()-.5)*80,ry=(Math.random()-.5)*80;
+this.moveG(rx,ry);
+this.sayQuote('g');
+},
+()=>{
+this.modStats({c:15,e:-4});
+this.score+=10;
+},
+()=>{
+this.modStats({d:15,e:-3});
+},
+()=>{
+if(this.stats.c>70&&Math.random()>.6)this.enterChaos();
+else{
+this.sayQuote('c');
+this.modStats({e:-2});
+}
+}
+];
+const dogActs=[
+()=>{
+const rx=(Math.random()-.5)*50,ry=(Math.random()-.5)*50;
+this.moveG(rx,ry);
+},
+()=>{
+this.modStats({c:5,e:-2});
+this.score+=15;
+},
+()=>{
+this.modStats({d:5,e:-2});
+},
+()=>{
+this.modStats({c:-5,e:1});
+this.score+=10;
+}
+];
+const acts=this.disguised?dogActs:normalActs;
+acts[Math.floor(Math.random()*acts.length)]();
+}
+toggleDisguise(){
+if(this.state==='game-over'||this.paused)return;
+this.disguised=!this.disguised;
+this.g.classList.toggle('disguise');
+const db=document.getElementById('db');
+if(this.disguised){
+this.modStats({d:-15,c:-10});
+this.showFeedback('DOG MODE!','#08f');
+db.style.backgroundImage='url("https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/GIR_open_mouth.webp/:/rs=h:175,m")';
+}else{
+this.modStats({c:5});
+this.showFeedback('CHAOS!','#f80');
+db.style.backgroundImage='url("https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/d1me5u2-a9635d79-16f1-474e-8fd2-428380d93f53.png/:/rs=h:175,m")';
+}
+}
+sayQuote(cat='g'){
+const now=Date.now();
+if(now-this.lst<500)return;
+this.lst=now;
+const qs=this.quotes[cat]||this.quotes.g,q=qs[Math.floor(Math.random()*qs.length)];
+}
+modStats(changes){
+for(const[stat,change]of Object.entries(changes)){
+if(this.stats.hasOwnProperty(stat.charAt(0))){
+this.stats[stat.charAt(0)]=Math.max(0,Math.min(100,this.stats[stat.charAt(0)]+change));
+}
+}
+if(this.stats.e<=0&&this.state!=='game-over'&&this.state!=='resting'){
+this.stats.e=0;
+this.gameOver();
+}
+}
+gameOver(){
+this.state='game-over';
+this.g.classList.add('game-over');
+this.stopJoystickMovement();
+if(this.af)cancelAnimationFrame(this.af);
+this.ui.fs.textContent=this.score;
+const nhs=this.saveHS();
+if(nhs)this.ui.hsm.innerHTML='<div class="nhs">🎉 NEW HIGH SCORE! 🎉</div>';
+else this.ui.hsm.innerHTML=`<div>High Score: ${this.hs}</div>`;
+this.ui.gos.style.display='flex';
+}
+startSpawn(){
+const spawn=()=>{
+if(this.dists.length<this.max&&this.state==='active'&&!this.paused){
+const types=['taco','shiny','rubber','waffles'];
+let selectedType;
+const currentMission=this.tasks[this.ct];
+if(currentMission.type!=='any'&&Math.random()<this.missionItemBoost){
+selectedType=currentMission.type;
+}else{
+selectedType=types[Math.floor(Math.random()*types.length)];
+}
+this.createDist(selectedType);
+}
+const baseRate=[3000,2500,2000][this.level]||3000;
+const chaosMod=this.stats.c/100*1500;
+const nextSpawn=baseRate-chaosMod+Math.random()*1500;
+setTimeout(spawn,Math.max(800,nextSpawn));
+};
+setTimeout(spawn,1500);
+}
+createDist(type){
+const d=document.createElement('div');
+d.className=`dist ${type}`;
+const currentMission=this.tasks[this.ct];
+if(currentMission.type===type||(currentMission.type==='any')){
+d.classList.add('mission-item');
+}
+const girWidth=this.size.w,girHeight=this.size.h;
+const m=40;
+let x,y,attempts=0,maxAttempts=8;
+do{
+x=m+Math.random()*(this.bounds.w-80-m);
+y=m+Math.random()*(this.bounds.h-80-m);
+attempts++;
+const girLeft=this.pos.x,girTop=this.pos.y;
+const girRight=girLeft+girWidth,girBottom=girTop+girHeight;
+const itemSize=parseInt(window.getComputedStyle(d).width)||30;
+const itemRight=x+itemSize,itemBottom=y+itemSize;
+const notOnGir=(x>girRight||itemRight<girLeft||y>girBottom||itemBottom<girTop);
+if(notOnGir||attempts>=maxAttempts)break;
+}while(true);
+d.style.left=x+'px';
+d.style.top=y+'px';
+this.gc.appendChild(d);
+const cs=window.getComputedStyle(d);
+const dd={element:d,type:type,x:x,y:y,w:parseInt(cs.width)||30,h:parseInt(cs.height)||30};
+this.dists.push(dd);
+setTimeout(()=>{
+this.removeDist(dd);
+},10000+Math.random()*6000);
+}
+removeDist(dd){
+if(dd.element&&dd.element.parentNode)dd.element.remove();
+this.dists=this.dists.filter(d=>d!==dd);
+}
+interact(dd){
+if(this.state!=='active'||this.paused)return;
+this.removeDist(dd);
+const currentMission=this.tasks[this.ct];
+const isCorrectItem=currentMission.type==='any'||currentMission.type===dd.type;
+const ints={
+taco:{p:20,s:{c:25,e:15,d:-5},sp:'TACOS!',cc:.4,ds:{c:15,e:20,d:-10},dsp:'Dog tacos!',dcc:.1},
+shiny:{p:12,s:{c:10,e:-3,d:20},sp:'SHINY!',eff:'distracted',cc:0,ds:{c:3,e:5,d:5},dsp:'Shiny!',deff:null,dcc:0},
+rubber:{p:25,s:{c:20,e:10,d:10},sp:'PIGGY!',eff:'hyperactive',cc:.3,ds:{c:10,e:15,d:0},dsp:'*chews*',deff:null,dcc:.1},
+waffles:{p:18,s:{c:8,e:20,d:-8},sp:'Waffles!',cc:0,ds:{c:3,e:25,d:-15},dsp:'Good food!',dcc:0}
+};
+const int=ints[dd.type];
+if(!int)return;
+const isDisguised=this.disguised;
+if(!isCorrectItem){
+const energyPenalty=isDisguised?8:12;
+this.modStats({e:-energyPenalty,c:10,d:8});
+this.showFeedback(`Wrong! -${energyPenalty}`,'#f44');
+return;
+}
+const stats=isDisguised?int.ds:int.s;
+const chaosChance=isDisguised?int.dcc:int.cc;
+const points=isDisguised?Math.floor(int.p*1.2):int.p;
+this.score+=points;
+this.ic++;
+this.modStats(stats);
+this.showFeedback(`+${points}!`,isDisguised?'#08f':'#0f0');
+if(Math.random()<chaosChance)setTimeout(()=>this.enterChaos(),800);
+this.checkTask(dd.type);
+}
+checkTask(it){
+const ct=this.tasks[this.ct];
+let comp=ct.type==='any'||ct.type===it;
+if(comp){
+this.score+=ct.p;
+this.tc++;
+this.showFeedback(`+${ct.p}`,'#ff0');
+this.ct++;
+if(this.ct>=this.tasks.length){
+this.advanceLevel();
+return;
+}
+this.updateTasks();
+this.modStats({e:15,c:-5});
+}
+}
+advanceLevel(){
+this.level++;
+if(this.level>this.maxLevel){
+this.level=this.maxLevel;
+this.ui.ws.textContent=this.score;
+this.saveHS();
+this.ui.whs.textContent=this.hs;
+document.getElementById('winScreen').style.display='flex';
+return;
+}
+this.tasks=this.levelTasks[this.level];
+this.ct=0;
+this.updateTasks();
+this.ui.lv.textContent=this.level+1;
+}
+updateTasks(){
+const c=this.ui.tkc;
+c.innerHTML='';
+const missionEmojis={taco:'🌮',rubber:'🐖',shiny:'✨',waffles:'🧇',any:'<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/dance.png/:/rs=h:175,m" style="width:1em;height:1em;object-fit:contain;">'};
+const currentTask=this.tasks[this.ct];
+const currentType=currentTask.type;
+if(currentType==='rubber'){
+this.ui.me.innerHTML='<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/pig.png/:/rs=h:175,m" style="width:1em;height:1em;object-fit:contain;">';
+this.ui.mh.innerHTML='<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/pig.png/:/rs=h:175,m" style="width:100%;height:100%;object-fit:contain;">';
+this.ui.mh.className='mission-hint rubber-mission';
+}else if(currentType==='any'){
+this.ui.me.innerHTML='<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/dance.png/:/rs=h:175,m" style="width:1em;height:1em;object-fit:contain;">';
+this.ui.mh.innerHTML='<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/dance.png/:/rs=h:175,m" style="width:100%;height:100%;object-fit:contain;">';
+this.ui.mh.className='mission-hint dance-mission';
+}else{
+const currentEmoji=missionEmojis[currentType]||'🌮';
+this.ui.me.innerHTML=currentEmoji;
+this.ui.mh.textContent=currentEmoji;
+this.ui.mh.className='mission-hint';
+}
+for(let i=0;i<3;i++){
+const ti=(this.ct+i)%this.tasks.length,t=this.tasks[ti],td=document.createElement('div');
+td.className='task';
+td.textContent=t.t;
+if(i===0){
+td.classList.add('current');
+td.textContent+=` (${t.p}pts)`;
+}
+c.appendChild(td);
+}
+}
+checkCol(){
+if(this.state!=='active'||this.paused)return;
+const gb={l:this.pos.x,r:this.pos.x+this.size.w,t:this.pos.y,b:this.pos.y+this.size.h};
+this.dists.forEach(d=>{
+const db={l:d.x,r:d.x+d.w,t:d.y,b:d.y+d.h};
+if(!(gb.r<db.l||gb.l>db.r||gb.b<db.t||gb.t>db.b))this.interact(d);
+});
+}
+enterChaos(){
+if(this.cm||this.state!=='active'||this.paused)return;
+this.cm=true;
+this.ctimer=this.mct;
+this.ui.cm2.style.display='flex';
+const hcc=e=>{
+e.preventDefault();
+e.stopPropagation();
+this.ctimer=Math.max(0,this.ctimer-1);
+this.modStats({c:-3});
+this.score+=5;
+const act=document.querySelector('.ca');
+if(act){
+act.style.transform='scale(1.05)';
+setTimeout(()=>{
+act.style.transform='scale(1)';
+},100);
+}
+if(this.ctimer<=0)setTimeout(()=>this.exitChaos(),200);
+};
+this.ui.cm2.addEventListener('click',hcc,{passive:false});
+this.ui.cm2.addEventListener('touchend',hcc,{passive:false});
+this.cch=[hcc];
+}
+updateChaos(){
+if(!this.cm)return;
+this.ui.ct2.textContent=Math.ceil(this.ctimer);
+const pp=this.ctimer/this.mct*100;
+this.ui.cpf.style.width=pp+'%';
+const te=this.ui.ct2;
+if(this.ctimer<=2){
+te.style.color='#f04';
+te.style.animation='blink .5s infinite';
+}else if(this.ctimer<=5){
+te.style.color='#ff0';
+te.style.animation='none';
+}else{
+te.style.color='#0f0';
+te.style.animation='none';
+}
+const dl=Math.floor((this.mct-this.ctimer)/2)+1;
+this.ui.ds.textContent='"'+'Doom '.repeat(dl)+'..."';
+}
+exitChaos(){
+this.cm=false;
+this.ui.cm2.style.display='none';
+this.cch.forEach(h=>{
+this.ui.cm2.removeEventListener('click',h);
+this.ui.cm2.removeEventListener('touchend',h);
+});
+this.cch=[];
+if(this.ctimer<=0){
+this.modStats({c:-20,e:-10});
+this.showFeedback('Calmed!','#0f0');
+this.score+=50;
+}else{
+this.modStats({c:-30,e:-15});
+}
+}
+showFeedback(msg,col='#0f0'){
+const fb=document.createElement('div');
+fb.className='fp';
+fb.textContent=msg;
+fb.style.color=col;
+document.body.appendChild(fb);
+setTimeout(()=>{
+if(fb.parentNode)fb.remove();
+},1000);
+}
+updateUI(){
+this.stats.c=Math.max(0,Math.min(100,this.stats.c));
+this.stats.e=Math.max(0,Math.min(100,this.stats.e));
+this.stats.d=Math.max(0,Math.min(100,this.stats.d));
+this.ui.cm.style.width=this.stats.c+'%';
+this.ui.em.style.width=this.stats.e+'%';
+this.ui.dm.style.width=this.stats.d+'%';
+if(this.stats.c>=90){
+this.ui.cm.style.background='linear-gradient(90deg,#f84,#f04,#f84)';
+this.ui.cm.style.animation='blink .5s infinite';
+}else if(this.stats.c>=70){
+this.ui.cm.style.background='linear-gradient(90deg,#f84,#f48,#f8c)';
+this.ui.cm.style.animation='none';
+}else{
+this.ui.cm.style.background='linear-gradient(90deg,#f04,#f48,#f8c)';
+this.ui.cm.style.animation='none';
+}
+if(this.stats.d>=80){
+this.ui.dm.style.background='linear-gradient(90deg,#f84,#fa0,#f84)';
+this.ui.dm.style.animation='blink .8s infinite';
+}else if(this.stats.d>=60){
+this.ui.dm.style.background='linear-gradient(90deg,#fa0,#ff4,#fa8)';
+this.ui.dm.style.animation='none';
+}else{
+this.ui.dm.style.background='linear-gradient(90deg,#ff0,#ff4,#ff8)';
+this.ui.dm.style.animation='none';
+}
+this.ui.sc.textContent=this.score;
+this.ui.tc.textContent=this.tc;
+this.ui.ic.textContent=this.ic;
+let statusText=this.disguised?'🐕 Dog Mode':'Active';
+if(this.stats.c>=90)statusText+=' 🌪️ CRITICAL!';
+else if(this.stats.c>=70)statusText+=' ⚡ Chaotic';
+if(this.stats.d>=80)statusText+=' 😵 ADHD!';
+else if(this.stats.d>=60)statusText+=' 😵‍💫 Distracted';
+const sds={active:statusText,resting:'😴 Resting','game-over':'<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/Bloody_Gir.transparent.webp/:/rs=h:175,m" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;" alt="Dead"> Game Over'};
+this.ui.gst.innerHTML=sds[this.state];
+// Update rest button display with proper state management
+if(this.rc>0){
+// On cooldown - show countdown
+this.ui.rb.innerHTML='<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/gir%20sleep.png/:/rs=h:175,m" style="width:20px;height:20px;object-fit:contain;"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:8px;color:#fff;text-shadow:1px 1px 2px #000;font-weight:bold;">'+Math.ceil(this.rc)+'</span>';
+this.ui.rb.classList.remove('av');
+this.ui.rb.style.background='rgba(100,100,100,.8)';
+this.ui.rb.style.borderColor='#888';
+this.ui.rb.style.color='#888';
+this.ui.rb.style.position='relative';
+this.ui.rb.style.pointerEvents='auto'; // Ensure clickable
+}else if(this.state==='resting'){
+// Currently resting - show active rest state
+this.ui.rb.innerHTML='<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/gir%20sleep.png/:/rs=h:175,m" style="width:20px;height:20px;object-fit:contain;">';
+this.ui.rb.classList.add('av');
+this.ui.rb.style.background='rgba(0,100,200,.8)';
+this.ui.rb.style.borderColor='#08f';
+this.ui.rb.style.color='#08f';
+this.ui.rb.style.position='static';
+this.ui.rb.style.pointerEvents='auto'; // Ensure clickable
+}else{
+// Available to use
+this.ui.rb.innerHTML='<img src="https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/gir%20sleep.png/:/rs=h:175,m" style="width:20px;height:20px;object-fit:contain;">';
+this.ui.rb.classList.remove('av');
+this.ui.rb.style.background='rgba(0,50,0,.8)';
+this.ui.rb.style.borderColor='#0f0';
+this.ui.rb.style.color='#0f0';
+this.ui.rb.style.position='static';
+this.ui.rb.style.pointerEvents='auto'; // Ensure clickable
+}
+this.g.classList.toggle('hyperactive',this.stats.c>80&&this.state==='active');
+this.g.classList.toggle('distracted',this.stats.d>60&&this.state==='active');
+if(this.cm)this.updateChaos();
+}
+startLoop(){
+const loop=ct=>{
+if(this.state==='game-over')return;
+if(this.paused){
+this.af=requestAnimationFrame(loop);
+return;
+}
+if(ct-this.lut<16.67){
+this.af=requestAnimationFrame(loop);
+return;
+}
+this.lut=ct;
+if(this.state==='active'){
+const chaosRate=this.disguised?-.25:-.15;
+const distractRate=this.disguised?-.2:-.1;
+let energyDrain=-.01;
+if(this.stats.c>90)energyDrain=-.25;
+else if(this.stats.c>80)energyDrain=-.15;
+else if(this.stats.c>70)energyDrain=-.08;
+this.modStats({c:chaosRate,e:energyDrain,d:distractRate});
+if(this.stats.c>=100&&!this.cm){
+this.enterChaos();
+this.stats.c=90;
+}
+if(this.stats.d>70&&Math.random()>.99){
+const rx=(Math.random()-.5)*30,ry=(Math.random()-.5)*30;
+this.moveG(rx,ry);
+}
+if(this.stats.c>80&&Math.random()>.998){
+const rx=(Math.random()-.5)*40,ry=(Math.random()-.5)*40;
+this.moveG(rx,ry);
+}
+if(this.stats.d>80&&Math.random()>.996){
+this.randAction();
+}
+if(Math.random()>.9998){
+const rx=(Math.random()-.5)*40,ry=(Math.random()-.5)*40;
+this.moveG(rx,ry);
+}
+}else if(this.state==='resting'){
+// Enhanced rest regeneration
+console.log('Applying rest healing...'); // Debug log
+const baseRestRate=this.rr; // 8 base rate
+const restMultiplier=this.stats.e<20?2.5:this.stats.e<50?2:1.5; // More healing when low energy
+const finalRestRate=baseRestRate*restMultiplier;
+const energyGain=finalRestRate/60;
+const chaosReduction=-.6;
+const distractionReduction=-.4;
+console.log('Energy gain per frame:', energyGain);
+this.modStats({e:energyGain,c:chaosReduction,d:distractionReduction}); // Better stat recovery while resting
+}
+if(this.cm){
+this.ctimer-=.016;
+if(this.ctimer<=0)this.exitChaos();
+}
+if(this.rc>0)this.rc-=.016;
+this.updateUI();
+this.af=requestAnimationFrame(loop);
+};
+this.af=requestAnimationFrame(loop);
+}
+startTimer(){
+setInterval(()=>{
+if(this.state!=='game-over'&&!this.paused){
+this.time++;
+this.ui.tm.textContent=this.time;
+}
+},1000);
+}
+}
+
+function togglePause(){
+if(!window.gg||window.gg.state==='game-over')return;
+window.gg.paused=!window.gg.paused;
+const pauseScreen=document.getElementById('pauseScreen'),pauseBtn=document.getElementById('pb'),winScreen=document.getElementById('winScreen');
+winScreen.style.display='none';
+if(window.gg.paused){
+pauseScreen.style.display='flex';
+pauseBtn.textContent='▶️';
+pauseBtn.style.background='rgba(0,100,0,.8)';
+pauseBtn.style.borderColor='#0f0';
+pauseBtn.style.color='#0f0';
+}else{
+pauseScreen.style.display='none';
+pauseBtn.textContent='⏸️';
+pauseBtn.style.background='rgba(0,50,100,.8)';
+pauseBtn.style.borderColor='#08f';
+pauseBtn.style.color='#08f';
+}
+}
+
+function restart(){
+document.getElementById('gos').style.display='none';
+document.getElementById('pauseScreen').style.display='none';
+document.getElementById('winScreen').style.display='none';
+if(window.gg){
+if(window.gg.af)cancelAnimationFrame(window.gg.af);
+window.gg.stopJoystickMovement();
+if(window.gg.moveInterval)clearInterval(window.gg.moveInterval);
+if(window.gg.cch && window.gg.cch.length > 0){
+window.gg.cch.forEach(h=>{
+window.gg.ui.cm2.removeEventListener('click',h);
+window.gg.ui.cm2.removeEventListener('touchend',h);
+});
+}
+}
+document.querySelectorAll('.dist').forEach(el=>el.remove());
+const g=document.getElementById('g');
+g.classList.remove('game-over','resting','hyperactive','distracted','disguise');
+g.style.animation='';
+const db=document.getElementById('db');
+db.style.backgroundImage='url("https://img1.wsimg.com/isteam/ip/e5c52ac6-7189-421d-9701-bbc6d6a027fc/d1me5u2-a9635d79-16f1-474e-8fd2-428380d93f53.png/:/rs=h:175,m")';
+document.getElementById('cm2').style.display='none';
+window.gg=new G();
+}
+
+if(document.readyState==='loading'){
+document.addEventListener('DOMContentLoaded',()=>{window.gg=new G()});
+}else{
+window.gg=new G();
+}
+</script>
 </body>
 </html>
