@@ -68,15 +68,15 @@
     
     /* Main Content */
     .main-content {
-      padding: 20px 8px;
+      padding: 12px 8px 20px;
       max-width: 600px;
       margin: 0 auto;
     }
-    
+
     .page-title {
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 800;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
     
     .pro-tip {
@@ -95,19 +95,19 @@
     }
     
     .section-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: var(--brand);
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      margin-bottom: 14px;
+      margin-bottom: 8px;
     }
-    
+
     /* Guide Cards Grid */
     .guides-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 8px;
     }
     
     .guide-card {
@@ -133,26 +133,43 @@
     
     /* Caption styling: force single-line captions on small screens */
     .guide-card h3 {
-      padding: 8px 10px 10px;
-      font-size: 13px;
+      padding: 6px 8px 6px;
+      font-size: 11px;
       font-weight: 700;
-      line-height: 1.1;
+      line-height: 1.2;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       margin: 0;
       color: var(--text);
       display: block;
+      text-align: center;
     }
 
     @media (max-width: 420px) {
       .guide-card h3 {
-        font-size: 12px;
-        padding: 6px 8px 8px;
-        text-align: center;
+        font-size: 11px;
+        padding: 4px 6px 4px;
+      }
+
+      .main-content {
+        padding: 8px 6px 16px;
+      }
+
+      .page-title {
+        font-size: 16px;
+        margin-bottom: 6px;
+      }
+
+      .section-label {
+        margin-bottom: 6px;
+      }
+
+      .guides-grid {
+        gap: 6px;
       }
     }
-    
+
     /* Bottom Navigation */
     .bottom-nav {
       position: fixed;
