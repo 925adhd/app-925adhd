@@ -64,6 +64,7 @@
       padding: 20px 8px;
       max-width: 700px;
       margin: 0 auto;
+      background: var(--bg);
     }
     
     .updated-badge {
@@ -83,7 +84,7 @@
       border:1px solid rgba(255,255,255,.06);
       border-radius:16px;
       padding:18px 14px 36px; /* increased bottom padding for more breathing room */
-      margin-bottom:40px; /* larger gap before the search bar */
+      margin-bottom:48px; /* larger gap before the search bar */
       box-shadow:0 6px 18px rgba(0,0,0,.28);
     }
     
@@ -241,7 +242,7 @@
     /* Search */
     .search-box {
       position: relative;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
     
     .search-box input {
@@ -274,11 +275,11 @@
     }
 
     /* Category Tabs (mobile-friendly horizontal scroller) */
-    .category-wrap { position: relative; }
+    .category-wrap { position: relative; margin-bottom: 24px; }
     .category-tabs {
       display: flex;
       gap: 8px;
-      margin: 12px 0 18px;
+      margin: 12px 0 0;
       overflow-x: auto;
       /* left-aligned: small left padding, larger right padding for scroll-right arrow */
       padding: 6px 56px 6px 12px;
@@ -337,7 +338,7 @@
       border: 1px solid rgba(168,85,247,0.3);
       border-radius: 12px;
       padding: 12px 14px;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       font-size: 13px;
       line-height: 1.5;
       /* Fixed height to accommodate longest tip and prevent layout shifts */
@@ -379,7 +380,7 @@
     }
     
     /* Results bar + filter UI */
-    .results-bar { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin:10px 0 14px; flex-wrap: nowrap; flex-direction: column; }
+    .results-bar { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin:10px 0 24px; flex-wrap: nowrap; flex-direction: column; }
     .results-controls { order: 1; width: 100%; display: flex; align-items: center; justify-content: flex-start; gap: 8px; min-width: 0; }
     .results-text { order: 2; font-size:14px; color:var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; margin-top: 8px; }
     .results-controls { display:flex; align-items:center; gap:10px; }
@@ -470,27 +471,36 @@
 
     .hidden{ display:none !important; }
     
+    /* Category Sections - Same color as top nav for visual chunking */
+    .category-section {
+      background: var(--brand);
+      border-radius: 20px;
+      padding: 24px 16px 32px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
     /* Category Headers */
     .category-header {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
-      margin: 20px 0 12px;
-      color: var(--brand);
+      margin: 0 0 16px;
+      color: #ffffff;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    
+
     .category-header:first-of-type {
       margin-top: 0;
     }
-    
+
     .category-count {
       font-size: 11px;
       color: var(--text-muted);
       font-weight: 500;
     }
-    
+
     /* Gig Cards */
     .gig-grid {
       display: flex;
@@ -605,12 +615,16 @@
     .tag { white-space: nowrap; }
 
     .tag {
-      font-size: 9px;
-      font-weight: 600;
-      padding: 2px 6px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+      line-height: 1;
+      border: 1px solid;
     }
 
     /* Hide visible energy level tags while keeping underlying data and logic intact */
@@ -633,13 +647,14 @@
     .filter-row, .filter-menu { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; gap:6px; }
     .filter-row::-webkit-scrollbar, .filter-menu::-webkit-scrollbar, .gig-tags::-webkit-scrollbar { display: none; }
     
-    .tag.energy-low { background: rgba(34,197,94,0.2); color: #4ade80; }
-    .tag.energy-med { background: rgba(250,204,21,0.2); color: #fde047; }
-    .tag.energy-high { background: rgba(249,115,22,0.2); color: #fb923c; }
-    .tag.quick { background: rgba(90,195,174,0.2); color: #22d3ee; }
-    .tag.browser { background: rgba(139,92,246,0.2); color: #a78bfa; }
-    .tag.fave { background: rgba(236,72,153,0.2); color: #f472b6; }
-    .tag.gift { background: rgba(251,191,36,0.2); color: #fbbf24; }
+    .tag.energy-low { background: rgba(34,197,94,0.2); color: #4ade80; border-color: rgba(34,197,94,0.3); }
+    .tag.energy-med { background: rgba(250,204,21,0.2); color: #fde047; border-color: rgba(250,204,21,0.3); }
+    .tag.energy-high { background: rgba(249,115,22,0.2); color: #fb923c; border-color: rgba(249,115,22,0.3); }
+    .tag.quick { background: rgba(90,195,174,0.12); color: #22d3ee; border-color: rgba(90,195,174,0.14); }
+    .tag.highpay { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.14); }
+    .tag.beginner { background: rgba(255,255,255,0.03); color: var(--text); border-color: rgba(255,255,255,0.04); }
+    .tag.browser { background: rgba(139,92,246,0.2); color: #a78bfa; border-color: rgba(139,92,246,0.3); }
+    .tag.fave { background: rgba(236,72,153,0.12); color: #f472b6; border-color: rgba(236,72,153,0.14); }
     
     /* Empty State */
     .empty-state {
@@ -868,7 +883,6 @@
             <button class="tag-chip quick" type="button" data-value="quick">⚡ Fast</button>
             <button class="tag-chip highpay" type="button" data-value="highpay">💰 Top Pay</button>
             <button class="tag-chip beginner" type="button" data-value="beginner">🌱 Easy</button>
-            <button class="tag-chip favorites" type="button" data-value="favorites">🥰 Favorite</button>
           </div>
         </div>
       </div>
@@ -919,29 +933,29 @@
     // ===== ALL 70 GIGS DATA =====
     const gigs = [
       // Fun or Interesting
-      { id: "pressplay", name: "PressPlay", rate: "$0.60–$5/hr", desc: "Watch unreleased trailers & screenings for Amazon vouchers. Low pay but fun for movie fans.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/WUBBxNlrGzQLgbYSo2ns.png", link: "https://us.mypressplay.com", category: "fun", energy: "low", tags: ["beginner", "gift", "movies"], browser: false },
+      { id: "pressplay", name: "PressPlay", rate: "$0.60–$5/hr", desc: "Watch unreleased trailers & screenings for Amazon vouchers. Low pay but fun for movie fans.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/WUBBxNlrGzQLgbYSo2ns.png", link: "https://us.mypressplay.com", category: "fun", energy: "low", tags: ["beginner", "quick"], browser: false },
       { id: "slicethepie", name: "Slice The Pie", rate: "$1–$8/hr", desc: "Paid reviews on music, fashion, and commercials.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/N5HyBECr8SGscfvrXhHs.jpg", link: "https://www.slicethepie.com/", category: "fun", energy: "low", tags: ["beginner", "quick"], browser: false },
-      { id: "methinks", name: "Methinks", rate: "$5–$100+/gig", desc: "Video interviews, app testing, and surveys for product research.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/alNW7pxDjaH7vy1c9gwt.png", link: "https://www.methinks.io/thinker", category: "surveys", energy: "med", tags: ["mobile","highpay"], browser: false },
-      { id: "bestmark", name: "BestMark", rate: "$5–$25/shop", desc: "Mystery shopping assignments—visit businesses undercover, report back, and get paid.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png", link: "https://www.bestmark.com/become-a-mystery-shopper/", category: "fun", energy: "med", tags: ["in-person","mystery-shop"], browser: false },
-      { id: "influenster", name: "Influenster", rate: "Free products", desc: "Test and review products through VoxBoxes; earn freebies, not cash.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4A7UA3KtSXUkc9ueckJH.png", link: "https://www.influenster.com/", category: "fun", energy: "low", tags: ["beginner", "gift"], browser: false },
+      { id: "methinks", name: "Methinks", rate: "$5–$100+/gig", desc: "Video interviews, app testing, and surveys for product research.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/alNW7pxDjaH7vy1c9gwt.png", link: "https://www.methinks.io/thinker", category: "surveys", energy: "med", tags: ["beginner", "highpay"], browser: false },
+      { id: "bestmark", name: "BestMark", rate: "$5–$25/shop", desc: "Mystery shopping assignments—visit businesses undercover, report back, and get paid.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png", link: "https://www.bestmark.com/become-a-mystery-shopper/", category: "fun", energy: "med", tags: ["beginner"], browser: false },
+      { id: "influenster", name: "Influenster", rate: "Free products", desc: "Test and review products through VoxBoxes; earn freebies, not cash.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4A7UA3KtSXUkc9ueckJH.png", link: "https://www.influenster.com/", category: "fun", energy: "low", tags: ["beginner", "quick"], browser: false },
       
       // Surveys & Market Research
-      { id: "prolific", name: "Prolific", rate: "$8–$18/hr", desc: "High-paying academic studies. Guaranteed minimum pay and PayPal cashouts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/immy0sOGu8FJH0lgD7VN.png", link: "https://www.prolific.com/participants", category: "surveys", energy: "low", tags: ["beginner", "quick", "highpay", "academic"], browser: true, fave: true },
-      { id: "dscout", name: "Dscout", rate: "$25–$250/mission", desc: "Video diaries, app testing, and live interviews for top brands.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ir5Usfji0u0VtJf8iXTn.png", link: "https://dscout.com/participate-in-research-studies", category: "surveys", energy: "med", tags: ["highpay","mobile","video"], browser: false },
-      { id: "respondentio", name: "Respondent.io", rate: "$50–$250+/study", desc: "High-paying research studies for professionals.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/tHrBfm7B9TRyDq7uZh73.png", link: "https://www.respondent.io/signup", category: "surveys", energy: "med", tags: ["highpay","professional"], browser: false },
+      { id: "prolific", name: "Prolific", rate: "$8–$18/hr", desc: "High-paying academic studies. Guaranteed minimum pay and PayPal cashouts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/immy0sOGu8FJH0lgD7VN.png", link: "https://www.prolific.com/participants", category: "surveys", energy: "low", tags: ["beginner", "quick", "highpay"], browser: true, fave: true },
+      { id: "dscout", name: "Dscout", rate: "$25–$250/mission", desc: "Video diaries, app testing, and live interviews for top brands.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ir5Usfji0u0VtJf8iXTn.png", link: "https://dscout.com/participate-in-research-studies", category: "surveys", energy: "med", tags: ["highpay"], browser: false },
+      { id: "respondentio", name: "Respondent.io", rate: "$50–$250+/study", desc: "High-paying research studies for professionals.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/tHrBfm7B9TRyDq7uZh73.png", link: "https://www.respondent.io/signup", category: "surveys", energy: "med", tags: ["highpay"], browser: false },
       { id: "usertesting", name: "UserTesting", rate: "$10–$60/hr", desc: "Test websites and apps for bigger payouts. Share your screen and voice.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/THI1IS5clNzV8HIJ96gn.png", link: "https://www.usertesting.com/get-paid-to-test", category: "surveys", energy: "med", tags: ["highpay"], browser: false },
       // Playtesting & App Testing
-      { id: "playtestcloud", name: "PlaytestCloud", rate: "$10–$50/hr", desc: "Paid playtests and prototype feedback for games and apps.", logo: "https://via.placeholder.com/150?text=PlaytestCloud", link: "https://playtestcloud.com/", category: "testing", energy: "med", tags: ["app-testing","games"], browser: false },
-      { id: "trymata", name: "Trymata", rate: "$10–$60/hr", desc: "Unmoderated and moderated playtesting for apps and prototypes.", logo: "https://via.placeholder.com/150?text=Trymata", link: "https://trymata.com/", category: "testing", energy: "med", tags: ["app-testing"], browser: false },
-      { id: "testbirds", name: "Testbirds", rate: "$10–$50/test", desc: "Find bugs and test websites/apps for $10–$50 per test; $1 per approved bug.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png", link: "https://nest.testbirds.com/home", category: "testing", energy: "med", tags: ["app-testing","ux"], browser: false },
+      { id: "playtestcloud", name: "PlaytestCloud", rate: "$10–$50/hr", desc: "Paid playtests and prototype feedback for games and apps.", logo: "https://via.placeholder.com/150?text=PlaytestCloud", link: "https://playtestcloud.com/", category: "testing", energy: "med", tags: ["beginner", "highpay"], browser: false },
+      { id: "trymata", name: "Trymata", rate: "$10–$60/hr", desc: "Unmoderated and moderated playtesting for apps and prototypes.", logo: "https://via.placeholder.com/150?text=Trymata", link: "https://trymata.com/", category: "testing", energy: "med", tags: ["beginner", "highpay"], browser: false },
+      { id: "testbirds", name: "Testbirds", rate: "$10–$50/test", desc: "Find bugs and test websites/apps for $10–$50 per test; $1 per approved bug.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png", link: "https://nest.testbirds.com/home", category: "testing", energy: "med", tags: ["beginner", "highpay"], browser: false },
 
       // Microtask & Crowdsourcing Platforms
       { id: "mturk", name: "Amazon MTurk", rate: "$2–$6/hr avg", desc: "Amazon's massive microtask marketplace with endless small jobs; median earnings ~$2/hr, experienced workers $6–15/hr.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/xxx.png", link: "https://www.mturk.com/worker", category: "microtasks", energy: "low", tags: ["quick","beginner"], browser: false },
-      { id: "lionbridge", name: "Lionbridge", rate: "$3–$20/hr", desc: "Language, search evaluation and AI data tasks from a major vendor.", logo: "https://via.placeholder.com/150?text=Lionbridge", link: "https://lionbridge.ai/", category: "ai", energy: "med", tags: ["ai","data-work"], browser: false },
-      { id: "justanswer", name: "JustAnswer", rate: "$10–$50/hr", desc: "Answer questions as an expert for paid consultations and advice.", logo: "https://via.placeholder.com/150?text=JustAnswer", link: "https://www.justanswer.com/experts", category: "expert", energy: "high", tags: ["expert","consult"], browser: false },
-      { id: "pineconeresearch", name: "Pinecone Research", rate: "$3–$12/hr", desc: "High payouts for surveys and product tests. Invite-only but worth it.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bibC3v0lT4ryuYu9LMCr.png", link: "https://members.pineconeresearch.com/#/", category: "surveys", energy: "low", tags: ["beginner"], browser: false },
+      { id: "lionbridge", name: "Lionbridge", rate: "$3–$20/hr", desc: "Language, search evaluation and AI data tasks from a major vendor.", logo: "https://via.placeholder.com/150?text=Lionbridge", link: "https://lionbridge.ai/", category: "ai", energy: "med", tags: ["beginner"], browser: false },
+      { id: "justanswer", name: "JustAnswer", rate: "$10–$50/hr", desc: "Answer questions as an expert for paid consultations and advice.", logo: "https://via.placeholder.com/150?text=JustAnswer", link: "https://www.justanswer.com/experts", category: "expert", energy: "high", tags: ["highpay"], browser: false },
+      { id: "pineconeresearch", name: "Pinecone Research", rate: "$3–$12/hr", desc: "High payouts for surveys and product tests. Invite-only but worth it.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bibC3v0lT4ryuYu9LMCr.png", link: "https://members.pineconeresearch.com/#/", category: "surveys", energy: "low", tags: ["beginner", "highpay"], browser: false },
       { id: "surveyjunkie", name: "Survey Junkie", rate: "$1–$5/hr", desc: "Trusted, steady survey earnings. One of the most popular platforms.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4sv9XSwPHs8dV9zETDsd.jpg", link: "https://www.surveyjunkie.com/", category: "surveys", energy: "low", tags: ["beginner", "quick"], browser: false },
-      { id: "toluna", name: "Toluna", rate: "$3–$5/hr", desc: "Community-based surveys with polls, games, and discussions.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/El5li3CDmxyW2lFaPwyz.png", link: "https://www.toluna.com/home", category: "surveys", energy: "low", tags: ["beginner"], browser: false },
+      { id: "toluna", name: "Toluna", rate: "$3–$5/hr", desc: "Community-based surveys with polls, games, and discussions.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/El5li3CDmxyW2lFaPwyz.png", link: "https://www.toluna.com/home", category: "surveys", energy: "low", tags: ["beginner", "quick"], browser: false },
       { id: "lifepoints", name: "LifePoints", rate: "$1.50–$3/hr", desc: "Steady earnings from surveys. Mobile-friendly with 5M+ members.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/cAodh8wHqXuLW7PoRjgR.png", link: "https://www.lifepointspanel.com/", category: "surveys", energy: "low", tags: ["beginner", "quick"], browser: false },
       { id: "paidviewpoint", name: "Paid Viewpoint", rate: "$1–$3/hr", desc: "Short surveys, pays even if you don't finish. PayPal or Venmo.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/X4p6CA7iYfoM0LyEDUxQ.png", link: "https://paidviewpoint.com/", category: "surveys", energy: "low", tags: ["beginner", "quick"], browser: false },
       
@@ -949,24 +963,24 @@
       { id: "outlier", name: "Outlier", rate: "$15–$35/hr", desc: "Improve AI by rating responses, comparing outputs, and evaluating models.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/261LHUjlubG5IjYr0LZv.png", link: "https://outlier.ai", category: "ai", energy: "med", tags: ["highpay"], browser: false },
       { id: "appen", name: "Appen", rate: "$3–$14/hr", desc: "Specializes in AI training data with data labeling gigs.", logo: "https://cdn-images.himalayas.app/vmlva5ltollcahuby442urxngpau", link: "https://jobs.lever.co/appen", category: "ai", energy: "med", tags: ["beginner"], browser: false },
       { id: "clickworker", name: "Clickworker", rate: "$5–$12/hr", desc: "Freelance platform offering tasks like text creation & annotation.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/C1vyAjM6bkaR4bcNeCeA.png", link: "https://www.clickworker.com/clickworker/", category: "ai", energy: "med", tags: ["beginner", "quick"], browser: false },
-      { id: "neevo", name: "Neevo", rate: "$5–$12/hr", desc: "Help improve AI by completing simple tasks involving text, audio, images.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zbigllQ1z7hix1BDq2XT.png", link: "https://www.neevo.ai/", category: "ai", energy: "med", tags: ["beginner"], browser: false },
+      { id: "neevo", name: "Neevo", rate: "$5–$12/hr", desc: "Help improve AI by completing simple tasks involving text, audio, images.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zbigllQ1z7hix1BDq2XT.png", link: "https://www.neevo.ai/", category: "ai", energy: "med", tags: ["beginner", "quick"], browser: false },
       
       // Mystery Shoppers
       { id: "bestmark", name: "BestMark", rate: "$10–$25/assignment", desc: "One of the biggest platforms for mystery shoppers with wide variety.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/M19p9QumhG9pef4jnC4G.jpg", link: "https://www.bestmark.com/become-a-mystery-shopper/", category: "mystery", energy: "med", tags: ["beginner"], browser: false },
       { id: "isecretshop", name: "iSecretShop", rate: "$5–$20/assignment", desc: "Flexible mystery shopping with mobile-friendly assignments.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/MUcOeiXW3P0e1CGmmUos.jpg", link: "https://www.isecretshop.com/register", category: "mystery", energy: "med", tags: ["beginner", "quick"], browser: false },
       { id: "marketforce", name: "Market Force", rate: "$5–$15/assignment", desc: "Earn by visiting locations and filling out surveys. Free food perks!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/SxHLTnmhZ2kYE3ShRn4Y.png", link: "https://shopper.marketforce.com/#/login/newShopper/Apply", category: "mystery", energy: "med", tags: ["beginner"], browser: false },
       { id: "gigspot", name: "Gigspot", rate: "$5–$20/assignment", desc: "Hub for mystery shopping and evaluation gigs from multiple providers.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/PkdyJvLxQhLJzuLbbnAu.jpg", link: "https://www.gigspot.com/", category: "mystery", energy: "med", tags: ["beginner"], browser: false },
-      { id: "prestoshopper", name: "Presto Shopper", rate: "$5–$15/assignment", desc: "Fast, map-based mystery shopping. Get paid same day!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/DvyAgPosZi8eWjHhb77J.jpg", link: "https://insta.prestomobilesurveys.com/site", category: "mystery", energy: "med", tags: ["quick"], browser: false },
+      { id: "prestoshopper", name: "Presto Shopper", rate: "$5–$15/assignment", desc: "Fast, map-based mystery shopping. Get paid same day!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/DvyAgPosZi8eWjHhb77J.jpg", link: "https://insta.prestomobilesurveys.com/site", category: "mystery", energy: "med", tags: ["beginner", "quick"], browser: false },
       
       // Transcription
-      { id: "rev", name: "Rev", rate: "$10–$20/hr", desc: "Transcription, captions, and subtitles. Clients include Google & Amazon.", logo: "https://logosandtypes.com/wp-content/uploads/2022/04/Rev.png", link: "https://www.rev.com/freelancers", category: "transcription", energy: "high", tags: [], browser: false },
-      { id: "transcribeme", name: "TranscribeMe", rate: "$15–$22/hr", desc: "Short audio clips (2-4 min) and flexible transcription tasks.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/6CTYiprr2sytaztxIqjN.jpg", link: "https://www.transcribeme.com/legal-transcriptionists-jobs/", category: "transcription", energy: "high", tags: ["highpay"], browser: false },
-      { id: "gotranscript", name: "GoTranscript", rate: "$10–$20/hr", desc: "Transcribe audio & video in 40+ languages. Weekly PayPal payouts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/2dkvf9pM4iw2a2GqOY2A.png", link: "https://gotranscript.com/transcription-jobs#apply-now", category: "transcription", energy: "high", tags: [], browser: false },
+      { id: "rev", name: "Rev", rate: "$10–$20/hr", desc: "Transcription, captions, and subtitles. Clients include Google & Amazon.", logo: "https://logosandtypes.com/wp-content/uploads/2022/04/Rev.png", link: "https://www.rev.com/freelancers", category: "transcription", energy: "high", tags: ["highpay"], browser: false },
+      { id: "transcribeme", name: "TranscribeMe", rate: "$15–$22/hr", desc: "Short audio clips (2-4 min) and flexible transcription tasks.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/6CTYiprr2sytaztxIqjN.jpg", link: "https://www.transcribeme.com/legal-transcriptionists-jobs/", category: "transcription", energy: "high", tags: ["highpay", "quick"], browser: false },
+      { id: "gotranscript", name: "GoTranscript", rate: "$10–$20/hr", desc: "Transcribe audio & video in 40+ languages. Weekly PayPal payouts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/2dkvf9pM4iw2a2GqOY2A.png", link: "https://gotranscript.com/transcription-jobs#apply-now", category: "transcription", energy: "high", tags: ["highpay", "quick"], browser: false },
       { id: "scribie", name: "Scribie", rate: "$5–$15/hr", desc: "Transcription jobs for beginners. (Temporarily on hold)", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/LPDr1SXNANI6HXdPTP3K.jpg", link: "https://scribie.com/transcription/freelance", category: "transcription", energy: "high", tags: ["beginner"], browser: false },
-      { id: "tigerfish", name: "Tigerfish", rate: "$5–$15/hr", desc: "High editorial standards. Interviews, focus groups, legal depositions.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/0a6l1YHXaIwBGINRrlEb.jpg", link: "https://tigerfish.com/transcription-jobs/", category: "transcription", energy: "high", tags: [], browser: false },
-      { id: "castingwords", name: "CastingWords", rate: "$8–$12/hr", desc: "Flexible transcription with project choices. Weekly PayPal payouts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Vw2FEfsJFflaRP1c5VAk.png", link: "https://workshop.castingwords.com/", category: "transcription", energy: "high", tags: ["beginner"], browser: false },
-      { id: "speechpad", name: "SpeechPad", rate: "$10–$25/hr", desc: "General, legal, and medical transcription. Twice-weekly pay!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/SzYR5rgBweNs9sJ4811F.jpg", link: "https://www.speechpad.com/worker", category: "transcription", energy: "high", tags: ["highpay"], browser: false },
-      { id: "quicktate", name: "Quicktate", rate: "$5–$10/hr", desc: "Short voicemails, medical and legal recordings. Quick tasks.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/uadmcUQtwAJA4ZC3LRHv.png", link: "https://typists.quicktate.com/transcribers/signup", category: "transcription", energy: "med", tags: ["quick"], browser: false },
+      { id: "tigerfish", name: "Tigerfish", rate: "$5–$15/hr", desc: "High editorial standards. Interviews, focus groups, legal depositions.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/0a6l1YHXaIwBGINRrlEb.jpg", link: "https://tigerfish.com/transcription-jobs/", category: "transcription", energy: "high", tags: ["beginner"], browser: false },
+      { id: "castingwords", name: "CastingWords", rate: "$8–$12/hr", desc: "Flexible transcription with project choices. Weekly PayPal payouts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Vw2FEfsJFflaRP1c5VAk.png", link: "https://workshop.castingwords.com/", category: "transcription", energy: "high", tags: ["beginner", "quick"], browser: false },
+      { id: "speechpad", name: "SpeechPad", rate: "$10–$25/hr", desc: "General, legal, and medical transcription. Twice-weekly pay!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/SzYR5rgBweNs9sJ4811F.jpg", link: "https://www.speechpad.com/worker", category: "transcription", energy: "high", tags: ["highpay", "quick"], browser: false },
+      { id: "quicktate", name: "Quicktate", rate: "$5–$10/hr", desc: "Short voicemails, medical and legal recordings. Quick tasks.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/uadmcUQtwAJA4ZC3LRHv.png", link: "https://typists.quicktate.com/transcribers/signup", category: "transcription", energy: "med", tags: ["beginner", "quick"], browser: false },
       
       // Voice & Audio Work
       { id: "voices", name: "Voices", rate: "$200–$5,000+/project", desc: "Professional voice work for commercials, audiobooks, video games.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/wcEU9y1lRWTp9LrNAyMq.png", link: "https://www.voices.com/talent", category: "voice", energy: "high", tags: ["highpay"], browser: false },
@@ -976,52 +990,52 @@
       // Content Writing
       { id: "clearvoice", name: "ClearVoice", rate: "$100–$400+/article", desc: "Connect with brands for content. Clients come to you—no bidding.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kRJCNp4S56RIYwZjvhWN.png", link: "https://clearvoice.com/signup", category: "writing", energy: "high", tags: ["highpay"], browser: false },
       { id: "scripted", name: "Scripted", rate: "$15–$50+/hr", desc: "Curated job board—pick gigs you want. No bidding wars.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/oHFDNcszl0MjisQF0KgJ.png", link: "https://www.scripted.com/become-a-scripted-writer", category: "writing", energy: "high", tags: ["highpay"], browser: false },
-      { id: "writeraccess", name: "WriterAccess", rate: "$0.10–$1+/word", desc: "Star rating system—level up for better pay. 20K+ writers.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jrkeq8izQRqzi3czUPvx.png", link: "https://www.writeraccess.com/talent-overview/", category: "writing", energy: "high", tags: [], browser: false },
+      { id: "writeraccess", name: "WriterAccess", rate: "$0.10–$1+/word", desc: "Star rating system—level up for better pay. 20K+ writers.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jrkeq8izQRqzi3czUPvx.png", link: "https://www.writeraccess.com/talent-overview/", category: "writing", energy: "high", tags: ["beginner"], browser: false },
       
       // Online Teaching
       { id: "wyzant", name: "Wyzant", rate: "$30–$100+/hr", desc: "Academic subjects & test prep. Premium rates, U.S. based.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/4CdttfiOOk3ESSjWBGO7.jpg", link: "https://www.wyzant.com/tutorsignupstart", category: "teaching", energy: "high", tags: ["highpay"], browser: false },
-      { id: "preply", name: "Preply", rate: "$10–$40/hr", desc: "120+ subjects, global reach. Build ongoing student relationships.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/v0v44KBbRCrOhwJeveYj.png", link: "https://preply.com/en/teach", category: "teaching", energy: "high", tags: [], browser: false },
-      { id: "italki", name: "iTalki", rate: "$5–$80/hr", desc: "Language tutoring focus. Only 15% commission!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/rZ25jNe1Ex4MYF20nh15.png", link: "https://teach.italki.com/application", category: "teaching", energy: "high", tags: [], browser: false },
+      { id: "preply", name: "Preply", rate: "$10–$40/hr", desc: "120+ subjects, global reach. Build ongoing student relationships.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/v0v44KBbRCrOhwJeveYj.png", link: "https://preply.com/en/teach", category: "teaching", energy: "high", tags: ["beginner"], browser: false },
+      { id: "italki", name: "iTalki", rate: "$5–$80/hr", desc: "Language tutoring focus. Only 15% commission!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/rZ25jNe1Ex4MYF20nh15.png", link: "https://teach.italki.com/application", category: "teaching", energy: "high", tags: ["beginner"], browser: false },
       { id: "cambly", name: "Cambly", rate: "$10–$12/hr", desc: "Casual English conversations. No lesson planning needed!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/qghhXnqBdMEruH5bEWuL.png", link: "https://www.cambly.com/en/tutors?lang=en", category: "teaching", energy: "med", tags: ["beginner", "quick"], browser: false },
       
       // Virtual Assistant
-      { id: "belaysolutions", name: "Belay Solutions", rate: "$15–$25/hr", desc: "US-based VAs, vetted professionals. Long-term remote careers.", logo: "https://media.licdn.com/dms/image/v2/D4E10AQHq0VJgaQKacA/image-shrink_800/image-shrink_800/0/1729178105794?e=2147483647&v=beta&t=9ly-pcP9eBsjgqN-2HEIdRa6hp99y98oJxR1z_ZfGnc", link: "https://belaysolutions.com/work-with-us/?=undefined", category: "va", energy: "high", tags: [], browser: false },
-      { id: "timeetc", name: "Time Etc", rate: "$15–$30/hr", desc: "Established client relationships. US/UK only, part-time friendly.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/l5f859tQVXgDlX2aIqTN.png", link: "https://www.timeetc.com/work-for-us", category: "va", energy: "high", tags: [], browser: false },
+      { id: "belaysolutions", name: "Belay Solutions", rate: "$15–$25/hr", desc: "US-based VAs, vetted professionals. Long-term remote careers.", logo: "https://media.licdn.com/dms/image/v2/D4E10AQHq0VJgaQKacA/image-shrink_800/image-shrink_800/0/1729178105794?e=2147483647&v=beta&t=9ly-pcP9eBsjgqN-2HEIdRa6hp99y98oJxR1z_ZfGnc", link: "https://belaysolutions.com/work-with-us/?=undefined", category: "va", energy: "high", tags: ["highpay"], browser: false },
+      { id: "timeetc", name: "Time Etc", rate: "$15–$30/hr", desc: "Established client relationships. US/UK only, part-time friendly.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/l5f859tQVXgDlX2aIqTN.png", link: "https://www.timeetc.com/work-for-us", category: "va", energy: "high", tags: ["highpay"], browser: false },
       { id: "fancyhands", name: "Fancy Hands", rate: "$10–$15/hr", desc: "Quick, on-demand microtasks. Great for ADHD quick wins!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/asHamvyp91UGgroT69Si.jpg", link: "https://www.fancyhands.com/jobs", category: "va", energy: "med", tags: ["quick", "beginner"], browser: false },
       
       // Freelancing Marketplaces
       { id: "toptal", name: "Toptal", rate: "$60–$150+/hr", desc: "Elite 3% acceptance. Premium clients, long-term contracts.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/z6xQQ7MZhH05Jephsdwo.png", link: "https://toptal.com/", category: "freelance", energy: "high", tags: ["highpay"], browser: false },
       { id: "fiverr", name: "Fiverr", rate: "$5–$500+/project", desc: "Gig-based marketplace. Clients come to you—no bidding!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Tji9gPHOWc8JX0Fr7lI6.png", link: "https://fiverr.com/", category: "freelance", energy: "high", tags: ["beginner"], browser: false },
-      { id: "freelancer", name: "Freelancer", rate: "$10–$80+/hr", desc: "Competitive bidding platform. Huge variety of projects.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zp6u2DdwP3cg0mFJxlSy.png", link: "https://freelancer.com/", category: "freelance", energy: "high", tags: [], browser: false },
+      { id: "freelancer", name: "Freelancer", rate: "$10–$80+/hr", desc: "Competitive bidding platform. Huge variety of projects.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/zp6u2DdwP3cg0mFJxlSy.png", link: "https://freelancer.com/", category: "freelance", energy: "high", tags: ["beginner"], browser: false },
       
       // Social Media Influencing
       { id: "youtube", name: "YouTube", rate: "$100–$50,000+/video", desc: "Video content. Ads, sponsorships, passive income potential.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/hIE0fwA9FyxSmGRkM0DU.png", link: "https://www.youtube.com/", category: "social", energy: "high", tags: ["highpay"], browser: false },
-      { id: "tiktok", name: "TikTok", rate: "$50–$20,000+/post", desc: "Short-form video. Fast growth, viral potential.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/aUgg51uy2GH9tSe5bMN9.png", link: "https://www.tiktok.com/", category: "social", energy: "high", tags: ["highpay", "beginner"], browser: false },
+      { id: "tiktok", name: "TikTok", rate: "$50–$20,000+/post", desc: "Short-form video. Fast growth, viral potential.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/aUgg51uy2GH9tSe5bMN9.png", link: "https://www.tiktok.com/", category: "social", energy: "high", tags: ["beginner", "highpay"], browser: false },
       { id: "instagram", name: "Instagram", rate: "$200–$10,000+/post", desc: "Visual platform. Sponsored posts, affiliate links, ads.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/SHQ0QHgRlMhnXMFMaEhC.jpg", link: "https://www.instagram.com/", category: "social", energy: "high", tags: ["highpay"], browser: false },
       { id: "twitch", name: "Twitch", rate: "$50–$5,000+/stream", desc: "Live streaming. Subs, donations, sponsorships.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/aIgY0lJtG2Y2UqbbaZ1h.png", link: "https://www.twitch.tv/", category: "social", energy: "high", tags: ["highpay"], browser: false },
-      { id: "patreon", name: "Patreon", rate: "$5–$5,000+/month", desc: "Fan memberships. Recurring income from supporters.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ytr18NnJQrCOhaCW2MYY.png", link: "https://www.patreon.com/", category: "social", energy: "high", tags: [], browser: false },
+      { id: "patreon", name: "Patreon", rate: "$5–$5,000+/month", desc: "Fan memberships. Recurring income from supporters.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ytr18NnJQrCOhaCW2MYY.png", link: "https://www.patreon.com/", category: "social", energy: "high", tags: ["beginner"], browser: false },
       { id: "kofi", name: "Ko-fi", rate: "$1–$1,000+/tip", desc: "Digital tip jar. 0% fees on tips! Sell products too.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/rV3EmPqdyk7oLMwji0FC.png", link: "https://ko-fi.com/", category: "social", energy: "med", tags: ["beginner", "quick"], browser: false },
-      { id: "facebook", name: "Facebook", rate: "$100–$10,000+/post", desc: "Marketplace, groups, sponsored content. Huge reach.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/joOXU3pGdlKULwwTQ7K7.png", link: "https://www.facebook.com/", category: "social", energy: "med", tags: [], browser: false },
-      { id: "x", name: "X (Twitter)", rate: "$50–$5,000+/tweet", desc: "Microblogging. Sponsored tweets, ad revenue sharing.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bvwxaR2mEAAX605zQhsx.png", link: "https://www.x.com/", category: "social", energy: "med", tags: [], browser: false },
+      { id: "facebook", name: "Facebook", rate: "$100–$10,000+/post", desc: "Marketplace, groups, sponsored content. Huge reach.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/joOXU3pGdlKULwwTQ7K7.png", link: "https://www.facebook.com/", category: "social", energy: "med", tags: ["beginner"], browser: false },
+      { id: "x", name: "X (Twitter)", rate: "$50–$5,000+/tweet", desc: "Microblogging. Sponsored tweets, ad revenue sharing.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/bvwxaR2mEAAX605zQhsx.png", link: "https://www.x.com/", category: "social", energy: "med", tags: ["beginner"], browser: false },
       { id: "linkedin", name: "LinkedIn", rate: "$500–$20,000+/gig", desc: "Professional networking. Speaking gigs, courses, clients.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/DiQhmMBQMIupg107v1KD.png", link: "https://www.linkedin.com/", category: "social", energy: "high", tags: ["highpay"], browser: false },
       
       // Handmade Goods
-      { id: "etsy", name: "🥰 Etsy", rate: "Self-set", desc: "Global marketplace for handmade, vintage, and creative goods.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/pvvTqqHXOWCv5aaHVeWe.jpg", link: "https://etsy.com/", category: "handmade", energy: "high", tags: [], fave: true, browser: false },
-      { id: "amazonhandmade", name: "Amazon Handmade", rate: "Self-set", desc: "Sell artisan products on Amazon's massive customer base.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/vXq9tx9PrQnlM3UYpxcQ.png", link: "https://amzn.to/4iuPkoW", category: "handmade", energy: "high", tags: [], browser: false },
+      { id: "etsy", name: "🥰 Etsy", rate: "Self-set", desc: "Global marketplace for handmade, vintage, and creative goods.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/pvvTqqHXOWCv5aaHVeWe.jpg", link: "https://etsy.com/", category: "handmade", energy: "high", tags: ["beginner"], fave: true, browser: false },
+      { id: "amazonhandmade", name: "Amazon Handmade", rate: "Self-set", desc: "Sell artisan products on Amazon's massive customer base.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/vXq9tx9PrQnlM3UYpxcQ.png", link: "https://amzn.to/4iuPkoW", category: "handmade", energy: "high", tags: ["beginner"], browser: false },
       { id: "printify", name: "Printify", rate: "Self-set", desc: "Print-on-demand. Design products, no inventory needed!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/EqIVRaEWxVI0Zx1EETTB.png", link: "https://printify.com/", category: "handmade", energy: "high", tags: ["beginner"], browser: false },
-      { id: "shopify", name: "Shopify", rate: "Self-set", desc: "Build your own online store. Full control, no marketplace fees.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/btCVM7WHtPjyDkOzTYM9.png", link: "https://www.shopify.com/", category: "handmade", energy: "high", tags: [], browser: false },
+      { id: "shopify", name: "Shopify", rate: "Self-set", desc: "Build your own online store. Full control, no marketplace fees.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/btCVM7WHtPjyDkOzTYM9.png", link: "https://www.shopify.com/", category: "handmade", energy: "high", tags: ["beginner"], browser: false },
       { id: "bigcartel", name: "Big Cartel", rate: "Self-set", desc: "Simple store for artists. Free plan with 5 products!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/ewYZW2h7UsgFBwovET4X.png", link: "https://www.bigcartel.com/", category: "handmade", energy: "high", tags: ["beginner", "quick"], browser: false },
-      { id: "folksy", name: "Folksy", rate: "Self-set", desc: "UK handmade marketplace. Charming village market vibes.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kkiMUUFxv2vhogMosyDK.png", link: "https://folksy.com/", category: "handmade", energy: "high", tags: [], browser: false },
+      { id: "folksy", name: "Folksy", rate: "Self-set", desc: "UK handmade marketplace. Charming village market vibes.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kkiMUUFxv2vhogMosyDK.png", link: "https://folksy.com/", category: "handmade", energy: "high", tags: ["beginner"], browser: false },
       
       // Care & Service
       { id: "carecom", name: "Care.com", rate: "$20–$35/hr", desc: "Babysitting, elder care, special needs. Flexible compassionate work.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/5I3e2N4NAjdUE4PJqfKY.dat", link: "https://www.care.com", category: "care", energy: "high", tags: ["highpay"], browser: false },
-      { id: "rover", name: "Rover", rate: "$20–$40/hr", desc: "Dog walking, pet sitting, boarding. \"Airbnb for pets\"!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/n8yzcHBxOVGYzZeYTAPc.png", link: "https://rover.com", category: "care", energy: "med", tags: ["highpay", "beginner"], browser: false },
-      { id: "wag", name: "Wag", rate: "$13–$25/hr", desc: "Quick dog walks, drop-ins. On-demand gigs, fast bookings.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Cw1AUklnSjvwc5cFkDgL.png", link: "https://wagwalking.com", category: "care", energy: "med", tags: ["quick", "beginner"], browser: false },
+      { id: "rover", name: "Rover", rate: "$20–$40/hr", desc: "Dog walking, pet sitting, boarding. \"Airbnb for pets\"!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/n8yzcHBxOVGYzZeYTAPc.png", link: "https://rover.com", category: "care", energy: "med", tags: ["beginner", "highpay"], browser: false },
+      { id: "wag", name: "Wag", rate: "$13–$25/hr", desc: "Quick dog walks, drop-ins. On-demand gigs, fast bookings.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Cw1AUklnSjvwc5cFkDgL.png", link: "https://wagwalking.com", category: "care", energy: "med", tags: ["beginner", "quick"], browser: false },
       { id: "taskrabbit", name: "TaskRabbit", rate: "$17.50–$50+/hr", desc: "Cleaning, handyman, moving, IKEA assembly, errands.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/Y0lwF8oCSOa0ygsFLxiQ.jpg", link: "https://taskrabbit.com", category: "care", energy: "high", tags: ["highpay"], browser: false },
       { id: "papa", name: "Papa", rate: "$13–$20/hr", desc: "Senior companionship, errands, friendly conversation.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/OdxfBWuzWg2E3ANzr6ua.jpg", link: "https://papa.com", category: "care", energy: "med", tags: ["beginner"], browser: false },
-      { id: "trustedhousesitters", name: "Trusted Housesitters", rate: "Free lodging", desc: "Pet & house sit worldwide. Travel exchange, membership required.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jIeyGBhuLLHKbK542yIO.png", link: "https://trustedhousesitters.com", category: "care", energy: "med", tags: [], browser: false },
-      { id: "neighbor", name: "Neighbor", rate: "$50–$600/month", desc: "Rent out storage space, garages, driveways. Passive income!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/N6RhLYI5sYTjDX1HUQYO.png", link: "https://neighbor.com", category: "care", energy: "low", tags: ["quick", "beginner"], browser: false },
-      { id: "chewy", name: "Chewy (Remote Jobs)", rate: "$16–$19.50/hr", desc: "Remote customer service. ADHD-friendly, pet-positive culture.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/QNRVyClen6pxcHI6ygv0.png", link: "https://careers.chewy.com/us/en/c/customer-service-jobs", category: "care", energy: "med", tags: [], browser: false },
+      { id: "trustedhousesitters", name: "Trusted Housesitters", rate: "Free lodging", desc: "Pet & house sit worldwide. Travel exchange, membership required.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/jIeyGBhuLLHKbK542yIO.png", link: "https://trustedhousesitters.com", category: "care", energy: "med", tags: ["beginner"], browser: false },
+      { id: "neighbor", name: "Neighbor", rate: "$50–$600/month", desc: "Rent out storage space, garages, driveways. Passive income!", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/N6RhLYI5sYTjDX1HUQYO.png", link: "https://neighbor.com", category: "care", energy: "low", tags: ["beginner", "quick"], browser: false },
+      { id: "chewy", name: "Chewy (Remote Jobs)", rate: "$16–$19.50/hr", desc: "Remote customer service. ADHD-friendly, pet-positive culture.", logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/QNRVyClen6pxcHI6ygv0.png", link: "https://careers.chewy.com/us/en/c/customer-service-jobs", category: "care", energy: "med", tags: ["beginner"], browser: false },
     ];
     
     // Category labels
@@ -1156,21 +1170,24 @@
         if (!grouped[catKey]) return;
         const cat = categories[catKey];
         const catGigs = grouped[catKey];
-        
+
+        // Open category section wrapper
+        html += `<div class="category-section">`;
         html += `<h3 class="category-header">${cat.icon} ${cat.name} <span class="category-count">(${catGigs.length})</span></h3>`;
-        
+
         catGigs.forEach(gig => {
           const isFav = favorites.includes(gig.id);
           const tags = [];
-          
+
           if (gig.energy === 'low') tags.push('<span class="tag energy-low">😴 Low energy</span>');
           if (gig.energy === 'med') tags.push('<span class="tag energy-med">😊 Medium</span>');
           if (gig.energy === 'high') tags.push('<span class="tag energy-high">⚡ High energy</span>');
           if (gig.browser) tags.push('<span class="tag browser">💻 Browser</span>');
           if (gig.tags.includes('quick')) tags.push('<span class="tag quick">⚡ Fast</span>');
-          if (gig.tags.includes('gift')) tags.push('<span class="tag gift">Gift cards</span>');
+          if (gig.tags.includes('highpay')) tags.push('<span class="tag highpay">💰 Top Pay</span>');
+          if (gig.tags.includes('beginner')) tags.push('<span class="tag beginner">🌱 Easy</span>');
           if (gig.fave) tags.push('<span class="tag fave">🥰 Favorite</span>');
-          
+
           // include a data-tags attribute so small client-side filters can also work
           const tagAttr = (gig.tags && gig.tags.length) ? ` data-tags="${gig.tags.join(' ')}"` : '';
           html += `
@@ -1188,6 +1205,9 @@
             </a>
           `;
         });
+
+        // Close category section wrapper
+        html += `</div>`;
       });
       
       gigGrid.innerHTML = html;

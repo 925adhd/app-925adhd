@@ -236,14 +236,56 @@
       margin-bottom: 24px;
       text-align: center;
     }
-    
-    /* Pros & Cons */
-     <div id="site-nav"></div>
- 
-     <script src="assets/layout.js"></script>
+
+    /* Pros & Cons - Card Layout */
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .pros, .cons {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .pros {
+      border-left: 3px solid var(--green);
+    }
+
+    .cons {
+      border-left: 3px solid var(--red);
+    }
+
+    .pros .section-title {
+      color: var(--green);
+    }
+
+    .cons .section-title {
+      color: var(--red);
+    }
+
+    .pros ul, .cons ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .pros li, .cons li {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    /* Payout Table */
+    .payout-table {
+      width: 100%;
       font-size: 13px;
     }
-    
+
     .payout-table td {
       padding: 10px 0;
       border-bottom: 1px solid var(--border);
@@ -1172,6 +1214,563 @@
           "Anyone who wants effortless micro-income"
         ],
         bottomLine: "The lowest-effort survey app out there. Quick questions, instant rewards, backed by Google."
+      },
+
+      "amazonflex": {
+        name: "Amazon Flex",
+        rate: "$18–$25/hr",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/mZvl7S4O63tkqCfwYh7b.png",
+        link: "https://flex.amazon.com/",
+        tags: ["delivery", "highpay"],
+        intro: "Amazon Flex lets you deliver Amazon packages, groceries, and restaurant orders using your own car. You choose blocks of time (typically 2-4 hours) and earn a guaranteed rate per block.",
+        adhd: [
+          "<strong>Flexible schedule</strong>—pick your own delivery blocks.",
+          "<strong>Instant pay option</strong>—cash out same-day with Amazon Instant Pay.",
+          "<strong>Clear structure</strong>—each block has a set timeframe and guaranteed pay.",
+          "<strong>Variety</strong>—different delivery types keep things interesting."
+        ],
+        howItWorks: [
+          "Download <strong>Amazon Flex</strong> and complete the application.",
+          "Pass a background check.",
+          "Reserve delivery blocks through the app.",
+          "Pick up packages and follow the in-app navigation.",
+          "Complete deliveries and get paid for the block."
+        ],
+        importantNotes: [
+          "Wait times for approval can be long in some areas.",
+          "You're responsible for gas, maintenance, and wear on your vehicle.",
+          "Blocks can be competitive—you need to be quick to grab them.",
+          "Tips vary significantly depending on delivery type (Prime Now/Whole Foods typically tip better).",
+          "You're an independent contractor, not an employee."
+        ],
+        payout: {
+          "Base pay": "$18–$25 per hour",
+          "Tips": "Included for some delivery types",
+          "Payment schedule": "Weekly via direct deposit",
+          "Instant pay": "Available for same-day cashout (fees apply)"
+        },
+        activities: [
+          "<strong>Amazon.com packages</strong>: Standard deliveries",
+          "<strong>Prime Now</strong>: 1-2 hour grocery/essential deliveries (tips included)",
+          "<strong>Whole Foods</strong>: Grocery deliveries (tips included)",
+          "<strong>Amazon Fresh</strong>: Grocery deliveries (tips included)"
+        ],
+        pros: [
+          "Flexible scheduling",
+          "Guaranteed block pay regardless of delivery count",
+          "Instant pay available",
+          "Can work in multiple programs (packages, groceries, etc.)"
+        ],
+        cons: [
+          "Vehicle wear and tear adds up",
+          "No benefits or insurance",
+          "Block availability varies by location",
+          "App crashes and route issues are common complaints",
+          "Deactivation can happen for low ratings"
+        ],
+        finalTake: "Amazon Flex is solid for <strong>flexible, guaranteed income</strong> if you have a reliable car. Great for ADHD brains who like structure (set blocks) with variety (different delivery types). Just factor in gas and vehicle costs.",
+        idealFor: [
+          "People with reliable vehicles",
+          "Those who like driving and listening to podcasts/music",
+          "ADHD users who prefer structured work blocks",
+          "Anyone needing flexible side income"
+        ],
+        bottomLine: "Guaranteed pay per block makes it more predictable than gig apps. Good for structured flexibility, but watch your expenses."
+      },
+
+      "benjamin": {
+        name: "Benjamin",
+        rate: "$200–$800/yr",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/0hWbGOHwB4EZpe2zuThK.jpg",
+        link: "https://www.benjamin.app/",
+        tags: ["cashback", "games"],
+        intro: "Benjamin is a rewards app that combines gaming, shopping cashback, and surveys. You earn by playing mobile games, shopping at partner stores, and completing offers—all redeemable for gift cards or PayPal cash.",
+        adhd: [
+          "<strong>Multiple earning methods</strong>—switch between games, surveys, and shopping based on your mood.",
+          "<strong>Gamified rewards</strong>—level up and unlock bonuses.",
+          "<strong>Low barrier to entry</strong>—no minimum payout for some rewards.",
+          "<strong>Visual progress tracking</strong>—see your earnings grow in real-time."
+        ],
+        howItWorks: [
+          "Download <strong>Benjamin</strong> and create an account.",
+          "Play featured mobile games to earn coins.",
+          "Shop through the app's partner links for cashback.",
+          "Complete surveys and offers for bonus coins.",
+          "Redeem coins for gift cards or PayPal cash."
+        ],
+        importantNotes: [
+          "Game payouts decrease over time for the same game.",
+          "Cashback can take weeks to credit.",
+          "Survey disqualifications are common.",
+          "Some users report delayed or missing payouts.",
+          "Not available in all countries."
+        ],
+        payout: {
+          "Coin value": "Varies by offer (typically 1,000 coins = $1)",
+          "Minimum cashout": "$5 for most gift cards",
+          "Payment methods": "Gift cards, PayPal",
+          "Processing time": "Up to 7 days"
+        },
+        activities: [
+          "<strong>Play mobile games</strong>: Reach milestones in featured games",
+          "<strong>Shop & earn</strong>: Get cashback at partner stores",
+          "<strong>Take surveys</strong>: Complete opinion surveys",
+          "<strong>Complete offers</strong>: Sign up for trials and services"
+        ],
+        pros: [
+          "Multiple ways to earn",
+          "Games make it feel less like work",
+          "Decent cashback rates on shopping",
+          "Low minimum cashout"
+        ],
+        cons: [
+          "Payout delays are common",
+          "Game rewards diminish quickly",
+          "Survey disqualifications waste time",
+          "Customer service issues reported"
+        ],
+        finalTake: "Benjamin is <strong>fun but inconsistent</strong>. Great if you already play mobile games and shop online, but don't rely on it as a primary income source. Best used alongside other apps.",
+        idealFor: [
+          "Mobile gamers who want passive rewards",
+          "Online shoppers looking for cashback",
+          "ADHD users who like variety",
+          "People who enjoy trying new apps/games"
+        ],
+        bottomLine: "A jack-of-all-trades rewards app. Fun for variety, but payout delays and diminishing returns can be frustrating."
+      },
+
+      "justplay": {
+        name: "JustPlay",
+        rate: "$1–$5/week",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/HGRph2COAlLKrmVczKxH.jpg",
+        link: "https://www.justplay.com/",
+        tags: ["games", "passive"],
+        intro: "JustPlay is an Android app that pays you to play mobile games. Simply download featured games through JustPlay, play them, and earn coins that convert to gift cards or PayPal cash.",
+        adhd: [
+          "<strong>Passive earnings</strong>—earn just by playing games you might already enjoy.",
+          "<strong>No complicated tasks</strong>—just download and play.",
+          "<strong>Variety of games</strong>—switch games when you get bored.",
+          "<strong>Low-pressure</strong>—no quotas or deadlines."
+        ],
+        howItWorks: [
+          "Download <strong>JustPlay</strong> from Google Play.",
+          "Browse the list of featured games.",
+          "Download and play games to earn coins.",
+          "Redeem coins for gift cards or PayPal cash."
+        ],
+        importantNotes: [
+          "Android only (no iOS version).",
+          "Earnings are very low—expect $1-5 per week max.",
+          "Coin earnings decrease the longer you play the same game.",
+          "Some games pay better than others.",
+          "Ads can be intrusive."
+        ],
+        payout: {
+          "Coin value": "Varies (roughly 4,500 coins = $0.50)",
+          "Minimum cashout": "$1 for Amazon gift cards, $10 for PayPal",
+          "Payment methods": "Amazon, PayPal, Visa gift cards",
+          "Processing time": "Instant for gift cards, 24-48 hours for PayPal"
+        },
+        activities: [
+          "Play puzzle games",
+          "Play arcade games",
+          "Play strategy games",
+          "Complete in-game milestones for bonuses"
+        ],
+        pros: [
+          "Extremely easy—just play games",
+          "No minimum time requirement",
+          "Instant gift card redemption",
+          "Wide variety of games"
+        ],
+        cons: [
+          "Very low earnings",
+          "Android only",
+          "Ads can be annoying",
+          "Earnings diminish over time"
+        ],
+        finalTake: "JustPlay is <strong>easy but not lucrative</strong>. Perfect for ADHD users who already play mobile games and want a tiny bit of passive income. Don't expect to make real money—it's more like getting a free coffee every few weeks.",
+        idealFor: [
+          "Android users who love mobile games",
+          "People who want zero-effort income",
+          "ADHD users who enjoy gaming",
+          "Anyone looking for a fun distraction with small rewards"
+        ],
+        bottomLine: "Play games, earn pennies. It's fun and easy, but don't quit your day job."
+      },
+
+      "pogo": {
+        name: "Pogo",
+        rate: "$25–$125/yr",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/6vibzs1oxfjhXTaySH0N.jpg",
+        link: "https://www.joinpogo.com/",
+        tags: ["cashback", "passive"],
+        intro: "Pogo is an automatic cashback app that rewards you for purchases made with linked credit/debit cards. No scanning receipts—just shop normally and get cashback credited automatically.",
+        adhd: [
+          "<strong>100% passive</strong>—link your card once and forget about it.",
+          "<strong>No receipt scanning</strong>—automatic detection of eligible purchases.",
+          "<strong>Works everywhere</strong>—online and in-store.",
+          "<strong>Set-it-and-forget-it</strong>—perfect for ADHD brains."
+        ],
+        howItWorks: [
+          "Download <strong>Pogo</strong> and create an account.",
+          "Link your credit or debit card(s).",
+          "Shop normally at partner stores (online or in-person).",
+          "Cashback is automatically credited to your account.",
+          "Cash out via PayPal, Venmo, or gift cards."
+        ],
+        importantNotes: [
+          "Cashback rates are typically 1-5%.",
+          "Only works at participating merchants.",
+          "Earnings are modest—expect $25-125 per year.",
+          "Some users worry about data privacy (card linking).",
+          "Cashback can take 30-60 days to post."
+        ],
+        payout: {
+          "Cashback rate": "1-5% at partner stores",
+          "Minimum cashout": "$15",
+          "Payment methods": "PayPal, Venmo, gift cards",
+          "Processing time": "1-3 business days"
+        },
+        activities: [
+          "Shop online at partner stores",
+          "Shop in-store at partner retailers",
+          "Dine at partner restaurants"
+        ],
+        pros: [
+          "Completely passive—no effort after setup",
+          "Works both online and in-store",
+          "No receipts to scan",
+          "Stacks with other cashback programs"
+        ],
+        cons: [
+          "Low earnings potential",
+          "Limited to partner merchants",
+          "Privacy concerns with card linking",
+          "Long wait for cashback to post"
+        ],
+        finalTake: "Pogo is <strong>the ultimate set-it-and-forget-it cashback app</strong>. Perfect for ADHD users who forget to scan receipts. Earnings are modest, but it's 100% passive.",
+        idealFor: [
+          "People who hate scanning receipts",
+          "ADHD users who want passive income",
+          "Frequent shoppers at partner stores",
+          "Anyone comfortable linking their card"
+        ],
+        bottomLine: "Link your card and forget it exists. Free money with zero effort."
+      },
+
+      "rakuten": {
+        name: "Rakuten",
+        rate: "$190–$300/yr",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/YAoQtLxBaX1cdRNsICoB.jpg",
+        link: "https://www.rakuten.com/",
+        tags: ["cashback", "favorite"],
+        intro: "Rakuten (formerly Ebates) is one of the most popular cashback platforms, offering rebates when you shop online through their portal. They partner with 3,500+ stores including Amazon, Walmart, Target, and more.",
+        adhd: [
+          "<strong>Browser extension</strong>—automatically activates cashback when you shop.",
+          "<strong>Big Sign-up bonus</strong>—often $10-30 for new users.",
+          "<strong>Quarterly payouts</strong>—scheduled payments via PayPal or check.",
+          "<strong>Visual progress tracking</strong>—see your cashback add up."
+        ],
+        howItWorks: [
+          "Sign up at <strong>Rakuten.com</strong> and install the browser extension.",
+          "Shop at partner stores through Rakuten's portal or extension.",
+          "Cashback is automatically tracked and credited.",
+          "Get paid quarterly via PayPal or check."
+        ],
+        importantNotes: [
+          "Cashback rates vary by store (1-10% typically).",
+          "Payments are quarterly (Feb, May, Aug, Nov).",
+          "Returns or canceled orders void cashback.",
+          "Browser extension required for best experience.",
+          "Some exclusions apply (gift cards, etc.)."
+        ],
+        payout: {
+          "Cashback rate": "1-10% (varies by store)",
+          "Payment schedule": "Quarterly",
+          "Payment methods": "PayPal or check",
+          "Minimum payout": "$5.01",
+          "Sign-up bonus": "$10-30 (varies)"
+        },
+        activities: [
+          "Shop online at 3,500+ partner stores",
+          "Stack with store sales and coupons",
+          "Refer friends for bonuses"
+        ],
+        pros: [
+          "Works with major retailers",
+          "Browser extension makes it effortless",
+          "Generous sign-up bonus",
+          "Reliable quarterly payments",
+          "Stacks with store sales"
+        ],
+        cons: [
+          "Quarterly payment schedule (long wait)",
+          "Need to remember to activate cashback",
+          "Some stores excluded",
+          "Cashback can be voided by returns"
+        ],
+        finalTake: "Rakuten is the <strong>gold standard for online shopping cashback</strong>. The browser extension makes it nearly passive, and quarterly payouts feel like found money. A must-have for online shoppers.",
+        idealFor: [
+          "Frequent online shoppers",
+          "ADHD users who can install the browser extension",
+          "People who shop at major retailers",
+          "Anyone who wants reliable cashback"
+        ],
+        bottomLine: "Set it up once, earn cashback forever. The browser extension does the work for you."
+      },
+
+      "sparkdriver": {
+        name: "Spark Driver",
+        rate: "$15–$25/hr",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/KRzWH9SN42Im32S7MV5b.png",
+        link: "https://drive4spark.walmart.com/",
+        tags: ["delivery", "highpay"],
+        intro: "Spark Driver is Walmart's delivery platform for independent contractors. You deliver groceries, general merchandise, and online orders directly from Walmart stores to customers' homes.",
+        adhd: [
+          "<strong>Flexible scheduling</strong>—choose your own hours.",
+          "<strong>High base pay</strong>—competitive rates compared to other delivery apps.",
+          "<strong>Tips included</strong>—customers tip through the app.",
+          "<strong>Clear structure</strong>—scheduled delivery windows."
+        ],
+        howItWorks: [
+          "Apply at <strong>drive4spark.walmart.com</strong>.",
+          "Pass a background check.",
+          "Download the Spark Driver app.",
+          "Accept delivery offers in your area.",
+          "Pick up from Walmart and deliver to customers.",
+          "Get paid weekly via direct deposit or Branch."
+        ],
+        importantNotes: [
+          "Wait times for approval can be long (waitlist in many areas).",
+          "You're responsible for gas and vehicle maintenance.",
+          "Heavy items (groceries) can be physically demanding.",
+          "Tips are not guaranteed.",
+          "Must maintain a high acceptance rate to stay active."
+        ],
+        payout: {
+          "Base pay": "$7-15 per trip",
+          "Tips": "Customer tips included",
+          "Payment schedule": "Weekly direct deposit",
+          "Instant pay": "Available via Branch (fees apply)",
+          "Average hourly": "$15-25/hour"
+        },
+        activities: [
+          "<strong>Curbside pickup</strong>: Pick up pre-packed orders",
+          "<strong>Dotcom deliveries</strong>: Deliver online Walmart orders",
+          "<strong>Same-day delivery</strong>: Express grocery deliveries",
+          "<strong>Shop & deliver</strong>: Shop for items then deliver (select markets)"
+        ],
+        pros: [
+          "Higher base pay than many delivery apps",
+          "Tips can be generous",
+          "Flexible schedule",
+          "Weekly pay with instant cash-out option"
+        ],
+        cons: [
+          "Long waitlist in many areas",
+          "Heavy items (water, soda, etc.)",
+          "No guaranteed hours",
+          "Vehicle wear and tear",
+          "Can be deactivated for low acceptance rates"
+        ],
+        finalTake: "Spark Driver offers <strong>better pay than most delivery gigs</strong>, but the physical demands and waitlist can be barriers. Great for those with reliable vehicles who don't mind heavy lifting.",
+        idealFor: [
+          "People with reliable vehicles",
+          "Those comfortable with heavy lifting",
+          "ADHD users who like flexible work",
+          "Anyone seeking higher-paying delivery gigs"
+        ],
+        bottomLine: "One of the better-paying delivery apps, but expect heavy items and a potential waitlist."
+      },
+
+      "streetbees": {
+        name: "Streetbees",
+        rate: "$0.30–$2/hr",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/TYdbrkocIOWbTs2KDS9X.png",
+        link: "https://www.streetbees.com/",
+        tags: ["surveys", "microgig"],
+        intro: "Streetbees is a micro-survey app that pays you to complete quick 'missions' about your daily life—like taking photos of products, answering questions about your shopping habits, or sharing opinions on brands.",
+        adhd: [
+          "<strong>Short missions</strong>—most take 2-5 minutes.",
+          "<strong>Photo-based tasks</strong>—visual and engaging.",
+          "<strong>Variety</strong>—different missions keep it interesting.",
+          "<strong>No pressure</strong>—complete missions at your own pace."
+        ],
+        howItWorks: [
+          "Download <strong>Streetbees</strong> and create a profile.",
+          "Check for available missions daily.",
+          "Complete tasks (photos, short surveys, etc.).",
+          "Earn coins that convert to PayPal cash or gift cards."
+        ],
+        importantNotes: [
+          "Mission availability varies widely by location.",
+          "Payouts are very low—expect pennies per mission.",
+          "Some missions expire quickly.",
+          "Not available in all countries.",
+          "Can take time to accumulate enough for cashout."
+        ],
+        payout: {
+          "Pay per mission": "$0.10–$2.00",
+          "Minimum cashout": "$5 (500 coins)",
+          "Payment methods": "PayPal, gift cards",
+          "Processing time": "Up to 7 days"
+        },
+        activities: [
+          "Take photos of products in stores",
+          "Answer questions about shopping habits",
+          "Share opinions on brands and ads",
+          "Complete location-based missions"
+        ],
+        pros: [
+          "Quick, easy missions",
+          "Photo tasks are more engaging than text surveys",
+          "No disqualifications",
+          "Global availability (selected countries)"
+        ],
+        cons: [
+          "Very low pay",
+          "Mission availability is inconsistent",
+          "Long time to reach minimum cashout",
+          "Some missions expire before you can complete them"
+        ],
+        finalTake: "Streetbees is <strong>fun but not profitable</strong>. Great for ADHD users who like quick, visual tasks, but don't expect to make real money. Best used as a boredom buster, not a side hustle.",
+        idealFor: [
+          "People who enjoy photography",
+          "ADHD users who like quick tasks",
+          "Anyone in supported countries",
+          "Those looking for a fun distraction"
+        ],
+        bottomLine: "Cute concept, low pay. Fun for killing time, not for making money."
+      },
+
+      "swagbucks": {
+        name: "Swagbucks",
+        rate: "$100–$1,200/yr",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/kV1Ic0B8nEXPNSAGTtA6.png",
+        link: "https://www.swagbucks.com/",
+        tags: ["cashback", "surveys", "favorite"],
+        intro: "Swagbucks is a rewards platform where you earn 'SB' points by taking surveys, watching videos, shopping online, playing games, and more. Points can be redeemed for gift cards or PayPal cash.",
+        adhd: [
+          "<strong>Multiple earning methods</strong>—switch activities based on your mood.",
+          "<strong>Gamified rewards</strong>—daily goals, bonuses, and streaks.",
+          "<strong>Low barrier to entry</strong>—earn your first gift card quickly.",
+          "<strong>Browser extension</strong>—automatic cashback when shopping."
+        ],
+        howItWorks: [
+          "Sign up at <strong>Swagbucks.com</strong>.",
+          "Complete activities to earn SB points.",
+          "Redeem SB for gift cards or PayPal cash.",
+          "Install the browser extension for automatic cashback."
+        ],
+        importantNotes: [
+          "Surveys can disqualify you mid-way (frustrating).",
+          "Video watching pays very little.",
+          "Some offers require trials or purchases.",
+          "Daily goals encourage consistent use.",
+          "Browser extension required for best cashback."
+        ],
+        payout: {
+          "Points value": "100 SB = $1",
+          "Minimum cashout": "$3 for some gift cards, $25 for PayPal",
+          "Payment methods": "Gift cards, PayPal",
+          "Processing time": "Instant for most gift cards, 1-3 days for PayPal",
+          "Sign-up bonus": "Often $5-10 for new users"
+        },
+        activities: [
+          "<strong>Surveys</strong>: 50-300 SB each",
+          "<strong>Shopping cashback</strong>: 1-10% SB back",
+          "<strong>Watch videos</strong>: 1-3 SB per playlist",
+          "<strong>Play games</strong>: Earn SB for reaching milestones",
+          "<strong>Discover offers</strong>: Sign up for trials/services",
+          "<strong>Daily poll</strong>: 1 SB for answering"
+        ],
+        pros: [
+          "Many ways to earn",
+          "Low minimum cashout for gift cards",
+          "Generous sign-up bonuses",
+          "Browser extension makes shopping cashback easy",
+          "Gamification keeps it engaging"
+        ],
+        cons: [
+          "Survey disqualifications are common",
+          "Video rewards are minimal",
+          "Some offers don't credit properly",
+          "Can feel grindy at times"
+        ],
+        finalTake: "Swagbucks is the <strong>Swiss Army knife of rewards apps</strong>. Great for ADHD brains who like variety, but survey disqualifications can be frustrating. Best used for shopping cashback and quick daily tasks.",
+        idealFor: [
+          "Online shoppers",
+          "People who like variety",
+          "ADHD users who enjoy gamification",
+          "Anyone comfortable with surveys"
+        ],
+        bottomLine: "A jack-of-all-trades rewards platform. Install the extension, do daily tasks, and stack it with shopping."
+      },
+
+      "ubereats": {
+        name: "Uber Eats",
+        rate: "$10–$20/hr",
+        logo: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/bIquIPZf7ZEXDA4vlm8R/pub/mTdTqcZhnOuJB5FcChLb.png",
+        link: "https://www.uber.com/us/en/deliver/",
+        tags: ["delivery", "flexible"],
+        intro: "Uber Eats is one of the largest food delivery platforms, allowing you to deliver restaurant orders using your car, bike, or scooter. You work on your own schedule and earn per delivery plus tips.",
+        adhd: [
+          "<strong>Ultimate flexibility</strong>—turn the app on/off anytime.",
+          "<strong>Instant pay available</strong>—cash out up to 5 times per day.",
+          "<strong>No boss or schedule</strong>—work when you want.",
+          "<strong>Gamified earnings</strong>—quests and promotions keep it interesting."
+        ],
+        howItWorks: [
+          "Sign up at <strong>uber.com/deliver</strong>.",
+          "Pass a background check.",
+          "Download the Uber Eats Driver app.",
+          "Go online when you want to work.",
+          "Accept delivery requests and complete them.",
+          "Get paid weekly or cash out instantly."
+        ],
+        importantNotes: [
+          "Earnings vary widely by market and time of day.",
+          "Tips make up a significant portion of income.",
+          "You're responsible for gas, maintenance, and taxes.",
+          "Promotions (quests, boosts) can significantly increase earnings.",
+          "Customer ratings affect your account standing."
+        ],
+        payout: {
+          "Base pay": "$2-10 per delivery",
+          "Tips": "Customer tips (usually 10-20%)",
+          "Payment schedule": "Weekly direct deposit",
+          "Instant pay": "Cash out up to 5x per day ($1.49 fee per cashout)",
+          "Average hourly": "$10-20/hour (varies)"
+        },
+        activities: [
+          "Deliver restaurant orders",
+          "Deliver grocery orders (Uber Eats + Cornershop)",
+          "Deliver alcohol (select markets)",
+          "Complete quests for bonuses"
+        ],
+        pros: [
+          "Extreme flexibility—work anytime",
+          "Instant pay available",
+          "Tips can be generous",
+          "Promotions boost earnings",
+          "Low barrier to entry"
+        ],
+        cons: [
+          "Income is unpredictable",
+          "Vehicle expenses add up",
+          "No benefits or insurance",
+          "Can be slow during off-peak times",
+          "Customer ratings can be stressful"
+        ],
+        finalTake: "Uber Eats is <strong>the ultimate flexible gig</strong>—perfect for ADHD users who need complete schedule control. Earnings vary, but instant pay and promotions help. Just don't forget to track expenses.",
+        idealFor: [
+          "People with reliable vehicles or bikes",
+          "ADHD users who need flexible schedules",
+          "Those who want instant pay options",
+          "Anyone comfortable with driving/cycling"
+        ],
+        bottomLine: "Maximum flexibility, variable income. Great for ADHD brains who can't commit to a schedule."
       }
     };
     

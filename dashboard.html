@@ -243,7 +243,7 @@
       gap: 6px;
       margin-bottom: 8px;
     }
-    
+
     .action-card {
       background:
         linear-gradient(135deg, rgba(86, 195, 174, 0.03) 0%, transparent 50%),
@@ -270,7 +270,7 @@
       justify-content: flex-start;
       min-height: 100px;
     }
-    
+
     /* Ambient glow - always visible */
     .action-card::before {
       content: '';
@@ -296,11 +296,46 @@
       50% { background-position: 100% 50%; }
     }
 
+    /* Premium Overlay Styles */
+    .premium-required {
+      position: relative;
+    }
+
+    .premium-required::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(251, 191, 36, 0.02));
+      border-radius: 14px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .premium-banner {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #0F0F0F;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 2;
+      box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+    }
+
+    .premium-banner::before {
+      content: '⭐ ';
+    }
+
     .action-card:hover::before {
       opacity: 0.7;
       filter: blur(12px);
     }
-    
+
     .action-card:hover {
       background: var(--card-hover);
       border-color: rgba(86, 195, 174, 0.4);
@@ -345,7 +380,7 @@
         transition: transform 0.1s;
       }
     }
-    
+
     .action-card .icon {
       font-size: 40px;
       margin-bottom: 8px;
@@ -377,7 +412,7 @@
       transform: scale(1.1);
       animation: none;
     }
-    
+
     .action-card h3 {
       font-size: 13px;
       font-weight: 700;
@@ -391,7 +426,7 @@
       line-height: 1.3;
       margin: 0;
     }
-    
+
     /* Featured Card */
     .featured-card {
       background: linear-gradient(135deg, rgba(86, 195, 174, 0.15), rgba(86, 195, 174, 0.05));
@@ -415,22 +450,6 @@
       animation: cardPulse 4s ease-in-out infinite;
     }
 
-    .featured-card .icon {
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .featured-card .icon img.icon-img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
-      border-radius: 12px;
-    }
-
     @keyframes cardPulse {
       0%, 100% {
         box-shadow:
@@ -445,7 +464,7 @@
           inset 0 1px 0 rgba(255, 255, 255, 0.1);
       }
     }
-    
+
     .featured-card::after {
       content: '';
       position: absolute;
@@ -454,23 +473,23 @@
       opacity: 0;
       transition: opacity 0.3s;
     }
-    
+
     .featured-card:hover::after {
       opacity: 1;
     }
-    
+
     .featured-card:hover {
       background: linear-gradient(135deg, rgba(86, 195, 174, 0.22), rgba(86, 195, 174, 0.08));
       transform: translateY(-2px);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 0 30px rgba(86, 195, 174, 0.15);
     }
-    
+
     .featured-card .icon {
       font-size: 32px;
       flex-shrink: 0;
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
-    
+
     .featured-card h3 {
       font-size: 14px;
       font-weight: 700;
@@ -503,122 +522,22 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
-    .discord-card .icon {
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .discord-card .icon img.icon-img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
-      border-radius: 10px;
-    }
-
-    /* Uniform action-card sizing and alignment (condensed for mobile) */
-    .action-card {
-      padding: 10px;
-      min-height: 110px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .action-card .icon {
-      width: 56px;
-      height: 56px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .action-card .icon img.icon-img {
-      width: 56px;
-      height: 56px;
-      object-fit: contain;
-      border-radius: 10px;
-    }
-
-    /* Favorites: use explicit sizes rather than large transforms */
-    a.action-card[href="favorites.html"] .icon img.icon-img {
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      display: block;
-    }
-
-    @media (min-width: 600px) {
-      a.action-card[href="favorites.html"] .icon img.icon-img {
-        width: 56px;
-        height: 56px;
-      }
-    }
-
-    /* Guides: use consistent sizing */
-    a.action-card[href="guides.html"] .icon img.icon-img {
-      object-fit: contain;
-      display: block;
-    }
-
-    @media (min-width: 600px) {
-      .action-card {
-        padding: 18px 12px 16px;
-        min-height: 140px;
-      }
-
-      .action-card .icon {
-        width: 76px;
-        height: 76px;
-        margin-bottom: 10px;
-      }
-
-      .action-card .icon img.icon-img {
-        width: 76px;
-        height: 76px;
-      }
-
-      .featured-card .icon,
-      .discord-card .icon {
-        width: 48px;
-        height: 48px;
-      }
-
-      .featured-card .icon img.icon-img,
-      .discord-card .icon img.icon-img {
-        width: 48px;
-        height: 48px;
-      }
-    }
-
-    /* ADHD Hacks icon - use consistent sizing */
-    a.action-card[href="adhdhacks.html"] .icon img.icon-img {
-      object-fit: contain;
-      display: block;
-    }
-
-    
     .discord-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 0 30px rgba(88, 101, 242, 0.15);
       border-color: rgba(88, 101, 242, 0.5);
     }
-    
+
     .discord-card .icon {
       font-size: 28px;
       flex-shrink: 0;
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
-    
+
     .discord-card .content {
       flex: 1;
     }
-    
+
     .discord-card h3 {
       font-size: 14px;
       font-weight: 700;
@@ -632,7 +551,7 @@
       line-height: 1.3;
       margin: 0;
     }
-    
+
     .discord-btn {
       background: #5865F2;
       color: white;
@@ -644,10 +563,6 @@
       flex-shrink: 0;
       transition: all 0.2s;
       box-shadow: 0 2px 8px rgba(88, 101, 242, 0.3);
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
-      user-select: none;
-      -webkit-user-select: none;
     }
 
     .discord-btn:hover {
@@ -656,62 +571,6 @@
       transform: scale(1.05);
     }
 
-    .discord-btn:focus {
-      outline: none;
-    }
-
-    .discord-btn:active {
-      outline: none;
-    }
-    
-    /* Discord CTA */
-    .discord-card {
-      background: linear-gradient(135deg, rgba(88, 101, 242, 0.12), rgba(88, 101, 242, 0.04));
-      border: 1px solid rgba(88, 101, 242, 0.2);
-      border-radius: 14px;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .discord-card .icon {
-      font-size: 28px;
-      flex-shrink: 0;
-    }
-    
-    .discord-card .content {
-      flex: 1;
-    }
-    
-    .discord-card h3 {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 2px;
-      line-height: 1.2;
-    }
-
-    .discord-card p {
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.3;
-      margin: 0;
-    }
-    
-    .discord-btn {
-      background: #5865F2;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    
-    .discord-btn:hover {
-      background: #4752C4;
-    }
     
     
     
@@ -779,6 +638,34 @@
       .quick-actions {
         grid-template-columns: repeat(3, 1fr);
         gap: 14px;
+      }
+
+      .action-card {
+        padding: 18px 12px 16px;
+        min-height: 140px;
+      }
+
+      .action-card .icon {
+        width: 76px;
+        height: 76px;
+        margin-bottom: 10px;
+      }
+
+      .action-card .icon img.icon-img {
+        width: 76px;
+        height: 76px;
+      }
+
+      .featured-card .icon,
+      .discord-card .icon {
+        width: 48px;
+        height: 48px;
+      }
+
+      .featured-card .icon img.icon-img,
+      .discord-card .icon img.icon-img {
+        width: 48px;
+        height: 48px;
       }
     }
     /* Tablet-specific swap (600px - 1023px): swap Guides and Beginner List positions */
@@ -891,6 +778,41 @@
         gap: 6px;
       }
 
+      /* Uniform action-card sizing and alignment (condensed for mobile) */
+      .action-card {
+        padding: 10px;
+        min-height: 110px;
+      }
+
+      .action-card .icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 8px;
+      }
+
+      .action-card .icon img.icon-img {
+        width: 56px;
+        height: 56px;
+      }
+
+      /* Favorites: use explicit sizes rather than large transforms */
+      a.action-card[href="favorites.html"] .icon img.icon-img {
+        width: 44px;
+        height: 44px;
+      }
+
+      .featured-card .icon,
+      .discord-card .icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .featured-card .icon img.icon-img,
+      .discord-card .icon img.icon-img {
+        width: 40px;
+        height: 40px;
+      }
+
       /* Place AI Playground explicitly in the last row, left column */
       a.action-card[href="ai-playground.html"] {
         grid-column: 1 / 2;
@@ -972,7 +894,7 @@
           <h3>Guides</h3>
           <p>Step-by-step help</p>
         </a>
-        <a href="ai-playground.html" class="action-card">
+        <a href="ai-playground.html" class="action-card" id="aiPlaygroundCard">
           <span class="icon"><img src="images/playgroundicon.webp" alt="AI Playground" class="icon-img"></span>
           <h3>AI Playground</h3>
           <p>Practice prompts & templates</p>
@@ -1004,7 +926,7 @@
       </a>
       
       <!-- Discord -->
-      <a href="https://discord.gg/Nn5XGMZFAC" target="_blank" class="discord-card">
+      <a href="https://discord.gg/Nn5XGMZFAC" target="_blank" class="discord-card" id="discordCard">
         <span class="icon"><img src="images/discord logo.png" alt="Discord" class="icon-img"></span>
         <div class="content">
           <h3>Join the Community</h3>
@@ -1034,18 +956,33 @@
       const { data: { session } } = await supabaseClient.auth.getSession();
       
       if (!session) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
       }
       
-      const { data: member } = await supabaseClient
+      const { data: member, error } = await supabaseClient
         .from('Paid')
-        .select('email, status')
+        .select('email, status, is_premium')
         .eq('email', session.user.email)
         .eq('status', 'active')
         .single();
-      
-      if (!member) {
+
+      // If the is_premium column doesn't exist yet, try without it
+      let memberData = member;
+      if (error && error.message?.includes('is_premium')) {
+        const { data: fallbackMember } = await supabaseClient
+          .from('Paid')
+          .select('email, status')
+          .eq('email', session.user.email)
+          .eq('status', 'active')
+          .single();
+        memberData = fallbackMember;
+      }
+
+      // Store premium status globally (defaults to false if column doesn't exist)
+      window.isPremium = memberData?.is_premium || false;
+
+      if (!memberData) {
         loadingScreen.innerHTML = `
           <div style="text-align: center; padding: 40px; max-width: 360px;">
             <h2 style="margin-bottom: 12px; font-size: 20px;">Membership Required</h2>
@@ -1058,7 +995,7 @@
             </a>
             <p style="color: rgba(255,255,255,.5); font-size: 12px; margin-top: 16px;">
               Just purchased? Give it a minute to activate.<br>
-              <a href="#" onclick="supabaseClient.auth.signOut().then(() => window.location.href = 'login.html')" style="color: #56C3AE;">Try different email</a>
+              <a href="#" onclick="supabaseClient.auth.signOut().then(() => window.location.href = 'index.html')" style="color: #56C3AE;">Try different email</a>
             </p>
           </div>
         `;
@@ -1067,15 +1004,89 @@
       
       loadingScreen.style.display = 'none';
       app.style.display = 'block';
+
+      // Apply premium gates to cards
+      applyPremiumGates();
+    }
+
+    function applyPremiumGates() {
+      const aiCard = document.getElementById('aiPlaygroundCard');
+      const discordCard = document.getElementById('discordCard');
+
+      if (window.isPremium) {
+        // Premium users: ensure no gates are applied
+        if (aiCard) aiCard.classList.remove('premium-required');
+        if (discordCard) discordCard.classList.remove('premium-required');
+        return;
+      }
+
+      // Non-premium users: apply gates
+      // AI Playground card - add premium banner
+      if (aiCard) {
+        aiCard.classList.add('premium-required');
+        const banner = document.createElement('div');
+        banner.className = 'premium-banner';
+        banner.textContent = 'Premium';
+        aiCard.appendChild(banner);
+
+        // Prevent navigation, show upgrade prompt
+        aiCard.addEventListener('click', (e) => {
+          e.preventDefault();
+          showUpgradePrompt('AI Playground');
+        });
+      }
+
+      // Discord card - gate but keep visual
+      if (discordCard) {
+        discordCard.classList.add('premium-required');
+        const banner = document.createElement('div');
+        banner.className = 'premium-banner';
+        banner.textContent = 'Premium';
+        discordCard.appendChild(banner);
+
+        // Prevent navigation, show upgrade prompt
+        discordCard.addEventListener('click', (e) => {
+          e.preventDefault();
+          showUpgradePrompt('Discord Community');
+        });
+      }
+    }
+
+    function showUpgradePrompt(featureName) {
+      const promptHTML = `
+        <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px);" id="upgradePrompt">
+          <div style="background: linear-gradient(135deg, #1a1a1a, #0f0f0f); border: 1px solid rgba(251,191,36,0.3); border-radius: 16px; padding: 32px 24px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 8px 32px rgba(251,191,36,0.2);">
+            <div style="font-size: 48px; margin-bottom: 16px;">⭐</div>
+            <h2 style="font-size: 22px; margin-bottom: 12px; color: #fbbf24;">Premium Feature</h2>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 24px; font-size: 14px;">
+              ${featureName} is available to Premium members. Upgrade to unlock exclusive features and support the continued development of 925 ADHD.
+            </p>
+            <div style="display: flex; gap: 12px; flex-direction: column;">
+              <a href="https://buy.stripe.com/bJebJ2djL1dgfwx5YA7Zu06"
+                style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0f0f0f; padding: 14px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 15px; display: block;">
+                Upgrade to Premium - $5/mo
+              </a>
+              <div>
+                <button onclick="document.getElementById('upgradePrompt').remove()"
+                  style="background: transparent; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; width: 100%;">
+                  Maybe Later
+                </button>
+                <p style="margin-top: 8px; font-size: 11px; color: rgba(255,255,255,0.4); text-align: center;">Cancel anytime. No pressure.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', promptHTML);
     }
     
     logoutBtn.addEventListener('click', async () => {
       await supabaseClient.auth.signOut();
-      window.location.href = 'login.html';
+      window.location.href = 'index.html';
     });
     
     supabaseClient.auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_OUT') window.location.href = 'login.html';
+      if (event === 'SIGNED_OUT') window.location.href = 'index.html';
     });
     
     checkAuth();
