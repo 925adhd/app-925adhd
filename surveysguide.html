@@ -130,14 +130,14 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 40px 0;
+            padding: 20px 0;
             position: relative;
         }
 
         .hero-emoji {
-            font-size: 4rem;
+            font-size: 3rem;
             display: block;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             animation: bounce 2s infinite ease-in-out;
         }
 
@@ -148,18 +148,18 @@
 
         h1 {
             font-family: 'Fredoka', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-5));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .subtitle {
             color: var(--text-dim);
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             max-width: 500px;
             margin: 0 auto;
         }
@@ -168,20 +168,20 @@
         .tldr {
             background: linear-gradient(135deg, var(--accent-2)22, var(--accent-1)22);
             border: 2px solid var(--accent-2);
-            border-radius: 20px;
-            padding: 25px;
-            margin: 30px 0;
+            border-radius: 16px;
+            padding: 20px 15px;
+            margin: 20px 0;
             position: relative;
             overflow: hidden;
         }
 
         .tldr::before {
-            content: "⚡ TL;DR";
+            content: "";
             position: absolute;
             top: -12px;
             left: 20px;
-            background: var(--bg);
-            padding: 0 10px;
+            background: transparent;
+            padding: 0;
             font-family: 'Fredoka', sans-serif;
             font-weight: 700;
             color: var(--accent-2);
@@ -201,41 +201,41 @@
 
         .tldr-value {
             font-family: 'Fredoka', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--accent-3);
         }
 
         .tldr-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-dim);
-            margin-top: 5px;
+            margin-top: 3px;
         }
 
         /* Quick Action Buttons */
         .quick-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
             justify-content: center;
-            margin: 30px 0;
+            margin: 20px 0;
         }
 
         .action-btn {
             background: var(--card);
             border: 2px solid transparent;
-            border-radius: 30px;
-            padding: 12px 24px;
+            border-radius: 25px;
+            padding: 10px 18px;
             color: var(--text);
             font-family: 'Fredoka', sans-serif;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .action-btn:hover {
@@ -256,17 +256,17 @@
 
         /* Accordion Sections */
         .section {
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .section-header {
             background: var(--card);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 14px;
+            padding: 15px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             transition: all 0.3s ease;
             border: 2px solid transparent;
             user-select: none;
@@ -284,7 +284,7 @@
         }
 
         .section-icon {
-            font-size: 2rem;
+            font-size: 1.6rem;
             flex-shrink: 0;
         }
 
@@ -294,14 +294,14 @@
 
         .section-title {
             font-family: 'Fredoka', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--text);
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
         .section-preview {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-dim);
         }
 
@@ -339,16 +339,16 @@
 
         .section-content.open {
             max-height: 3000px;
-            padding: 25px;
+            padding: 15px;
         }
 
         /* Content Cards */
         .info-card {
             background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 15px 0;
-            border-left: 4px solid var(--accent-2);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 12px 0;
+            border-left: 3px solid var(--accent-2);
         }
 
         .info-card.success { border-left-color: var(--accent-3); }
@@ -358,27 +358,27 @@
 
         .info-card h4 {
             font-family: 'Fredoka', sans-serif;
-            font-size: 1rem;
-            margin-bottom: 10px;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         /* Interactive Quiz */
         .quiz-card {
             background: linear-gradient(135deg, var(--accent-5)15, var(--accent-2)15);
             border: 2px solid var(--accent-5);
-            border-radius: 16px;
-            padding: 25px;
-            margin: 20px 0;
+            border-radius: 14px;
+            padding: 18px;
+            margin: 15px 0;
             text-align: center;
         }
 
         .quiz-question {
             font-family: 'Fredoka', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            margin-bottom: 15px;
         }
 
         .quiz-options {
@@ -391,11 +391,12 @@
         .quiz-option {
             background: var(--card);
             border: 2px solid var(--text-dim);
-            border-radius: 12px;
-            padding: 15px 25px;
+            border-radius: 10px;
+            padding: 12px 18px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .quiz-option:hover {
@@ -409,10 +410,11 @@
         }
 
         .quiz-result {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 12px;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
             display: none;
+            font-size: 0.9rem;
         }
 
         .quiz-result.show {
@@ -443,15 +445,15 @@
         /* Platform Cards */
         .platform-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
         }
 
         .platform-card {
             background: var(--card);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 15px;
             border: 2px solid transparent;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -466,23 +468,23 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .platform-name {
             font-family: 'Fredoka', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
         }
 
         .platform-rating {
             display: flex;
-            gap: 2px;
+            gap: 1px;
         }
 
         .star {
             color: var(--accent-4);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .star.empty {
@@ -492,35 +494,35 @@
         .platform-pay {
             background: var(--accent-3)22;
             color: var(--accent-3);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 16px;
+            font-size: 0.75rem;
             font-weight: 700;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .platform-desc {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .platform-adhd {
-            font-size: 0.85rem;
-            padding: 8px 12px;
+            font-size: 0.8rem;
+            padding: 6px 10px;
             background: var(--accent-2)15;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-2);
+            border-radius: 6px;
+            border-left: 2px solid var(--accent-2);
         }
 
         .platform-link {
             display: inline-block;
-            margin-top: 12px;
+            margin-top: 10px;
             color: var(--accent-5);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.3s ease;
         }
 
@@ -558,20 +560,21 @@
 
         /* Checklist */
         .checklist {
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .check-item {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 15px;
+            gap: 12px;
+            padding: 12px;
             background: var(--card);
-            border-radius: 12px;
-            margin: 10px 0;
+            border-radius: 10px;
+            margin: 8px 0;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            font-size: 0.9rem;
         }
 
         .check-item:hover {
@@ -584,16 +587,16 @@
         }
 
         .check-box {
-            width: 28px;
-            height: 28px;
-            border: 3px solid var(--text-dim);
-            border-radius: 8px;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-dim);
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             transition: all 0.3s ease;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .check-item.checked .check-box {
@@ -611,58 +614,153 @@
             opacity: 0.7;
         }
 
-        /* Floating tip */
-        .floating-tip {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            background: var(--card);
-            border: 2px solid var(--accent-2);
-            border-radius: 16px;
-            padding: 15px 20px;
-            max-width: 280px;
-            z-index: 999;
-            transform: translateX(-150%);
-            transition: transform 0.5s ease;
-        }
-
-        .floating-tip.show {
-            transform: translateX(0);
-        }
-
-        .floating-tip-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .floating-tip-title {
-            font-family: 'Fredoka', sans-serif;
-            font-weight: 600;
-            color: var(--accent-2);
-        }
-
-        .floating-tip-close {
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .floating-tip-text {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-        }
 
         /* Responsive */
         @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .tldr-grid { grid-template-columns: 1fr; gap: 10px; }
-            .quick-actions { flex-direction: column; }
-            .action-btn { width: 100%; justify-content: center; }
-            .platform-grid { grid-template-columns: 1fr; }
+            .container {
+                padding: 60px 15px 30px;
+            }
+
+            .hero {
+                padding: 15px 0;
+            }
+
+            .hero-emoji {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .tldr {
+                padding: 15px 10px;
+                margin: 15px 0;
+            }
+
+            .tldr-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .tldr-stat {
+                padding: 8px;
+            }
+
+            .tldr-value {
+                font-size: 1.2rem;
+            }
+
+            .tldr-label {
+                font-size: 0.7rem;
+            }
+
+            .quick-actions {
+                flex-direction: column;
+                margin: 15px 0;
+            }
+
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+
+            .section {
+                margin: 12px 0;
+            }
+
+            .section-header {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .section-icon {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 0.95rem;
+            }
+
+            .section-preview {
+                font-size: 0.7rem;
+            }
+
+            .section-time {
+                font-size: 0.7rem;
+                padding: 3px 8px;
+            }
+
+            .section-content.open {
+                padding: 12px;
+            }
+
+            .info-card {
+                padding: 12px;
+                margin: 10px 0;
+                font-size: 0.9rem;
+            }
+
+            .info-card h4 {
+                font-size: 0.9rem;
+            }
+
+            .quiz-card {
+                padding: 15px;
+                margin: 12px 0;
+            }
+
+            .quiz-question {
+                font-size: 0.95rem;
+                margin-bottom: 12px;
+            }
+
+            .quiz-option {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+
+            .platform-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .platform-card {
+                padding: 12px;
+            }
+
+            .platform-name {
+                font-size: 0.95rem;
+            }
+
+            .platform-desc {
+                font-size: 0.8rem;
+            }
+
+            .platform-adhd {
+                font-size: 0.75rem;
+                padding: 5px 8px;
+            }
+
+            .check-item {
+                padding: 10px;
+                gap: 10px;
+                font-size: 0.85rem;
+            }
+
+            .check-box {
+                width: 22px;
+                height: 22px;
+                font-size: 0.85rem;
+            }
         }
 
         /* Confetti animation */
@@ -714,15 +812,6 @@
     <div class="achievement" id="achievement">
         <span class="achievement-icon">🏆</span>
         <span class="achievement-text">Achievement Unlocked!</span>
-    </div>
-
-    <!-- Floating Tip -->
-    <div class="floating-tip" id="floatingTip">
-        <div class="floating-tip-header">
-            <span class="floating-tip-title">🧠 ADHD Tip</span>
-            <button class="floating-tip-close" onclick="hideTip()">×</button>
-        </div>
-        <p class="floating-tip-text">Reading for 10+ mins? Take a quick stretch break! Your brain will thank you.</p>
     </div>
 
     <div class="container">
@@ -911,7 +1000,7 @@
                         <a href="https://respondent.io" class="platform-link" target="_blank">Sign up free →</a>
                     </div>
 
-                    <div class="platform-card" onclick="window.open('https://dscout.com', '_blank')">
+                    <div class="platform-card" onclick="window.open('https://dscout.com/participate-in-research-studies', '_blank')">
                         <div class="platform-header">
                             <span class="platform-name">📱 dscout</span>
                             <div class="platform-rating">
@@ -921,20 +1010,20 @@
                         <span class="platform-pay">$25-100/mission</span>
                         <p class="platform-desc">Mobile diary studies. Record video entries about your daily life.</p>
                         <div class="platform-adhd">💜 ADHD Win: Creative expression! Better than clicking boxes.</div>
-                        <a href="https://dscout.com" class="platform-link" target="_blank">Sign up free →</a>
+                        <a href="https://dscout.com/participate-in-research-studies" class="platform-link" target="_blank">Sign up free →</a>
                     </div>
 
-                    <div class="platform-card" onclick="window.open('https://swagbucks.com', '_blank')">
+                    <div class="platform-card" onclick="window.open('https://paidviewpoint.com', '_blank')">
                         <div class="platform-header">
-                            <span class="platform-name">💸 Swagbucks</span>
+                            <span class="platform-name">💎 PaidViewpoint</span>
                             <div class="platform-rating">
-                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span>
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span>
                             </div>
                         </div>
-                        <span class="platform-pay">$3-8/hour</span>
-                        <p class="platform-desc">Classic survey site. Low pay but consistent work available.</p>
-                        <div class="platform-adhd">⚠️ ADHD Warning: Lots of disqualifications. Can be frustrating.</div>
-                        <a href="https://swagbucks.com" class="platform-link" target="_blank">Sign up free →</a>
+                        <span class="platform-pay">$5-10/week</span>
+                        <p class="platform-desc">Ultra-short surveys (2-5 min). No screeners - every survey pays!</p>
+                        <div class="platform-adhd">💜 ADHD Win: Short bursts, guaranteed completion. No rejection frustration!</div>
+                        <a href="https://paidviewpoint.com" class="platform-link" target="_blank">Sign up free →</a>
                     </div>
 
                     <div class="platform-card" onclick="window.open('https://surveyjunkie.com', '_blank')">
@@ -968,7 +1057,7 @@
                     <h4>⚡ Match Your Energy</h4>
                     <p><strong>Hyperfocus mode?</strong> Do User Interviews, focus groups, video missions</p>
                     <p><strong>Medium energy?</strong> Prolific studies, dscout entries</p>
-                    <p><strong>Zombie mode?</strong> Mindless Swagbucks surveys while watching TV</p>
+                    <p><strong>Zombie mode?</strong> PaidViewpoint quick 2-5 minute surveys while watching TV</p>
                     <p><strong>No energy?</strong> Don't force it. Take the day off.</p>
                 </div>
 
@@ -1052,7 +1141,6 @@
             <a href="https://userinterviews.com" class="action-btn primary" target="_blank" style="font-size: 1.1rem; padding: 15px 30px;">
                 🚀 Sign up for User Interviews (Best One)
             </a>
-            <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.9rem;">Takes 3 minutes. Free forever. Real money.</p>
         </div>
 
     </div>
@@ -1171,19 +1259,6 @@
                     createConfetti();
                 }
             }
-        }
-
-        // Floating tip
-        let tipShown = false;
-        setTimeout(() => {
-            if (!tipShown) {
-                document.getElementById('floatingTip').classList.add('show');
-                tipShown = true;
-            }
-        }, 30000); // Show after 30 seconds
-
-        function hideTip() {
-            document.getElementById('floatingTip').classList.remove('show');
         }
 
         // Track scroll progress
