@@ -62,10 +62,19 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      /* Improve touch scrolling on mobile */
+      -webkit-tap-highlight-color: transparent;
     }
-    
+
+    html {
+      /* Smooth scrolling for better mobile experience */
+      -webkit-overflow-scrolling: touch;
+      /* Prevent font size adjustments on orientation change */
+      -webkit-text-size-adjust: 100%;
+    }
+
     body {
-      font-family: 'Outfit', system-ui, sans-serif;
+      font-family: 'Outfit', system-ui, sans-font;
       background: var(--dark);
       min-height: 100vh;
       min-height: 100dvh;
@@ -78,6 +87,13 @@
       position: relative;
       background-size: 150px 150px;
       background-repeat: space;
+      /* GPU acceleration for smoother animations */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
     }
     
     /* Animated background */
@@ -85,12 +101,17 @@
       content: '';
       position: fixed;
       inset: 0;
-      background: 
+      background:
         radial-gradient(ellipse 80% 50% at 20% 40%, rgba(86, 195, 174, 0.15) 0%, transparent 50%),
         radial-gradient(ellipse 60% 40% at 80% 60%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
         radial-gradient(ellipse 40% 60% at 50% 100%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
       pointer-events: none;
       animation: bgPulse 8s ease-in-out infinite;
+      will-change: opacity;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
     
     @keyframes bgPulse {
@@ -104,8 +125,11 @@
       inset: 0;
       pointer-events: none;
       overflow: hidden;
+      contain: layout style paint;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
-    
+
     .particle {
       position: absolute;
       width: 4px;
@@ -114,6 +138,10 @@
       border-radius: 50%;
       opacity: 0;
       animation: float 15s infinite;
+      will-change: transform, opacity;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      contain: layout style paint;
     }
     
     .particle:nth-child(1) { left: 10%; animation-delay: 0s; background: var(--teal); }
@@ -129,7 +157,7 @@
     
     @keyframes float {
       0% {
-        transform: translateY(100vh) scale(0);
+        transform: translate3d(0, 100vh, 0) scale(0);
         opacity: 0;
       }
       10% {
@@ -139,7 +167,7 @@
         opacity: 0.6;
       }
       100% {
-        transform: translateY(-100vh) scale(1);
+        transform: translate3d(0, -100vh, 0) scale(1);
         opacity: 0;
       }
     }
@@ -192,12 +220,15 @@
       display: grid;
       /* nearly-opaque dark background to block holographic pattern */
       background: rgba(13, 17, 23, 0.95);
-      box-shadow: 
+      box-shadow:
         0 0 0 1px rgba(255, 255, 255, 0.1),
         0 25px 50px -12px rgba(0, 0, 0, 0.8),
         0 0 100px -20px rgba(86, 195, 174, 0.3);
       transition: transform 0.5s ease, box-shadow 0.5s ease;
       transform: translate3d(0, 0, 0.1px) rotateX(0deg) rotateY(0deg);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
       overflow: hidden;
     }
     
@@ -796,6 +827,35 @@
       }
     }
     
+    /* Mobile browser optimizations - especially for Facebook mobile browser */
+    @media (max-width: 768px) {
+      /* Reduce animation complexity on mobile */
+      body::before {
+        animation-duration: 12s;
+      }
+
+      .particle {
+        animation-duration: 20s;
+      }
+
+      /* Force hardware acceleration on all animated elements */
+      * {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      /* Prevent webkit rendering bugs in Facebook browser */
+      .login-card,
+      .card-wrapper,
+      body::before,
+      .particles {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
