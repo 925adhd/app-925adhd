@@ -1622,7 +1622,7 @@
     }
 
     // Restore scroll position on page load (for back navigation)
-    function restoreScrollPosition() {
+    function restoreScrollPosition(shouldClearStorage = false) {
       // Prefer restoring by last-viewed gig (more reliable across navigation types)
       const lastGig = sessionStorage.getItem('925adhd_last_gig');
       const savedScroll = sessionStorage.getItem('925adhd_earn_scroll');
@@ -1644,8 +1644,11 @@
             } catch (e) {
               elNow.scrollIntoView({ block: 'center', behavior: 'auto' });
             }
-            try { sessionStorage.removeItem('925adhd_last_gig'); } catch (e) {}
-            try { sessionStorage.removeItem('925adhd_earn_scroll'); } catch (e) {}
+            if (shouldClearStorage) {
+              try { sessionStorage.removeItem('925adhd_last_gig'); } catch (e) {}
+              try { sessionStorage.removeItem('925adhd_earn_scroll'); } catch (e) {}
+              try { sessionStorage.removeItem('925adhd_scroll_container'); } catch (e) {}
+            }
             return true;
           }
           return false;
@@ -1777,7 +1780,20 @@
     renderGigs();
 
     // Restore scroll position after render (handles back navigation)
-    restoreScrollPosition();
+    // Use multiple timing strategies to ensure restoration works reliably
+    // First attempt: immediate (in case DOM is ready)
+    restoreScrollPosition(false);
+
+    // Second attempt: after next frame to ensure DOM is fully painted
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        restoreScrollPosition(false);
+        // Final attempt with a small delay, then clear storage
+        setTimeout(() => {
+          restoreScrollPosition(true);
+        }, 100);
+      });
+    });
 
     // Save scroll when page is being hidden (covers some navigation types)
     window.addEventListener('pagehide', function () { saveScrollPosition(); });
@@ -1786,7 +1802,17 @@
     // Call restoreScrollPosition on pageshow to handle cache restores.
     window.addEventListener('pageshow', function (e) {
       // Always attempt to restore (covers both normal load and bfcache)
-      restoreScrollPosition();
+      restoreScrollPosition(false);
+      // Also try again after frames are painted
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          restoreScrollPosition(false);
+          // Final attempt with delay, then clear storage
+          setTimeout(() => {
+            restoreScrollPosition(true);
+          }, 100);
+        });
+      });
     });
 
     // Initialize the page - render category tabs and setup UI
