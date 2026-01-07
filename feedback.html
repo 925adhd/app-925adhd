@@ -474,7 +474,10 @@
       
       <!-- Form -->
       <form id="feedbackForm">
-        
+
+        <!-- Honeypot spam protection (hidden field) -->
+        <input type="checkbox" name="botcheck" id="botcheck" style="display: none;">
+
         <!-- Type Selector -->
         <div class="form-group">
           <label>What's this about? <span class="hint">Helps me prioritize</span></label>
@@ -620,6 +623,9 @@
     const submitBtn = document.getElementById('submitBtn');
     const successState = document.getElementById('successState');
 
+    // Web3Forms configuration
+    const WEB3FORMS_ACCESS_KEY = 'dfb5a758-6041-45a0-b76d-6ee784a406ec';
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -653,43 +659,74 @@
       status.textContent = 'Sending...';
       submitBtn.disabled = true;
 
-      // Build payload
-      const payload = {
-        createdAt: new Date().toISOString(),
-        kind: kindInput.value,
-        title: title,
-        description: desc,
-        anonymous: !wantResponse.checked
-      };
+      // Build form data for Web3Forms
+      const formData = new FormData();
 
-      if (wantResponse.checked && email.value) {
-        payload.email = email.value.trim();
+      // Required Web3Forms fields
+      formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+      formData.append('subject', `[${kindInput.value.toUpperCase()}] ${title}`);
+      formData.append('from_name', '925 ADHD Feedback Form');
+
+      // Bot protection - honeypot field (bots will check this, humans won't)
+      formData.append('botcheck', document.getElementById('botcheck').checked);
+
+      // Add user email if provided, otherwise use a default
+      if (wantResponse.checked && email.value.trim()) {
+        formData.append('email', email.value.trim());
+        formData.append('replyto', email.value.trim());
+      } else {
+        formData.append('email', 'noreply@925adhd.com');
       }
 
+      // Build formatted message
+      const timestamp = new Date().toLocaleString();
+      let message = `Feedback Type: ${kindInput.value}\n`;
+      message += `Title: ${title}\n`;
+      message += `Submitted: ${timestamp}\n`;
+      message += `Wants Response: ${wantResponse.checked ? 'Yes' : 'No (Anonymous)'}\n`;
+      if (wantResponse.checked && email.value.trim()) {
+        message += `Reply To: ${email.value.trim()}\n`;
+      }
+      message += `\n--- Details ---\n${desc}`;
+
+      formData.append('message', message);
+
+      // Add screenshot if present
       const file = screenshot.files && screenshot.files[0];
       if (file) {
-        payload.attachmentName = file.name;
+        formData.append('attachment', file);
       }
 
+      // Optional: redirect after submission (set to false to handle in JS)
+      formData.append('redirect', 'false');
+
       try {
-        const formData = new FormData();
-        formData.append('payload', JSON.stringify(payload));
-        if (file) formData.append('screenshot', file, file.name);
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
 
-        const res = await fetch('/submit-feedback', { method: 'POST', body: formData });
+        const data = await res.json();
 
-        if (res.ok) {
+        if (res.ok && data.success) {
           // Save to local storage for history
-          saveSubmission(payload);
-          
+          saveSubmission({
+            createdAt: new Date().toISOString(),
+            kind: kindInput.value,
+            title: title,
+            description: desc,
+            anonymous: !wantResponse.checked
+          });
+
           // Show success
           form.style.display = 'none';
           successState.classList.add('visible');
           status.textContent = '';
         } else {
-          throw new Error('Server error');
+          throw new Error(data.message || 'Server error');
         }
       } catch (err) {
+        console.error('Submission error:', err);
         status.textContent = 'Something went wrong. Try again?';
         status.classList.add('error');
         submitBtn.disabled = false;
