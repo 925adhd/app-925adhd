@@ -28,22 +28,22 @@
             line-height: 1.7;
         }
 
-        .container { max-width: 720px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 720px; margin: 0 auto; padding: 15px; }
 
         .hero {
             text-align: center;
-            padding: 40px 20px;
+            padding: 25px 15px;
             background: linear-gradient(135deg, var(--accent-1)20, var(--accent-4)20);
-            border-radius: 24px;
-            margin-bottom: 25px;
+            border-radius: 16px;
+            margin-bottom: 15px;
         }
 
-        .hero-icon { font-size: 4rem; margin-bottom: 15px; }
+        .hero-icon { font-size: 3rem; margin-bottom: 10px; }
 
         h1 {
             font-family: 'Fredoka', sans-serif;
-            font-size: 2.4rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
         }
 
         h1 span {
@@ -52,84 +52,84 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+        .subtitle { color: var(--text-dim); font-size: 0.95rem; }
 
         .shop-types {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 25px 0;
+            gap: 8px;
+            margin: 15px 0;
         }
 
         .shop-type {
             background: var(--card);
-            border-radius: 14px;
-            padding: 18px 12px;
+            border-radius: 10px;
+            padding: 12px 8px;
             text-align: center;
             border: 2px solid transparent;
             transition: all 0.3s ease;
         }
 
-        .shop-type:hover { border-color: var(--accent-1); transform: translateY(-3px); }
-        .shop-type-icon { font-size: 2rem; margin-bottom: 8px; }
-        .shop-type-name { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.95rem; }
-        .shop-type-pay { color: var(--accent-3); font-size: 0.85rem; font-weight: 600; }
+        .shop-type:hover { border-color: var(--accent-1); transform: translateY(-2px); }
+        .shop-type-icon { font-size: 1.5rem; margin-bottom: 5px; }
+        .shop-type-name { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.8rem; }
+        .shop-type-pay { color: var(--accent-3); font-size: 0.75rem; font-weight: 600; }
 
         .stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 25px 0;
+            gap: 10px;
+            margin: 15px 0;
         }
 
         .stat {
             background: var(--card);
-            padding: 20px;
-            border-radius: 16px;
+            padding: 12px;
+            border-radius: 12px;
             text-align: center;
         }
 
         .stat-value {
             font-family: 'Fredoka', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--accent-3);
         }
 
-        .stat-label { font-size: 0.85rem; color: var(--text-dim); margin-top: 5px; }
+        .stat-label { font-size: 0.75rem; color: var(--text-dim); margin-top: 3px; }
 
-        .section { margin: 20px 0; }
+        .section { margin: 12px 0; }
 
         .section-header {
             background: var(--card);
             border: 2px solid transparent;
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 14px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             transition: all 0.3s ease;
         }
 
         .section-header:hover { border-color: var(--accent-1); }
-        .section-header.open { border-color: var(--accent-3); border-radius: 16px 16px 0 0; }
+        .section-header.open { border-color: var(--accent-3); border-radius: 12px 12px 0 0; }
 
-        .section-icon { font-size: 1.8rem; }
+        .section-icon { font-size: 1.4rem; }
         .section-info { flex: 1; }
-        .section-title { font-family: 'Fredoka', sans-serif; font-size: 1.15rem; font-weight: 600; }
-        .section-desc { font-size: 0.85rem; color: var(--text-dim); }
+        .section-title { font-family: 'Fredoka', sans-serif; font-size: 1rem; font-weight: 600; }
+        .section-desc { font-size: 0.75rem; color: var(--text-dim); }
 
         .section-badge {
             background: var(--accent-2)22;
             color: var(--accent-2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
             font-weight: 600;
         }
 
-        .section-arrow { color: var(--text-dim); transition: transform 0.3s ease; }
+        .section-arrow { color: var(--text-dim); transition: transform 0.3s ease; font-size: 0.9rem; }
         .section-header.open .section-arrow { transform: rotate(180deg); }
 
         .section-body {
@@ -137,18 +137,18 @@
             background: var(--card);
             border: 2px solid var(--accent-3);
             border-top: none;
-            border-radius: 0 0 16px 16px;
-            padding: 25px;
+            border-radius: 0 0 12px 12px;
+            padding: 15px;
         }
 
         .section-body.show { display: block; }
 
         .card {
             background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 18px;
-            margin: 15px 0;
-            border-left: 4px solid var(--accent-2);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 3px solid var(--accent-2);
         }
 
         .card.green { border-left-color: var(--accent-3); }
@@ -156,54 +156,56 @@
         .card.orange { border-left-color: var(--accent-1); }
         .card.pink { border-left-color: var(--accent-5); }
 
-        .card h4 { font-family: 'Fredoka', sans-serif; margin-bottom: 10px; }
-        .card ul { margin: 10px 0 0 20px; }
-        .card li { margin: 8px 0; }
+        .card h4 { font-family: 'Fredoka', sans-serif; margin-bottom: 8px; font-size: 0.95rem; }
+        .card ul { margin: 8px 0 0 18px; }
+        .card li { margin: 6px 0; font-size: 0.9rem; }
+        .card p { font-size: 0.9rem; }
 
-        .companies { display: grid; gap: 15px; margin: 20px 0; }
+        .companies { display: grid; gap: 10px; margin: 12px 0; }
 
         .company {
             background: var(--card-hover);
-            border-radius: 14px;
-            padding: 18px;
+            border-radius: 12px;
+            padding: 12px;
             border: 2px solid transparent;
             transition: all 0.3s ease;
         }
 
         .company:hover { border-color: var(--accent-1); }
 
-        .company-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .company-name { font-family: 'Fredoka', sans-serif; font-size: 1.1rem; font-weight: 600; }
+        .company-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .company-name { font-family: 'Fredoka', sans-serif; font-size: 0.95rem; font-weight: 600; }
 
         .company-badge {
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 20px;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 12px;
             font-weight: 600;
             background: var(--accent-3)22;
             color: var(--accent-3);
         }
 
-        .company-desc { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 10px; }
+        .company-desc { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px; }
 
         .company-link {
             display: inline-block;
-            margin-top: 8px;
+            margin-top: 6px;
             color: var(--accent-2);
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.85rem;
         }
 
-        .checklist { margin: 20px 0; }
+        .checklist { margin: 12px 0; }
 
         .check-item {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 14px;
+            gap: 10px;
+            padding: 10px;
             background: var(--card-hover);
-            border-radius: 10px;
-            margin: 8px 0;
+            border-radius: 8px;
+            margin: 6px 0;
             cursor: pointer;
             border: 2px solid transparent;
             transition: all 0.3s ease;
@@ -212,36 +214,48 @@
         .check-item.done { border-color: var(--accent-3); background: rgba(74, 222, 128, 0.1); }
 
         .check-box {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             border: 2px solid var(--text-dim);
-            border-radius: 6px;
+            border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            font-size: 0.8rem;
         }
 
         .check-item.done .check-box { background: var(--accent-3); border-color: var(--accent-3); color: var(--bg); }
         .check-item.done .check-text { text-decoration: line-through; opacity: 0.7; }
+        .check-text { font-size: 0.9rem; }
 
         .cta {
             display: inline-block;
             background: linear-gradient(135deg, var(--accent-1), var(--accent-4));
             color: var(--bg);
-            padding: 14px 28px;
-            border-radius: 30px;
+            padding: 12px 24px;
+            border-radius: 24px;
             text-decoration: none;
             font-family: 'Fredoka', sans-serif;
             font-weight: 600;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
         }
 
-        .cta:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(249, 115, 22, 0.3); }
+        .cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3); }
 
         @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .stats, .shop-types { grid-template-columns: 1fr; }
+            .container { padding: 10px; }
+            h1 { font-size: 1.6rem; }
+            .hero { padding: 20px 12px; margin-bottom: 12px; }
+            .hero-icon { font-size: 2.5rem; }
+            .subtitle { font-size: 0.9rem; }
+            .stats, .shop-types { grid-template-columns: 1fr; gap: 8px; }
+            .section { margin: 10px 0; }
+            .section-header { padding: 12px; }
+            .section-body { padding: 12px; }
+            .card { padding: 10px; margin: 8px 0; }
+            .company { padding: 10px; }
         }
     </style>
 </head>
