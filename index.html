@@ -827,32 +827,34 @@
       }
     }
     
-    /* Mobile browser optimizations - especially for Facebook mobile browser */
+    /* Mobile browser optimizations - disable all animations */
     @media (max-width: 768px) {
-      /* Reduce animation complexity on mobile */
-      body::before {
-        animation-duration: 12s;
+      /* Disable all animations and transitions on mobile */
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
       }
 
-      .particle {
-        animation-duration: 20s;
-      }
-
-      /* Force hardware acceleration on all animated elements */
-      * {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-      }
-
-      /* Prevent webkit rendering bugs in Facebook browser */
-      .login-card,
-      .card-wrapper,
-      body::before,
+      /* Hide particles on mobile */
       .particles {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
+        display: none;
+      }
+
+      /* Disable background animation */
+      body::before {
+        animation: none;
+        opacity: 1;
+      }
+
+      /* Static card on mobile */
+      .login-card {
+        transform: none !important;
+      }
+
+      .card-wrapper {
+        transform: none !important;
       }
     }
 
@@ -935,7 +937,7 @@
         </div>
       </div>
     </div>
-    
+
 
   </div>
 
