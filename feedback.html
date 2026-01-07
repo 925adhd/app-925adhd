@@ -511,16 +511,8 @@
           <div class="char-count"><span id="charCount">0</span> / 1000</div>
         </div>
 
-        <!-- Screenshot -->
-        <div class="form-group">
-          <label>Screenshot <span class="hint">Optional</span></label>
-          <div class="upload-area" id="uploadArea">
-            <input type="file" id="screenshot" name="screenshot" accept="image/*">
-            <span class="icon">📎</span>
-            <span class="text">Tap to add a screenshot</span>
-            <span class="filename" id="filename"></span>
-          </div>
-        </div>
+        <!-- Screenshot upload removed - requires paid plan -->
+        <!-- If you need screenshot support, consider upgrading Web3Forms or using Formspree -->
 
         <!-- Response Checkbox -->
         <div class="form-group">
@@ -583,24 +575,7 @@
       charCount.textContent = description.value.length;
     });
 
-    // File upload
-    const uploadArea = document.getElementById('uploadArea');
-    const screenshot = document.getElementById('screenshot');
-    const filename = document.getElementById('filename');
-
-    screenshot.addEventListener('change', () => {
-      if (screenshot.files && screenshot.files[0]) {
-        uploadArea.classList.add('has-file');
-        uploadArea.querySelector('.icon').textContent = '✓';
-        uploadArea.querySelector('.text').textContent = 'Screenshot added';
-        filename.textContent = screenshot.files[0].name;
-      } else {
-        uploadArea.classList.remove('has-file');
-        uploadArea.querySelector('.icon').textContent = '📎';
-        uploadArea.querySelector('.text').textContent = 'Tap to add a screenshot';
-        filename.textContent = '';
-      }
-    });
+    // Screenshot upload removed - Web3Forms free tier doesn't support file uploads
 
     // Response checkbox
     const wantResponse = document.getElementById('wantResponse');
@@ -662,23 +637,23 @@
       // Build form data for Web3Forms
       const formData = new FormData();
 
-      // Required Web3Forms fields
+      // Required Web3Forms fields (name, email, message are mandatory)
       formData.append('access_key', WEB3FORMS_ACCESS_KEY);
-      formData.append('subject', `[${kindInput.value.toUpperCase()}] ${title}`);
-      formData.append('from_name', '925 ADHD Feedback Form');
 
-      // Bot protection - honeypot field (bots will check this, humans won't)
-      formData.append('botcheck', document.getElementById('botcheck').checked);
+      // Name field (required by Web3Forms)
+      formData.append('name', wantResponse.checked && email.value.trim() ? email.value.trim() : 'Anonymous User');
 
-      // Add user email if provided, otherwise use a default
+      // Email field (required by Web3Forms)
       if (wantResponse.checked && email.value.trim()) {
         formData.append('email', email.value.trim());
-        formData.append('replyto', email.value.trim());
       } else {
-        formData.append('email', 'noreply@925adhd.com');
+        formData.append('email', 'anonymous@925adhd.com');
       }
 
-      // Build formatted message
+      // Subject (optional but useful)
+      formData.append('subject', `[${kindInput.value.toUpperCase()}] ${title}`);
+
+      // Build formatted message (required by Web3Forms)
       const timestamp = new Date().toLocaleString();
       let message = `Feedback Type: ${kindInput.value}\n`;
       message += `Title: ${title}\n`;
@@ -691,11 +666,15 @@
 
       formData.append('message', message);
 
-      // Add screenshot if present
-      const file = screenshot.files && screenshot.files[0];
-      if (file) {
-        formData.append('attachment', file);
+      // Bot protection - honeypot field should always be false for humans
+      // Bots typically check hidden checkboxes, humans don't
+      // Don't send this field at all if it's unchecked (which is what we want)
+      const botcheckValue = document.getElementById('botcheck').checked;
+      if (botcheckValue) {
+        // If somehow it's checked, we're probably a bot, send it
+        formData.append('botcheck', 'true');
       }
+      // Otherwise don't include it at all (humans won't have checked the hidden field)
 
       // Optional: redirect after submission (set to false to handle in JS)
       formData.append('redirect', 'false');
@@ -707,6 +686,7 @@
         });
 
         const data = await res.json();
+        console.log('Web3Forms response:', data); // Debug logging
 
         if (res.ok && data.success) {
           // Save to local storage for history
@@ -723,11 +703,16 @@
           successState.classList.add('visible');
           status.textContent = '';
         } else {
-          throw new Error(data.message || 'Server error');
+          // Show the actual error message from Web3Forms
+          const errorMsg = data.message || 'Server error';
+          console.error('Web3Forms error:', errorMsg, data);
+          status.textContent = `Error: ${errorMsg}`;
+          status.classList.add('error');
+          submitBtn.disabled = false;
         }
       } catch (err) {
         console.error('Submission error:', err);
-        status.textContent = 'Something went wrong. Try again?';
+        status.textContent = `Error: ${err.message || 'Something went wrong. Try again?'}`;
         status.classList.add('error');
         submitBtn.disabled = false;
       }
