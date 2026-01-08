@@ -218,7 +218,7 @@
           try { sessionStorage.removeItem(k); } catch (er) {}
         });
         // Redirect to login page as fallback
-        location.href = 'login.html';
+        location.href = '/';
       } catch (err) { /* ignore */ }
     });
     // top-close button (in header) should also close
@@ -534,7 +534,7 @@
                   const logoutForm = document.querySelector('form#logout');
                   if (logoutForm) { logoutForm.submit(); return; }
                   ['authToken','token','accessToken','user','session','auth'].forEach(k => { try{ localStorage.removeItem(k); }catch(e){} try{ sessionStorage.removeItem(k);}catch(e){} });
-                  location.href = 'login.html';
+                  location.href = '/';
                 } catch (er) {}
               });
               dd.appendChild(logout);
@@ -672,7 +672,7 @@
                   const logoutForm = document.querySelector('form#logout');
                   if (logoutForm) { logoutForm.submit(); return; }
                   ['authToken','token','accessToken','user','session','auth'].forEach(k => { try{ localStorage.removeItem(k); }catch(e){} try{ sessionStorage.removeItem(k);}catch(e){} });
-                  location.href = 'login.html';
+                  location.href = '/';
                 } catch (er) {}
               });
               dd.appendChild(logout);
