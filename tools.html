@@ -1018,13 +1018,15 @@
   </script>
 
   <!-- Premium Gate Script -->
-  <script src="assets/api-config.js"></script>
-  <script src="assets/auth-helper.js"></script>
   <script>
-    // All API keys are now securely stored on the backend
+    const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
+
+    const { createClient } = window.supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     async function checkPremiumStatus() {
-      const { session } = await secureAuth.getSession();
+      const { data: { session } } = await supabaseClient.auth.getSession();
 
       if (!session) {
         // Not logged in - redirect to login
@@ -1032,11 +1034,28 @@
         return;
       }
 
-      // Check membership status through secure backend
-      const { data: memberData, error } = await secureAuth.checkMembership(session.user.email);
+      // Try to get premium status, with fallback if column doesn't exist
+      const { data: member, error } = await supabaseClient
+        .from('Paid')
+        .select('email, status, is_premium')
+        .eq('email', session.user.email)
+        .eq('status', 'active')
+        .single();
 
-      // Store premium status globally (defaults to false if not found)
-      const isPremium = memberData?.isPremium || false;
+      // If the is_premium column doesn't exist yet, try without it
+      let memberData = member;
+      if (error && error.message?.includes('is_premium')) {
+        const { data: fallbackMember } = await supabaseClient
+          .from('Paid')
+          .select('email, status')
+          .eq('email', session.user.email)
+          .eq('status', 'active')
+          .single();
+        memberData = fallbackMember;
+      }
+
+      // Store premium status globally (defaults to false if column doesn't exist)
+      const isPremium = memberData?.is_premium || false;
       window.isPremium = isPremium;
 
       // Always call applyPremiumGates - it will either remove or add gates based on premium status
