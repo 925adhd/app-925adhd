@@ -941,8 +941,7 @@
 
   </div>
 
-  <script src="assets/api-config.js"></script>
-  <script src="assets/auth-helper.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // ========================================
     // HOLOGRAPHIC CARD INTERACTION (Desktop Only)
@@ -1076,50 +1075,20 @@
     }
     
     // ========================================
-    // SECURE AUTHENTICATION (via backend proxy)
+    // SUPABASE AUTHENTICATION
     // ========================================
-    // All API keys are now securely stored on the backend
-
+    
+    const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
+    
+    const { createClient } = window.supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
     const form = document.getElementById('loginForm');
     const emailInput = document.getElementById('email');
     const submitBtn = document.getElementById('submitBtn');
     const googleBtn = document.getElementById('googleBtn');
     const messageDiv = document.getElementById('message');
-
-    // Handle OAuth callback - check for access_token in URL hash
-    async function handleOAuthCallback() {
-      const hash = window.location.hash;
-      if (hash && hash.includes('access_token')) {
-        const params = new URLSearchParams(hash.substring(1));
-        const accessToken = params.get('access_token');
-
-        if (accessToken) {
-          // Store the token
-          localStorage.setItem('sb-access-token', accessToken);
-
-          // Redirect to dashboard
-          window.location.href = '/dashboard.html';
-          return true;
-        }
-      }
-      return false;
-    }
-
-    // Check for OAuth callback on page load
-    if (handleOAuthCallback()) {
-      // Will redirect, so stop here
-    } else {
-      // Check if already logged in
-      checkIfLoggedIn();
-    }
-
-    async function checkIfLoggedIn() {
-      const { session } = await secureAuth.getSession();
-      if (session) {
-        // Already logged in, redirect to dashboard
-        window.location.href = '/dashboard.html';
-      }
-    }
     
     function showMessage(text, type) {
       messageDiv.innerHTML = text;
@@ -1138,39 +1107,44 @@
         : '<span>Continue</span>';
     }
     
-    // Email Magic Link Login (using secure backend proxy)
+    // Email Magic Link Login
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
+      
       const email = emailInput.value.trim();
       if (!email) return;
-
+      
       setLoading(true);
-
+      
       try {
-        // First check if email has active membership (via secure backend)
-        const { data: memberData, error: memberError } = await secureAuth.verifyEmailMembership(email);
-
-        if (!memberData || !memberData.hasActiveMembership) {
+        const { data: member, error: memberError } = await supabaseClient
+          .from('Paid')
+          .select('email, status')
+          .eq('email', email)
+          .eq('status', 'active')
+          .single();
+        
+        if (!member) {
           showMessage('No active membership found for this email. <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05">Sign up here</a>', 'error');
           setLoading(false);
           return;
         }
-
-        // Send magic link via secure backend
+        
         const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
         const redirectUrl = window.location.origin + basePath + '/dashboard.html';
-
-        const { error } = await secureAuth.signInWithOtp({
+        
+        const { error } = await supabaseClient.auth.signInWithOtp({
           email: email,
-          redirectTo: redirectUrl
+          options: {
+            emailRedirectTo: redirectUrl
+          }
         });
-
+        
         if (error) throw error;
-
+        
         showMessage('✦ Check your email for a magic login link!', 'success');
         emailInput.value = '';
-
+        
       } catch (error) {
         console.error('Login error:', error);
         showMessage(error.message || 'Something went wrong. Please try again.', 'error');
@@ -1179,42 +1153,24 @@
       }
     });
     
-    // Google Sign In (using secure backend proxy)
+    // Google Sign In
     googleBtn.addEventListener('click', async () => {
       try {
-        // Force localhost for development
-        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        const redirectUrl = isDev
-          ? 'http://localhost:3000/dashboard.html'
-          : window.location.origin + '/dashboard.html';
-
-        console.log('Attempting Google OAuth with redirect:', redirectUrl);
-
-        const { data, error } = await secureAuth.signInWithOAuth({
+        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        const redirectUrl = window.location.origin + basePath + '/dashboard.html';
+        
+        const { error } = await supabaseClient.auth.signInWithOAuth({
           provider: 'google',
-          redirectTo: redirectUrl
+          options: {
+            redirectTo: redirectUrl
+          }
         });
-
-        if (error) {
-          console.error('OAuth error details:', error);
-          throw error;
-        }
-
-        console.log('OAuth initiated successfully');
-
+        
+        if (error) throw error;
+        
       } catch (error) {
         console.error('Google login error:', error);
-        let errorMessage = 'Google sign-in failed. ';
-
-        if (error.message && error.message.includes('Provider')) {
-          errorMessage += 'Google OAuth is not enabled. Please check Supabase settings.';
-        } else if (error.message) {
-          errorMessage += error.message;
-        } else {
-          errorMessage += 'Please check server logs for details.';
-        }
-
-        showMessage(errorMessage, 'error');
+        showMessage(error.message || 'Google sign-in failed. Please try again.', 'error');
       }
     });
   </script>

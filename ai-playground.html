@@ -643,10 +643,11 @@
     </div>
   </div>
   <script src="assets/layout.js"></script>
-  <script src="assets/api-config.js"></script>
   <script>
-    // API configuration is now loaded from api-config.js
-    // All API keys are securely stored on the backend
+    // CONFIG - UPDATE AFTER DEPLOYING EDGE FUNCTION
+    const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
+    const AI_FUNCTION_URL = SUPABASE_URL + '/functions/v1/ai-chat';
 
     const templates = [
       { id: 1, title: "Blog Post Outline", category: "content", template: "Create a blog post outline about [TOPIC]. Include an attention-grabbing intro, 3-5 main sections with key points, and a conclusion with a call-to-action. Target audience: [AUDIENCE]. Tone: [TONE - casual/professional/educational]." },
@@ -787,11 +788,12 @@
       isLoading = true;
       showTypingIndicator();
       try {
-        // Use the secure backend API proxy
-        const data = await apiRequest(API_CONFIG.ENDPOINTS.AI.CHAT, {
+        const response = await fetch(AI_FUNCTION_URL, {
           method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
           body: JSON.stringify({ messages, model: elements.modelSelect.value })
         });
+        const data = await response.json();
         if (!data.success) throw new Error(data.error || 'Something went wrong');
         messages.push({ role: 'assistant', content: data.message });
       } catch (error) {
