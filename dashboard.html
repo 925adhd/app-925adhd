@@ -942,31 +942,153 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1MDgzOTgsImV4cCI6MjA1MTA4NDM5OH0.gm-HoOFe9L-3xXBPmPWfvyJXANRiNLj0zUkLLn0mQCc';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
+    
+    const { createClient } = window.supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
     const loadingScreen = document.getElementById('loadingScreen');
     const app = document.getElementById('app');
     const logoutBtn = document.getElementById('logoutBtn');
-
+    
     // Auth check
     async function checkAuth() {
-      const { data: { session } } = await supabase.auth.getSession();
-
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      
       if (!session) {
         window.location.href = 'index.html';
         return;
       }
+      
+      const { data: member, error } = await supabaseClient
+        .from('Paid')
+        .select('email, status, is_premium')
+        .eq('email', session.user.email)
+        .eq('status', 'active')
+        .single();
 
+      // If the is_premium column doesn't exist yet, try without it
+      let memberData = member;
+      if (error && error.message?.includes('is_premium')) {
+        const { data: fallbackMember } = await supabaseClient
+          .from('Paid')
+          .select('email, status')
+          .eq('email', session.user.email)
+          .eq('status', 'active')
+          .single();
+        memberData = fallbackMember;
+      }
+
+      // Store premium status globally (defaults to false if column doesn't exist)
+      window.isPremium = memberData?.is_premium || false;
+
+      if (!memberData) {
+        loadingScreen.innerHTML = `
+          <div style="text-align: center; padding: 40px; max-width: 360px;">
+            <h2 style="margin-bottom: 12px; font-size: 20px;">Membership Required</h2>
+            <p style="color: rgba(255,255,255,.6); margin-bottom: 20px; font-size: 14px;">
+              Logged in as <strong>${session.user.email}</strong><br>but no active membership found.
+            </p>
+            <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05" 
+              style="display: inline-block; background: #56C3AE; color: #1a1a1a; padding: 12px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 14px;">
+              Get Access - $9.25/mo
+            </a>
+            <p style="color: rgba(255,255,255,.5); font-size: 12px; margin-top: 16px;">
+              Just purchased? Give it a minute to activate.<br>
+              <a href="#" onclick="supabaseClient.auth.signOut().then(() => window.location.href = 'index.html')" style="color: #56C3AE;">Try different email</a>
+            </p>
+          </div>
+        `;
+        return;
+      }
+      
       loadingScreen.style.display = 'none';
       app.style.display = 'block';
+
+      // Apply premium gates to cards
+      applyPremiumGates();
     }
 
+    function applyPremiumGates() {
+      const aiCard = document.getElementById('aiPlaygroundCard');
+      const discordCard = document.getElementById('discordCard');
+
+      if (window.isPremium) {
+        // Premium users: ensure no gates are applied
+        if (aiCard) aiCard.classList.remove('premium-required');
+        if (discordCard) discordCard.classList.remove('premium-required');
+        return;
+      }
+
+      // Non-premium users: apply gates
+      // AI Playground card - add premium banner
+      if (aiCard) {
+        aiCard.classList.add('premium-required');
+        const banner = document.createElement('div');
+        banner.className = 'premium-banner';
+        banner.textContent = 'Premium';
+        aiCard.appendChild(banner);
+
+        // Prevent navigation, show upgrade prompt
+        aiCard.addEventListener('click', (e) => {
+          e.preventDefault();
+          showUpgradePrompt('AI Playground');
+        });
+      }
+
+      // Discord card - gate but keep visual
+      if (discordCard) {
+        discordCard.classList.add('premium-required');
+        const banner = document.createElement('div');
+        banner.className = 'premium-banner';
+        banner.textContent = 'Premium';
+        discordCard.appendChild(banner);
+
+        // Prevent navigation, show upgrade prompt
+        discordCard.addEventListener('click', (e) => {
+          e.preventDefault();
+          showUpgradePrompt('Discord Community');
+        });
+      }
+    }
+
+    function showUpgradePrompt(featureName) {
+      const promptHTML = `
+        <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px);" id="upgradePrompt">
+          <div style="background: linear-gradient(135deg, #1a1a1a, #0f0f0f); border: 1px solid rgba(251,191,36,0.3); border-radius: 16px; padding: 32px 24px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 8px 32px rgba(251,191,36,0.2);">
+            <div style="font-size: 48px; margin-bottom: 16px;">⭐</div>
+            <h2 style="font-size: 22px; margin-bottom: 12px; color: #fbbf24;">Premium Feature</h2>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 24px; font-size: 14px;">
+              ${featureName} is available to Premium members. Upgrade to unlock exclusive features and support the continued development of 925 ADHD.
+            </p>
+            <div style="display: flex; gap: 12px; flex-direction: column;">
+              <a href="https://buy.stripe.com/bJebJ2djL1dgfwx5YA7Zu06"
+                style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0f0f0f; padding: 14px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 15px; display: block;">
+                Upgrade to Premium - $5/mo
+              </a>
+              <div>
+                <button onclick="document.getElementById('upgradePrompt').remove()"
+                  style="background: transparent; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; width: 100%;">
+                  Maybe Later
+                </button>
+                <p style="margin-top: 8px; font-size: 11px; color: rgba(255,255,255,0.4); text-align: center;">Cancel anytime. No pressure.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', promptHTML);
+    }
+    
     logoutBtn.addEventListener('click', async () => {
-      await supabase.auth.signOut();
+      await supabaseClient.auth.signOut();
       window.location.href = 'index.html';
     });
-
+    
+    supabaseClient.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT') window.location.href = 'index.html';
+    });
+    
     checkAuth();
   </script>
   <script>

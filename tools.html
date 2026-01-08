@@ -1018,20 +1018,123 @@
   </script>
 
   <!-- Premium Gate Script -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1MDgzOTgsImV4cCI6MjA1MTA4NDM5OH0.gm-HoOFe9L-3xXBPmPWfvyJXANRiNLj0zUkLLn0mQCc';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
+
+    const { createClient } = window.supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     async function checkPremiumStatus() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabaseClient.auth.getSession();
 
       if (!session) {
+        // Not logged in - redirect to login
         window.location.href = 'index.html';
         return;
       }
 
+      // Try to get premium status, with fallback if column doesn't exist
+      const { data: member, error } = await supabaseClient
+        .from('Paid')
+        .select('email, status, is_premium')
+        .eq('email', session.user.email)
+        .eq('status', 'active')
+        .single();
+
+      // If the is_premium column doesn't exist yet, try without it
+      let memberData = member;
+      if (error && error.message?.includes('is_premium')) {
+        const { data: fallbackMember } = await supabaseClient
+          .from('Paid')
+          .select('email, status')
+          .eq('email', session.user.email)
+          .eq('status', 'active')
+          .single();
+        memberData = fallbackMember;
+      }
+
+      // Store premium status globally (defaults to false if column doesn't exist)
+      const isPremium = memberData?.is_premium || false;
+      window.isPremium = isPremium;
+
+      // Always call applyPremiumGates - it will either remove or add gates based on premium status
+      applyPremiumGates();
+    }
+
+    function applyPremiumGates() {
+      if (window.isPremium) {
+        // Premium users: remove all gates and restore normal appearance
+        document.querySelectorAll('.premium-tool').forEach(tool => {
+          tool.classList.remove('premium-required');
+        });
+
+        document.querySelectorAll('.premium-section').forEach(section => {
+          section.classList.remove('premium-section');
+        });
+        return;
+      }
+
+      // Non-premium users: apply gates
+      // Gate individual premium tools
+      document.querySelectorAll('.premium-tool').forEach(tool => {
+        tool.classList.add('premium-required');
+        const banner = document.createElement('div');
+        banner.className = 'premium-banner';
+        banner.textContent = 'Premium';
+        tool.appendChild(banner);
+
+        tool.addEventListener('click', (e) => {
+          e.preventDefault();
+          showUpgradePrompt(tool.querySelector('h3')?.textContent || 'This feature');
+        });
+      });
+
+      // Make premium sections clickable to show upgrade
+      document.querySelectorAll('.premium-section').forEach(section => {
+        section.style.cursor = 'pointer';
+        section.addEventListener('click', (e) => {
+          e.preventDefault();
+          const sectionName = section.querySelector('h2')?.getAttribute('aria-label') || 'These tools';
+          showUpgradePrompt(sectionName);
+        });
+
+        // Prevent links in premium sections from working
+        section.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          });
+        });
+      });
+    }
+
+    function showUpgradePrompt(featureName) {
+      const promptHTML = `
+        <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px);" id="upgradePrompt">
+          <div style="background: linear-gradient(135deg, #1a1a1a, #0f0f0f); border: 1px solid rgba(251,191,36,0.3); border-radius: 16px; padding: 32px 24px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 8px 32px rgba(251,191,36,0.2);">
+            <div style="font-size: 48px; margin-bottom: 16px;">⭐</div>
+            <h2 style="font-size: 22px; margin-bottom: 12px; color: #fbbf24;">Premium Feature</h2>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 24px; font-size: 14px;">
+              ${featureName} is available to Premium members. Upgrade to unlock exclusive features and support the continued development of 925 ADHD.
+            </p>
+            <div style="display: flex; gap: 12px; flex-direction: column;">
+              <a href="https://buy.stripe.com/bJebJ2djL1dgfwx5YA7Zu06"
+                style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0f0f0f; padding: 14px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 15px; display: block;">
+                Upgrade to Premium - $5/mo
+              </a>
+              <div>
+                <button onclick="document.getElementById('upgradePrompt').remove()"
+                  style="background: transparent; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; width: 100%;">
+                  Maybe Later
+                </button>
+                <p style="margin-top: 8px; font-size: 11px; color: rgba(255,255,255,0.4); text-align: center;">Cancel anytime. No pressure.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', promptHTML);
     }
 
     // Check premium status on page load
