@@ -932,7 +932,7 @@
           </button>
           
           <p class="signup-link">
-            Don't have an account? <a href="https://buy.stripe.com/28E3cw1B33logABev67Zu02">Sign up</a>
+            Don't have an account? <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05">Sign up</a>
           </p>
         </div>
       </div>
@@ -1075,20 +1075,24 @@
     }
     
     // ========================================
-    // SUPABASE AUTHENTICATION
+    // AUTHENTICATION
     // ========================================
-    
     const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
-    
-    const { createClient } = window.supabase;
-    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1MDgzOTgsImV4cCI6MjA1MTA4NDM5OH0.gm-HoOFe9L-3xXBPmPWfvyJXANRiNLj0zUkLLn0mQCc';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     const form = document.getElementById('loginForm');
     const emailInput = document.getElementById('email');
     const submitBtn = document.getElementById('submitBtn');
     const googleBtn = document.getElementById('googleBtn');
     const messageDiv = document.getElementById('message');
+
+    // Check if already logged in
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        window.location.href = '/dashboard.html';
+      }
+    });
     
     function showMessage(text, type) {
       messageDiv.innerHTML = text;
@@ -1110,41 +1114,25 @@
     // Email Magic Link Login
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const email = emailInput.value.trim();
       if (!email) return;
-      
+
       setLoading(true);
-      
+
       try {
-        const { data: member, error: memberError } = await supabaseClient
-          .from('Paid')
-          .select('email, status')
-          .eq('email', email)
-          .eq('status', 'active')
-          .single();
-        
-        if (!member) {
-          showMessage('No active membership found for this email. <a href="https://buy.stripe.com/28E3cw1B33logABev67Zu02">Sign up here</a>', 'error');
-          setLoading(false);
-          return;
-        }
-        
-        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-        const redirectUrl = window.location.origin + basePath + '/dashboard.html';
-        
-        const { error } = await supabaseClient.auth.signInWithOtp({
+        const { error } = await supabase.auth.signInWithOtp({
           email: email,
           options: {
-            emailRedirectTo: redirectUrl
+            emailRedirectTo: window.location.origin + '/dashboard.html'
           }
         });
-        
+
         if (error) throw error;
-        
+
         showMessage('✦ Check your email for a magic login link!', 'success');
         emailInput.value = '';
-        
+
       } catch (error) {
         console.error('Login error:', error);
         showMessage(error.message || 'Something went wrong. Please try again.', 'error');
@@ -1152,25 +1140,34 @@
         setLoading(false);
       }
     });
-    
+
     // Google Sign In
     googleBtn.addEventListener('click', async () => {
       try {
-        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-        const redirectUrl = window.location.origin + basePath + '/dashboard.html';
-        
-        const { error } = await supabaseClient.auth.signInWithOAuth({
+        const { error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: redirectUrl
+            redirectTo: window.location.origin + '/dashboard.html'
           }
         });
-        
+
         if (error) throw error;
-        
+
+        console.log('OAuth initiated successfully');
+
       } catch (error) {
         console.error('Google login error:', error);
-        showMessage(error.message || 'Google sign-in failed. Please try again.', 'error');
+        let errorMessage = 'Google sign-in failed. ';
+
+        if (error.message && error.message.includes('Provider')) {
+          errorMessage += 'Google OAuth is not enabled. Please check Supabase settings.';
+        } else if (error.message) {
+          errorMessage += error.message;
+        } else {
+          errorMessage += 'Please check server logs for details.';
+        }
+
+        showMessage(errorMessage, 'error');
       }
     });
   </script>

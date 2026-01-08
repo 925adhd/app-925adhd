@@ -644,10 +644,8 @@
   </div>
   <script src="assets/layout.js"></script>
   <script>
-    // CONFIG - UPDATE AFTER DEPLOYING EDGE FUNCTION
     const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
-    const AI_FUNCTION_URL = SUPABASE_URL + '/functions/v1/ai-chat';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1MDgzOTgsImV4cCI6MjA1MTA4NDM5OH0.gm-HoOFe9L-3xXBPmPWfvyJXANRiNLj0zUkLLn0mQCc';
 
     const templates = [
       { id: 1, title: "Blog Post Outline", category: "content", template: "Create a blog post outline about [TOPIC]. Include an attention-grabbing intro, 3-5 main sections with key points, and a conclusion with a call-to-action. Target audience: [AUDIENCE]. Tone: [TONE - casual/professional/educational]." },
@@ -788,9 +786,12 @@
       isLoading = true;
       showTypingIndicator();
       try {
-        const response = await fetch(AI_FUNCTION_URL, {
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-chat`, {
           method: 'POST',
-          headers: { 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          },
           body: JSON.stringify({ messages, model: elements.modelSelect.value })
         });
         const data = await response.json();
