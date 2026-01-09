@@ -1106,76 +1106,74 @@
         ? '<span><span class="loading"></span>Sending...</span>' 
         : '<span>Continue</span>';
     }
+
+    // Client-side rate limiting for magic-link emails
+    // Keeps a per-email list of recent send timestamps in localStorage
+    function _getMagicLinkMap() {
+      try {
+        return JSON.parse(localStorage.getItem('magicLinkSends') || '{}');
+      } catch (e) { return {}; }
+    }
+
+    function _saveMagicLinkMap(map) {
+      try { localStorage.setItem('magicLinkSends', JSON.stringify(map)); } catch (e) {}
+    }
+
+    function _recentSends(email) {
+      const map = _getMagicLinkMap();
+      const arr = Array.isArray(map[email]) ? map[email] : [];
+      const cutoff = Date.now() - (60 * 60 * 1000);
+      return arr.filter(ts => ts > cutoff);
+    }
+
+    function canSendMagicLink(email) {
+      return _recentSends(email).length < 2;
+    }
+
+    function recordMagicLinkSend(email) {
+      const map = _getMagicLinkMap();
+      const recent = _recentSends(email);
+      recent.push(Date.now());
+      map[email] = recent;
+      _saveMagicLinkMap(map);
+    }
     
     // Email Magic Link Login
+    // Send the magic link immediately without probing membership to avoid
+    // leaking membership status or failing because of RLS/visibility issues.
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const email = emailInput.value.trim();
       if (!email) return;
-      
+
+      if (!canSendMagicLink(email)) {
+        showMessage('You have reached the limit of 2 magic-link emails per hour. Please wait or contact support.', 'error');
+        return;
+      }
+
       setLoading(true);
-      
+
       try {
-        // Debug: Try to get ALL rows from Paid table (first 5) to see structure
-        const { data: allRows, error: allRowsError } = await supabaseClient
-          .from('Paid')
-          .select('*')
-          .limit(5);
+        // Always redirect to the production dashboard URL so magic links
+        // work regardless of where the site was opened (local dev servers, file://, etc.)
+        const redirectUrl = 'https://app.925adhd.com/dashboard.html';
 
-        console.log('Sample rows from Paid table:', allRows, 'Error:', allRowsError);
-        if (allRows && allRows.length > 0) {
-          console.log('Column names in Paid table:', Object.keys(allRows[0]));
-          console.log('First row data:', JSON.stringify(allRows[0], null, 2));
-        }
-
-        // First, try to find ANY record with this email (regardless of status) for debugging
-        const { data: allMatches, error: searchError } = await supabaseClient
-          .from('Paid')
-          .select('*')
-          .ilike('email', email);
-
-        console.log('All matches for email:', allMatches, 'Search error:', searchError);
-
-        // Now check for active member specifically
-        const { data: members, error: memberError } = await supabaseClient
-          .from('Paid')
-          .select('email, status')
-          .ilike('email', email)
-          .ilike('status', 'active');
-
-        console.log('Active member lookup result:', { members, memberError });
-
-        if (memberError || !members || members.length === 0) {
-          console.error('Member lookup failed:', memberError);
-          if (allMatches && allMatches.length > 0) {
-            showMessage(`Email found but status is "${allMatches[0].status}" (not "active"). Please contact support.`, 'error');
-          } else {
-            showMessage('No active membership found for this email. <a href="https://buy.stripe.com/28E3cw1B33logABev67Zu02">Sign up here</a>', 'error');
-          }
-          setLoading(false);
-          return;
-        }
-
-        const member = members[0];
-        
-        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-        const redirectUrl = window.location.origin + basePath + '/dashboard.html';
-        
         const { error } = await supabaseClient.auth.signInWithOtp({
-          email: email,
-          options: {
-            emailRedirectTo: redirectUrl
-          }
+          email,
+          options: { emailRedirectTo: redirectUrl }
         });
-        
+
         if (error) throw error;
-        
+
+        // Successful send — record it to enforce client-side rate limit
+        recordMagicLinkSend(email);
+
         showMessage('✦ Check your email for a magic login link!', 'success');
         emailInput.value = '';
-        
+
       } catch (error) {
-        console.error('Login error:', error);
+        console.error(error);
         showMessage(error.message || 'Something went wrong. Please try again.', 'error');
       } finally {
         setLoading(false);
@@ -1185,9 +1183,9 @@
     // Google Sign In
     googleBtn.addEventListener('click', async () => {
       try {
-        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-        const redirectUrl = window.location.origin + basePath + '/dashboard.html';
-        
+        // Use production dashboard as OAuth redirect target as well
+        const redirectUrl = 'https://app.925adhd.com/dashboard.html';
+
         const { error } = await supabaseClient.auth.signInWithOAuth({
           provider: 'google',
           options: {

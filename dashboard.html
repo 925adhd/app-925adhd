@@ -960,45 +960,49 @@
         return;
       }
       
-      const { data: member, error } = await supabaseClient
-        .from('Paid')
-        .select('email, status, is_premium')
-        .eq('email', session.user.email)
-        .eq('status', 'active')
-        .single();
-
-      // If the is_premium column doesn't exist yet, try without it
-      let memberData = member;
-      if (error && error.message?.includes('is_premium')) {
-        const { data: fallbackMember } = await supabaseClient
+      // Membership lookup: use case-insensitive email match and handle errors
+      let memberData = null;
+      try {
+        const { data: member, error } = await supabaseClient
           .from('Paid')
-          .select('email, status')
-          .eq('email', session.user.email)
+          .select('email, status, is_premium')
+          .ilike('email', session.user.email)
           .eq('status', 'active')
           .single();
-        memberData = fallbackMember;
+
+        if (error) {
+          // Try fallback without `is_premium` column
+          const { data: fallbackMember, error: fallbackError } = await supabaseClient
+            .from('Paid')
+            .select('email, status')
+            .ilike('email', session.user.email)
+            .eq('status', 'active')
+            .single();
+          if (fallbackError) {
+            console.error('Membership lookup error:', fallbackError);
+            // Don't expose membership state — sign out and redirect to the login page
+            await supabaseClient.auth.signOut();
+            window.location.href = '/';
+            return;
+          }
+          memberData = fallbackMember;
+        } else {
+          memberData = member;
+        }
+      } catch (err) {
+        console.error('Membership check failed:', err);
+        await supabaseClient.auth.signOut();
+        window.location.href = '/';
+        return;
       }
 
       // Store premium status globally (defaults to false if column doesn't exist)
       window.isPremium = memberData?.is_premium || false;
 
+      // If not an active member, sign out and redirect to the site root (avoid leaking membership existence)
       if (!memberData) {
-        loadingScreen.innerHTML = `
-          <div style="text-align: center; padding: 40px; max-width: 360px;">
-            <h2 style="margin-bottom: 12px; font-size: 20px;">Membership Required</h2>
-            <p style="color: rgba(255,255,255,.6); margin-bottom: 20px; font-size: 14px;">
-              Logged in as <strong>${session.user.email}</strong><br>but no active membership found.
-            </p>
-            <a href="https://buy.stripe.com/eVqdRa7Zr6xA5VXbiU7Zu05" 
-              style="display: inline-block; background: #56C3AE; color: #1a1a1a; padding: 12px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 14px;">
-              Get Access - $9.25/mo
-            </a>
-            <p style="color: rgba(255,255,255,.5); font-size: 12px; margin-top: 16px;">
-              Just purchased? Give it a minute to activate.<br>
-              <a href="#" onclick="supabaseClient.auth.signOut().then(() => window.location.href = 'index.html')" style="color: #56C3AE;">Try different email</a>
-            </p>
-          </div>
-        `;
+        await supabaseClient.auth.signOut();
+        window.location.href = '/';
         return;
       }
       
