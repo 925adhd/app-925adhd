@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="robots" content="noindex, nofollow">
   <title>Earn</title>
   
   <!-- PWA Meta Tags -->
@@ -653,7 +654,6 @@
     .tag.quick { background: rgba(90,195,174,0.12); color: #22d3ee; border-color: rgba(90,195,174,0.14); }
     .tag.highpay { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.14); }
     .tag.beginner { background: rgba(255,255,255,0.03); color: var(--text); border-color: rgba(255,255,255,0.04); }
-    .tag.browser { background: rgba(139,92,246,0.2); color: #a78bfa; border-color: rgba(139,92,246,0.3); }
     .tag.fave { background: rgba(236,72,153,0.12); color: #f472b6; border-color: rgba(236,72,153,0.14); }
     
     /* Empty State */
@@ -1182,7 +1182,6 @@
           if (gig.energy === 'low') tags.push('<span class="tag energy-low">😴 Low energy</span>');
           if (gig.energy === 'med') tags.push('<span class="tag energy-med">😊 Medium</span>');
           if (gig.energy === 'high') tags.push('<span class="tag energy-high">⚡ High energy</span>');
-          if (gig.browser) tags.push('<span class="tag browser">💻 Browser</span>');
           if (gig.tags.includes('quick')) tags.push('<span class="tag quick">⚡ Fast</span>');
           if (gig.tags.includes('highpay')) tags.push('<span class="tag highpay">💰 Top Pay</span>');
           if (gig.tags.includes('beginner')) tags.push('<span class="tag beginner">🌱 Easy</span>');
@@ -1421,9 +1420,8 @@
         // Energy filter
         if (activeEnergy && gig.energy !== activeEnergy) return false;
 
-        // Other dropdown-based legacy filters (favorites/browser) kept for compatibility
+        // Other dropdown-based legacy filters (favorites) kept for compatibility
         if (activeFilter === 'favorites' && !favorites.includes(gig.id)) return false;
-        if (activeFilter === 'browser' && !gig.browser) return false;
 
         // Search
         if (searchQuery) {

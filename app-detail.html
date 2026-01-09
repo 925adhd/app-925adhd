@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>App Details</title>
   
   <!-- PWA Meta Tags -->
@@ -1372,6 +1373,7 @@
     "Payment methods": "Amazon, PayPal, Visa gift cards",
     "Processing time": "Instant for gift cards, 24–48 hours for PayPal"
   },
+      
   activities: [
     "Play mobile games",
     "Watch rewarded ads",
@@ -1400,6 +1402,81 @@
   ],
   bottomLine: "Optimized grind equals better payouts. Passive play equals pennies."
   },
+
+      "freecash": {
+        name: "Freecash",
+        rate: "$1–$10/day",
+        logo: "images/freecash.png",
+        link: "https://freecash.com/r/925adhd",
+        tags: ["surveys", "offers"],
+        intro: "Freecash is a GPT (get-paid-to) site that aggregates surveys, offerwalls, and app offers in one place. It's got a decent reputation in r/beermoney for actually paying out and sometimes offering better rates than competitors for the same offers. Just know the cashout situation isn't as instant as they market it.",
+        adhd: [
+          "Variety of task types prevents hyperfocus burnout",
+          "Can switch between surveys, games, and offers when bored",
+          "Leaderboards and streaks if you're competitive",
+          "Multiple offerwalls = always something new to try",
+          "Once past first cashout, payouts are fast"
+        ],
+        howItWorks: [
+          "Sign up free at freecash.com or download the Android app.",
+          "Complete offers from multiple 'offerwalls' (RevU, AdGem, Loot Labs, etc.).",
+          "Take surveys from various providers (expect disqualifications—it's the industry).",
+          "Play mobile games to certain levels for bigger one-time payouts ($5–$50+ per game).",
+          "First cashout requires $20 minimum. After that, no minimum."
+        ],
+        importantNotes: [
+          "⚠️ FIRST CASHOUT: $20 minimum. After that, no minimum on future withdrawals.",
+          "Realistic earnings: $50–$150/month with regular use. $300+/month requires serious grinding.",
+          "Offerwalls here often pay 10–30% more than the same offers on Swagbucks or InboxDollars.",
+          "Game offers pay best but require time investment (reaching level X in a game).",
+          "Surveys will disqualify you constantly—this is normal, not a Freecash problem.",
+          "High-paying 'deposit' offers (casinos, investing apps) can trap you—read terms carefully.",
+          "Available worldwide but best offers are US/UK/CA/AU."
+        ],
+        payout: {
+          "First cashout": "$20 minimum (one-time hurdle)",
+          "Future cashouts": "No minimum",
+          "Casual users": "$1–$3/day",
+          "Active grinders": "$5–$15/day",
+          "Payout methods": "PayPal, Bitcoin, Litecoin, Ethereum, Visa, Amazon, Steam, 50+ gift cards",
+          "Payout speed": "Instant to 24 hours after first withdrawal"
+        },
+        activities: [
+          "Surveys (multiple providers)",
+          "Offerwall tasks (sign up for services, trials)",
+          "Mobile game offers (play to level X)",
+          "App downloads and engagement",
+          "Video watching (low pay)",
+          "Daily bonuses and streaks",
+          "Promo codes (check r/beermoney)"
+        ],
+        pros: [
+          "No minimum after first cashout",
+          "Fast payouts once you're past the $20 hurdle",
+          "Offerwalls often pay more than competitors for same offers",
+          "Huge variety of earning methods",
+          "Active Discord community for tips and promo codes",
+          "No subscription fees"
+        ],
+        cons: [
+          "⚠️ $20 first withdrawal minimum (not the '$0.10' you'll see marketed)",
+          "Survey disqualifications are constant and frustrating",
+          "Best earnings require grinding game offers",
+          "Some high-paying offers require deposits/trials that can cost you",
+          "Earnings vary wildly by country",
+          "Can be overwhelming with too many options (decision fatigue)",
+          "Android app works better than iOS version"
+        ],
+        finalTake: "Freecash is legit, but that $20 first-withdrawal minimum is a trust test. Once you clear it, the no-minimum cashouts are great. The variety and offerwall rates are genuinely better than most competitors—just don't expect the 'instant $0.10 cashout' that gets thrown around online. That's old or misleading info.",
+        idealFor: [
+          "People willing to grind past the $20 first-cashout hurdle",
+          "ADHD folks who need task variety to stay engaged",
+          "Gamers willing to play mobile games for bigger payouts",
+          "Anyone frustrated with low rates on other survey sites",
+          "Crypto fans who want Bitcoin/ETH cashout options"
+        ],
+        bottomLine: "Freecash pays better rates than most, but you gotta earn that first $20 before you see a dime. After that, it's smooth. Just go in with eyes open."
+      },
 
     "pogo": {
         name: "Pogo",
@@ -1953,7 +2030,7 @@
       // Full render
       document.getElementById('content').innerHTML = `
         <div class="app-hero">
-          <img src="${app.logo}" alt="${app.name}" class="app-logo" onerror="this.src='https://via.placeholder.com/80/1a1a1a/5BBFB5?text=${app.name.charAt(0)}'">
+          <img src="${app.logo}" alt="${app.name}" class="app-logo" onerror="this.onerror=null;this.src='https://via.placeholder.com/80/1a1a1a/5BBFB5?text='+encodeURIComponent('${app.name.charAt(0)}')">
           <h1 class="app-name">${app.name}</h1>
           <p class="app-rate">${app.rate}</p>
           <div class="app-tags">${tagsHtml}</div>
