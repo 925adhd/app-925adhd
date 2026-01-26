@@ -449,7 +449,7 @@
   <button class="page-fav-btn" id="pageFavBtn" aria-label="Save">🤍</button>
   
   <header class="header">
-    <button class="back-btn" onclick="history.back()">←</button>
+    <button class="back-btn" onclick="goBack()">←</button>
     <span class="header-title">Honest Review</span>
     <button class="fav-btn-header" id="favBtn">🤍</button>
   </header>
@@ -471,11 +471,24 @@
         if (fromGig) sessionStorage.setItem('925adhd_last_gig', fromGig);
       } catch (e) { /* ignore */ }
     })();
+
+    // Smart back navigation - uses history.back() if possible, falls back to earn.html
+    function goBack() {
+      // Check if we have history to go back to
+      if (document.referrer && document.referrer.includes('earn.html')) {
+        history.back();
+      } else if (window.history.length > 1) {
+        history.back();
+      } else {
+        // Fallback to earn.html directly
+        window.location.href = 'earn.html';
+      }
+    }
   </script>
   
   <div class="cta-section" id="ctaSection" style="display:none;">
     <div class="cta-container">
-      <a href="#" class="cta-btn cta-secondary" onclick="history.back()" style="background: var(--card); color: var(--text); border: 1px solid rgba(255,255,255,0.1);">← Back</a>
+      <a href="#" class="cta-btn cta-secondary" onclick="goBack(); return false;" style="background: var(--card); color: var(--text); border: 1px solid rgba(255,255,255,0.1);">← Back</a>
       <a href="#" class="cta-btn cta-primary" id="ctaLink" target="_blank" style="background: #56C3AE; color: #ffffff;">Try This Opportunity →</a>
     </div>
   </div>
@@ -5454,6 +5467,61 @@ const gigData = {
       'NOT for those wanting quick, easy money'
     ]
   },
+
+  'cloudresearchconnect': {
+    name: 'CloudResearch Connect',
+    logo: 'images/cloudresearch.webp',
+    link: 'https://www.cloudresearch.com/products/connect-for-participants/',
+    rate: '$6–$15/hr',
+    description: 'University and corporate research surveys with fair pay.',
+    category: 'surveys',
+    tldr: '**What it is:** Academic and market research surveys from universities and corporations with a two-way rating system.\n\n**The pay:** $6–15/hr (avg $9–10/hr). PayPal cashout at $5, bank transfer at $25. Studies range from $0.20 quick tasks to $15 for longer ones.\n\n**The catch:** Newer platform with lower survey volume than Prolific. US, UK, Canada, Australia, NZ, Ireland only. Identity verification required for full cashout options.',
+    intro: '<strong>CloudResearch Connect</strong> is a research participation platform launched in 2022 by CloudResearch (founded 2015, Michigan). It connects participants with universities and corporations running behavioral research, product feedback studies, and AI training tasks.\n\nUnlike typical survey sites, Connect uses a two-way reputation system—you rate researchers and they rate you. This keeps quality high on both sides. Researchers must pay at least $6/hr minimum, with most studies landing around $9-10/hr.',
+    whyAdhd: [
+      'Dashboard shows exact pay before you commit—no surprise low payouts',
+      'Studies are typically 10–30 minutes, not endless hour-long slogs',
+      'You choose which projects to accept—no pressure to complete everything',
+      'Email/text notifications for new studies so you don\'t have to constantly refresh',
+      'Academic research tends to be more engaging than repetitive market surveys'
+    ],
+    standOut: [
+      'Two-way rating system—you can rate researchers back',
+      '$6/hr minimum pay enforced by platform',
+      'Multiple login options (Google, Facebook, Amazon, Microsoft)',
+      'Fill out "About You" section to get targeted for relevant studies',
+      'Sentry behavioral screening keeps data quality high',
+      'Academic-quality studies similar to Prolific'
+    ],
+    importantNotes: [
+      'Waitlisting is real—many users report being waitlisted or banned without explanation',
+      'Limited survey volume—platform is still growing, don\'t expect constant work',
+      'Competition for high-payers—good studies disappear fast',
+      'Rejection risk—researchers can reject if they think you rushed (disputes rarely win)',
+      'Identity verification required—after ~10 surveys, you\'ll need government ID via Stripe',
+      'Geographic restrictions—US, UK, Canada, Australia, NZ, Ireland only'
+    ],
+    payoutInfo: [
+      'PayPal: $5 minimum, $100 daily max, 1-2 days typical',
+      'Bank transfer (Stripe): $25 minimum, $250 daily max, 3-5 days, requires ID',
+      'Amazon gift cards: No minimum, $100 daily max, requires ID verification',
+      'Processing time varies—PayPal fastest, bank transfers take longer'
+    ],
+    taskTypes: [
+      'Academic behavioral research surveys',
+      'Consumer product feedback',
+      'Psychology experiments',
+      'AI training and data labeling tasks',
+      'Opinion polls and market research'
+    ],
+    finalTake: '**CloudResearch Connect** is a solid Prolific alternative with similar pay ($9-10/hr average) and academic-quality studies. The catch: it\'s newer, so survey volume is lower and the waitlist/ban system frustrates some users. If you\'re already on Prolific, add this to your rotation but don\'t expect it to replace anything. If Prolific is full in your country, Connect is worth trying. Just verify your identity, fill out your profile completely, and be patient with availability.',
+    idealFor: [
+      'Prolific users wanting another quality survey source',
+      'People in US, UK, Canada, Australia, NZ, or Ireland',
+      'Those who prefer academic research over market survey spam',
+      'Participants who want to rate bad researchers back',
+      'Anyone comfortable with identity verification for cashouts'
+    ]
+  },
 };
 
     // Get gig ID from URL
@@ -5484,7 +5552,8 @@ const gigData = {
       'belaysolutions': 'belay.png',
       'freelancer': 'freelanmcer.png',
       'carecom': 'care.jpg',
-      'chewy': 'chewy.png'
+      'chewy': 'chewy.png',
+      'cloudresearchconnect': 'cloudresearch.webp'
     };
 
     function attemptImageFallback(img, id, remote) {
