@@ -962,25 +962,24 @@
         return;
       }
       
-      // Membership lookup: match against the normalized email column
-      const userEmail = session.user.email?.trim().toLowerCase();
+      // Membership lookup: use case-insensitive email match and handle errors
       let memberData = null;
       try {
         const { data: member, error } = await supabaseClient
           .from('Paid')
-          .select('email_norm, status, is_premium')
-          .eq('email_norm', userEmail)
+          .select('email, status, is_premium')
+          .ilike('email', session.user.email)
           .eq('status', 'active')
-          .maybeSingle();
+          .single();
 
         if (error) {
           // Try fallback without `is_premium` column
           const { data: fallbackMember, error: fallbackError } = await supabaseClient
             .from('Paid')
-            .select('email_norm, status')
-            .eq('email_norm', userEmail)
+            .select('email, status')
+            .ilike('email', session.user.email)
             .eq('status', 'active')
-            .maybeSingle();
+            .single();
           if (fallbackError) {
             console.error('Membership lookup error:', fallbackError);
             // Don't expose membership state — sign out and redirect to the login page

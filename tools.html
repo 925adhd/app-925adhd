@@ -1036,25 +1036,23 @@
         return;
       }
 
-      const userEmail = session.user.email?.trim().toLowerCase();
-
       // Try to get premium status, with fallback if column doesn't exist
       const { data: member, error } = await supabaseClient
         .from('Paid')
-        .select('email_norm, status, is_premium')
-        .eq('email_norm', userEmail)
+        .select('email, status, is_premium')
+        .ilike('email', session.user.email)
         .eq('status', 'active')
-        .maybeSingle();
+        .single();
 
       // If the is_premium column doesn't exist yet, try without it
       let memberData = member;
       if (error && error.message?.includes('is_premium')) {
         const { data: fallbackMember } = await supabaseClient
           .from('Paid')
-          .select('email_norm, status')
-          .eq('email_norm', userEmail)
+          .select('email, status')
+          .ilike('email', session.user.email)
           .eq('status', 'active')
-          .maybeSingle();
+          .single();
         memberData = fallbackMember;
       }
 
