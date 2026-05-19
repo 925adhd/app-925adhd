@@ -20,6 +20,7 @@
 
   <!-- Supabase -->
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1020,8 +1021,8 @@
 
   <!-- Premium Gate Script -->
   <script>
-    const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
+    const SUPABASE_URL = window.APP_CONFIG.SUPABASE_URL;
+    const SUPABASE_ANON_KEY = window.APP_CONFIG.SUPABASE_ANON_KEY;
 
     const { createClient } = window.supabase;
     const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -1035,23 +1036,25 @@
         return;
       }
 
+      const userEmail = session.user.email?.trim().toLowerCase();
+
       // Try to get premium status, with fallback if column doesn't exist
       const { data: member, error } = await supabaseClient
         .from('Paid')
-        .select('email, status, is_premium')
-        .eq('email', session.user.email)
+        .select('email_norm, status, is_premium')
+        .eq('email_norm', userEmail)
         .eq('status', 'active')
-        .single();
+        .maybeSingle();
 
       // If the is_premium column doesn't exist yet, try without it
       let memberData = member;
       if (error && error.message?.includes('is_premium')) {
         const { data: fallbackMember } = await supabaseClient
           .from('Paid')
-          .select('email, status')
-          .eq('email', session.user.email)
+          .select('email_norm, status')
+          .eq('email_norm', userEmail)
           .eq('status', 'active')
-          .single();
+          .maybeSingle();
         memberData = fallbackMember;
       }
 

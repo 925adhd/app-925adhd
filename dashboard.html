@@ -941,10 +941,11 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script>
-    const SUPABASE_URL = 'https://ietkanacfoyoswioapqg.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlldGthbmFjZm95b3N3aW9hcHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1ODAxMTgsImV4cCI6MjA4MjE1NjExOH0.hpNcynKl-5Hnm-82Z9KM2XHxzHfWAoQq_5N5quaStlM';
-    
+    const SUPABASE_URL = window.APP_CONFIG.SUPABASE_URL;
+    const SUPABASE_ANON_KEY = window.APP_CONFIG.SUPABASE_ANON_KEY;
+
     const { createClient } = window.supabase;
     const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
@@ -961,24 +962,25 @@
         return;
       }
       
-      // Membership lookup: use case-insensitive email match and handle errors
+      // Membership lookup: match against the normalized email column
+      const userEmail = session.user.email?.trim().toLowerCase();
       let memberData = null;
       try {
         const { data: member, error } = await supabaseClient
           .from('Paid')
-          .select('email, status, is_premium')
-          .ilike('email', session.user.email)
+          .select('email_norm, status, is_premium')
+          .eq('email_norm', userEmail)
           .eq('status', 'active')
-          .single();
+          .maybeSingle();
 
         if (error) {
           // Try fallback without `is_premium` column
           const { data: fallbackMember, error: fallbackError } = await supabaseClient
             .from('Paid')
-            .select('email, status')
-            .ilike('email', session.user.email)
+            .select('email_norm, status')
+            .eq('email_norm', userEmail)
             .eq('status', 'active')
-            .single();
+            .maybeSingle();
           if (fallbackError) {
             console.error('Membership lookup error:', fallbackError);
             // Don't expose membership state — sign out and redirect to the login page
