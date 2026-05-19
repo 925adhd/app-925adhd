@@ -1040,7 +1040,7 @@
       const { data: member, error } = await supabaseClient
         .from('Paid')
         .select('email, status, is_premium')
-        .ilike('email', session.user.email)
+        .eq('email', session.user.email)
         .eq('status', 'active')
         .single();
 
@@ -1050,7 +1050,7 @@
         const { data: fallbackMember } = await supabaseClient
           .from('Paid')
           .select('email, status')
-          .ilike('email', session.user.email)
+          .eq('email', session.user.email)
           .eq('status', 'active')
           .single();
         memberData = fallbackMember;
